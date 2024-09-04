@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Video
+  m_EditorClassIdentifier: 
+  m_GroupName: Video
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 00487b849e2d6be409b0ed4cf8994c5f
+  m_SerializeEntries:
+  - m_GUID: b229bf777fee12e45b50659938cac2df
+    m_Address: Assets/AddData/HowToPlayMp4/Movie_001.mp4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - VideoMouseMove
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 660f070eda5e0294d8856e0c84fa3d45
+    m_Address: Assets/AddData/HowToPlayMp4/Movie_005.mp4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - VideoView
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a491e2d499a12284993ad63ed78db6b2, type: 2}
+    - {fileID: 11400000, guid: ed4d107026b23d045b0dcd3a5eb21b64, type: 2}

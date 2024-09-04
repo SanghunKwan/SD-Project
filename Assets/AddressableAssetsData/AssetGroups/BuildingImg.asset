@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: BuildingImg
+  m_EditorClassIdentifier: 
+  m_GroupName: BuildingImg
+  m_Data:
+    m_SerializedData: []
+  m_GUID: a9fe5fcf33f18844399ef6ad384685c3
+  m_SerializeEntries:
+  - m_GUID: b67aabd683dc8b248a3929adcd1d3598
+    m_Address: Assets/AddData/Building_Icon/tomb.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Building
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24997679c73302549ac46b4326d51100
+    m_Address: Assets/AddData/Building_Icon/smith.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Building
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 404f59e27efbd8343849c980c394a723
+    m_Address: Assets/AddData/Building_Icon/tent.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Building
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40d51ecd6ea2af148bfe9ac10a2e48f9
+    m_Address: Assets/AddData/Building_Icon/logHouse.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Building
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b00aa34f180d88b47995a477699819b0
+    m_Address: Assets/AddData/Building_Icon/bench.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Building
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0b7db6bd47ae56346a299fbe8c0f7b73
+    m_Address: Assets/AddData/Building_Icon/timberHouse.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Building
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75ebd19269bbe884fb43f4561199457f
+    m_Address: Assets/AddData/Building_Icon/canopy.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Building
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0557470dab5453f45b592293d66464fe
+    m_Address: Assets/AddData/Building_Icon/goodHouse.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Building
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f889ada71429e147988fc56c942d70e
+    m_Address: Assets/AddData/Building_Icon/stoneHouse.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Building
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 58495ab8a60be5744bc9931385a097ed, type: 2}
+    - {fileID: 11400000, guid: 833cac897ccfddc49843284673b016f1, type: 2}

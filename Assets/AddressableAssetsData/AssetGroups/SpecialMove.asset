@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: SpecialMove
+  m_EditorClassIdentifier: 
+  m_GroupName: SpecialMove
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d915a075ff53212489227dba49c015fe
+  m_SerializeEntries:
+  - m_GUID: f3fab3d6601a314489caea7a7fac280e
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_SpiritArrows.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MeleeSkill
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e312d49695ea84542be024f94e47a758
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Reflect.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - RangeSkill
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 269116457bb9aab4598d8b5df1b8ecad, type: 2}
+    - {fileID: 11400000, guid: d3e7208be237f934e98195e5487034c8, type: 2}

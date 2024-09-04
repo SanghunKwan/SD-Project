@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Floor
+  - Add_Cam
+  - Canvas
+  - Head
+  - Enermy
+  - CanvasWorld
+  - Floor_UI
+  - Item
+  - NameTag
+  - UI
+  - HeroSelect
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Floor_Canvas
+  - Character
+  - Floor
+  - Obstacle
+  - Enermy
+  - Enermy_Floor_Canvas
+  - Floor_UI
+  - invisibleTrigger
+  - MiniMapUI
+  - item
+  - Corpse
+  - CharacterCamFocus
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

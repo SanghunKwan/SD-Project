@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d49b02cb2125a6547be07b7bded88ba5
+  m_SerializeEntries:
+  - m_GUID: 0482e1056d8d8d541bd5d5d1409e30b2
+    m_Address: Assets/AddData/WeaponType_Icon/05_Shield.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0e4016a51f472f4cbb94daea4a7a196
+    m_Address: Assets/AddData/WeaponType_Icon/04_Mace_with_spikes.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5679fb1f723ba04f87d2e8e07ee55dd
+    m_Address: Assets/AddData/WeaponType_Icon/03_Greataxe.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7fdbc0f1faf48d428a8613a53f4332a
+    m_Address: Assets/AddData/WeaponType_Icon/09_Longsword.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b29589f52980b14bb68b0e87155086f
+    m_Address: Assets/AddData/WeaponType_Icon/07_Priest_Staff.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 679a6043658845d42a4a852a60648369
+    m_Address: Assets/AddData/WeaponType_Icon/06_One_Handed_Axe.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 34dcd2a6645e76a419a575cd2a3d2fc2
+    m_Address: Assets/AddData/WeaponType_Icon/08_Mage_Staff.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f0a5ed94469e964e95858e9cb605a47
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Beam.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 797d9d99418ba9644a2d18a0e24c0540
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Blackhole.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e9163991bc88c244bb9122b6d5928df
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Buff.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b9943cb8deda0245a572ee13b6dce6b
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Chop.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e0aebc91e00d6af4599ce8574d722745
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Claw.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d1d04a7f4cb503340bde4ce5744a452d
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Dash.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a2f4f5987c0f6104fb90fe03e4e60b45
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Fly.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4925321810a2d3547909e0c99d9c82f7
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Heal.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44edcbf6c040ac24e9e128db258a3eb4
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_MeteorShower.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 511e42bee362741429937efa2c57db9f
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Pound.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c56f533575db44d44be9ce141dbd07ce
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_PsycicAttack.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5dccbdef62e501a43ba0f05b89b2bb13
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Punches.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a095e00b9a5c4e43b69b8fc86d5ca0c
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Recon.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1d126432756a19b4b95d1954f839aa15, type: 2}
+    - {fileID: 11400000, guid: 7b73b1dfa1863e84f8f19fb569ed7c1a, type: 2}

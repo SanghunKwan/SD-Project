@@ -1,0 +1,89 @@
+﻿{
+    "Needs": [
+        {
+            "index": 0,
+            "name": "Fail"
+        },
+        {
+            "index": 1,
+            "name": "무덤 건설",
+            "money": 100,
+            "grayNum": 2,
+            "desc": "임무 중 사망한 영웅을 기념하는 장소입니다."
+        },
+        {
+            "index": 2,
+            "name": "대장간 건설",
+            "money": 0,
+            "turn": 1,
+            "grayNum": 0,
+            "blackNum": 0,
+            "whiteNum": 0,
+            "timberNum": 0,
+            "desc": "장비를 제작 및 강화하는 장소입니다."
+        },
+        {
+            "index": 3,
+            "name": "텐트 설치",
+            "timberNum": 2,
+            "desc": "영웅들이 일시적으로 사용하는 거주지입니다."
+        },
+        {
+            "index": 4,
+            "name": "나무집 건설",
+            "money": 400,
+            "turn": 3,
+            "timberNum": 5,
+            "desc": "많은 영웅들이 거주하는 거주지입니다."
+        },
+        {
+            "index": 5,
+            "name": "작업장 설치",
+            "money": 150,
+            "grayNum": 2,
+            "blackNum": 0,
+            "whiteNum": 0,
+            "timberNum": 3,
+            "desc": "간단한 작업을 하는 장소입니다."
+        },
+        {
+            "index": 6,
+            "name": "초가집 건설",
+            "money": 100,
+            "turn": 1,
+            "grayNum": 2,
+            "timberNum": 5,
+            "desc": "영웅들이 사용하는 작은 거주지입니다."
+        },
+        {
+            "index": 7,
+            "name": "야외 훈련장 설치",
+            "money": 100,
+            "turn": 1,
+            "timberNum": 5,
+            "desc": "영웅들이 훈련하는 장소입니다."
+        },
+        {
+            "index": 8,
+            "name": "저택 건설",
+            "money": 1000,
+            "turn": 5,
+            "grayNum": 10,
+            "blackNum": 7,
+            "whiteNum": 5,
+            "timberNum": 10,
+            "desc": "많은 영웅들이 사용하는 훌륭한 거주지입니다."
+        },
+        {
+            "index": 9,
+            "name": "돌집 건설",
+            "money": 700,
+            "turn": 2,
+            "grayNum": 3,
+            "blackNum": 5,
+            "whiteNum": 0,
+            "timberNum": 1,
+            "desc": "영웅들이 사용하는 거주지입니다."
+        }
+    ]
+}

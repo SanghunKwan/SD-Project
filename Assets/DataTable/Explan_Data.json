@@ -1,0 +1,49 @@
+{
+    "skillExplains": [
+        {
+            "name": "일반 공격",
+            "type": 0,
+            "Descrip": "",
+            "ExplainLength" :  2
+        },
+        {
+            "name": "일반 방어",
+            "type": 3,
+            "Descrip": "",
+            "ExplainLength": 2
+        },
+        {
+            "name": "강타",
+            "type": 2,
+            "Pros": "슈퍼아머\n넉백\n",
+            "Cons": "이동정지\n",
+            "Descrip": "2연격 <color=#AD8BAE>(70 + 100)</color>\n쿨타임 : 7초",
+            "ExplainLength": 7
+        },
+        {
+            "name": "궁극기",
+            "type": 2,
+            "Descrip": "미정",
+            "ExplainLength": 0
+        },
+        {
+            "name": "일반 공격",
+            "type": 1,
+            "Pros": "기습사격 <color=#AD8BAE>(250)</color>",
+            "ExplainLength": 3
+        },
+        {
+            "name": "일반 방어",
+            "type": 4,
+            "Descrip": "",
+            "ExplainLength": 2
+        },
+        {
+            "name": "삼연발 사격",
+            "type": 4,
+            "Cons": "이동정지\n",
+            "Descrip": "3연격 <color=#AD8BAE>(100 x 3)</color>\n쿨타임 : 7초",
+            "ExplainLength": 5
+        }
+    ]
+}

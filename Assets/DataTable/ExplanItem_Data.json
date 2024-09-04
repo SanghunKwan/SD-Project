@@ -1,0 +1,70 @@
+{
+    "itemExplains": [
+        {
+            "name": "햇빛가리개",
+            "quality": 1,
+
+            "HP": "HP : 7\n",
+            "ViewAngle": "ViewAngle : 90\n",
+            "ViewRange": "ViewRange : 6\n",
+
+            "ExplainLength": 5
+        },
+        {
+            "name": "가죽뭉치",
+            "quality": 1,
+
+            "HP": "HP : 20\n",
+            "DOG": "DOG : 10\n",
+            "SPEED": "SPEED : 5\n",
+
+
+            "ExplainLength": 5
+        },
+        {
+            "name": "목검",
+            "quality": 1,
+
+            "ATK": "ATK : 7\n",
+            "Stress": "Stress : 5\n",
+            "Accuracy": "Accuracy : 85\n",
+            "AtkSpeed": "AtkSpeed : 1.5\n",
+            "Range": "Range : 1\n",
+
+            "ExplainLength": 7
+        },
+        {
+            "name": "햇빛가리개",
+            "quality": 1,
+
+            "HP": "HP : 5\n",
+            "ViewAngle": "ViewAngle : 70\n",
+            "ViewRange": "ViewRange : 10\n",
+
+            "ExplainLength": 5
+        },
+        {
+            "name": "가죽뭉치",
+            "quality": 1,
+
+            "HP": "HP : 16\n",
+            "DOG": "DOG : 15\n",
+            "SPEED": "SPEED : 6\n",
+
+
+            "ExplainLength": 5
+        },
+        {
+            "name": "낡은 활",
+            "quality": 1,
+
+            "ATK": "ATK : 5\n",
+            "Stress": "Stress : 7\n",
+            "Accuracy": "Accuracy : 80\n",
+            "AtkSpeed": "AtkSpeed : 1.5\n",
+            "Range": "Range : 6\n",
+
+            "ExplainLength": 7
+        }
+    ]
+}

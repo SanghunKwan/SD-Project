@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ItemBasic
+  m_EditorClassIdentifier: 
+  m_GroupName: ItemBasic
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f4928cebf83ea934186ebf157cb511cb
+  m_SerializeEntries:
+  - m_GUID: 2ad6622e94d7f5e4691d91d2e0affac6
+    m_Address: Assets/AddData/Equips_Icon/14_Good_Beast_Hide_nobg.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MeleeBase
+    - RangeBase
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 04d3d690da96abc44ab122ec87c67a04
+    m_Address: Assets/AddData/Equips_Icon/11_Beast_Hide_nobg.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MeleeBase
+    - RangeBase
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4f172d57e087124f9b9c2e124d6979c
+    m_Address: Assets/AddData/Equips_Icon/SwordWood.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MeleeBase
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f3e06300eb7d074197b49991bda5544
+    m_Address: Assets/AddData/Equips_Icon/BowWood.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - RangeBase
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 61fa3759dbb31224db5c5672ab56bab2, type: 2}
+    - {fileID: 11400000, guid: 1d204945d0c72c84c8ca5af104fae89c, type: 2}

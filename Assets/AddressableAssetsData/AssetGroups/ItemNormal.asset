@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ItemNormal
+  m_EditorClassIdentifier: 
+  m_GroupName: ItemNormal
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 359fbd16beae2f54895e332889c1ee37
+  m_SerializeEntries:
+  - m_GUID: c8be390bc9b95a04ea3d8e23eacd2c37
+    m_Address: Assets/AddData/Equips_Icon/01_Leather_chest_nobg.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - RangeNormal
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef0ee09d011cc9e4d8fd55759af1122f
+    m_Address: Assets/AddData/Equips_Icon/HelmetT1.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MeleeNormal
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a49504cdb096ff349b85f7c34f21f22a
+    m_Address: Assets/AddData/Equips_Icon/ArmorT1.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MeleeNormal
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec3edc49ca49d7247809cd5268f8b750
+    m_Address: Assets/AddData/Equips_Icon/03_Leather_helm_nobg.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - RangeNormal
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a701e31a34630a34a895e35d939261f8
+    m_Address: Assets/AddData/Equips_Icon/SwordT1.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MeleeNormal
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 11f93b1704261034d83357e9eb238c22
+    m_Address: Assets/AddData/Equips_Icon/BowT1.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - RangeNormal
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d0feeaf6d44921b429a8dce258fa4d67, type: 2}
+    - {fileID: 11400000, guid: 4236b0ba48f395d4b8cf86f31cba716f, type: 2}

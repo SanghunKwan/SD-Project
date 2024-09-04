@@ -1,0 +1,40 @@
+{
+    "quirks": [
+        {
+            "index": 0,
+            "name": ""
+        },
+        {
+            "index": 1,
+            "name": "탈진",
+            "HP": 0,
+            "ATK": -10,
+            "DEF": 0,
+            "DOG": 0,
+            "SPEED": -10,
+            "ViewAngle": 0,
+            "ViewRange": 0,
+            "Accuracy": -5,
+            "AtkSpeed": 0,
+            "Range": 0,
+            "Mentality": 0,
+            "Stress": 0
+        },
+        {
+            "index": 2,
+            "name": "기침",
+            "HP": 0,
+            "ATK": -10,
+            "DEF": 0,
+            "DOG": 0,
+            "SPEED": 0,
+            "ViewAngle": 0,
+            "ViewRange": 0,
+            "Accuracy": -10,
+            "AtkSpeed": -10,
+            "Range": 0,
+            "Mentality": 0,
+            "Stress": 0
+        }
+    ]
+}
