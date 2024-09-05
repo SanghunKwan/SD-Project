@@ -91,12 +91,7 @@ public class WindowInfo : MonoBehaviour
 
         while (characterCam.gameObject.activeSelf)
         {
-
-            characterCam.transform.localEulerAngles += Vector3.up * angle;
-            characterCam.transform.localPosition = new Vector3
-                (characterCam.transform.localPosition.x * Mathf.Cos(radian) + Mathf.Sin(radian) * characterCam.transform.localPosition.z,
-                1,
-                -characterCam.transform.localPosition.x * Mathf.Sin(radian) + Mathf.Cos(radian) * characterCam.transform.localPosition.z);
+            characterCam.transform.RotateAround(characterCam.transform.parent.position, Vector3.up, angle);
             yield return null;
         }
     }
