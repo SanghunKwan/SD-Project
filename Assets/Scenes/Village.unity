@@ -6894,7 +6894,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 739141949}
+  m_Camera: {fileID: 963194227}
   m_PlaneDistance: 0
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -9624,6 +9624,11 @@ MonoBehaviour:
   - isHeroNeed: 0
     isSubManagerNeed: 1
     isUpgradeNeed: 1
+  UIObjectToggle:
+  - {fileID: 1674262698}
+  - {fileID: 305492073}
+  UIObjectClose:
+  - {fileID: 1799975126}
 --- !u!1 &453071444
 GameObject:
   m_ObjectHideFlags: 0
@@ -30264,7 +30269,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674262698}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.0000192}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

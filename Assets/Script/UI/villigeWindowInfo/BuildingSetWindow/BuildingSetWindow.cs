@@ -42,7 +42,7 @@ public class BuildingSetWindow : InitInterface
         }
         public void ChangeTeam(in string nameText, in string teamText)
         {
-            
+
             team.text = teamText;
             heroName.text = nameText;
         }
@@ -64,6 +64,9 @@ public class BuildingSetWindow : InitInterface
     public bool isDrag { get; set; }
     public villigeInteract vill_Interact { get; set; }
     public Action DragEnd;
+    [SerializeField] GameObject[] UIObjectToggle;
+    [SerializeField] GameObject[] UIObjectClose;
+
     public override void Init()
     {
         buildingImage = transform.Find("BuildingName").GetChild(0).GetComponent<Image>();
@@ -140,7 +143,7 @@ public class BuildingSetWindow : InitInterface
     }
     void LoadRepeat(BuildSetCharacter buildset, villigeInteract data)
     {
-        if(data == null)
+        if (data == null)
             buildset.ResetTeam();
         else
             buildset.ChangeTeam(data.hero.stat.NAME, data.hero.keycode);
@@ -174,5 +177,17 @@ public class BuildingSetWindow : InitInterface
     public void AddDragEnd(Action action)
     {
         DragEnd += action;
+    }
+
+    public void Collider_UIActive(bool onoff)
+    {
+        foreach (var item in UIObjectToggle)
+        {
+            item.SetActive(onoff);
+        }
+        foreach (var item in UIObjectClose)
+        {
+            item.SetActive(false);
+        }
     }
 }
