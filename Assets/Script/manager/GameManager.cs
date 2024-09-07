@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         inputSpace[1] = VilligeBuildingScroll;
 
         inputSpaceUp[0] = TimeDelayEnd;
-        inputSpaceUp[1] = ()=> { };
+        inputSpaceUp[1] = () => { };
         currentStageIndex = StageManager.instance.GetIndexScene();
 
 
@@ -657,6 +657,6 @@ public class GameManager : MonoBehaviour
         keyboardConverter.Add(newStr, temp);
     }
 
-    
+
 
 }

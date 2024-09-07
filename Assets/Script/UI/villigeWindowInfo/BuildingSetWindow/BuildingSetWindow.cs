@@ -66,6 +66,10 @@ public class BuildingSetWindow : InitInterface
     public Action DragEnd;
     [SerializeField] GameObject[] UIObjectToggle;
     [SerializeField] GameObject[] UIObjectClose;
+    [SerializeField] ClickDrag UIClickDragToggle;
+    public GameObject transformObject { get; set; }
+    public BuildingComponent ienumOwner { get; set; }
+
 
     public override void Init()
     {
@@ -189,5 +193,6 @@ public class BuildingSetWindow : InitInterface
         {
             item.SetActive(false);
         }
+        UIClickDragToggle.enabled = onoff;
     }
 }

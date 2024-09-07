@@ -9629,6 +9629,7 @@ MonoBehaviour:
   - {fileID: 305492073}
   UIObjectClose:
   - {fileID: 1799975126}
+  UIClickDragToggle: {fileID: 1334939647}
 --- !u!1 &453071444
 GameObject:
   m_ObjectHideFlags: 0
