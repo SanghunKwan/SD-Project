@@ -12,7 +12,6 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     Action<PointerEventData>[] clicks = new Action<PointerEventData>[2];
 
 
-
     [SerializeField] Hero[] Heros;
     public Hero hero { get; private set; }
     Animator anim;
@@ -28,6 +27,10 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
 
     TextMeshProUGUI textPro;
 
+    BuildingComponent workingBuilding;
+    int workIndex;
+
+
 
     public void HeroIniit(int index)
     {
@@ -40,10 +43,15 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         PlayerNavi.nav.SetTeam(hero.unitMove, newCode);
         hero.TeamChange(newCode);
         CheckText();
+
     }
     public void CheckText()
     {
         textPro.text = HeroInfoText();
+        if(workingBuilding == characterList.buildingSetWindow.ienumOwner)
+        {
+            characterList.buildingSetWindow.BuildSetCharactersCheck(workIndex, this);
+        }
     }
     string HeroInfoText()
     {
@@ -166,5 +174,23 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         transform.GetChild(0).gameObject.SetActive(true);
 
         characterList.EndDrag(this);
+    }
+
+    public void SaveWorkPlace(BuildingComponent place, int index)
+    {
+        workingBuilding = place;
+        workIndex = index;
+    }
+    public bool isCanLoad(out BuildingComponent workingbuilding, out int workindex)
+    {
+        workingbuilding = workingBuilding;
+        workindex = workIndex;
+
+        if (workingBuilding == null)
+            return false;
+
+
+
+        return true;
     }
 }

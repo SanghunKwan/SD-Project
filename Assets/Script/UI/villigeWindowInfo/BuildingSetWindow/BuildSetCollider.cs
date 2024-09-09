@@ -37,13 +37,16 @@ public class BuildSetCollider : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         if (isDrag)
         {
-            isEnter = false;
-            buildingSetWindow.SetBackHeroInDic(transform.parent.gameObject);
+            buildingSetWindow.SetBackHeroText(transform.parent.gameObject);
         }
-        DragEnd();
+        isEnter = false;
+        image.color = Color.clear;
     }
     void DragEnd()
     {
         image.color = Color.clear;
+
+        if (isEnter)
+            buildingSetWindow.SaveHeroData(transform.parent.gameObject);
     }
 }

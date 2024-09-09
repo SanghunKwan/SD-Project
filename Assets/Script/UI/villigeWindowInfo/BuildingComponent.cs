@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 
 public class BuildingComponent : MonoBehaviour
 {
@@ -154,6 +153,12 @@ public class BuildingComponent : MonoBehaviour
     }
     public void ResetData(int index)
     {
+        saveVilligeInteract[index].SaveWorkPlace(null, 0);
         saveVilligeInteract[index] = null;
+    }
+    public bool IsDataNull(int index, out villigeInteract saveVillige)
+    {
+        saveVillige = saveVilligeInteract[index];
+        return saveVillige == null;
     }
 }

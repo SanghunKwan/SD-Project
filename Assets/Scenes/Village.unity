@@ -9630,6 +9630,7 @@ MonoBehaviour:
   UIObjectClose:
   - {fileID: 1799975126}
   UIClickDragToggle: {fileID: 1334939647}
+  characterList: {fileID: 821727665}
 --- !u!1 &453071444
 GameObject:
   m_ObjectHideFlags: 0

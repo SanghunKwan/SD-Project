@@ -7,6 +7,8 @@ using System;
 using UnityEditor.AddressableAssets.Build.Layout;
 using UnityEngine.EventSystems;
 using Palmmedia.ReportGenerator.Core.Reporting.Builders;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using UnityEngine.InputSystem;
 
 public class BuildingSetWindow : InitInterface
 {
@@ -27,6 +29,7 @@ public class BuildingSetWindow : InitInterface
         public TextMeshProUGUI heroName;
         string defaultName;
         public GameObject gameObject { get; private set; }
+
 
         public BuildSetCharacter(Transform tr)
         {
@@ -55,6 +58,8 @@ public class BuildingSetWindow : InitInterface
         public bool isUpgradeNeed;
     }
 
+    BuildSetCharacter[] buildSetCharacters;
+
     BuildSetCharacter selectHero;
     BuildSetCharacter manager;
     BuildSetCharacter subManager;
@@ -63,13 +68,15 @@ public class BuildingSetWindow : InitInterface
 
     public bool isDrag { get; set; }
     public villigeInteract vill_Interact { get; set; }
-    public Action DragEnd;
+    public Action DragEnd = () => { };
     [SerializeField] GameObject[] UIObjectToggle;
     [SerializeField] GameObject[] UIObjectClose;
     [SerializeField] ClickDrag UIClickDragToggle;
-    public GameObject transformObject { get; set; }
-    public BuildingComponent ienumOwner { get; set; }
 
+    public BuildingComponent ienumOwner { get; set; }
+    public GameObject transformObject { get; set; }
+
+    [SerializeField] CharacterList characterList;
 
     public override void Init()
     {
@@ -87,6 +94,8 @@ public class BuildingSetWindow : InitInterface
         buildSetDic.Add(selectHero.gameObject, selectHero);
         buildSetDic.Add(manager.gameObject, manager);
         buildSetDic.Add(subManager.gameObject, subManager);
+
+        buildSetCharacters = new BuildSetCharacter[] { selectHero, manager, subManager };
     }
 
     public void SetOpen(BuildingComponent buildingComp, bool onoff, AddressableManager.BuildingImage buildType,
@@ -159,17 +168,16 @@ public class BuildingSetWindow : InitInterface
 
     public void SetHeroInDic(GameObject key)
     {
-        BuildSetCharacter tempCharacter = buildSetDic[key];
-
-        tempCharacter.ChangeTeam(vill_Interact.hero.stat.NAME, vill_Interact.hero.keycode);
-        buildingComponent.SaveData(vill_Interact, key.transform.GetSiblingIndex());
-
+        buildSetDic[key].ChangeTeam(vill_Interact.hero.stat.NAME, vill_Interact.hero.keycode);
+        characterList.NoMove(vill_Interact.gameObject);
 
     }
-    public void SetBackHeroInDic(GameObject key)
+    public void SetBackHeroText(GameObject key)
     {
-        buildSetDic[key].ResetTeam();
-        buildingComponent.ResetData(key.transform.GetSiblingIndex());
+        if (buildingComponent.IsDataNull(key.transform.GetSiblingIndex(), out villigeInteract saveVillige))
+            buildSetDic[key].ResetTeam();
+        else
+            buildSetDic[key].ChangeTeam(saveVillige.hero.stat.NAME, saveVillige.hero.keycode);
     }
 
     public void SetisDragFalse()
@@ -182,7 +190,25 @@ public class BuildingSetWindow : InitInterface
     {
         DragEnd += action;
     }
+    public void SaveHeroData(GameObject key)
+    {
+        if (vill_Interact.isCanLoad(out BuildingComponent beforeWork, out int beforeIndex))
+        {
+            if (beforeWork == buildingComponent)
+                buildSetCharacters[beforeIndex].ResetTeam();
 
+            beforeWork.ResetData(beforeIndex);
+            buildSetDic[transform.GetChild(beforeIndex).gameObject].ResetTeam();
+        }
+
+        int siblingIndex = key.transform.GetSiblingIndex();
+        buildingComponent.SaveData(vill_Interact, siblingIndex);
+        vill_Interact.SaveWorkPlace(buildingComponent, siblingIndex);
+    }
+    public void BuildSetCharactersCheck(int index, villigeInteract vill)
+    {
+        buildSetCharacters[index].ChangeTeam(vill.hero.stat.NAME, vill.hero.keycode);
+    }
     public void Collider_UIActive(bool onoff)
     {
         foreach (var item in UIObjectToggle)
