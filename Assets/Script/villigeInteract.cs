@@ -14,8 +14,12 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
 
     [SerializeField] Hero[] Heros;
     public Hero hero { get; private set; }
+
     Animator anim;
     int animOnMouse;
+
+    int workIndex;
+
     WindowInfo infoWindow;
 
 
@@ -28,7 +32,6 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     TextMeshProUGUI textPro;
 
     BuildingComponent workingBuilding;
-    int workIndex;
 
 
 
@@ -48,10 +51,8 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public void CheckText()
     {
         textPro.text = HeroInfoText();
-        if(workingBuilding == characterList.buildingSetWindow.ienumOwner)
-        {
+        if (workingBuilding == characterList.buildingSetWindow.buildingComponent)
             characterList.buildingSetWindow.BuildSetCharactersCheck(workIndex, this);
-        }
     }
     string HeroInfoText()
     {
@@ -186,11 +187,10 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         workingbuilding = workingBuilding;
         workindex = workIndex;
 
+        Debug.Log(workingBuilding);
         if (workingBuilding == null)
             return false;
 
-
-
-        return true;
+        return workindex != 0;
     }
 }

@@ -38,7 +38,8 @@ public class AddressableManager : MonoBehaviour
         TimberHouse,
         Canopy,
         GoodHouse,
-        StoneHouse
+        StoneHouse,
+        Tower
     }
     public enum ItemQuality
     {
