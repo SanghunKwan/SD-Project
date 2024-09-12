@@ -17300,6 +17300,8 @@ GameObject:
   - component: {fileID: 944705696}
   - component: {fileID: 944705695}
   - component: {fileID: 944705697}
+  - component: {fileID: 944705698}
+  - component: {fileID: 944705699}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -17341,7 +17343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -17377,6 +17379,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5066c37a8a67587409bf6aad6e967ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &944705698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944705693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f7df423e78f1046b963e173634c0a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &944705699
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944705693}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7591ca39ec617484aa1bfe06c18c7260, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &947661716
 GameObject:
   m_ObjectHideFlags: 0
@@ -31657,8 +31692,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -40854,6 +40889,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 677536854097126474, guid: 7da74b4cdd470dc43ac320175617df62, type: 3}
+      propertyPath: floorManager
+      value: 
+      objectReference: {fileID: 944705697}
     - target: {fileID: 758133322321440391, guid: 7da74b4cdd470dc43ac320175617df62, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

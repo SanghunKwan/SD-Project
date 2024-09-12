@@ -16,10 +16,12 @@ public class ObjectAssembly : MonoBehaviour
     [SerializeField] FloorsHeight[] floors;
     [SerializeField] FloorsHeight bottom;
 
+    [SerializeField] FloorManager floorManager;
+
 
     List<FloorsHeight> floorsList = new List<FloorsHeight>();
 
-    private void Awake()
+    private void Start()
     {
         floorsList.Add(bottom);
         AddFloor();
@@ -30,7 +32,14 @@ public class ObjectAssembly : MonoBehaviour
     }
     void AddFloor()
     {
-        
+        if (floorManager.GetData(out FloorManager.FloorData data))
+        {
+            int[] floorlooks = data.floorLooks;
+            foreach (int type in floorlooks)
+            {
+                floorsList.Add(floors[type]);
+            }
+        }
     }
     void CreateFloor()
     {

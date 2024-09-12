@@ -1,0 +1,37 @@
+{
+    "data": [
+        {
+            "nowFloor": 10,
+            "floorLooks": [
+            ]
+        },
+        {
+            "nowFloor": 10,
+            "floorLooks": [
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+            ]
+        },
+        {
+            "nowFloor": 10,
+            "floorLooks": [
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+            ]
+        }
+    ]
+}
