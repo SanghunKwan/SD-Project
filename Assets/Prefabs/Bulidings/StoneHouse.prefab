@@ -194,6 +194,7 @@ MonoBehaviour:
   fZ: 2
   camSize: 3
   type: 8
+  camAngle: 20
   upgradeType: 3
   infoText: "\uC601\uC6C5 \uC778\uAD6C \uC218 \uC81C\uD55C +8"
 --- !u!1001 &6490298594435643929

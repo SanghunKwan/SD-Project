@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 758133322321440391}
+  - component: {fileID: 8441271209707257062}
   - component: {fileID: 704384515930935637}
   - component: {fileID: 9073885394331607806}
   - component: {fileID: 8578841810383540065}
@@ -69,6 +70,26 @@ Transform:
   - {fileID: 6246563412405611470}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8441271209707257062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3205850005562252827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfc005e45d0f4fa47b0d56bbae6c0a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  mouseOnCollider: 0
+  CirclePad: -650
+  ID: 210
+  BarOffset: 240
 --- !u!136 &704384515930935637
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -171,8 +192,10 @@ MonoBehaviour:
   windowName: TowerSetWindow
   fX: 0
   fZ: 3
-  camSize: 3
+  camSize: 10
   type: 9
+  camAngle: 10
+  cullingLayers: 08000000
 --- !u!114 &677536854097126474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +219,7 @@ MonoBehaviour:
   bottom:
     height: 4.2
     floor: {fileID: 919132149155446097, guid: 0c0482517ee54344389a630e7903e318, type: 3}
+  floorManager: {fileID: 0}
 --- !u!1 &5119178186709388996
 GameObject:
   m_ObjectHideFlags: 0

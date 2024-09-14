@@ -162,6 +162,7 @@ MonoBehaviour:
   fZ: 1
   camSize: 2
   type: 6
+  camAngle: 20
   upgradeType: 0
   infoText: 
 --- !u!1 &6689641111693651472

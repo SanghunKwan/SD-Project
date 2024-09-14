@@ -15,6 +15,8 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     [SerializeField] float camSize;
 
     [SerializeField] protected AddressableManager.BuildingImage type;
+    [SerializeField] float camAngle;
+    [SerializeField] int[] cullingLayers;
 
     protected virtual void Awake()
     {
@@ -42,22 +44,28 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         if (wasWindowOpen != isWindowOpen)
             SetCam();
         else
-            StartInterpolation(RotateIenum(20, camSize, fX, fZ, 3));
+            StartInterpolation(RotateIenum(camAngle, camSize, fX, fZ, 3));
         SetMemory();
     }
     void SetCam()
     {
         if (isWindowOpen)
         {
-            StartInterpolation(RotateIenum(20, camSize, fX, fZ));
-            camMain.cullingMask -= LayerMask.GetMask("UI");
-            camMain.cullingMask -= LayerMask.GetMask("Floor_UI");
+            StartInterpolation(RotateIenum(camAngle, camSize, fX, fZ));
+            camMain.cullingMask -= 32;
+            camMain.cullingMask -= 4096;
+            foreach (int layer in cullingLayers)
+            {
+                camMain.cullingMask -= (int)Mathf.Pow(2, layer);
+            }
         }
         else
         {
             StartInterpolation(RotateIenum(40, 5, fX * 1.5f, fZ / 4));
-            camMain.cullingMask += LayerMask.GetMask("UI");
-            camMain.cullingMask += LayerMask.GetMask("Floor_UI");
+            camMain.cullingMask += 32;
+            camMain.cullingMask += 4096;
+            foreach (int layer in cullingLayers)
+                camMain.cullingMask += (int)Mathf.Pow(2, layer);
         }
         camTurningWindow.Collider_UIActive(!isWindowOpen);
     }
