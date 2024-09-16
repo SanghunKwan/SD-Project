@@ -7,6 +7,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     protected CamTuringWindow camTurningWindow { get; private set; }
     protected bool isWindowOpen { get; private set; }
     protected Camera camMain;
+    CapsuleCollider capsuleCollider;
     IEnumerator moveIenum;
 
     [SerializeField] string windowName;
@@ -22,6 +23,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     {
         camMain = Camera.main;
         camTurningWindow = GameObject.FindWithTag("UI").transform.Find(windowName).GetComponent<CamTuringWindow>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
     }
 
     private void OnMouseUpAsButton()
@@ -61,7 +63,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         }
         else
         {
-            StartInterpolation(RotateIenum(40, 5, fX * 1.5f, fZ / 4));
+            StartInterpolation(RotateIenum(40, 5, fX * 1.5f, 1));
             camMain.cullingMask += 32;
             camMain.cullingMask += 4096;
             foreach (int layer in cullingLayers)
@@ -96,26 +98,44 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         CamTuringWindow.transformObject.transform.position = camMain.transform.position;
         CamTuringWindow.transformObject.transform.eulerAngles = camMain.transform.eulerAngles;
         //x, z축 이동해서 위치 맞출 것.
-        Vector3 addVector = perVector;
+        Vector3 addVector = new Vector3(0, 0, 0);
         float timeCheck = 0;
-        perVector *= Time.deltaTime * speed;
+        float fPow;
         do
         {
             float delta = Time.deltaTime * speed;
 
-            GetCamPosition(perAngle * delta, camMain.orthographicSize + (perSize * delta), perVector);
-            perVector += addVector * delta;
+            GetCamPosition(perAngle * delta, camMain.orthographicSize + (perSize * delta), addVector);
+            SetCamDistance(10);
+
             timeCheck += delta;
+            fPow = Mathf.Pow(timeCheck, 4);
+            addVector = new Vector3(timeCheck * perVector.x, perVector.y * fPow, perVector.z * fPow);
             yield return null;
         } while (timeCheck < 1);
 
         yield return null;
-        float radAngle = Mathf.Deg2Rad * camMain.transform.eulerAngles.x;
-        float offsetY = (10 - camMain.transform.position.y) / Mathf.Tan(radAngle);
-        camMain.transform.position = new Vector3(camMain.transform.position.x, 10, camMain.transform.position.z - offsetY);
 
         Destroy(CamTuringWindow.transformObject);
     }
+    void SetCamDistance(float fDistance)
+    {
+        float radAngle = Mathf.Deg2Rad * camMain.transform.eulerAngles.x;
+        float tanAngle = Mathf.Tan(radAngle);
+        float newDistance = camMain.orthographicSize * 2.1f;
+        Debug.Log("z값 : " + camMain.transform.localPosition.z + "    distance값 : " + -newDistance);
+        if (camMain.transform.localPosition.z > -newDistance)
+        {
+            float offsetZ = (-camMain.transform.position.z - newDistance) * tanAngle;
+            camMain.transform.position = new Vector3(camMain.transform.position.x, camMain.transform.position.y - offsetZ, -newDistance);
+        }
+        else
+        {
+            float offsetY = (fDistance - camMain.transform.position.y) / tanAngle;
+            camMain.transform.position = new Vector3(camMain.transform.position.x, fDistance, camMain.transform.position.z - offsetY);
+        }
+    }
+
     void GetPerMove(float fX, float fZ, out Vector3 perVector)
     {
         float perX = (transform.position.x - camMain.transform.position.x + fX);

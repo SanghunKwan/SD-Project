@@ -191,8 +191,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowName: TowerSetWindow
   fX: 0
-  fZ: 3
-  camSize: 10
+  fZ: 100
+  camSize: 30
   type: 9
   camAngle: 10
   cullingLayers: 08000000
