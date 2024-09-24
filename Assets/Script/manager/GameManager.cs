@@ -6,6 +6,7 @@ using Unit;
 using UnityEditor;
 using UnityEngine.InputSystem;
 using System;
+using UnityEngine.EventSystems;
 
 
 public class GameManager : MonoBehaviour
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
 
 
     public Action[] timeUIEvent = new Action[2];
-    public Action<Vector3> screenMove = (screenMove) => { };
+    public Action<Vector3> screenMove { get; set; } = (screenMove) => { };
 
     Dictionary<string, string> keyboardConverter = new Dictionary<string, string>();
 
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     public Action callConstructionUI;
     int currentStageIndex;
 
+    public PointerEventData pointerEventData { get; set; }
 
     private void Awake()
     {
@@ -273,10 +275,6 @@ public class GameManager : MonoBehaviour
 
         bool GetShift()
         {
-
-
-
-
             return Input.GetKey(code);
         }
 

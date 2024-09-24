@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6205,6 +6205,17 @@ MonoBehaviour:
     add: 0
   bindingOrderNumActionNames: []
   keyType: 0
+--- !u!114 &213241676 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 677536854097126474, guid: 7da74b4cdd470dc43ac320175617df62, type: 3}
+  m_PrefabInstance: {fileID: 1445679328399140307}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f3b0cd409f9a01419cb160b4ee81191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &217080188
 GameObject:
   m_ObjectHideFlags: 0
@@ -9722,7 +9733,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 40, y: -40}
+  m_AnchoredPosition: {x: 60, y: -140}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &379178187
@@ -10893,6 +10904,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581076b21fba71049ada0db3a69c37d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherCloseWindow:
+  - {fileID: 1888271594}
   UIObjectToggle:
   - {fileID: 1674262698}
   - {fileID: 305492073}
@@ -14391,7 +14404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 600, y: -300}
+  m_AnchoredPosition: {x: 960, y: -300}
   m_SizeDelta: {x: 900, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &588106062
@@ -19284,7 +19297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 600, y: 0}
+  m_AnchoredPosition: {x: 960, y: 0}
   m_SizeDelta: {x: 900, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &937842787
@@ -20337,8 +20350,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
-  far clip plane: 1000
+  near clip plane: -10
+  far clip plane: 100
   field of view: 60
   orthographic: 1
   orthographic size: 5
@@ -37578,8 +37591,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 780, y: 75}
-  m_SizeDelta: {x: 360, y: -250}
+  m_AnchoredPosition: {x: 900, y: 75}
+  m_SizeDelta: {x: 120, y: -250}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1741282902
 MonoBehaviour:
@@ -40081,6 +40094,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d58e16e98a83b4b89d97c1b87e364f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherCloseWindow:
+  - {fileID: 425238351}
   UIObjectToggle:
   - {fileID: 1674262698}
   - {fileID: 305492073}
@@ -45573,9 +45588,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower
       objectReference: {fileID: 0}
-    - target: {fileID: 8441271209707257062, guid: 7da74b4cdd470dc43ac320175617df62, type: 3}
-      propertyPath: ID
-      value: 210
+    - target: {fileID: 5539718399703558785, guid: 7da74b4cdd470dc43ac320175617df62, type: 3}
+      propertyPath: objectAssemble
+      value: 
+      objectReference: {fileID: 213241676}
+    - target: {fileID: 5539718399703558785, guid: 7da74b4cdd470dc43ac320175617df62, type: 3}
+      propertyPath: disEnabledOffset
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

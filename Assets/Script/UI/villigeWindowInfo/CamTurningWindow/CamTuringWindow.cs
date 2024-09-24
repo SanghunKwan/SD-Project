@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class CamTuringWindow : InitInterface
 {
     public ClickCamTurningComponent clickCamturningComponent { get; set; }
     public static ClickCamTurningComponent ienumOwner { get; set; }
+    [SerializeField] CamTuringWindow[] otherCloseWindow;
 
     [SerializeField] GameObject[] UIObjectToggle;
     [SerializeField] GameObject[] UIObjectClose;
 
     public static GameObject transformObject { get; set; }
-
 
     [SerializeField] ClickDrag UIClickDragToggle;
     protected class BuildSetCharacter
@@ -60,6 +61,18 @@ public abstract class CamTuringWindow : InitInterface
     }
     public void GetTurningComponent(ClickCamTurningComponent getClickComponent)
     {
+        if (clickCamturningComponent != null)
+            clickCamturningComponent.SetColliderActive(true);
         clickCamturningComponent = getClickComponent;
+    }
+    public void CloseOtherWindow()
+    {
+        foreach (var item in otherCloseWindow)
+        {
+            if (item.gameObject.activeSelf)
+            {
+                item.clickCamturningComponent.ChangeWindow();
+            }
+        }
     }
 }

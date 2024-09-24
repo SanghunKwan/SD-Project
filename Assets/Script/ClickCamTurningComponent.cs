@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,8 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     [SerializeField] float camAngle;
     [SerializeField] int[] cullingLayers;
 
+    Action delaySetCam = () => { };
+
     protected virtual void Awake()
     {
         camMain = Camera.main;
@@ -28,15 +31,23 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        ToggleWindow();
+        if (GameManager.manager.pointerEventData.pointerCurrentRaycast.gameObject.name == "InputUI")
+
+            ToggleWindow();
+
     }
+
     public void ToggleWindow()
     {
-        camTurningWindow.GetTurningComponent(this);
+        ToggleActive(camTurningWindow.gameObject.activeSelf);
 
-        bool wasWindowOpen = camTurningWindow.gameObject.activeSelf;
+        camTurningWindow.GetTurningComponent(this);
+    }
+    void ToggleActive(bool wasWindowOpen)
+    {
         isWindowOpen = (!wasWindowOpen) || camTurningWindow.clickCamturningComponent != this;
         WindowOpenCheck(wasWindowOpen);
+        SetColliderActive(!isWindowOpen);
 
         SetWindowOpen();
     }
@@ -47,29 +58,33 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
             SetCam();
         else
             StartInterpolation(RotateIenum(camAngle, camSize, fX, fZ, 3));
+
         SetMemory();
     }
     void SetCam()
     {
+        camTurningWindow.CloseOtherWindow();
+        camTurningWindow.Collider_UIActive(!isWindowOpen);
+
         if (isWindowOpen)
         {
             StartInterpolation(RotateIenum(camAngle, camSize, fX, fZ));
             camMain.cullingMask -= 32;
             camMain.cullingMask -= 4096;
             foreach (int layer in cullingLayers)
-            {
                 camMain.cullingMask -= (int)Mathf.Pow(2, layer);
-            }
         }
         else
         {
             StartInterpolation(RotateIenum(40, 5, fX * 1.5f, 1));
-            camMain.cullingMask += 32;
-            camMain.cullingMask += 4096;
-            foreach (int layer in cullingLayers)
-                camMain.cullingMask += (int)Mathf.Pow(2, layer);
+            delaySetCam = () =>
+                {
+                    camMain.cullingMask += 32;
+                    camMain.cullingMask += 4096;
+                    foreach (int layer in cullingLayers)
+                        camMain.cullingMask += (int)Mathf.Pow(2, layer);
+                };
         }
-        camTurningWindow.Collider_UIActive(!isWindowOpen);
     }
 
 
@@ -106,34 +121,55 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
             float delta = Time.deltaTime * speed;
 
             GetCamPosition(perAngle * delta, camMain.orthographicSize + (perSize * delta), addVector);
-            SetCamDistance(10);
+            SetCamDistance(GetCamDistanceFromWindow());
 
             timeCheck += delta;
             fPow = Mathf.Pow(timeCheck, 4);
             addVector = new Vector3(timeCheck * perVector.x, perVector.y * fPow, perVector.z * fPow);
             yield return null;
+
         } while (timeCheck < 1);
 
         yield return null;
 
         Destroy(CamTuringWindow.transformObject);
+        SetCamDistanceY(GetCamDistanceFromWindow(), Mathf.Tan(camMain.transform.eulerAngles.x * Mathf.Deg2Rad));
+
+        delaySetCam();
+        delaySetCam = () => { };
+
+    }
+    int GetCamDistanceFromWindow()
+    {
+        if (isWindowOpen)
+            return 30;
+
+        return 10;
     }
     void SetCamDistance(float fDistance)
     {
         float radAngle = Mathf.Deg2Rad * camMain.transform.eulerAngles.x;
         float tanAngle = Mathf.Tan(radAngle);
         float newDistance = camMain.orthographicSize * 2.1f;
-        Debug.Log("z°ª : " + camMain.transform.localPosition.z + "    distance°ª : " + -newDistance);
-        if (camMain.transform.localPosition.z > -newDistance)
+
+        if (newDistance < camMain.transform.localPosition.y)
         {
-            float offsetZ = (-camMain.transform.position.z - newDistance) * tanAngle;
-            camMain.transform.position = new Vector3(camMain.transform.position.x, camMain.transform.position.y - offsetZ, -newDistance);
+            SetCamDistanceY(newDistance, tanAngle);
         }
         else
         {
-            float offsetY = (fDistance - camMain.transform.position.y) / tanAngle;
-            camMain.transform.position = new Vector3(camMain.transform.position.x, fDistance, camMain.transform.position.z - offsetY);
+            SetCamDistanceZ(-newDistance, tanAngle);
         }
+    }
+    void SetCamDistanceY(float fDistance, float fTan)
+    {
+        float offsetY = (fDistance - camMain.transform.position.y) / fTan;
+        camMain.transform.position = new Vector3(camMain.transform.position.x, fDistance, camMain.transform.position.z - offsetY);
+    }
+    void SetCamDistanceZ(float fDistance, float fTan)
+    {
+        float offsetY = (fDistance - camMain.transform.position.z) * fTan;
+        camMain.transform.position = new Vector3(camMain.transform.position.x, camMain.transform.position.y - offsetY, fDistance);
     }
 
     void GetPerMove(float fX, float fZ, out Vector3 perVector)
@@ -161,4 +197,26 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     }
     protected abstract void SetWindowOpen();
     protected abstract void SetMemory();
+
+    public void ChangeWindow()
+    {
+        if (!isWindowOpen)
+            return;
+
+        isWindowOpen = false;
+        SetColliderActive(true);
+
+        camTurningWindow.Collider_UIActive(!isWindowOpen);
+
+        camMain.cullingMask += 32;
+        camMain.cullingMask += 4096;
+        foreach (int layer in cullingLayers)
+            camMain.cullingMask += (int)Mathf.Pow(2, layer);
+
+        SetWindowOpen();
+    }
+    public void SetColliderActive(bool onoff)
+    {
+        capsuleCollider.enabled = onoff;
+    }
 }

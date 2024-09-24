@@ -20,7 +20,7 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     Vector3 move;
     Vector3 movey;
     [SerializeField] GameObject inventoryDescription;
-    Action pointerDown = ()=> { };
+    Action pointerDown = () => { };
 
     Camera camMain;
     void Start()
@@ -80,79 +80,80 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!eventData.dragging)
-        {
-            if (eventData.button == PointerEventData.InputButton.Left)
-            {
-                dragStart = Data.Instance.UItoCanvas(eventData.position);
-                Dragging(eventData);
-                Select(eventData.clickCount);
-                InputEffect.e.PrintEffect(eventData.pointerCurrentRaycast.worldPosition, 0);
+        if (eventData.dragging)
+            return;
 
-            }
-            else if (eventData.button == PointerEventData.InputButton.Right)
-            {
-                RightClick(eventData);
-                InputEffect.e.PrintEffect(eventData.pointerCurrentRaycast.worldPosition, 0);
-            }
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            dragStart = Data.Instance.UItoCanvas(eventData.position);
+            Dragging(eventData);
+            Select(eventData.clickCount);
+            InputEffect.e.PrintEffect(eventData.pointerCurrentRaycast.worldPosition, 0);
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            RightClick(eventData);
+            InputEffect.e.PrintEffect(eventData.pointerCurrentRaycast.worldPosition, 0);
         }
     }
 
     public void OnPointerMove(PointerEventData eventData)
     {
         pointerEventData = eventData;
+        GameManager.manager.pointerEventData = pointerEventData;
     }
     void Update()
     {
-        if (pointerEventData != null)
+        if (pointerEventData == null)
+            return;
+
+        if (MiniMapClick)
         {
-            if (MiniMapClick)
-            {
-                suburbUpdate = false;
-                return;
-            }
-            if (pointerEventData.position.x > Screen.width - suburb)
-            {
-                move = Vector3.right * Time.unscaledDeltaTime * speed;
-                camMain.transform.position += move;
-                suburbUpdate = true;
-            }
-            else if (pointerEventData.position.x < suburb)
-            {
-                move = Vector3.left * Time.unscaledDeltaTime * speed;
-                camMain.transform.position += move;
-                suburbUpdate = true;
-
-            }
-            else
-            {
-                suburbUpdate = false;
-            }
-            MoveScreenRatioCal(move);
-
-
-            if (pointerEventData.position.y > Screen.height - suburb)
-            {
-                movey = -Vector3.back * Time.unscaledDeltaTime * speed;
-                camMain.transform.position += movey;
-                suburbUpdate = true;
-
-            }
-            else if (pointerEventData.position.y < suburb)
-            {
-                movey = Vector3.back * Time.unscaledDeltaTime * speed;
-                camMain.transform.position += movey;
-                suburbUpdate = true;
-            }
-
-            if (suburbUpdate)
-            {
-                MoveScreenRatioCaly(movey);
-                Dragging(pointerEventData);
-            }
-            move = Vector3.zero;
-            movey = Vector3.zero;
+            suburbUpdate = false;
+            return;
         }
+        if (pointerEventData.position.x > Screen.width - suburb)
+        {
+            move = Vector3.right * Time.unscaledDeltaTime * speed;
+            camMain.transform.position += move;
+            suburbUpdate = true;
+        }
+        else if (pointerEventData.position.x < suburb)
+        {
+            move = Vector3.left * Time.unscaledDeltaTime * speed;
+            camMain.transform.position += move;
+            suburbUpdate = true;
+
+        }
+        else
+        {
+            suburbUpdate = false;
+        }
+
+
+        if (pointerEventData.position.y > Screen.height - suburb)
+        {
+            movey = -Vector3.back * Time.unscaledDeltaTime * speed;
+            camMain.transform.position += movey;
+            suburbUpdate = true;
+
+        }
+        else if (pointerEventData.position.y < suburb)
+        {
+            movey = Vector3.back * Time.unscaledDeltaTime * speed;
+            camMain.transform.position += movey;
+            suburbUpdate = true;
+        }
+
+        if (suburbUpdate)
+        {
+            MoveScreenRatioCal(move);
+            MoveScreenRatioCaly(movey);
+            Dragging(pointerEventData);
+        }
+        move = Vector3.zero;
+        movey = Vector3.zero;
+
     }
     void MoveScreenRatioCal(Vector3 move)
     {

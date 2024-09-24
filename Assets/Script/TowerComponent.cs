@@ -5,11 +5,13 @@ using UnityEngine;
 public class TowerComponent : ClickCamTurningComponent
 {
     TowerWindow towerWindow;
+    SkyScraperComponent skyScraperComponent;
 
     protected override void Awake()
     {
         base.Awake();
         towerWindow = camTurningWindow as TowerWindow;
+        skyScraperComponent = GetComponent<SkyScraperComponent>();
     }
     protected override void SetMemory()
     {
@@ -20,5 +22,7 @@ public class TowerComponent : ClickCamTurningComponent
     {
 
         towerWindow.SetOpen(isWindowOpen, type);
+        skyScraperComponent.SetTransparent(false);
+
     }
 }

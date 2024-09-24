@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 1095478073715757068}
   - component: {fileID: 3266143231881703611}
   - component: {fileID: 677536854097126474}
+  - component: {fileID: 5539718399703558785}
   m_Layer: 9
   m_Name: Tower
   m_TagString: Untagged
@@ -109,7 +110,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.3
+  m_Radius: 3.5
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -123,7 +124,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 1.75, y: 0.5, z: 1.75}
+  m_Extents: {x: 3, y: 0.5, z: 3}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -210,16 +211,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   top:
     height: 3.2
-    floor: {fileID: 919132149155446097, guid: 699daa50b41977d49a6e6a231fad5da2, type: 3}
+    floor: {fileID: 6979842575898802146, guid: a5203f942a173614284ee795024c46dd, type: 3}
   floors:
   - height: 4
-    floor: {fileID: 919132149155446097, guid: 86cb89359f90f74419c22a048e712df1, type: 3}
+    floor: {fileID: 6368674733296014572, guid: 055bd45cf01c63640ab91053b09a0a51, type: 3}
   - height: 4.2
-    floor: {fileID: 919132149155446097, guid: 0c0482517ee54344389a630e7903e318, type: 3}
+    floor: {fileID: 6892541486930027237, guid: de80828630067454c8fadecaee8c954e, type: 3}
   bottom:
     height: 4.2
-    floor: {fileID: 919132149155446097, guid: 0c0482517ee54344389a630e7903e318, type: 3}
+    floor: {fileID: 6892541486930027237, guid: de80828630067454c8fadecaee8c954e, type: 3}
   floorManager: {fileID: 0}
+--- !u!114 &5539718399703558785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3205850005562252827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 071711036b8f725459bd32b915d612e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: 0
+  trMesh: {fileID: 6435299220686443519}
+  renderers: []
 --- !u!1 &5119178186709388996
 GameObject:
   m_ObjectHideFlags: 0

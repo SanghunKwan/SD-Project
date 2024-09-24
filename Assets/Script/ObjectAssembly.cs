@@ -17,9 +17,13 @@ public class ObjectAssembly : MonoBehaviour
     [SerializeField] FloorsHeight bottom;
 
     [SerializeField] FloorManager floorManager;
+    public Action init { get; set; }
+
 
 
     List<FloorsHeight> floorsList = new List<FloorsHeight>();
+
+    float[] floorAngles;
 
     private void Start()
     {
@@ -29,12 +33,15 @@ public class ObjectAssembly : MonoBehaviour
 
         CreateFloor();
 
+        init();
     }
     void AddFloor()
     {
         if (floorManager.GetData(out FloorManager.FloorData data))
         {
             int[] floorlooks = data.floorLooks;
+            floorAngles = data.floorAngles;
+
             foreach (int type in floorlooks)
             {
                 floorsList.Add(floors[type]);
@@ -44,10 +51,17 @@ public class ObjectAssembly : MonoBehaviour
     void CreateFloor()
     {
         float y = 0;
-        foreach (var item in floorsList)
+        GameObject tempObject;
+        for (int i = 0; i < floorsList.Count; i++)
         {
-            Instantiate(item.floor, Vector3.up * y, item.floor.transform.rotation, transform.GetChild(0).GetChild(0)).layer = 9;
-            y += item.height;
+            tempObject = Instantiate(floorsList[i].floor, Vector3.up * y, floorsList[i].floor.transform.rotation,
+                                        transform.GetChild(0).GetChild(0));
+            tempObject.layer = 9;
+
+            if (i != 0 && i != floorsList.Count - 1)
+                tempObject.transform.Rotate(Vector3.up, floorAngles[i - 1], Space.World);
+
+            y += floorsList[i].height;
         }
     }
 

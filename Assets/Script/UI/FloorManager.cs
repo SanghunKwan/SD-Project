@@ -12,16 +12,20 @@ public class FloorManager : MonoBehaviour
     {
         public int nowFloor;
         public int[] floorLooks;
+        public float[] floorAngles;
 
         public FloorData()
         {
             nowFloor = 10;
             floorLooks = new int[9] { 0, 1, 1, 1, 1, 1, 1, 1, 1 };
+            floorAngles = new float[9] { 27, 47, 180, -46, 27, 60, 90, -127, 50 };
         }
-        public void SetData(int floorLevel, int[] nowTowerLooks)
+        public void SetData(int floorLevel, int[] nowTowerLooks, float[] nowAngles)
         {
             nowFloor = floorLevel;
             floorLooks = nowTowerLooks;
+            floorAngles = nowAngles;
+
         }
     }
     class FloorDatas
@@ -48,9 +52,9 @@ public class FloorManager : MonoBehaviour
 
         return floorDatas.data.Length > saveIndex;
     }
-    public void SetData(int index, in int[] nowTowerLooks)
+    public void SetData(int index, in int[] nowTowerLooks, in float[] nowAngles)
     {
-        floorDatas.data[index].SetData(1, nowTowerLooks);
+        floorDatas.data[index].SetData(1, nowTowerLooks, nowAngles);
         SaveData();
     }
     public void SaveData()
