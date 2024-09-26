@@ -32,8 +32,10 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     private void OnMouseUpAsButton()
     {
         if (GameManager.manager.pointerEventData.pointerCurrentRaycast.gameObject.name == "InputUI")
-
+        {
             ToggleWindow();
+        }
+
 
     }
 
@@ -113,7 +115,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         CamTuringWindow.transformObject.transform.position = camMain.transform.position;
         CamTuringWindow.transformObject.transform.eulerAngles = camMain.transform.eulerAngles;
         //x, z축 이동해서 위치 맞출 것.
-        Vector3 addVector = new Vector3(0, 0, 0);
+        Vector3 addVector = Vector3.zero;
         float timeCheck = 0;
         float fPow;
         do

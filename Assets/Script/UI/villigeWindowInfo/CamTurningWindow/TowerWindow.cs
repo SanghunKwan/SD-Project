@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,5 +32,9 @@ public class TowerWindow : CamTuringWindow
             addressableManager.GetData("Building", type, out Sprite sprite);
             buildingIcon.sprite = sprite;
         }
+    }
+    public void PopUpWindow()
+    {
+        
     }
 }

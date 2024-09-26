@@ -17,7 +17,8 @@ public class ObjectAssembly : MonoBehaviour
     [SerializeField] FloorsHeight bottom;
 
     [SerializeField] FloorManager floorManager;
-    public Action init { get; set; }
+    public Action init { get; set; } = () => { };
+    public Action<TowerAssembleClick[]> init2 { get; set; } = (tower) => { };
 
 
 
@@ -34,6 +35,7 @@ public class ObjectAssembly : MonoBehaviour
         CreateFloor();
 
         init();
+        init2(GetComponentsInChildren<TowerAssembleClick>());
     }
     void AddFloor()
     {
@@ -56,7 +58,6 @@ public class ObjectAssembly : MonoBehaviour
         {
             tempObject = Instantiate(floorsList[i].floor, Vector3.up * y, floorsList[i].floor.transform.rotation,
                                         transform.GetChild(0).GetChild(0));
-            tempObject.layer = 9;
 
             if (i != 0 && i != floorsList.Count - 1)
                 tempObject.transform.Rotate(Vector3.up, floorAngles[i - 1], Space.World);

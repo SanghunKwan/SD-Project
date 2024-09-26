@@ -61,7 +61,7 @@ public abstract class CamTuringWindow : InitInterface
     }
     public void GetTurningComponent(ClickCamTurningComponent getClickComponent)
     {
-        if (clickCamturningComponent != null)
+        if (clickCamturningComponent != null && clickCamturningComponent != getClickComponent)
             clickCamturningComponent.SetColliderActive(true);
         clickCamturningComponent = getClickComponent;
     }

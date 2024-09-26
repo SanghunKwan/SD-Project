@@ -43,6 +43,10 @@ public class PrintFloor : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
         PrintText();
     }
+    private void OnEnable()
+    {
+        CheckTime();
+    }
     void PrintText()
     {
         text.text = m_nowFloor.ToString() + " Ãþ";
