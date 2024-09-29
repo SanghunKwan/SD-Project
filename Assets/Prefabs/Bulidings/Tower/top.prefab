@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 699daa50b41977d49a6e6a231fad5da2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00009224191
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 699daa50b41977d49a6e6a231fad5da2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -83,3 +83,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transparentMaterials:
   - {fileID: 2100000, guid: 910e4fe1e8eaec448bff6a4168c52999, type: 2}
+  highLightMaterials: []

@@ -7,28 +7,24 @@ public class SkyScraperTransparent : MonoBehaviour
     MeshRenderer mRenderer;
     List<Material> originalMaterials = new List<Material>();
     [SerializeField] List<Material> transparentMaterials;
-    List<Material> nullMaterials = new List<Material>();
+    [SerializeField] List<Material> highLightMaterials;
 
     List<List<Material>> listMaterial = new List<List<Material>>();
     public enum EnumMaterial
     {
         originalMaterials,
         transparentMaterials,
-        nullMaterials
+        highLightMaterials
     }
 
     private void Awake()
     {
         mRenderer = GetComponent<MeshRenderer>();
         mRenderer.GetMaterials(originalMaterials);
-        for(int i = 0; i < transparentMaterials.Count; i++)
-        {
-            nullMaterials.Add(null);
-        }
 
         listMaterial.Add(originalMaterials);
         listMaterial.Add(transparentMaterials);
-        listMaterial.Add(nullMaterials);
+        listMaterial.Add(highLightMaterials);
 
     }
 

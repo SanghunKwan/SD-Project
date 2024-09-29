@@ -59,7 +59,7 @@ public abstract class CamTuringWindow : InitInterface
         }
         UIClickDragToggle.enabled = onoff;
     }
-    public void GetTurningComponent(ClickCamTurningComponent getClickComponent)
+    public virtual void GetTurningComponent(ClickCamTurningComponent getClickComponent)
     {
         if (clickCamturningComponent != null && clickCamturningComponent != getClickComponent)
             clickCamturningComponent.SetColliderActive(true);

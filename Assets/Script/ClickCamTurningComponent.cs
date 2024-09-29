@@ -21,6 +21,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     [SerializeField] int[] cullingLayers;
 
     Action delaySetCam = () => { };
+    public Action tickCamMove = () => { };
 
     protected virtual void Awake()
     {
@@ -90,7 +91,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     }
 
 
-    void StartInterpolation(IEnumerator ienum)
+    protected void StartInterpolation(IEnumerator ienum)
     {
         if (CamTuringWindow.transformObject != null)
         {
@@ -128,6 +129,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
             timeCheck += delta;
             fPow = Mathf.Pow(timeCheck, 4);
             addVector = new Vector3(timeCheck * perVector.x, perVector.y * fPow, perVector.z * fPow);
+            tickCamMove();
             yield return null;
 
         } while (timeCheck < 1);
@@ -138,6 +140,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         SetCamDistanceY(GetCamDistanceFromWindow(), Mathf.Tan(camMain.transform.eulerAngles.x * Mathf.Deg2Rad));
 
         delaySetCam();
+        tickCamMove();
         delaySetCam = () => { };
 
     }

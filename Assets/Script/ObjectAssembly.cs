@@ -13,7 +13,7 @@ public class ObjectAssembly : MonoBehaviour
     }
 
     [SerializeField] FloorsHeight top;
-    [SerializeField] FloorsHeight[] floors;
+    public FloorsHeight[] floors;
     [SerializeField] FloorsHeight bottom;
 
     [SerializeField] FloorManager floorManager;
