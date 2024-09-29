@@ -28,7 +28,6 @@ public class ObjectAssembly : MonoBehaviour
 
     private void Start()
     {
-        floorsList.Add(bottom);
         AddFloor();
         floorsList.Add(top);
 

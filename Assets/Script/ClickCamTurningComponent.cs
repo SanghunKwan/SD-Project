@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class ClickCamTurningComponent : MonoBehaviour
 {
     protected CamTuringWindow camTurningWindow { get; private set; }
-    protected bool isWindowOpen { get; private set; }
+    protected bool isWindowOpen { get; set; }
     protected Camera camMain;
     CapsuleCollider capsuleCollider;
     IEnumerator moveIenum;
@@ -18,7 +18,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
 
     [SerializeField] protected AddressableManager.BuildingImage type;
     [SerializeField] float camAngle;
-    [SerializeField] int[] cullingLayers;
+    [SerializeField] protected int[] cullingLayers;
 
     Action delaySetCam = () => { };
     public Action tickCamMove = () => { };

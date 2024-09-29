@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class TowerComponent : ClickCamTurningComponent
     SkyScraperComponent skyScraperComponent;
     ObjectAssembly objectAssembly;
     TowerAssembleClick[] towerAssembleClicks;
+
+    Action windowEnd = () => { };
 
     protected override void Awake()
     {
@@ -50,28 +53,60 @@ public class TowerComponent : ClickCamTurningComponent
         return camMain.WorldToScreenPoint(towerAssembleClicks[clickIndex].transform.position
             + (objectAssembly.floors[floorLooks].height * ratioInFloor * Vector3.up)).y;
     }
-    public void ChangeAngle(int floor)
+    public void ChangeAngle(int floor, int heightType, int angle)
     {
-        GetMove(floor, out float yOffset);
-
-
-        StartInterpolation(StraightIenum(yOffset));
+        GetMove(floor, angle, heightType, out float yValue);
+        StartInterpolation(StraightIenum(3, angle, yValue));
     }
-    IEnumerator StraightIenum(float yOffset)
+    public void ChangeAngle(int angle)
     {
-        
+        GetMove(angle, out float yValue, out float zValue);
+        StartInterpolation(StraightIenum(5, angle, yValue, zValue));
+
+        isWindowOpen = false;
+        camTurningWindow.Collider_UIActive(!isWindowOpen);
+
+        SetColliderActive(!isWindowOpen);
+        SetWindowOpen();
+
+        windowEnd = () =>
+        {
+            camMain.cullingMask += 32;
+            camMain.cullingMask += 4096;
+            foreach (int layer in cullingLayers)
+                camMain.cullingMask += (int)Mathf.Pow(2, layer);
+        };
+    }
+    IEnumerator StraightIenum(float targetSize, float targetAngle, float yValue, float zValue = 0)
+    {
+        float timeCheck = 0;
+        float deltaCam = targetSize - camMain.orthographicSize;
+        float deltaAngle = targetAngle - camMain.transform.eulerAngles.x;
+        Vector3 addVector = new Vector3(0, yValue, zValue);
         do
         {
-
-            //camMain.transform.position += vec;
+            camMain.transform.position += addVector * Time.deltaTime;
+            camMain.orthographicSize += deltaCam * Time.deltaTime;
+            camMain.transform.eulerAngles += deltaAngle * Time.deltaTime * Vector3.right;
+            timeCheck += Time.deltaTime;
 
             yield return null;
-        } while (true);
-    }
-    void GetMove(int floor, out float yValue)
-    {
-        
-        yValue = towerAssembleClicks[floor].transform.position.y;
-    }
+        } while (timeCheck < 1);
 
+        windowEnd();
+        windowEnd = () => { };
+    }
+    void GetMove(int floor, int angle, int heightType, out float yValue)
+    {
+        float height = (-camMain.transform.position.z * Mathf.Tan(Mathf.Deg2Rad * angle))
+                        + towerAssembleClicks[floor].transform.position.y + objectAssembly.floors[heightType].height * 0.5f;
+
+        yValue = height - camMain.transform.position.y;
+    }
+    void GetMove(int angle, out float yValue, out float zValue)
+    {
+        float height = 10 + transform.position.y;
+        yValue = height - camMain.transform.position.y;
+        zValue = (-height / MathF.Tan(Mathf.Deg2Rad * angle)) - camMain.transform.position.z;
+    }
 }

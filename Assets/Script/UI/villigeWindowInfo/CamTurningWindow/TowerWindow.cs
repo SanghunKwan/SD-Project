@@ -179,6 +179,12 @@ public class TowerWindow : CamTuringWindow
     }
     public void NextStep()
     {
-        towerComponent.ChangeAngle(nowFloor);
+        floorManager.GetData(out FloorManager.FloorData data);
+        towerComponent.ChangeAngle(nowFloor, data.floorLooks[nowFloor], 10);
+    }
+    public void Exit()
+    {
+        towerComponent.ChangeAngle(40);
+
     }
 }
