@@ -113,6 +113,8 @@ public class TowerWindow : CamTuringWindow
         }
     }
     [SerializeField] NowFloorTag nowFloortag;
+    [SerializeField] GameObject[] window1Object;
+    [SerializeField] GameObject window2Object;
     public override void Init()
     {
 
@@ -136,12 +138,16 @@ public class TowerWindow : CamTuringWindow
         }
         else
         {
-            floortagImage.SetActive(false);
-            floortagImage.PositionReset();
-            towerComponent.AssembleClickReset();
-            nowFloortag.Reset();
-            nextButton.interactable = false;
+            ExitReset();
         }
+    }
+    void ExitReset()
+    {
+        floortagImage.SetActive(false);
+        floortagImage.PositionReset();
+        towerComponent.AssembleClickReset();
+        nowFloortag.Reset();
+        nextButton.interactable = false;
     }
     public void PopUpWindow(int floorNum)
     {
@@ -181,10 +187,25 @@ public class TowerWindow : CamTuringWindow
     {
         floorManager.GetData(out FloorManager.FloorData data);
         towerComponent.ChangeAngle(nowFloor, data.floorLooks[nowFloor], 10);
+        Window1Active(false);
+        towerComponent.SetAssembleCollierActive(false);
     }
     public void Exit()
     {
         towerComponent.ChangeAngle(40);
-
+        Window1Active(true);
+    }
+    void Window1Active(bool onoff)
+    {
+        foreach (var obj in window1Object)
+            obj.SetActive(onoff);
+        window2Object.SetActive(!onoff);
+    }
+    public void BackStep()
+    {
+        towerComponent.CamBack();
+        Window1Active(true);
+        ExitReset();
+        towerComponent.SetAssembleCollierActive(true);
     }
 }

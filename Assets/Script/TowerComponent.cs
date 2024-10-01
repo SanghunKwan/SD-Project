@@ -32,8 +32,12 @@ public class TowerComponent : ClickCamTurningComponent
         towerWindow.SetOpen(isWindowOpen, type);
         skyScraperComponent.SetTransparent(false);
 
+        SetAssembleCollierActive(isWindowOpen);
+    }
+    public void SetAssembleCollierActive(bool onoff)
+    {
         foreach (var item in towerAssembleClicks)
-            item.SetColliderActive(isWindowOpen);
+            item.SetColliderActive(onoff);
     }
     public void AssembleClick(int floorNum)
     {
@@ -56,7 +60,7 @@ public class TowerComponent : ClickCamTurningComponent
     public void ChangeAngle(int floor, int heightType, int angle)
     {
         GetMove(floor, angle, heightType, out float yValue);
-        StartInterpolation(StraightIenum(3, angle, yValue));
+        StartInterpolation(StraightIenum(3, angle, yValue, 0, -2));
     }
     public void ChangeAngle(int angle)
     {
@@ -77,12 +81,13 @@ public class TowerComponent : ClickCamTurningComponent
                 camMain.cullingMask += (int)Mathf.Pow(2, layer);
         };
     }
-    IEnumerator StraightIenum(float targetSize, float targetAngle, float yValue, float zValue = 0)
+    IEnumerator StraightIenum(float targetSize, float targetAngle, float yValue, float zValue = 0, float xValue = 0)
     {
         float timeCheck = 0;
         float deltaCam = targetSize - camMain.orthographicSize;
         float deltaAngle = targetAngle - camMain.transform.eulerAngles.x;
-        Vector3 addVector = new Vector3(0, yValue, zValue);
+        Vector3 addVector = new Vector3(xValue - camMain.transform.position.x, yValue, zValue);
+        CamTuringWindow.transformObject = new GameObject();
         do
         {
             camMain.transform.position += addVector * Time.deltaTime;
@@ -92,7 +97,7 @@ public class TowerComponent : ClickCamTurningComponent
 
             yield return null;
         } while (timeCheck < 1);
-
+        Destroy(CamTuringWindow.transformObject);
         windowEnd();
         windowEnd = () => { };
     }
@@ -103,10 +108,15 @@ public class TowerComponent : ClickCamTurningComponent
 
         yValue = height - camMain.transform.position.y;
     }
-    void GetMove(int angle, out float yValue, out float zValue)
+    void GetMove(int angle, out float yValue, out float zValue, float defaultHeight = 10)
     {
-        float height = 10 + transform.position.y;
+        float height = defaultHeight + transform.position.y;
         yValue = height - camMain.transform.position.y;
         zValue = (-height / MathF.Tan(Mathf.Deg2Rad * angle)) - camMain.transform.position.z;
+    }
+    public void CamBack()
+    {
+        StartInterpolation(StraightIenum(30, 10, 30 - camMain.transform.position.y, -70 - camMain.transform.position.z));
+
     }
 }

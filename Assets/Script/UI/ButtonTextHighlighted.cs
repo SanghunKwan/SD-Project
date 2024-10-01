@@ -9,6 +9,7 @@ public class ButtonTextHighlighted : MonoBehaviour, IPointerEnterHandler, IPoint
     [SerializeField] bool isTextUI;
     TextMeshProUGUI textPro;
     Text textUI;
+    Button button;
 
     Color colorChange;
     Color originColor;
@@ -32,7 +33,8 @@ public class ButtonTextHighlighted : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        textColor *= colorChange;
+        if (button.interactable)
+            textColor *= colorChange;
     }
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -51,8 +53,8 @@ public class ButtonTextHighlighted : MonoBehaviour, IPointerEnterHandler, IPoint
             originColor = textPro.color;
         }
 
-
-        colorChange = GetComponent<Button>().colors.pressedColor;
+        button = GetComponent<Button>();
+        colorChange = button.colors.pressedColor;
     }
 
 }
