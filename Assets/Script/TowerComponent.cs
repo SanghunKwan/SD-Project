@@ -9,7 +9,7 @@ public class TowerComponent : ClickCamTurningComponent
     ObjectAssembly objectAssembly;
     TowerAssembleClick[] towerAssembleClicks;
 
-    Action windowEnd = () => { };
+    public Action windowEnd { get; set; } = () => { };
 
     protected override void Awake()
     {

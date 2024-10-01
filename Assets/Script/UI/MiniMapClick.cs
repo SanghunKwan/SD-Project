@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
+public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerMoveHandler
 {
     RawImage rawImage;
     ClickDrag clickdrag;
@@ -12,6 +12,7 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     Camera miniMapCam;
 
     bool outMIniMap = false;
+    bool isColorChanged = false;
 
     delegate void Action<in RaycastHit>(RaycastHit hit);
     Action<RaycastHit>[] action;
@@ -142,4 +143,19 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
         }
     }
 
+    public void OnPointerMove(PointerEventData eventData)
+    {
+        GetPixel(eventData.position, out float colorA);
+
+        bool wasColor = isColorChanged;
+        isColorChanged = colorA > 0.1f;
+
+        if (wasColor == isColorChanged)
+            return;
+
+        if (isColorChanged)
+            rawImage.color *= 0.9f;
+        else
+            rawImage.color = Color.white;
+    }
 }

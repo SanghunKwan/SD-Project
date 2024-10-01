@@ -115,6 +115,7 @@ public class TowerWindow : CamTuringWindow
     [SerializeField] NowFloorTag nowFloortag;
     [SerializeField] GameObject[] window1Object;
     [SerializeField] GameObject window2Object;
+    [SerializeField] GameObject camMoveEndObject;
     public override void Init()
     {
 
@@ -189,11 +190,13 @@ public class TowerWindow : CamTuringWindow
         towerComponent.ChangeAngle(nowFloor, data.floorLooks[nowFloor], 10);
         Window1Active(false);
         towerComponent.SetAssembleCollierActive(false);
+        towerComponent.windowEnd += () => camMoveEndObject.SetActive(true);
     }
     public void Exit()
     {
         towerComponent.ChangeAngle(40);
         Window1Active(true);
+        camMoveEndObject.SetActive(false);
     }
     void Window1Active(bool onoff)
     {
@@ -207,5 +210,6 @@ public class TowerWindow : CamTuringWindow
         Window1Active(true);
         ExitReset();
         towerComponent.SetAssembleCollierActive(true);
+        camMoveEndObject.SetActive(false);
     }
 }
