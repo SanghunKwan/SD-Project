@@ -10,19 +10,16 @@ using UnityEngine.UI;
 public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     Action<PointerEventData>[] clicks = new Action<PointerEventData>[2];
-
+    public Action dragEndEvent { get; set; } = () => { };
 
     [SerializeField] Hero[] Heros;
     public Hero hero { get; private set; }
 
     Animator anim;
     int animOnMouse;
-
     int workIndex;
 
     WindowInfo infoWindow;
-
-
 
     [SerializeField] HandImage onHand;
     Image copyHand;
@@ -33,6 +30,12 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
 
     BuildingComponent workingBuilding;
 
+    public static bool isDrag { get; private set; }
+    public static villigeInteract now_villigeInteract { get; private set; }
+
+
+    public NowTeamUI teamUIData { get; private set; } = new NowTeamUI();
+    Image jobImage;
 
 
     public void HeroIniit(int index)
@@ -65,6 +68,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         textPro = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         anim = GetComponent<Animator>();
         animOnMouse = Animator.StringToHash("onMouse");
+        jobImage = transform.Find("Image").GetComponent<Image>();
 
         infoWindow = transform.parent.parent.parent.parent.parent.parent.Find("CharacterInfo").gameObject.GetComponent<WindowInfo>();
         characterList = transform.parent.parent.parent.parent.parent.GetComponent<CharacterList>();
@@ -113,20 +117,17 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        base.OnBeginDrag(eventData);
-
-        if (eventData.button == PointerEventData.InputButton.Left)
-            return;
-
-
-
-        offset = new Vector2(eventData.pressPosition.x - image.rectTransform.position.x,
-                             eventData.pressPosition.y - image.rectTransform.position.y);
+        BeginDragOffset(eventData, image);
+    }
+    public void DragEvent(PointerEventData eventData)
+    {
         copyHand = CreateHandImage();
         image.color = Color.clear;
         transform.GetChild(0).gameObject.SetActive(false);
         //글자 복사 추가.
-        characterList.NoMove(gameObject);
+        NoMove();
+        isDrag = true;
+        now_villigeInteract = this;
     }
     Image CreateHandImage()
     {
@@ -158,7 +159,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         if (dragObject.CompareTag("NameTag") && dragObject != gameObject)
             characterList.MoveBoard(dragObject, eventData.position.y);
         else if (dragObject == gameObject)
-            characterList.NoMove(gameObject);
+            NoMove();
 
     }
 
@@ -175,6 +176,10 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         transform.GetChild(0).gameObject.SetActive(true);
 
         characterList.EndDrag(this);
+        isDrag = false;
+
+        dragEndEvent();
+        dragEndEvent = () => { };
     }
 
     public void SaveWorkPlace(BuildingComponent place, int index)
@@ -187,10 +192,36 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         workingbuilding = workingBuilding;
         workindex = workIndex;
 
-        Debug.Log(workingBuilding);
         if (workingBuilding == null)
             return false;
 
         return workindex != 0;
+    }
+    public void NoMove()
+    {
+        characterList.NoMove(gameObject);
+    }
+    public void BeginDragOffset(PointerEventData eventData, Image rectImage)
+    {
+        base.OnBeginDrag(eventData);
+        if (eventData.button == PointerEventData.InputButton.Left)
+            return;
+
+        float subtractHeight = (eventData.pressPosition.y - rectImage.rectTransform.position.y)
+                                / rectImage.rectTransform.sizeDelta.y * image.rectTransform.sizeDelta.y;
+        offset = new Vector2(eventData.pressPosition.x - rectImage.rectTransform.position.x, subtractHeight);
+        DragEvent(eventData);
+    }
+    public void ChangeImage(AddressableManager.BuildingImage imageNum, bool onoff = true)
+    {
+        jobImage.gameObject.SetActive(onoff);
+
+        if (!onoff)
+            return;
+
+        characterList.buildingSetWindow.AddressableManager.GetData("Building", imageNum, out Sprite sprite);
+
+        jobImage.sprite = sprite;
+
     }
 }

@@ -163,6 +163,7 @@ MonoBehaviour:
   camSize: 2
   type: 4
   camAngle: 20
+  cullingLayers: 
   upgradeType: 1
   infoText: 
 --- !u!1 &343813650455886587

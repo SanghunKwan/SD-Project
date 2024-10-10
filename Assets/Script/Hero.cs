@@ -29,6 +29,7 @@ namespace Unit
         public int[] EquipsNum { get; private set; } = { 1, 1, 1 };
 
         public ActionAlert.ActionType VilligeAction { get; private set; } = ActionAlert.ActionType.walking;
+        public AddressableManager.BuildingImage BuildingAction { get; private set; }
         public bool isDefaultName { private get; set; }
 
 
@@ -156,7 +157,11 @@ namespace Unit
         {
             VilligeAction = type;
         }
-
+        public void alloBuilding(AddressableManager.BuildingImage type)
+        {
+            VilligeAction = ActionAlert.ActionType.buildingWork;
+            BuildingAction = type;
+        }
         public void Villige_CheckText()
         {
             villigeHero.villigeInteract.CheckText();

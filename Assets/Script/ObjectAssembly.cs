@@ -25,6 +25,7 @@ public class ObjectAssembly : MonoBehaviour
     List<FloorsHeight> floorsList = new List<FloorsHeight>();
 
     float[] floorAngles;
+    public float towerHeight { get; private set; }
 
     private void Start()
     {
@@ -51,17 +52,17 @@ public class ObjectAssembly : MonoBehaviour
     }
     void CreateFloor()
     {
-        float y = 0;
+        towerHeight = 0;
         GameObject tempObject;
         for (int i = 0; i < floorsList.Count; i++)
         {
-            tempObject = Instantiate(floorsList[i].floor, Vector3.up * y, floorsList[i].floor.transform.rotation,
+            tempObject = Instantiate(floorsList[i].floor, Vector3.up * towerHeight, floorsList[i].floor.transform.rotation,
                                         transform.GetChild(0).GetChild(0));
 
             if (i != 0 && i != floorsList.Count - 1)
                 tempObject.transform.Rotate(Vector3.up, floorAngles[i - 1], Space.World);
 
-            y += floorsList[i].height;
+            towerHeight += floorsList[i].height;
         }
     }
 

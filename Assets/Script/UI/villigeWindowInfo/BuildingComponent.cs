@@ -5,12 +5,12 @@ using UnityEngine;
 public class BuildingComponent : ClickCamTurningComponent
 {
     BuildingSetWindow buildingWindow;
-    
+
     [SerializeField] AddressableManager.BuildingImage upgradeType;
     [SerializeField] string infoText;
 
 
-    villigeInteract[] saveVilligeInteract = new villigeInteract[3];
+    public villigeInteract[] saveVilligeInteract { get; private set; } = new villigeInteract[3];
 
 
     protected override void Awake()
@@ -23,7 +23,7 @@ public class BuildingComponent : ClickCamTurningComponent
     {
         buildingWindow.SetOpen(this, isWindowOpen, type, upgradeType, infoText, saveVilligeInteract);
     }
-    
+
     protected override void SetMemory()
     {
         if (type != AddressableManager.BuildingImage.Tomb)
@@ -31,11 +31,14 @@ public class BuildingComponent : ClickCamTurningComponent
     }
     public void SaveData(villigeInteract vil_interact, int index)
     {
+        if (!IsDataNull(index, out villigeInteract saveVillige))
+            saveVillige.ChangeImage(AddressableManager.BuildingImage.Tomb, false);
         saveVilligeInteract[index] = vil_interact;
     }
     public void ResetData(int index)
     {
         saveVilligeInteract[index].SaveWorkPlace(null, 0);
+        saveVilligeInteract[index].ChangeImage(AddressableManager.BuildingImage.Tomb, false);
         saveVilligeInteract[index] = null;
     }
     public bool IsDataNull(int index, out villigeInteract saveVillige)

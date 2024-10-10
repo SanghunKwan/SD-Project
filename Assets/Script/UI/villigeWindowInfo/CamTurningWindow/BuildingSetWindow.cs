@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using SDUI;
 
 public class BuildingSetWindow : CamTuringWindow
 {
@@ -39,7 +40,8 @@ public class BuildingSetWindow : CamTuringWindow
     public villigeInteract vill_Interact { get; set; }
     public Action DragEnd = () => { };
 
-    [SerializeField] CharacterList characterList;
+    AddressableManager.BuildingImage ImageIndex;
+    public AddressableManager AddressableManager { get { return addressableManager; } }
 
     public override void Init()
     {
@@ -69,9 +71,10 @@ public class BuildingSetWindow : CamTuringWindow
         if (onoff)
         {
             buildingComponent = buildingComp;
-            SetBuildingNameImg(buildType);
+            ImageIndex = buildType;
+            SetBuildingNameImg(ImageIndex);
 
-            int typeIndex = (int)buildType;
+            int typeIndex = (int)ImageIndex;
 
             SetBuildingNameText(typeIndex);
             SetChild(typeIndex);
@@ -133,7 +136,7 @@ public class BuildingSetWindow : CamTuringWindow
     public void SetHeroInDic(GameObject key)
     {
         buildSetDic[key].ChangeTeam(vill_Interact.hero.stat.NAME, vill_Interact.hero.keycode);
-        characterList.NoMove(vill_Interact.gameObject);
+        vill_Interact.NoMove();
 
     }
     public void SetBackHeroText(GameObject key)
@@ -172,7 +175,11 @@ public class BuildingSetWindow : CamTuringWindow
 
         buildingComponent.SaveData(vill_Interact, siblingIndex);
         if (siblingIndex != 0)
+        {
             vill_Interact.SaveWorkPlace(buildingComponent, siblingIndex);
+            vill_Interact.ChangeImage(ImageIndex);
+            vill_Interact.hero.alloBuilding(ImageIndex);
+        }
     }
     public void BuildSetCharactersCheck(int index, villigeInteract vill)
     {

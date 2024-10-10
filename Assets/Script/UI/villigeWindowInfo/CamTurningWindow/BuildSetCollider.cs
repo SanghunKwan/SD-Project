@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BuildSetCollider : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class BuildSetCollider : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
     BuildingSetWindow buildingSetWindow;
 
@@ -12,6 +12,7 @@ public class BuildSetCollider : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public bool isDrag { get => buildingSetWindow.isDrag; }
     bool isEnter;
+    bool isVilligeInteractExist;
 
     [SerializeField] Color effectColor;
 
@@ -28,8 +29,8 @@ public class BuildSetCollider : MonoBehaviour, IPointerEnterHandler, IPointerExi
         {
             isEnter = true;
             buildingSetWindow.SetHeroInDic(transform.parent.gameObject);
-            image.color = effectColor;
         }
+        image.color = effectColor;
 
     }
 
@@ -48,5 +49,41 @@ public class BuildSetCollider : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
         if (isEnter)
             buildingSetWindow.SaveHeroData(transform.parent.gameObject);
+    }
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        isVilligeInteractExist = buildingSetWindow.buildingComponent.IsDataNull(transform.GetSiblingIndex(), out _)
+                                 && eventData.button != PointerEventData.InputButton.Left;
+
+        if (!isVilligeInteractExist)
+            return;
+
+        buildingSetWindow.buildingComponent.saveVilligeInteract[transform.parent.GetSiblingIndex()].BeginDragOffset(eventData, image);
+        OnPointerEnter(eventData);
+        buildingSetWindow.buildingComponent.ResetData(transform.parent.GetSiblingIndex());
+
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (!isVilligeInteractExist)
+            return;
+
+        villigeInteract.now_villigeInteract.OnDrag(eventData);
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (!isVilligeInteractExist)
+            return;
+
+        villigeInteract.now_villigeInteract.OnEndDrag(eventData);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Left
+                || buildingSetWindow.buildingComponent.saveVilligeInteract[transform.parent.GetSiblingIndex()] == null)
+            return;
+        buildingSetWindow.buildingComponent.saveVilligeInteract[transform.parent.GetSiblingIndex()].OnPointerClick(eventData);
     }
 }

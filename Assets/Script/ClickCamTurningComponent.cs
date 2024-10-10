@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public abstract class ClickCamTurningComponent : MonoBehaviour
@@ -21,7 +22,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     [SerializeField] protected int[] cullingLayers;
 
     Action delaySetCam = () => { };
-    public Action tickCamMove = () => { };
+    public Action tickCamMove { get; set; } = () => { };
 
     protected virtual void Awake()
     {
@@ -36,8 +37,6 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         {
             ToggleWindow();
         }
-
-
     }
 
     public void ToggleWindow()
@@ -79,7 +78,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         }
         else
         {
-            StartInterpolation(RotateIenum(40, 5, fX * 1.5f, 1));
+            StartInterpolation(RotateIenum(40, 5, fX * 1.5f, 0));
             delaySetCam = () =>
                 {
                     camMain.cullingMask += 32;
@@ -108,97 +107,93 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     }
     IEnumerator RotateIenum(float angle, float size, float fX, float fZ, float speed = 1)
     {
-        GetPerMove(fX, fZ, out Vector3 perVector);
+        GetPerMove(fX, fZ, angle, out Vector3 perVector, out float tOffset, out float rotateDistance, out float lastDistance);
 
-        float perAngle = (angle - camMain.transform.eulerAngles.x);
-        float perSize = (size - camMain.orthographicSize);
+        float perAngle = angle - camMain.transform.eulerAngles.x;
+        float perSize = size - camMain.orthographicSize;
+        float perDistance = lastDistance - rotateDistance;
 
+        CamTuringWindow.transformObject = new GameObject();
         CamTuringWindow.transformObject.transform.position = camMain.transform.position;
-        CamTuringWindow.transformObject.transform.eulerAngles = camMain.transform.eulerAngles;
-        //x, z축 이동해서 위치 맞출 것.
+        CamTuringWindow.transformObject.transform.rotation = camMain.transform.rotation;
+
         Vector3 addVector = Vector3.zero;
+        Vector3 centerPosition = transform.position + Vector3.up * tOffset;
+        Debug.Log("centerPosition : " + centerPosition + "    perVector : " + perVector);
+        float originalRotation = camMain.transform.eulerAngles.x;
         float timeCheck = 0;
-        float fPow;
+        float delta;
+        float addDistance = rotateDistance;
         do
         {
-            float delta = Time.deltaTime * speed;
-
-            GetCamPosition(perAngle * delta, camMain.orthographicSize + (perSize * delta), addVector);
-            SetCamDistance(GetCamDistanceFromWindow());
-
+            delta = Time.deltaTime * speed;
             timeCheck += delta;
-            fPow = Mathf.Pow(timeCheck, 4);
-            addVector = new Vector3(timeCheck * perVector.x, perVector.y * fPow, perVector.z * fPow);
+            addDistance += perDistance * delta;
+
+            addVector = perVector * timeCheck;
+
+            GetCamPosition(perAngle * delta, perSize * delta, addDistance, addVector, centerPosition);
             tickCamMove();
             yield return null;
 
         } while (timeCheck < 1);
 
         yield return null;
-
         Destroy(CamTuringWindow.transformObject);
-        SetCamDistanceY(GetCamDistanceFromWindow(), Mathf.Tan(camMain.transform.eulerAngles.x * Mathf.Deg2Rad));
 
         delaySetCam();
         tickCamMove();
         delaySetCam = () => { };
 
     }
-    int GetCamDistanceFromWindow()
+    int GetCamDistanceFromWindow(bool isWinOpen)
     {
-        if (isWindowOpen)
+        if (isWinOpen)
             return 30;
 
         return 10;
     }
-    void SetCamDistance(float fDistance)
-    {
-        float radAngle = Mathf.Deg2Rad * camMain.transform.eulerAngles.x;
-        float tanAngle = Mathf.Tan(radAngle);
-        float newDistance = camMain.orthographicSize * 2.1f;
 
-        if (newDistance < camMain.transform.localPosition.y)
-        {
-            SetCamDistanceY(newDistance, tanAngle);
-        }
-        else
-        {
-            SetCamDistanceZ(-newDistance, tanAngle);
-        }
+    void GetPerMove(float fX, float fZ, float angle, out Vector3 perVector, out float tOffset, out float rotateDistance, out float lastDistance)
+    {
+        //회전 후 y값과 목표로 하는 y값을 빼서 perY 산출.
+        //perY로 perZ 산출.
+        float perX = transform.position.x - camMain.transform.position.x + fX;
+
+        float nowAngle = camMain.transform.eulerAngles.x * Mathf.Deg2Rad;
+        float lengthZ = transform.position.z - camMain.transform.position.z;
+        float lengthY = lengthZ * Mathf.Tan(nowAngle);
+        rotateDistance = Vector2.Distance(Vector2.zero, new Vector2(lengthY, lengthZ));
+        tOffset = camMain.transform.position.y - transform.position.y - lengthY;
+        float endAngle = Mathf.Deg2Rad * angle;
+        float eSin = Mathf.Sin(endAngle);
+        float eCos = Mathf.Cos(endAngle);
+
+        lastDistance = Vector2.Distance(Vector2.zero,
+                                        new Vector2(GetCamDistanceFromWindow(isWindowOpen),
+                                                    -(GetCamDistanceFromWindow(isWindowOpen) * (eCos / eSin))));
+        float perY = Mathf.Max(tOffset + (lastDistance * eSin) - GetCamDistanceFromWindow(isWindowOpen), 0);
+
+        float perZ = fZ - ((tOffset - perY) * (eCos / eSin));
+        perVector = new Vector3(perX, -perY, perZ);
     }
-    void SetCamDistanceY(float fDistance, float fTan)
+    void GetCamPosition(float angle, float size, float distance, in Vector3 addVector, in Vector3 centerPosition)
     {
-        float offsetY = (fDistance - camMain.transform.position.y) / fTan;
-        camMain.transform.position = new Vector3(camMain.transform.position.x, fDistance, camMain.transform.position.z - offsetY);
+        CamTuringWindow.transformObject.transform.RotateAround(centerPosition, Vector3.right, angle);
+
+        SetCamDistance(distance, addVector, centerPosition);
+        camMain.orthographicSize += size;
     }
-    void SetCamDistanceZ(float fDistance, float fTan)
+    void SetCamDistance(float distance, in Vector3 addVector, in Vector3 centerPosition)
     {
-        float offsetY = (fDistance - camMain.transform.position.z) * fTan;
-        camMain.transform.position = new Vector3(camMain.transform.position.x, camMain.transform.position.y - offsetY, fDistance);
-    }
+        Vector3 newVector = CamTuringWindow.transformObject.transform.position - centerPosition;
+        Vector2 newVector2 = new Vector2(newVector.y, newVector.z).normalized * distance;
 
-    void GetPerMove(float fX, float fZ, out Vector3 perVector)
-    {
-        float perX = (transform.position.x - camMain.transform.position.x + fX);
 
-        float distance = Vector3.Distance(new Vector3(0, camMain.transform.position.y, camMain.transform.position.z),
-                                         new Vector3(0, transform.position.y, transform.position.z));
-        float radAngle = Mathf.Deg2Rad * camMain.transform.eulerAngles.x;
-        float deltaY = Mathf.Sin(radAngle) * distance;
-        float deltaZ = -Mathf.Cos(radAngle) * distance;
+        camMain.transform.position = new Vector3(CamTuringWindow.transformObject.transform.position.x,
+            centerPosition.y + newVector2.x, centerPosition.z + newVector2.y) + addVector;
 
-        float perY = (transform.position.y - (camMain.transform.position.y - deltaY));
-        float perZ = (transform.position.z - (camMain.transform.position.z - deltaZ) + fZ);
-
-        CamTuringWindow.transformObject = new GameObject();
-        perVector = new Vector3(perX, perY, perZ);
-    }
-    void GetCamPosition(float angle, float size, in Vector3 vec)
-    {
-        CamTuringWindow.transformObject.transform.RotateAround(transform.position, Vector3.right, angle);
-        camMain.transform.eulerAngles = CamTuringWindow.transformObject.transform.eulerAngles;
-        camMain.transform.position = CamTuringWindow.transformObject.transform.position + vec;
-        camMain.orthographicSize = size;
+        camMain.transform.rotation = CamTuringWindow.transformObject.transform.rotation;
     }
     protected abstract void SetWindowOpen();
     protected abstract void SetMemory();

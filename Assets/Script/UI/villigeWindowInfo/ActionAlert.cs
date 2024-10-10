@@ -12,27 +12,45 @@ public class ActionAlert : MonoBehaviour
         walking,
         training,
         healing,
-        farming
+        buildingWork
     }
     [SerializeField] Color[] colors;
 
-    List<string> actions = new List<string>();
+    List<string> villigeActions = new List<string>();
+    List<string> buildingActions = new List<string>();
 
 
     private void Awake()
     {
         text = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        actions.Add("<color=#ECE7E4>산책중...</color>");
-        actions.Add("<color=#DEBA7F>훈련중...</color>");
-        actions.Add("<color=#F3776B>치료중...</color>");
-        actions.Add("<color=#9AD292>농사중...</color>");
+        villigeActions.Add("<color=#ECE7E4>산책중...</color>");
+        villigeActions.Add("<color=#DEBA7F>훈련중...</color>");
+        villigeActions.Add("<color=#F3776B>치료중...</color>");
+
+        buildingActions.Add("<color=#99D191>무덤관리</color>");
+        buildingActions.Add("<color=#99D191>대장간 업무</color>");
+        buildingActions.Add("<color=#99D191>거주지 관리</color>");
+        buildingActions.Add("<color=#99D191>거주지 관리</color>");
+        buildingActions.Add("<color=#99D191>공구 관리</color>");
+        buildingActions.Add("<color=#99D191>거주지 관리</color>");
+        buildingActions.Add("<color=#99D191>훈련소 교관</color>");
+        buildingActions.Add("<color=#99D191>거주지 관리</color>");
+        buildingActions.Add("<color=#99D191>거주지 관리</color>");
     }
 
-    public void ChangeAction(ActionType type)
+    public void ChangeAction(ActionType type, AddressableManager.BuildingImage buildingAction)
     {
-        text.text = actions[(int)type];
-        text.color = colors[(int)type];
+        if (type == ActionType.buildingWork)
+        {
+            text.text = buildingActions[(int)buildingAction];
+        }
+        else
+        {
+            text.text = villigeActions[(int)type];
+            text.color = colors[(int)type];
+        }
     }
+
 
 
 }

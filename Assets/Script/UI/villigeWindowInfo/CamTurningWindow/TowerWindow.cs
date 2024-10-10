@@ -14,8 +14,6 @@ public class TowerWindow : CamTuringWindow
     [SerializeField] AddressableManager addressableManager;
     [SerializeField] FloorManager floorManager;
 
-    BuildSetCharacter[] heros = new BuildSetCharacter[5];
-
     [SerializeField] Button nextButton;
     int nowFloor;
     [Serializable]
@@ -116,6 +114,7 @@ public class TowerWindow : CamTuringWindow
     [SerializeField] GameObject[] window1Object;
     [SerializeField] GameObject window2Object;
     [SerializeField] GameObject camMoveEndObject;
+    [SerializeField] StageButtonSet stageButtonSet;
     public override void Init()
     {
 
@@ -124,8 +123,6 @@ public class TowerWindow : CamTuringWindow
         floortagImage.Init(this);
 
         PrintFloorData();
-        //for (int i = 0; i < heros.Length; i++)
-        //    heros[i] = new BuildSetCharacter(transform.Find("HeroTeam").Find("MainTeam").GetChild(i));
     }
 
     public void SetOpen(bool onoff, AddressableManager.BuildingImage type)
@@ -190,7 +187,14 @@ public class TowerWindow : CamTuringWindow
         towerComponent.ChangeAngle(nowFloor, data.floorLooks[nowFloor], 10);
         Window1Active(false);
         towerComponent.SetAssembleCollierActive(false);
-        towerComponent.windowEnd += () => camMoveEndObject.SetActive(true);
+        towerComponent.windowEnd += () =>
+        {
+            camMoveEndObject.SetActive(true);
+            int tempFloor = nowFloor * 10;
+            int printFloor = Mathf.Min(Mathf.Max(data.nowFloor, tempFloor + 1), tempFloor + 10);
+
+            stageButtonSet.ActiveDrag(printFloor);
+        };
     }
     public void Exit()
     {

@@ -56,7 +56,7 @@ public class WindowInfo : MonoBehaviour
         level.GetLevel(hero.stat.Lv);
         quirk.SetQuirk(hero.quirks);
         disease.SetQuirk(hero.disease);
-        action.ChangeAction(hero.VilligeAction);
+        action.ChangeAction(hero.VilligeAction, hero.BuildingAction);
         skill.ActivateSkillPreview(hero);
         item.ActiveItemPreview(hero);
     }
