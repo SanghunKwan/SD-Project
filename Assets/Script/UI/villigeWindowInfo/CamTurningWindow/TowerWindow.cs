@@ -14,8 +14,10 @@ public class TowerWindow : CamTuringWindow
     [SerializeField] AddressableManager addressableManager;
     [SerializeField] FloorManager floorManager;
 
-    [SerializeField] Button nextButton;
+    Button nextButton;
+    Button stageButton;
     int nowFloor;
+    int[] triggerId = new int[3];
     [Serializable]
     class FloorTag
     {
@@ -113,16 +115,34 @@ public class TowerWindow : CamTuringWindow
     [SerializeField] NowFloorTag nowFloortag;
     [SerializeField] GameObject[] window1Object;
     [SerializeField] GameObject window2Object;
-    [SerializeField] GameObject camMoveEndObject;
-    [SerializeField] StageButtonSet stageButtonSet;
+    GameObject camMoveEndObject;
+    StageButtonSet stageButtonSet;
+
+    MissionExplain missionExplain;
+    HighLightImage highLightImage;
+    [SerializeField] InitInterface[] needInit;
+
     public override void Init()
     {
 
         buildingIcon = transform.Find("BuildingName").GetChild(0).GetComponent<Image>();
         buildingName = buildingIcon.transform.parent.GetChild(1).GetComponent<TextMeshProUGUI>();
         floortagImage.Init(this);
+        nextButton = window1Object[0].transform.Find("NextButton").GetComponent<Button>();
+        stageButton = window2Object.transform.Find("stageButton").GetComponent<Button>();
+        camMoveEndObject = window2Object.transform.Find("tempTower").gameObject;
+        stageButtonSet = camMoveEndObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<StageButtonSet>();
+        missionExplain = transform.Find("MissionExplain").GetComponent<MissionExplain>();
+        highLightImage = stageButtonSet.transform.GetChild(stageButtonSet.transform.childCount - 1).GetComponent<HighLightImage>();
 
         PrintFloorData();
+
+        triggerId[0] = Animator.StringToHash("fadeIn");
+        triggerId[1] = Animator.StringToHash("fadeOut");
+        triggerId[2] = Animator.StringToHash("fadeOutQuick");
+
+        foreach (var i in needInit)
+            i.Init();
     }
 
     public void SetOpen(bool onoff, AddressableManager.BuildingImage type)
@@ -186,27 +206,41 @@ public class TowerWindow : CamTuringWindow
         floorManager.GetData(out FloorManager.FloorData data);
         towerComponent.ChangeAngle(nowFloor, data.floorLooks[nowFloor], 10);
         Window1Active(false);
+        Window2LoadingEffect();
         towerComponent.SetAssembleCollierActive(false);
         towerComponent.windowEnd += () =>
         {
             camMoveEndObject.SetActive(true);
+            stageButton.gameObject.SetActive(true);
             int tempFloor = nowFloor * 10;
             int printFloor = Mathf.Min(Mathf.Max(data.nowFloor, tempFloor + 1), tempFloor + 10);
 
             stageButtonSet.ActiveDrag(printFloor);
+            stageButtonSet.SelectStage(printFloor);
+            highLightImage.CallFloor(printFloor);
         };
+    }
+    void Window2LoadingEffect()
+    {
+        stageButtonSet.GetHeroTeam.SetTeamActiveCount(0);
+        missionExplain.gameObject.SetActive(true);
     }
     public void Exit()
     {
         towerComponent.ChangeAngle(40);
         Window1Active(true);
         camMoveEndObject.SetActive(false);
+        stageButton.gameObject.SetActive(false);
+        stageButton.interactable = false;
+        missionExplain.anim.SetTrigger(triggerId[1]);
     }
     void Window1Active(bool onoff)
     {
         foreach (var obj in window1Object)
             obj.SetActive(onoff);
         window2Object.SetActive(!onoff);
+
+
     }
     public void BackStep()
     {
@@ -215,5 +249,8 @@ public class TowerWindow : CamTuringWindow
         ExitReset();
         towerComponent.SetAssembleCollierActive(true);
         camMoveEndObject.SetActive(false);
+        stageButton.gameObject.SetActive(false);
+        missionExplain.anim.SetTrigger(triggerId[2]);
     }
+
 }

@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class BuildingArrange : MonoBehaviour
 {
-    BoxCollider coll;
-    int enterColNum;
+
     public bool isChanged { get; private set; }
 
     Dictionary<bool, Action> dicState = new Dictionary<bool, Action>();
+    HashSet<Collider> colliders = new HashSet<Collider>();
     SpriteRenderer backGround;
 
     [SerializeField] Color[] colors = new Color[2];
@@ -17,7 +17,6 @@ public class BuildingArrange : MonoBehaviour
 
     private void Awake()
     {
-        coll = GetComponent<BoxCollider>();
         backGround = transform.Find("BackGround").GetComponent<SpriteRenderer>();
 
         dicState.Add(false, ColNumZero);
@@ -27,20 +26,20 @@ public class BuildingArrange : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 9)
-            enterColNum++;
+            colliders.Add(other);
         ChangeConstructState();
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == 9)
-            enterColNum--;
+            colliders.Remove(other);
 
         ChangeConstructState();
     }
 
     void ChangeConstructState()
     {
-        dicState[Convert.ToBoolean(enterColNum)]();
+        dicState[Convert.ToBoolean(colliders.Count)]();
     }
 
     void ColNumZero()

@@ -1,0 +1,408 @@
+{
+    "data": [
+        {
+            "nowFloor": 0,
+            "participatingTeamCount": 0
+        },
+        {
+            "nowFloor": 1,
+            "participatingTeamCount": 1
+        },
+        {
+            "nowFloor": 2,
+            "participatingTeamCount": 1
+        },
+        {
+            "nowFloor": 3,
+            "participatingTeamCount": 1
+        },
+        {
+            "nowFloor": 4,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 5,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 6,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 7,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 8,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 9,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 10,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 11,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 12,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 13,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 14,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 15,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 16,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 17,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 18,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 19,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 20,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 21,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 22,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 23,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 24,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 25,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 26,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 27,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 28,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 29,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 30,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 31,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 32,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 33,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 34,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 35,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 36,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 37,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 38,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 39,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 40,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 41,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 42,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 43,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 44,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 45,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 46,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 47,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 48,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 49,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 50,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 51,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 52,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 53,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 54,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 55,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 56,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 57,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 58,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 59,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 60,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 61,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 62,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 63,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 64,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 65,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 66,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 67,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 68,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 69,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 70,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 71,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 72,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 73,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 74,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 75,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 76,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 77,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 78,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 79,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 80,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 81,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 82,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 83,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 84,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 85,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 86,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 87,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 88,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 89,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 90,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 91,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 92,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 93,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 94,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 95,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 96,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 97,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 98,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 99,
+            "participatingTeamCount": 2
+        },
+        {
+            "nowFloor": 100,
+            "participatingTeamCount": 2
+        }
+    ]
+}

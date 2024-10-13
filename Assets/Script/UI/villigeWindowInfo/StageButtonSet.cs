@@ -5,9 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
+
 public class StageButtonSet : InitInterface, IPointerDownHandler
 {
     Button[] buttons;
+    [SerializeField] Button stageButton;
     TextMeshProUGUI[] text;
     RectTransform rectTransform;
     ScrollRect scrollRect;
@@ -28,12 +30,34 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
     [SerializeField] FloorManager floorManager;
     FloorManager.FloorData data;
     [SerializeField] ObjectAssembly objectAssembly;
+    [SerializeField] HeroTeam heroTeam;
+    public HeroTeam GetHeroTeam { get => heroTeam; }
+
+    class ParticipatingTeamView
+    {
+        Text text;
+        public ParticipatingTeamView(Transform buttonTransform)
+        {
+            text = buttonTransform.Find("image").GetChild(0).GetComponent<Text>();
+        }
+        public void SetStageNum(int stageNum)
+        {
+            text.text = StageManager.instance.GetStageTeamCount(stageNum).ToString();
+        }
+    }
+    ParticipatingTeamView[] participatingTeamViews;
 
     public override void Init()
     {
         buttons = GetComponentsInChildren<Button>();
         text = GetComponentsInChildren<TextMeshProUGUI>();
         scrollRect = transform.parent.parent.GetComponent<ScrollRect>();
+        rectTransform = GetComponent<RectTransform>();
+
+        participatingTeamViews = new ParticipatingTeamView[buttons.Length];
+        for (int i = 0; i < participatingTeamViews.Length; i++)
+            participatingTeamViews[i] = new ParticipatingTeamView(buttons[i].transform);
+
         floorManager.GetData(out data);
 
         lastindex = buttons.Length - 1;
@@ -42,8 +66,6 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
         m_biggestNum = maxFloor;
         ButtonTextSet(m_biggestNum);
         ButtonSetInteractive(m_biggestNum);
-
-        rectTransform = GetComponent<RectTransform>();
 
         m_yValue = buttons[0].image.rectTransform.sizeDelta.y * 0.5f - buttons[0].image.rectTransform.anchoredPosition.y;
         m_yMin = m_yValue + 1;
@@ -58,8 +80,12 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
     void ButtonUp()
     {
         ButtonMove(lastindex, moveLength);
-        text[lastindex].text = m_biggestNum.ToString();
-        buttons[lastindex].interactable = data.nowFloor + 1 >= m_biggestNum;
+        int bigNum = m_biggestNum;
+        text[lastindex].text = bigNum.ToString();
+        buttons[lastindex].interactable = data.nowFloor + 1 >= bigNum;
+        buttons[lastindex].onClick.RemoveAllListeners();
+        buttons[lastindex].onClick.AddListener(() => SelectStage(bigNum));
+        participatingTeamViews[lastindex].SetStageNum(bigNum);
         SetButtonPosition(-1);
     }
     void ButtonDown()
@@ -67,7 +93,10 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
         ButtonMove(firstIndex, -moveLength);
         int tempNum = m_biggestNum - text.Length;
         text[firstIndex].text = tempNum.ToString();
-        buttons[firstIndex].interactable = data.nowFloor + 1 >= tempNum ;
+        buttons[firstIndex].interactable = data.nowFloor + 1 >= tempNum;
+        buttons[firstIndex].onClick.RemoveAllListeners();
+        buttons[firstIndex].onClick.AddListener(() => SelectStage(tempNum));
+        participatingTeamViews[firstIndex].SetStageNum(tempNum);
         SetButtonPosition(1);
     }
     public void SetButtonPosition(int numChange)
@@ -173,4 +202,13 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
     {
         isCamMove = true;
     }
+    #region 스테이지 선택
+    public void SelectStage(int stageNum)
+    {
+        heroTeam.SetTeamActiveCount(StageManager.instance.GetStageTeamCount(stageNum));
+        stageButton.interactable = data.nowFloor + 1 >= stageNum;
+        
+    }
+
+    #endregion
 }

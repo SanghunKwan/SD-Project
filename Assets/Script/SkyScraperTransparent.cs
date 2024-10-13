@@ -25,7 +25,7 @@ public class SkyScraperTransparent : MonoBehaviour
         listMaterial.Add(originalMaterials);
         listMaterial.Add(transparentMaterials);
         listMaterial.Add(highLightMaterials);
-
+        
     }
 
     public void ChangeTransparent(EnumMaterial materialType)
@@ -35,5 +35,13 @@ public class SkyScraperTransparent : MonoBehaviour
     public void SetRendererEnable(bool onoff)
     {
         mRenderer.enabled = onoff;
+    }
+    public void DistanceToTransparent(float distance)
+    {
+        foreach (Material mat in transparentMaterials)
+        {
+            mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, distance);
+        }
+
     }
 }

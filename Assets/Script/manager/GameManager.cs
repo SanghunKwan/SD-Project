@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     Action[] inputSpace = new Action[2];
     Action[] inputSpaceUp = new Action[2];
     public Action callConstructionUI;
-    int currentStageIndex;
+
 
     public PointerEventData pointerEventData { get; set; }
 
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
         inputSpaceUp[0] = TimeDelayEnd;
         inputSpaceUp[1] = () => { };
-        currentStageIndex = StageManager.instance.GetIndexScene();
+
 
 
         DefaultKeyboardConverter();
@@ -567,7 +567,8 @@ public class GameManager : MonoBehaviour
 
     public void InputSpace()
     {
-        inputSpace[currentStageIndex]();
+
+        inputSpace[StageManager.instance.GetIndexScene()]();
 
     }
     void TimeDelay()
@@ -586,7 +587,7 @@ public class GameManager : MonoBehaviour
     }
     public void SpaceUp()
     {
-        inputSpaceUp[currentStageIndex]();
+        inputSpaceUp[StageManager.instance.GetIndexScene()]();
     }
     public void TimeDelayEnd()
     {

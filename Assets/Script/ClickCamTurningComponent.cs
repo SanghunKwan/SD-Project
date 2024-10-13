@@ -119,7 +119,6 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
 
         Vector3 addVector = Vector3.zero;
         Vector3 centerPosition = transform.position + Vector3.up * tOffset;
-        Debug.Log("centerPosition : " + centerPosition + "    perVector : " + perVector);
         float originalRotation = camMain.transform.eulerAngles.x;
         float timeCheck = 0;
         float delta;

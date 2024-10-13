@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,8 +12,8 @@ public class StageManager : MonoBehaviour
     public static StageManager instance;
 
 
-    public bool Newstage = false;
-    public bool isDone = false;
+    public bool Newstage { get; set; } = false;
+    public bool isDone { get; set; } = false;
     [SerializeField] GameObject[] Stage;
     [SerializeField] GameObject[] objects;
 
@@ -21,11 +23,39 @@ public class StageManager : MonoBehaviour
     {
         BONEWALL,
     }
+    [Serializable]
+    public class StageData
+    {
+        public int nowFloor;
+        public int participatingTeamCount;
+        public StageData(int floor)
+        {
+            nowFloor = floor;
+            participatingTeamCount = 10;
+        }
+    }
+    StageDatas saveData;
+    [Serializable]
+    class StageDatas
+    {
+        public StageData[] data;
+
+        public StageDatas()
+        {
+            data = new StageData[100];
+            for (int i = 0; i < data.Length; i++)
+                data[i] = new StageData(i);
+        }
+    }
 
 
     private void Awake()
     {
         instance = this;
+
+        string wnth = Path.Combine(Application.dataPath, "DataTable/StageData.json");
+
+        saveData = (StageDatas)JsonUtility.FromJson(File.ReadAllText(wnth), typeof(StageDatas));
     }
     private void Start()
     {
@@ -37,13 +67,13 @@ public class StageManager : MonoBehaviour
             {
                 Instantiate(objects[i], folder.transform);
             }
-            Debug.Log("asdf");
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        //새로운 스테이지 생성. 수정 필요.
         if (Newstage && !isDone)
         {
             isDone = true;
@@ -51,12 +81,12 @@ public class StageManager : MonoBehaviour
             newPlane.transform.GetChild(0).GetChild(0).localPosition -= new Vector3(50.2f, 0, 0);
         }
     }
-
-    public void SceneLoad()
+    #region 씬
+    public void SceneLoad(int SceneIndex)
     {
         DontDestroyOnLoad(this);
         DontdestoryList();
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneIndex);
     }
     void DontdestoryList()
     {
@@ -79,4 +109,23 @@ public class StageManager : MonoBehaviour
     {
         return SceneManager.GetActiveScene().buildIndex;
     }
+    #endregion
+    #region 스테이지 데이터
+    [ContextMenu("json만들기")]
+    public void SDF()
+    {
+        StageDatas asdf = new StageDatas();
+
+        string wnth = Path.Combine(Application.dataPath, "DataTable/asdf.json");
+
+        File.WriteAllText(wnth, JsonUtility.ToJson(asdf, true));
+
+    }
+
+    public int GetStageTeamCount(int stage)
+    {
+        return saveData.data[stage].participatingTeamCount;
+    }
+
+    #endregion
 }

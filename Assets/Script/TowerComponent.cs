@@ -30,7 +30,7 @@ public class TowerComponent : ClickCamTurningComponent
     protected override void SetWindowOpen()
     {
         towerWindow.SetOpen(isWindowOpen, type);
-        skyScraperComponent.SetTransparent(false);
+        skyScraperComponent.SetTransparent(1);
 
         SetAssembleCollierActive(isWindowOpen);
     }

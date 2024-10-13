@@ -35,16 +35,18 @@ public class SkyScraperComponent : MonoBehaviour
 
         float fTransparent = tanAngle * camMain.transform.position.y - fLength;
 
-        SetTransparent(fTransparent < 0);
+        SetTransparent(fTransparent);
         SetEnable(fTransparent + disEnabledOffset > 0);
-
     }
-    public void SetTransparent(bool onoff)
+    public void SetTransparent(float distance)
     {
-        int convertNum = System.Convert.ToInt32(onoff);
+        int convertNum = System.Convert.ToInt32(distance < 0);
+        SkyScraperTransparent.EnumMaterial enumNum = (SkyScraperTransparent.EnumMaterial)convertNum;
         foreach (var script in scraperScripts)
         {
-            script.ChangeTransparent((SkyScraperTransparent.EnumMaterial)convertNum);
+            script.ChangeTransparent(enumNum);
+            if (enumNum == SkyScraperTransparent.EnumMaterial.transparentMaterials)
+                script.DistanceToTransparent((distance + disEnabledOffset) / disEnabledOffset);
         }
     }
     void SetEnable(bool onoff)
