@@ -2,67 +2,149 @@
     "data": [
         {
             "nowFloor": 0,
-            "participatingTeamCount": 0
+            "participatingTeamCount": 0,
+            "stageRewardsImage": [
+
+            ]
         },
         {
             "nowFloor": 1,
-            "participatingTeamCount": 1
+            "participatingTeamCount": 1,
+            "stageName": "1층 낯선 숲",
+            "stagePurpose": "모든 적 처치",
+            "stageRewardsImage": [
+                0
+            ]
         },
         {
             "nowFloor": 2,
-            "participatingTeamCount": 1
+            "participatingTeamCount": 1,
+            "stageName": "2층 오솔길",
+            "stagePurpose": "모든 적 처치",
+            "stageRewardsImage": [
+                0
+            ]
         },
         {
             "nowFloor": 3,
-            "participatingTeamCount": 1
+            "participatingTeamCount": 1,
+            "stageName": "3층 좁은 길",
+            "stagePurpose": "모든 적 처치",
+            "stageRewardsImage": [
+                0
+            ]
         },
         {
             "nowFloor": 4,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "4층 가파른 길",
+            "stagePurpose": "모든 적 처치",
+            "stageRewardsImage": [
+                0
+            ]
         },
         {
             "nowFloor": 5,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "5층 막다른길",
+            "stagePurpose": "적 처치",
+            "stageRewardsImage": [
+                0,
+                3
+            ]
         },
         {
             "nowFloor": 6,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "6층 깊은 숲",
+            "stagePurpose": "적 처치",
+            "stageRewardsImage": [
+                0,
+                3
+            ]
         },
         {
             "nowFloor": 7,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "7층 넓은 길",
+            "stagePurpose": "적 처치",
+            "stageRewardsImage": [
+                0,
+                3
+            ]
         },
         {
             "nowFloor": 8,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "8층 기척 없는 도로",
+            "stagePurpose": "적 처치",
+            "stageRewardsImage": [
+                0
+            ]
         },
         {
             "nowFloor": 9,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "9층 고블린 마을",
+            "stagePurpose": "적 처치",
+            "stageRewardsImage": [
+                0
+            ]
         },
         {
             "nowFloor": 10,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "10층 텅 빈 도시",
+            "stagePurpose": "일몰까지 생존",
+            "stageRewardsImage": [ 0, 1 ]
         },
         {
             "nowFloor": 11,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "11층 버려진 들판",
+            "stagePurpose": "모든 적 처치",
+            "stageRewardsImage": [
+                0
+            ]
         },
         {
             "nowFloor": 12,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "12층 텅 빈 마을",
+            "stagePurpose": "모든 적 처치",
+            "stageRewardsImage": [
+                0,
+                3
+            ]
         },
         {
             "nowFloor": 13,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "13층 낯익은 숲",
+            "stagePurpose": "모든 적 처치",
+            "stageRewardsImage": [
+                0,
+                3
+            ]
         },
         {
             "nowFloor": 14,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "14층 더러운 해자",
+            "stagePurpose": "모든 적 처치",
+            "stageRewardsImage": [
+                0
+            ]
         },
         {
             "nowFloor": 15,
-            "participatingTeamCount": 2
+            "participatingTeamCount": 2,
+            "stageName": "15층 주인 없는 성",
+            "stagePurpose": "모든 적 처치",
+            "stageRewardsImage": [
+                0,
+                1
+            ]
         },
         {
             "nowFloor": 16,

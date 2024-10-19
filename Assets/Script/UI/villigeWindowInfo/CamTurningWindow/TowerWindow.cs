@@ -120,6 +120,7 @@ public class TowerWindow : CamTuringWindow
 
     MissionExplain missionExplain;
     HighLightImage highLightImage;
+    SaveStageView saveStageView;
     [SerializeField] InitInterface[] needInit;
 
     public override void Init()
@@ -134,6 +135,7 @@ public class TowerWindow : CamTuringWindow
         stageButtonSet = camMoveEndObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<StageButtonSet>();
         missionExplain = transform.Find("MissionExplain").GetComponent<MissionExplain>();
         highLightImage = stageButtonSet.transform.GetChild(stageButtonSet.transform.childCount - 1).GetComponent<HighLightImage>();
+        saveStageView = window2Object.transform.Find("savedStageViewer").GetComponent<SaveStageView>();
 
         PrintFloorData();
 
@@ -212,12 +214,16 @@ public class TowerWindow : CamTuringWindow
         {
             camMoveEndObject.SetActive(true);
             stageButton.gameObject.SetActive(true);
+            stageButtonSet.StageSaveButton.gameObject.SetActive(true);
+            saveStageView.gameObject.SetActive(true);
             int tempFloor = nowFloor * 10;
             int printFloor = Mathf.Min(Mathf.Max(data.nowFloor, tempFloor + 1), tempFloor + 10);
 
             stageButtonSet.ActiveDrag(printFloor);
             stageButtonSet.SelectStage(printFloor);
             highLightImage.CallFloor(printFloor);
+            missionExplain.ChangeExplain(printFloor);
+            saveStageView.NowNode.SelectStage(printFloor);
         };
     }
     void Window2LoadingEffect()
@@ -230,9 +236,10 @@ public class TowerWindow : CamTuringWindow
         towerComponent.ChangeAngle(40);
         Window1Active(true);
         camMoveEndObject.SetActive(false);
-        stageButton.gameObject.SetActive(false);
-        stageButton.interactable = false;
         missionExplain.anim.SetTrigger(triggerId[1]);
+        saveStageView.gameObject.SetActive(false);
+        missionExplain.AnimationStart();
+        missionExplain.gameObject.SetActive(false);
     }
     void Window1Active(bool onoff)
     {
@@ -250,6 +257,8 @@ public class TowerWindow : CamTuringWindow
         towerComponent.SetAssembleCollierActive(true);
         camMoveEndObject.SetActive(false);
         stageButton.gameObject.SetActive(false);
+        stageButtonSet.StageSaveButton.gameObject.SetActive(false);
+        saveStageView.gameObject.SetActive(false);
         missionExplain.anim.SetTrigger(triggerId[2]);
     }
 

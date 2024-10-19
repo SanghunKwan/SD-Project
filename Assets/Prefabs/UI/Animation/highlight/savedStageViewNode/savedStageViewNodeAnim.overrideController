@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: savedStageViewNodeAnim
+  m_Controller: {fileID: 9100000, guid: 5e86cf558d5dcd74e821e880bcea17b6, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: d1238be4b3482f3439ef121f7fbab7d5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0551c6709a8f06747a7906317f7b84be, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b58198b2bd7840d409243ad30f75134b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 536b1b08fc07c15488386e104c68e36c, type: 2}

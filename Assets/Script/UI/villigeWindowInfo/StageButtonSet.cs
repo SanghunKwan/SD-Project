@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 
 public class StageButtonSet : InitInterface, IPointerDownHandler
 {
     Button[] buttons;
     [SerializeField] Button stageButton;
+    [SerializeField] Button stageSaveButton;
+    public Button StageSaveButton { get { return stageSaveButton; } }
     TextMeshProUGUI[] text;
     RectTransform rectTransform;
     ScrollRect scrollRect;
@@ -22,6 +25,7 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
     [SerializeField] int offsetCount;
     [SerializeField] int maxFloor;
     int m_biggestNum;
+    int temporarilyAddFloor;
     float m_yValue;
     float m_yMin;
     float m_yMax;
@@ -32,6 +36,9 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
     [SerializeField] ObjectAssembly objectAssembly;
     [SerializeField] HeroTeam heroTeam;
     public HeroTeam GetHeroTeam { get => heroTeam; }
+    [SerializeField] MissionExplain missionExplain;
+    [SerializeField] SaveStageView saveStageView;
+
 
     class ParticipatingTeamView
     {
@@ -59,13 +66,13 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
             participatingTeamViews[i] = new ParticipatingTeamView(buttons[i].transform);
 
         floorManager.GetData(out data);
+        saveStageView.nowFloor = data.nowFloor;
 
         lastindex = buttons.Length - 1;
         moveLength = offset * buttons.Length;
 
         m_biggestNum = maxFloor;
         ButtonTextSet(m_biggestNum);
-        ButtonSetInteractive(m_biggestNum);
 
         m_yValue = buttons[0].image.rectTransform.sizeDelta.y * 0.5f - buttons[0].image.rectTransform.anchoredPosition.y;
         m_yMin = m_yValue + 1;
@@ -82,9 +89,8 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
         ButtonMove(lastindex, moveLength);
         int bigNum = m_biggestNum;
         text[lastindex].text = bigNum.ToString();
-        buttons[lastindex].interactable = data.nowFloor + 1 >= bigNum;
-        buttons[lastindex].onClick.RemoveAllListeners();
-        buttons[lastindex].onClick.AddListener(() => SelectStage(bigNum));
+        buttons[lastindex].interactable = data.nowFloor + temporarilyAddFloor >= bigNum;
+        ChangeButtonAction(lastindex, bigNum);
         participatingTeamViews[lastindex].SetStageNum(bigNum);
         SetButtonPosition(-1);
     }
@@ -93,11 +99,15 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
         ButtonMove(firstIndex, -moveLength);
         int tempNum = m_biggestNum - text.Length;
         text[firstIndex].text = tempNum.ToString();
-        buttons[firstIndex].interactable = data.nowFloor + 1 >= tempNum;
-        buttons[firstIndex].onClick.RemoveAllListeners();
-        buttons[firstIndex].onClick.AddListener(() => SelectStage(tempNum));
+        buttons[firstIndex].interactable = data.nowFloor + temporarilyAddFloor >= tempNum;
+        ChangeButtonAction(firstIndex, tempNum);
         participatingTeamViews[firstIndex].SetStageNum(tempNum);
         SetButtonPosition(1);
+    }
+    void ChangeButtonAction(int index, int setNum)
+    {
+        buttons[index].onClick.RemoveAllListeners();
+        buttons[index].onClick.AddListener(() => SelectStage(setNum));
     }
     public void SetButtonPosition(int numChange)
     {
@@ -110,25 +120,13 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
         for (int i = firstIndex; i < text.Length; i++)
         {
             text[i].text = biggestFloor.ToString();
+            buttons[i].interactable = data.nowFloor >= biggestFloor;
             biggestFloor--;
         }
         for (int i = 0; i < firstIndex; i++)
         {
             text[i].text = biggestFloor.ToString();
-            biggestFloor--;
-        }
-    }
-    public void ButtonSetInteractive(int biggestFloor)
-    {
-        int enableFloor = data.nowFloor + 1;
-        for (int i = firstIndex; i < buttons.Length; i++)
-        {
-            buttons[i].interactable = enableFloor >= biggestFloor;
-            biggestFloor--;
-        }
-        for (int i = 0; i < firstIndex; i++)
-        {
-            buttons[i].interactable = enableFloor >= biggestFloor;
+            buttons[i].interactable = data.nowFloor >= biggestFloor;
             biggestFloor--;
         }
     }
@@ -206,9 +204,64 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
     public void SelectStage(int stageNum)
     {
         heroTeam.SetTeamActiveCount(StageManager.instance.GetStageTeamCount(stageNum));
-        stageButton.interactable = data.nowFloor + 1 >= stageNum;
-        
+
+        stageButton.interactable = data.nowFloor >= stageNum - temporarilyAddFloor;
+        stageSaveButton.interactable = stageButton.interactable && saveStageView.IsLastIndex;
+
+        missionExplain.ChangeExplain(stageNum);
+        saveStageView.NowNode.SelectStage(stageNum);
+    }
+    public void RemainStage(int stageNum)
+    {
+        missionExplain.ChangeExplain(stageNum);
     }
 
     #endregion
+    #region 스테이지 선택 범위 변화
+    public void StageRangeAdd(int offset)
+    {
+        temporarilyAddFloor += offset;
+    }
+    public void StageSetInteractive(int floor)
+    {
+        int range = m_biggestNum - floor;
+
+        if (Mathf.Abs(range) > buttons.Length)
+            return;
+
+        int index = (firstIndex + range - 1) % buttons.Length;
+        buttons[index].interactable = true;
+        ChangeButtonAction(index, floor + 1);
+    }
+    public void StageSetInteractiveWhile(int floor)
+    {
+        int floorDecrease = floor - data.nowFloor;
+
+        if (floorDecrease < 0) return;
+
+        int index = firstIndex;
+        int time = m_biggestNum - floor;
+
+        while (time > 0)
+        {
+            buttons[index].interactable = false;
+            index = (index + 1) % buttons.Length;
+            time--;
+        }
+
+    }
+    private void OnDisable()
+    {
+        temporarilyAddFloor = 0;
+        ButtonTextSet(m_biggestNum);
+        stageSaveButton.gameObject.SetActive(false);
+        stageButton.gameObject.SetActive(false);
+        stageButton.interactable = false;
+    }
+    #endregion
+    public void AllButtonSet(bool onoff)
+    {
+        stageButton.interactable = onoff;
+        StageSaveButton.interactable = onoff;
+    }
 }

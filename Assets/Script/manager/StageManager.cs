@@ -28,15 +28,22 @@ public class StageManager : MonoBehaviour
     {
         public int nowFloor;
         public int participatingTeamCount;
+        public string stageName;
+        public string stagePurpose;
+        public int[] stageRewardsImage;
+
         public StageData(int floor)
         {
             nowFloor = floor;
             participatingTeamCount = 10;
+            stageName = "asdf";
+            stagePurpose = "fdsa";
+            stageRewardsImage = new int[4] { 0, 1, 2, 3 };
         }
     }
-    StageDatas saveData;
+    public StageDatas saveData { get; private set; }
     [Serializable]
-    class StageDatas
+    public class StageDatas
     {
         public StageData[] data;
 
