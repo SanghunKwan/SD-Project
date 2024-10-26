@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 
 public class KeyWindow : tempMenuWindow
@@ -15,9 +14,9 @@ public class KeyWindow : tempMenuWindow
     Action<string> textChange;
     SettingWindow settingWindow;
 
-    public Action setBack;
-    public Action changeSave;
-    public Action keyInit;
+    public Action setBack { get; set; }
+    public Action changeSave { get; set; }
+    public Action keyInit { get; set; }
 
     Action<InputControl> inputSave;
     public bool isResistered { get; private set; } = false;
@@ -26,8 +25,10 @@ public class KeyWindow : tempMenuWindow
     {
         PlayerInput,
         PlayerOwn,
-        NewKeyInput
+        NewKeyInput,
+        BuildingOrder
     }
+    KeymapType nowKeyType;
 
     private void Awake()
     {
@@ -36,7 +37,7 @@ public class KeyWindow : tempMenuWindow
         setBack += () => isResistered = false;
 
     }
-    private void SetKeyMap(KeymapType keymap)
+    void SetKeyMap(KeymapType keymap)
     {
         input.SwitchCurrentActionMap(keymap.ToString());
     }
@@ -60,13 +61,22 @@ public class KeyWindow : tempMenuWindow
 
     public void ChangeKey(InputControl control)
     {
-        input.defaultActionMap = KeymapType.PlayerOwn.ToString();
+        nowKeyType = KeymapType.PlayerOwn;
+        input.defaultActionMap = nowKeyType.ToString();
 
         blackScreen.Escape();
 
         textChange(control.displayName);
         inputSave(control);
 
+    }
+    public void ToggleKeyType(bool onoff)
+    {
+
+        if (onoff)
+            SetKeyMap(KeymapType.BuildingOrder);
+        else
+            SetKeyMap(nowKeyType);
     }
     public Action<string> GetKeyInfo(KeyButtonInput.BindingOrderActionNameInit[] byTransform,
                            KeyButtonInput.BindingOrderNumActionName[] byInt)

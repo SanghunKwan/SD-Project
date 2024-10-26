@@ -14,6 +14,8 @@ public abstract class CamTuringWindow : InitInterface
     public static GameObject transformObject { get; set; }
 
     [SerializeField] ClickDrag UIClickDragToggle;
+    [SerializeField] KeyWindow keyWindow;
+    [SerializeField] CharacterList characterList;
     public void ToggleWindow()
     {
         clickCamturningComponent.ToggleWindow();
@@ -29,6 +31,9 @@ public abstract class CamTuringWindow : InitInterface
             item.SetActive(false);
         }
         UIClickDragToggle.enabled = onoff;
+
+        keyWindow.ToggleKeyType(!onoff);
+        characterList.CollidersSetInteractive(onoff);
     }
     public virtual void GetTurningComponent(ClickCamTurningComponent getClickComponent)
     {
@@ -45,5 +50,9 @@ public abstract class CamTuringWindow : InitInterface
                 item.clickCamturningComponent.ChangeWindow();
             }
         }
+    }
+    void SetInputChange()
+    {
+
     }
 }

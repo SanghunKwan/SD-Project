@@ -16,49 +16,81 @@ namespace SDUI
         bool isVilligeInteractExist;
         [SerializeField] Color effectColor;
 
+        enum DragType
+        {
+            Interct,
+            TeamCollider
+        }
         private void Start()
         {
             image = GetComponent<Image>();
             teamUI = transform.parent.parent.GetComponent<TeamUI>();
         }
-
+        #region 드래그 입출
         public void OnPointerEnter(PointerEventData eventData)
         {
             image.color = effectColor;
             if (isDrag)
             {
                 isEnter = true;
-                teamUI.EnterCollider(transform.parent.GetSiblingIndex(), villigeInteract.now_villigeInteract);
-                villigeInteract.now_villigeInteract.NoMove();
-
+                ChangeText(villigeInteract.now_villigeInteract);
                 villigeInteract.now_villigeInteract.dragEndEvent += DragEnd;
             }
 
+        }
+        public void ChangeText(villigeInteract interact)
+        {
+            teamUI.EnterCollider(transform.parent.GetSiblingIndex(), interact);
+            interact.NoMove();
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             if (isDrag)
             {
-                teamUI.ExitCollider(transform.parent.GetSiblingIndex());
+                ResetText();
                 villigeInteract.now_villigeInteract.dragEndEvent -= DragEnd;
+            }
+            if (isVilligeInteractExist)
+            {
+
+                teamUI.DeleteSave(transform.parent.GetSiblingIndex());
             }
             image.color = Color.clear;
             ColliderExit();
         }
+        public void ResetText()
+        {
+            teamUI.ExitCollider(transform.parent.GetSiblingIndex());
+        }
+        public void NullText()
+        {
+            teamUI.ResetTeam(transform.parent.GetSiblingIndex());
+        }
+
+
+        #endregion
         void DragEnd()
         {
             if (isEnter)
             {
-                if (villigeInteract.now_villigeInteract.teamUIData.CanLoadData(out TeamUI team, out int sibling))
-                    team.DeleteSave(sibling, sibling == transform.parent.GetSiblingIndex());
-
-                teamUI.CharacterSave(transform.parent.GetSiblingIndex(), villigeInteract.now_villigeInteract);
-
-                villigeInteract.now_villigeInteract.teamUIData.SaveData(teamUI, transform.parent.GetSiblingIndex());
-                villigeInteract.now_villigeInteract.ChangeImage(AddressableManager.BuildingImage.Tower);
+                DataChange(villigeInteract.now_villigeInteract);
             }
             ColliderExit();
+        }
+        public void DataChange(villigeInteract interact)
+        {
+            if (interact.teamUIData.CanLoadData(out TeamUI team, out int sibling))
+                team.DeleteSave(sibling, team == teamUI && sibling == transform.parent.GetSiblingIndex());
+
+            teamUI.CharacterSave(transform.parent.GetSiblingIndex(), interact);
+
+            interact.teamUIData.SaveData(teamUI, transform.parent.GetSiblingIndex());
+            interact.ChangeImage(AddressableManager.BuildingImage.Tower);
+        }
+        public void DataErase()
+        {
+            teamUI.CharacterSave(transform.parent.GetSiblingIndex(), null);
         }
         void ColliderExit()
         {
@@ -66,7 +98,7 @@ namespace SDUI
         }
         public void OnBeginDrag(PointerEventData eventData)
         {
-            isVilligeInteractExist = teamUI.villigeInteracts[transform.parent.GetSiblingIndex()] != null
+            isVilligeInteractExist = teamUI.villigeInteracts[transform.parent.GetSiblingIndex()] is not null
                 && eventData.button != PointerEventData.InputButton.Left;
 
             if (!isVilligeInteractExist)
@@ -74,7 +106,7 @@ namespace SDUI
 
             teamUI.villigeInteracts[transform.parent.GetSiblingIndex()].BeginDragOffset(eventData, image);
             OnPointerEnter(eventData);
-            teamUI.DeleteSave(transform.parent.GetSiblingIndex());
+            teamUI.villigeInteracts[transform.parent.GetSiblingIndex()].ChangeImage(AddressableManager.BuildingImage.Tower, false);
         }
         public void OnDrag(PointerEventData eventData)
         {
@@ -90,6 +122,7 @@ namespace SDUI
                 return;
 
             villigeInteract.now_villigeInteract.OnEndDrag(eventData);
+            isVilligeInteractExist = false;
         }
 
         public void OnPointerClick(PointerEventData eventData)

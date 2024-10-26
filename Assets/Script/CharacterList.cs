@@ -29,10 +29,11 @@ public class CharacterList : MonoBehaviour
     {
         KEYBOARD,
         TIME,
+        TRANSFORM,
         MAX
     }
 
-    public BuildingSetWindow buildingSetWindow {  get; private set; }
+    public BuildingSetWindow buildingSetWindow { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,7 @@ public class CharacterList : MonoBehaviour
         SetCharacterListLength();
         actions[(int)ARRAYTYPE.KEYBOARD] = CleanKeyBoard;
         actions[(int)ARRAYTYPE.TIME] = CleanTime;
+        actions[(int)ARRAYTYPE.TRANSFORM] = CleanByTransform;
         CreateKeyCount();
 
         buildingSetWindow = transform.parent.Find("BuildingSetWindow").GetComponent<BuildingSetWindow>();
@@ -68,9 +70,8 @@ public class CharacterList : MonoBehaviour
             return;
 
 
-        int length = viewPortTransform.childCount * 20 + 100 * (GameManager.manager.playerCharacter.Count + add);
-        viewPortTransform.sizeDelta = new Vector2(viewPortTransform.sizeDelta.x,
-            length);
+        int viewPortLength = viewPortTransform.childCount * 100 + 100 * (GameManager.manager.playerCharacter.Count + add);
+        viewPortTransform.sizeDelta = new Vector2(viewPortTransform.sizeDelta.x, viewPortLength);
 
 
         scrollTransform.sizeDelta = new Vector2(scrollTransform.sizeDelta.x,
@@ -81,7 +82,7 @@ public class CharacterList : MonoBehaviour
         int offset = 0;
         for (int i = 0; i < viewPortTransform.childCount; i++)
         {
-            offset -= 20;
+            offset -= 100;
             offset -= viewPortTransform.GetChild(i).childCount * 100;
         }
 
@@ -105,52 +106,55 @@ public class CharacterList : MonoBehaviour
 
         ReArrage();
     }
-    public Image BackBoard(out villigeViewPort port)
+    public Image BackBoard(out villigeViewPort port, in string teamCode = "=")
     {
         villigeViewPort backboard = Instantiate(TeamBackBoard, viewPortTransform.transform);
         trViewPort.Add(backboard.transform, backboard);
         port = backboard;
+        port.ChangeTeamCode(teamCode);
         return backboard.image;
     }
     public void MoveBoard(GameObject raycastTarget, float eventDataPositionY)
     {
         defObject.SetActive(true);
-        bool upDownCheck;
+        bool isDownCheck;
         int add;
 
         if (raycastTarget.transform.parent == viewPortTransform)
         {
-            upDownCheck = raycastTarget.transform.position.y - trViewPort[raycastTarget.transform].image.raycastPadding.w - eventDataPositionY < 60;
-            add = Convert.ToInt32(!upDownCheck);
+            isDownCheck = raycastTarget.transform.position.y - trViewPort[raycastTarget.transform].image.raycastPadding.w - eventDataPositionY < 100;
+            add = Convert.ToInt32(!isDownCheck);
 
-            //gameobejct가 teambackboard
             defSaveTr = raycastTarget.transform;
             defSaveInt = raycastTarget.transform.GetSiblingIndex() + add;
 
             SetPositionTeamBackBoard(defSaveInt);
-            defObject.transform.position = new Vector2(defObject.transform.position.x,
-                                                       raycastTarget.transform.position.y + 110 - (add * (raycastTarget.transform.childCount * 100 + 140)));
+            defObject.transform.position
+                = new Vector2(defObject.transform.position.x,
+                              raycastTarget.transform.position.y + 120
+                              - (add * ((raycastTarget.transform.childCount - 1) * 100 + 300)));
         }
         else
         {
-            upDownCheck = raycastTarget.transform.position.y - eventDataPositionY
-                               - trViewPort[raycastTarget.transform.parent].characters[raycastTarget.transform.GetSiblingIndex()].image.raycastPadding.w < 50;
-            add = Convert.ToInt32(!upDownCheck);
+            isDownCheck = raycastTarget.transform.position.y - eventDataPositionY
+                               - trViewPort[raycastTarget.transform.parent].characters[raycastTarget.transform.GetSiblingIndex() - 1].image.raycastPadding.w < 50;
+            add = Convert.ToInt32(!isDownCheck);
 
             defSaveTr = raycastTarget.transform;
-            defSaveInt = raycastTarget.transform.GetSiblingIndex() + add;
+            defSaveInt = raycastTarget.transform.GetSiblingIndex() + add - 1;
 
             SetPositionCharacterBackBoard(raycastTarget.transform.parent.GetSiblingIndex(), defSaveInt);
             defObject.transform.position = new Vector2(defObject.transform.position.x, raycastTarget.transform.position.y + 100 - (add * 200));
         }
     }
-    public void NoMove(GameObject gob)
+
+    public void NoMove(GameObject gob, bool isVilligeInteract = true)
     {
         defObject.SetActive(false);
         defObject.transform.position = new Vector2(defObject.transform.position.x, gob.transform.position.y);
 
         defSaveTr = gob.transform;
-        defSaveInt = gob.transform.GetSiblingIndex();
+        defSaveInt = gob.transform.GetSiblingIndex() - Convert.ToInt32(isVilligeInteract);
 
         ReArrage();
 
@@ -160,8 +164,8 @@ public class CharacterList : MonoBehaviour
     {
         ArrangeBoard(teamSiblingIndex);
 
-        PushBoard(teamSiblingIndex, 120);
-        SetCharacterListLength(120);
+        PushBoard(teamSiblingIndex, 200);
+        SetCharacterListLength(200);
     }
     void ArrangeBoard(int DestinationIndex)
     {
@@ -207,14 +211,14 @@ public class CharacterList : MonoBehaviour
 
         if (defSaveTr.parent == viewPortTransform)
         {
-            trViewPort[tr].characters.RemoveAt(moveObjectTransform.transform.GetSiblingIndex());
-            Debug.Log(PlayerNavi.nav.PlayerCharacter[tempStr].Count);
+            trViewPort[tr].characters.RemoveAt(moveObjectTransform.transform.GetSiblingIndex() - 1);
 
-            Image image = BackBoard(out villigeViewPort trParent);
+            string newString = PlayerNavi.nav.GetEmptyTeamString();
+
+            Image image = BackBoard(out villigeViewPort trParent, newString);
             image.transform.position = defObject.transform.position + new Vector3(100, 10);
             image.transform.SetSiblingIndex(defSaveInt);
 
-            string newString = PlayerNavi.nav.GetEmptyTeamString();
             PlayerNavi.nav.PlayerCharacter[tempStr].Remove(moveObjectTransform.hero.unitMove as Character);
             //null값 반환 시 옮김 실패 추가
             moveObjectTransform.ChangeTeamKey(newString);
@@ -226,33 +230,34 @@ public class CharacterList : MonoBehaviour
         }
         else
         {
-            int prevIndex = moveObjectTransform.transform.GetSiblingIndex();
-            moveObjectTransform.ChangeTeamKey(trViewPort[defSaveTr.parent].characters[0].hero.keycode);
-            trViewPort[tr].characters.RemoveAt(moveObjectTransform.transform.GetSiblingIndex());
+            int add = -Convert.ToInt32(tr == moveObjectTransform.transform.parent
+                                    && defSaveInt > moveObjectTransform.transform.GetSiblingIndex() - 1);
 
-            moveObjectTransform.transform.SetParent(defSaveTr.parent);
-
-            defSaveInt -= Convert.ToInt32(tr == moveObjectTransform.transform.parent && defSaveInt > prevIndex);
-            moveObjectTransform.transform.SetSiblingIndex(defSaveInt);
-            trViewPort[moveObjectTransform.transform.parent].characters.Insert(defSaveInt, moveObjectTransform);
+            VilligeInteractMove(moveObjectTransform, trViewPort[defSaveTr.parent], defSaveInt + add);
         }
 
         CheckCount(tempStr);
 
-
         ReArrage();
     }
-
+    void VilligeInteractMove(villigeInteract moveObject, villigeViewPort targetViewPort, int index)
+    {
+        moveObject.ChangeTeamKey(targetViewPort.characters[0].hero.keycode);
+        trViewPort[moveObject.transform.parent].characters.RemoveAt(moveObject.transform.GetSiblingIndex() - 1);
+        moveObject.transform.SetParent(targetViewPort.transform);
+        moveObject.transform.SetSiblingIndex(index + 1);
+        targetViewPort.characters.Insert(index, moveObject);
+    }
     void CheckCount(in string tempStr)
     {
         Transform tr = trViewPort[keyToTeamsNum[tempStr]].transform;
-        if (tr.childCount <= 0)
+        if (tr.childCount <= 1)
         {
             keyToTeamsNum.Remove(tempStr);
             trViewPort.Remove(tr);
             timeArray.Remove(tr);
             tr.SetParent(null);
-            
+
             Destroy(tr.gameObject);
         }
     }
@@ -286,7 +291,17 @@ public class CharacterList : MonoBehaviour
             fAccumulateY -= trViewPort[keyToTeamsNum[item]].image.rectTransform.sizeDelta.y;
             trViewPort[keyToTeamsNum[item]].transform.SetAsLastSibling();
         }
+    }
+    void CleanByTransform()
+    {
+        float fAccumulateY = 0;
 
+        for (int i = 0; i < viewPortTransform.childCount; i++)
+        {
+            trViewPort[viewPortTransform.GetChild(i)].ArrangeReset();
+            trViewPort[viewPortTransform.GetChild(i)].transform.localPosition = Vector3.up * fAccumulateY;
+            fAccumulateY -= trViewPort[viewPortTransform.GetChild(i)].image.rectTransform.sizeDelta.y;
+        }
     }
     #region 버튼
     public void ArrayTime()
@@ -311,8 +326,7 @@ public class CharacterList : MonoBehaviour
 
         if (!keyToTeamsNum.ContainsKey(keycode))
         {
-            Debug.Log("실행");
-            BackBoard(out villigeViewPort port);
+            BackBoard(out villigeViewPort port, keycode);
 
             keyToTeamsNum.Add(keycode, port.transform);
             timeArray.Add(port.transform);
@@ -324,17 +338,60 @@ public class CharacterList : MonoBehaviour
 
         CheckCount(st);
         ReArrage();
-        Debug.Log(keyToTeamsNum.Count);
-        Debug.Log(trViewPort.Count);
-        Debug.Log(timeArray.Count);
     }
     public void ReArrage()
     {
-
+        arType = ARRAYTYPE.TRANSFORM;
         SetCharacterListLength();
         MovedClean();
     }
     #endregion 키보드
+    #region VilligeTeamCollider 상호작용
+    public void EndDrag(villigeViewPort parentPort)
+    {
+        defObject.SetActive(false);
+
+        bool isInteract = defSaveTr.parent != viewPortTransform;
+        bool isSiblingCountIncline = !isInteract && parentPort.transform.GetSiblingIndex() < defSaveInt;
+        int add = -Convert.ToInt32(isSiblingCountIncline) + Convert.ToInt32(isInteract);
+
+        parentPort.transform.SetParent(defSaveTr.parent);
+        parentPort.transform.SetSiblingIndex(defSaveInt + add);
+
+        if (isInteract)
+        {
+            VilligeInteractsMove(parentPort, trViewPort[defSaveTr.parent], parentPort.transform.GetSiblingIndex());
+            CheckCount(parentPort.characters[0].hero.keycode);
+        }
+        ReArrage();
+    }
+    void VilligeInteractsMove(villigeViewPort startViewPort, villigeViewPort arriveViewPort, int index)
+    {
+        villigeInteract tempInteract;
+        int tempIndex = index + 1;
+        int characterCount = startViewPort.characters.Count;
+        for (int i = startViewPort.characters.Count - 1; i >= 0; i--)
+        {
+            tempInteract = startViewPort.characters[i];
+            tempInteract.ChangeTeamKey(arriveViewPort.characters[0].hero.keycode);
+            tempInteract.transform.SetParent(arriveViewPort.transform);
+            tempInteract.transform.SetSiblingIndex(tempIndex);
+        }
+
+        arriveViewPort.characters.InsertRange(index, startViewPort.characters);
+        startViewPort.characters.RemoveRange(0, characterCount);
+    }
+    public void CollidersSetInteractive(bool onoff)
+    {
+        foreach (var item in trViewPort.Values)
+        {
+            item.TeamColliderSetInteractive(onoff);
+        }
+    }
+    #endregion
+
     #region 다른UI상호작용
+
+
     #endregion
 }

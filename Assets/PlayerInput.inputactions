@@ -2958,6 +2958,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "BuildingOrder",
+            "id": "83d62b62-ecc9-4ae4-9145-7d812630610b",
+            "actions": [
+                {
+                    "name": "Esc",
+                    "type": "Button",
+                    "id": "80127e62-ae91-4cfc-9bb7-0de2abd5f2f4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5037ef7a-0575-4e7a-9ca7-f42d4e525bf6",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Esc",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

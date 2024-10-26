@@ -6,17 +6,12 @@ using TMPro;
 
 public class HandImage : MonoBehaviour
 {
-    public Image image { get; private set; }
-    TextMeshProUGUI text;
-    public void Init()
-    {
-        image = GetComponent<Image>();
-        text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-    }
+    [SerializeField] Image comp_image;
+    public Image image { get { return comp_image; } }
+    [SerializeField] TextMeshProUGUI comp_text;
 
     public void SetText(in string HeroInfo)
     {
-        text.text = HeroInfo;
+        comp_text.text = HeroInfo;
     }
-
 }

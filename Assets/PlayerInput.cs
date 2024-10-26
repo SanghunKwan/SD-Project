@@ -2980,6 +2980,34 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""BuildingOrder"",
+            ""id"": ""83d62b62-ecc9-4ae4-9145-7d812630610b"",
+            ""actions"": [
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""80127e62-ae91-4cfc-9bb7-0de2abd5f2f4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""5037ef7a-0575-4e7a-9ca7-f42d4e525bf6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -3025,6 +3053,9 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
         m_NewKeyInput = asset.FindActionMap("NewKeyInput", throwIfNotFound: true);
         m_NewKeyInput_Esc = m_NewKeyInput.FindAction("Esc", throwIfNotFound: true);
         m_NewKeyInput_AnyKey = m_NewKeyInput.FindAction("AnyKey", throwIfNotFound: true);
+        // BuildingOrder
+        m_BuildingOrder = asset.FindActionMap("BuildingOrder", throwIfNotFound: true);
+        m_BuildingOrder_Esc = m_BuildingOrder.FindAction("Esc", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -3340,6 +3371,52 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
         }
     }
     public NewKeyInputActions @NewKeyInput => new NewKeyInputActions(this);
+
+    // BuildingOrder
+    private readonly InputActionMap m_BuildingOrder;
+    private List<IBuildingOrderActions> m_BuildingOrderActionsCallbackInterfaces = new List<IBuildingOrderActions>();
+    private readonly InputAction m_BuildingOrder_Esc;
+    public struct BuildingOrderActions
+    {
+        private @PlayerInputScript m_Wrapper;
+        public BuildingOrderActions(@PlayerInputScript wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Esc => m_Wrapper.m_BuildingOrder_Esc;
+        public InputActionMap Get() { return m_Wrapper.m_BuildingOrder; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BuildingOrderActions set) { return set.Get(); }
+        public void AddCallbacks(IBuildingOrderActions instance)
+        {
+            if (instance == null || m_Wrapper.m_BuildingOrderActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BuildingOrderActionsCallbackInterfaces.Add(instance);
+            @Esc.started += instance.OnEsc;
+            @Esc.performed += instance.OnEsc;
+            @Esc.canceled += instance.OnEsc;
+        }
+
+        private void UnregisterCallbacks(IBuildingOrderActions instance)
+        {
+            @Esc.started -= instance.OnEsc;
+            @Esc.performed -= instance.OnEsc;
+            @Esc.canceled -= instance.OnEsc;
+        }
+
+        public void RemoveCallbacks(IBuildingOrderActions instance)
+        {
+            if (m_Wrapper.m_BuildingOrderActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IBuildingOrderActions instance)
+        {
+            foreach (var item in m_Wrapper.m_BuildingOrderActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_BuildingOrderActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public BuildingOrderActions @BuildingOrder => new BuildingOrderActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -3375,5 +3452,9 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
     {
         void OnEsc(InputAction.CallbackContext context);
         void OnAnyKey(InputAction.CallbackContext context);
+    }
+    public interface IBuildingOrderActions
+    {
+        void OnEsc(InputAction.CallbackContext context);
     }
 }

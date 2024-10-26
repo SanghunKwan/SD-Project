@@ -57,7 +57,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         if (workingBuilding == characterList.buildingSetWindow.buildingComponent)
             characterList.buildingSetWindow.BuildSetCharactersCheck(workIndex, this);
     }
-    string HeroInfoText()
+    public string HeroInfoText()
     {
         return "<mark=#00000055><size=60>" + hero.keycode + " </size></mark> " + hero.stat.Lv + " " + hero.stat.NAME;
     }
@@ -132,7 +132,6 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     Image CreateHandImage()
     {
         HandImage temphand = Instantiate(onHand, characterList.transform.parent);
-        temphand.Init();
         temphand.SetText(HeroInfoText());
 
         characterList.buildingSetWindow.isDrag = true;
@@ -142,7 +141,8 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left
+            || eventData.pointerCurrentRaycast.gameObject is null)
             return;
 
 
@@ -155,6 +155,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         //다시 떼면 복구.
 
         GameObject dragObject = eventData.pointerCurrentRaycast.gameObject;
+
 
         if (dragObject.CompareTag("NameTag") && dragObject != gameObject)
             characterList.MoveBoard(dragObject, eventData.position.y);
@@ -222,6 +223,13 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         characterList.buildingSetWindow.AddressableManager.GetData("Building", imageNum, out Sprite sprite);
 
         jobImage.sprite = sprite;
+    }
+    public void DragInvisible(bool onoff)
+    {
+        textPro.enabled = onoff;
+        image.enabled = onoff;
+
+        jobImage.color = Color.white * Convert.ToInt32(onoff);
 
     }
 }
