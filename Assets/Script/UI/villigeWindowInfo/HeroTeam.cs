@@ -3,18 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HeroTeam : InitInterface
+public class HeroTeam : MonoBehaviour
 {
     [SerializeField] TeamUI[] teamuis;
-    Image backGround;
-    Image frame;
 
     public int activeHeroTeamCount { get; private set; } = 0;
-    public override void Init()
-    {
-        backGround = transform.GetChild(0).GetComponent<Image>();
-        frame = transform.GetChild(1).GetComponent<Image>();
-    }
 
     public TeamUI GetTeamUI(int index)
     {

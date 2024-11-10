@@ -34,7 +34,8 @@ public class UnitState : MonoBehaviour
     [SerializeField] protected AudioClip[] DieVoice;
     List<AudioClip[]> voices = new List<AudioClip[]>();
 
-    protected SoundManager soundManager;
+    //юс╫ц soundmananger
+    [SerializeField] protected SoundManager soundManager;
 
     public enum voiceType
     {

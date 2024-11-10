@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
-public class ExplainData : MonoBehaviour
+public class ExplainData : JsonLoad
 {
     public enum TypeName
     {
@@ -24,7 +23,7 @@ public class ExplainData : MonoBehaviour
         Area,
         Armed,
         lightArmed,
-        
+
         NormalAttack,
         NormalDefence,
         Skill,
@@ -78,11 +77,8 @@ public class ExplainData : MonoBehaviour
 
     private void Start()
     {
-        string readJson = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Assets/DataTable/Explan_Data.json"));
-        explain = JsonUtility.FromJson(readJson, typeof(SkillExplans)) as SkillExplans;
-
-        string readJson2 = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Assets/DataTable/ExplanItem_Data.json"));
-        explainItem = JsonUtility.FromJson(readJson2, typeof(ItemExplains)) as ItemExplains;
+        explain = LoadData<SkillExplans>("Explan_Data");
+        explainItem = LoadData<ItemExplains>("ExplanItem_Data");
 
         quality2Color.Capacity = 4;
         quality2Color.Add(0);
@@ -99,4 +95,8 @@ public class ExplainData : MonoBehaviour
         return explainItem.itemExplains[index];
     }
 
+    public override void Init()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -5,9 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using TMPro;
-using Unity.VisualScripting;
 
-public class DescriptionWindow : tempMenuWindow
+public class DescriptionWindow : MonoBehaviour
 {
     [SerializeField] AddressableManager addressableManager;
     [SerializeField] SettingDescManager settingDescManager;

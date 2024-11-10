@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,10 @@ namespace SDUI
         bool isVilligeInteractExist;
         [SerializeField] Color effectColor;
 
+        Action<PointerEventData>[] beginDrag;
+        Action<PointerEventData>[] onDrag;
+        Action<PointerEventData>[] endDrag;
+        [SerializeField] DragPage page;
         enum DragType
         {
             Interct,
@@ -25,6 +30,21 @@ namespace SDUI
         {
             image = GetComponent<Image>();
             teamUI = transform.parent.parent.GetComponent<TeamUI>();
+            SetDragActions();
+        }
+        void SetDragActions()
+        {
+            beginDrag = new Action<PointerEventData>[2];
+            beginDrag[0] = BeginDragFalse;
+            beginDrag[1] = BeginDragTrue;
+
+            onDrag = new Action<PointerEventData>[2];
+            onDrag[0] = OnDragFalse;
+            onDrag[1] = OnDragTrue;
+
+            endDrag = new Action<PointerEventData>[2];
+            endDrag[0] = EndDragFalse;
+            endDrag[1] = EndDragTrue;
         }
         #region 드래그 입출
         public void OnPointerEnter(PointerEventData eventData)
@@ -101,28 +121,43 @@ namespace SDUI
             isVilligeInteractExist = teamUI.villigeInteracts[transform.parent.GetSiblingIndex()] is not null
                 && eventData.button != PointerEventData.InputButton.Left;
 
-            if (!isVilligeInteractExist)
-                return;
-
+            beginDrag[Convert.ToInt32(isVilligeInteractExist)](eventData);
+        }
+        void BeginDragTrue(PointerEventData eventData)
+        {
             teamUI.villigeInteracts[transform.parent.GetSiblingIndex()].BeginDragOffset(eventData, image);
             OnPointerEnter(eventData);
             teamUI.villigeInteracts[transform.parent.GetSiblingIndex()].ChangeImage(AddressableManager.BuildingImage.Tower, false);
         }
+        void BeginDragFalse(PointerEventData eventData)
+        {
+            page.OnBeginDrag(eventData);
+        }
         public void OnDrag(PointerEventData eventData)
         {
-            if (!isVilligeInteractExist)
-                return;
-
+            onDrag[Convert.ToInt32(isVilligeInteractExist)](eventData);
+        }
+        void OnDragTrue(PointerEventData eventData)
+        {
             villigeInteract.now_villigeInteract.OnDrag(eventData);
+        }
+        void OnDragFalse(PointerEventData eventData)
+        {
+            page.OnDrag(eventData);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (!isVilligeInteractExist)
-                return;
-
+            endDrag[Convert.ToInt32(isVilligeInteractExist)](eventData);
+        }
+        void EndDragTrue(PointerEventData eventData)
+        {
             villigeInteract.now_villigeInteract.OnEndDrag(eventData);
             isVilligeInteractExist = false;
+        }
+        void EndDragFalse(PointerEventData eventData)
+        {
+            page.OnEndDrag(eventData);
         }
 
         public void OnPointerClick(PointerEventData eventData)

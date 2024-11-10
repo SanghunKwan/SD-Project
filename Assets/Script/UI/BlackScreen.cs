@@ -35,6 +35,7 @@ public class BlackScreen : MonoBehaviour, IPointerClickHandler
         ObjectOnoff(false);
         action();
     }
+
     public void OnAnyButtonPressed(InputControl control)
     {
 #if PLATFORM_STANDALONE_WIN
@@ -53,6 +54,7 @@ public class BlackScreen : MonoBehaviour, IPointerClickHandler
 
     public void OnAnyKeyEnd(InputAction.CallbackContext callback)
     {
+        Debug.Log("end");
         if (!callback.canceled && buttonDelayReady)
             return;
 

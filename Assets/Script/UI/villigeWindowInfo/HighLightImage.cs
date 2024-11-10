@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HighLightImage : InitInterface
+public class HighLightImage : InitObject
 {
     RectTransform recTransform;
     Animator anim;

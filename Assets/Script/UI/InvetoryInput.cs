@@ -20,10 +20,13 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
     Image dragImage;
     Vector2 pointerOffset;
+
+    InventoryComponent inventoryComponent;
     private void Start()
     {
         Clicks();
-        GameObject.FindWithTag("CanvasWorld").transform.GetChild(0).GetComponent<ClickDrag>().SetDown(InventoryManager.i.OffItemInfo);
+        GameObject.FindWithTag("CanvasWorld").transform.GetChild(0).GetComponent<ClickDrag>().SetDown(() => inventoryComponent.ActiveDescription(false));
+        inventoryComponent = transform.parent.parent.GetComponent<InventoryComponent>();
     }
     void Clicks()
     {
@@ -94,19 +97,12 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
     public void OnPointerMove(PointerEventData eventData)
     {
-        float i = (eventData.position.x - 1390) / 103;
-        float j = (eventData.position.y - 16) / 103;
-
-        isPlus = !(i < 0 || j < 0);
-        isNotLine = i % 1 < 0.97f && i < 5 && j % 1 < 0.97f && j < 2;
-
-        isOnItem = isPlus && isNotLine;
-
-        SlotNum = Mathf.FloorToInt(i) + 5 - Mathf.FloorToInt(j) * 5;
+        inventoryComponent.ActiveDescription(true);
+        inventoryComponent.SetDescription(SlotNum, eventData.position);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        InventoryManager.i.OffItemInfo();
+        inventoryComponent.ActiveDescription(false);
     }
 }

@@ -5,42 +5,48 @@
             "itemCode": 0,
             "MaxCount": 1,
             "type": 0,
-            "description": ""
+            "description": "",
+            "needSlots": 1
         },
         {
             "name": "Gray Stone",
             "itemCode": 1,
             "MaxCount": 10,
             "type": 1,
-            "description": "<align=center><u>회색 돌</u></align>\\n<size=40>재료. 회색 바위에서 얻음.</size>"
+            "description": "<align=center><u>회색 돌</u></align>\\n<size=40>재료. 회색 바위에서 얻음.</size>",
+            "needSlots": 1
         },
         {
             "name": "Black Stone",
             "itemCode": 2,
             "MaxCount": 10,
             "type": 1,
-            "description": "<align=center><u>어두운 돌</u></align>\\n<size=40>재료. 어두운 바위에서 얻음.</size>"
+            "description": "<align=center><u>어두운 돌</u></align>\\n<size=40>재료. 어두운 바위에서 얻음.</size>",
+            "needSlots": 1
         },
         {
             "name": "White Stone",
             "itemCode": 3,
             "MaxCount": 10,
             "type": 1,
-            "description": "<align=center><u>흰 돌</u></align>\\n<size=40>재료. 흰 바위에서 얻음.</size>"
+            "description": "<align=center><u>흰 돌</u></align>\\n<size=40>재료. 흰 바위에서 얻음.</size>",
+            "needSlots": 1
         },
         {
             "name": "Timber",
             "itemCode": 4,
             "MaxCount": 10,
             "type": 1,
-            "description": "<align=center><u>목재</u></align>\\n<size=40>재료. 나무에서 얻음.</size>"
+            "description": "<align=center><u>목재</u></align>\\n<size=40>재료. 나무에서 얻음.</size>",
+            "needSlots": 1
         },
         {
             "name": "Weapon",
             "itemCode": 5,
             "MaxCount": 1,
             "type": 3,
-            "description": "<align=center><u>삽</u></align>\\n<size=40>장비. 낮은 확률로 모든 유닛에서 얻음.</size>"
+            "description": "<align=center><u>삽</u></align>\\n<size=40>장비. 낮은 확률로 모든 유닛에서 얻음.</size>",
+            "needSlots": 1
         },
         {
             "name": "Berry",
@@ -49,6 +55,7 @@
             "type": 2,
             "description": "<align=center><u>베리</u></align>\\n<size=40>소모품. 맵에서 얻음.</size>",
             "HP": 5,
+            "needSlots": 1,
             "itemSkillEffect": 0
         },
         {
@@ -58,6 +65,7 @@
             "type": 2,
             "description": "<align=center><u>올리브</u></align>\\n<size=40>소모품. 나무, 맵에서 얻음.</size>",
             "HP": 7,
+            "needSlots": 1,
             "itemSkillEffect": 0
         },
         {
@@ -67,6 +75,7 @@
             "type": 2,
             "description": "<align=center><u>사과</u></align>\\n<size=40>소모품. 나무, 맵에서 얻음.</size>",
             "HP": 10,
+            "needSlots": 1,
             "itemSkillEffect": 0
         },
         {
@@ -76,6 +85,7 @@
             "type": 2,
             "description": "<align=center><u>바나나</u></align>\\n<size=40>소모품. 나무에서 얻음.</size>",
             "HP": 15,
+            "needSlots": 1,
             "itemSkillEffect": 0
         },
         {
@@ -85,6 +95,7 @@
             "type": 2,
             "description": "<align=center><u>토마토</u></align>\\n<size=40>소모품. 나무, 밭에서 얻음.</size>",
             "HP": 20,
+            "needSlots": 1,
             "itemSkillEffect": 0
         },
         {
@@ -94,14 +105,25 @@
             "type": 2,
             "description": "<align=center><u>덜익은 과일</u></align>\\n<size=40>소모품. 나무, 밭에서 얻음.</size>",
             "HP": 10,
+            "needSlots": 1,
             "itemSkillEffect": 0
         },
         {
             "name": "Corpse",
             "itemCode": 12,
-            "MaxCount": 1,
-            "type": 3,
-            "description": "<align=center><u>동료의 시신</u></align>\\n<size=40>퀘스트. 영지에서 장비 회수.</size>"
+            "MaxCount": 1000,
+            "type": 4,
+            "description": "<align=center><u>동료의 시신</u></align>\\n<size=40>퀘스트. 영지에서 장비 회수.</size>",
+            "needSlots": 2,
+            "figure": 1
+        },
+        {
+            "name": "Gold",
+            "itemCode": 13,
+            "MaxCount": 2147483647,
+            "type": 1,
+            "description": "<align=center><u>황금동전</u></align>\\n<size=40>재료. 영지 이벤트에서 얻음.</size>",
+            "needSlots": 1
         }
 
     ]

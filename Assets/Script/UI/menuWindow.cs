@@ -10,7 +10,7 @@ public class menuWindow : tempMenuWindow
     {
         setting.init();
     }
-    public void CallWithChildWindow(tempMenuWindow window)
+    public void CallWithChildWindow(MonoBehaviour window)
     {
         setting.OpenOneWindow(window);
         CallWindow(setting);

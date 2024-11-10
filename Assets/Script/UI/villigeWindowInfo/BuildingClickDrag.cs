@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BuildingClickDrag : InitInterface, IPointerMoveHandler, IPointerUpHandler, IPointerDownHandler
+public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerUpHandler, IPointerDownHandler
 {
     BuildingArrange obj;
     Camera mainCam;
@@ -14,7 +14,7 @@ public class BuildingClickDrag : InitInterface, IPointerMoveHandler, IPointerUpH
     Vector3 lastPoint;
 
     AddressableManager.BuildingImage buildType;
-    
+
     public void Activate(BuildingArrange preview, in AddressableManager.BuildingImage type)
     {
         gameObject.SetActive(true);
@@ -66,7 +66,7 @@ public class BuildingClickDrag : InitInterface, IPointerMoveHandler, IPointerUpH
     void RightButton()
     {
         //√Îº“
-        if(obj == null) return;
+        if (obj == null) return;
         obj.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }

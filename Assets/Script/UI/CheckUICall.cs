@@ -66,6 +66,12 @@ public class CheckUICall : MonoBehaviour
             m_Ui.SetButtonInactiveNoPositionChange(item);
         }
     }
+    public void CallUIOnce()
+    {
+        CallUI();
+        SetUIButton();
+        ChangeButtonType();
+    }
 
     #region CheckUiCallChange 관련 기능
     public void DataChange(CheckUICallChange.ChangeData data)

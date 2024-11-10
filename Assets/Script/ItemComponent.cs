@@ -131,7 +131,7 @@ public class ItemComponent : MonoBehaviour
     {
         index = indexNum;
     }
-    void InventoryAddItem(CUnit unit)
+    void InventoryAddItem(in CUnit unit)
     {
         InventoryManager.i.AddItem(unit, index);
     }

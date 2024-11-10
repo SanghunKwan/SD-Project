@@ -7,10 +7,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class StageManager : MonoBehaviour
+public class StageManager : JsonLoad
 {
     public static StageManager instance;
-
 
     public bool Newstage { get; set; } = false;
     public bool isDone { get; set; } = false;
@@ -32,6 +31,15 @@ public class StageManager : MonoBehaviour
         public string stagePurpose;
         public int[] stageRewardsImage;
 
+        public StageData()
+        {
+            nowFloor = 0;
+            participatingTeamCount = 5;
+            stageName = "";
+            stagePurpose = "";
+            stageRewardsImage = new int[4] { 0, 1, 2, 3 };
+
+        }
         public StageData(int floor)
         {
             nowFloor = floor;
@@ -60,9 +68,7 @@ public class StageManager : MonoBehaviour
     {
         instance = this;
 
-        string wnth = Path.Combine(Application.dataPath, "DataTable/StageData.json");
-
-        saveData = (StageDatas)JsonUtility.FromJson(File.ReadAllText(wnth), typeof(StageDatas));
+        saveData = LoadData<StageDatas>("StageData");
     }
     private void Start()
     {
@@ -95,6 +101,12 @@ public class StageManager : MonoBehaviour
         DontdestoryList();
         SceneManager.LoadScene(SceneIndex);
     }
+    public void FromMainMenu(int SceneIndex)
+    {
+        
+        SceneManager.LoadScene(SceneIndex);
+        GameManager.manager.ReadytoSceneLoad();
+    }
     void DontdestoryList()
     {
         DontDestroyOnLoad(Unit.Data.Instance);
@@ -121,17 +133,17 @@ public class StageManager : MonoBehaviour
     [ContextMenu("json¸¸µé±â")]
     public void SDF()
     {
-        StageDatas asdf = new StageDatas();
-
-        string wnth = Path.Combine(Application.dataPath, "DataTable/asdf.json");
-
-        File.WriteAllText(wnth, JsonUtility.ToJson(asdf, true));
-
+        SDF<StageDatas>();
     }
 
     public int GetStageTeamCount(int stage)
     {
         return saveData.data[stage].participatingTeamCount;
+    }
+
+    public override void Init()
+    {
+        throw new NotImplementedException();
     }
 
     #endregion

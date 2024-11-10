@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SoundSlider : MonoBehaviour
+public class SoundSlider : InitObject
 {
     public Slider slider { get; private set; }
     InputField inputField;
@@ -9,17 +9,6 @@ public class SoundSlider : MonoBehaviour
     [SerializeField] SoundWindow.SoundType type;
     float BaseValue;
 
-
-    private void Awake()
-    {
-        slider = GetComponent<Slider>();
-        inputField = transform.GetChild(4).GetComponent<InputField>();
-        soundWindow = transform.parent.GetComponent<SoundWindow>();
-        SliderSetting();
-        InputFieldSetting();
-        soundWindow.noSave += NoSave;
-        soundWindow.Sliderinit += Init;
-    }
     void SliderSetting()
     {
         slider.onValueChanged.AddListener((fNum) => SliderValueChanged(fNum));
@@ -31,7 +20,7 @@ public class SoundSlider : MonoBehaviour
     }
 
 
-    void Init()
+    void InitInWindow()
     {
         ((Text)inputField.placeholder).text = slider.value.ToString();
         BaseValue = slider.value;
@@ -52,4 +41,14 @@ public class SoundSlider : MonoBehaviour
         slider.value = BaseValue;
     }
 
+    public override void Init()
+    {
+        slider = GetComponent<Slider>();
+        inputField = transform.GetChild(4).GetComponent<InputField>();
+        soundWindow = transform.parent.GetComponent<SoundWindow>();
+        SliderSetting();
+        InputFieldSetting();
+        soundWindow.noSave += NoSave;
+        soundWindow.Sliderinit += InitInWindow;
+    }
 }

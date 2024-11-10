@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class SettingDescManager : MonoBehaviour
+public class SettingDescManager : JsonLoad
 {
     [Serializable]
     public class DescContent
@@ -20,24 +20,16 @@ public class SettingDescManager : MonoBehaviour
     }
     public Contents readContents { get; private set; }
 
-    private void Start()
+    public override void Init()
     {
-        string jSonIO = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Assets/DataTable/SettingDescription.json"));
-
-        readContents = JsonUtility.FromJson<Contents>(jSonIO);
+        readContents = LoadData<Contents>("SettingDescription");
     }
-
-
-
 
     [ContextMenu("json¸¸µé±â")]
     public void SDF()
     {
-        Contents asdf = new Contents();
-
-        string wnth = Path.Combine(Application.dataPath, "DataTable/asdf.json");
-
-        File.WriteAllText(wnth, JsonUtility.ToJson(asdf, true));
-
+        SDF<Contents>();
     }
+
+
 }

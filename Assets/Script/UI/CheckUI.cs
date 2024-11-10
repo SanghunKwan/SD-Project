@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CheckUI : MonoBehaviour
+public class CheckUI : tempMenuWindow
 {
     [SerializeField] Button[] buttons;
     [SerializeField] TextMeshProUGUI[] buttonTexts;
@@ -64,6 +64,7 @@ public class CheckUI : MonoBehaviour
     #region ±â´É
     public void ObjectRemove()
     {
+        gameObject.SetActive(false);
         Destroy(gameObject);
     }
     public void AddButtonFunction(COMPONENTINDEX index, Action action)
@@ -81,4 +82,8 @@ public class CheckUI : MonoBehaviour
     }
 
     #endregion
+    public override void OnOffWindow()
+    {
+        ObjectRemove();
+    }
 }

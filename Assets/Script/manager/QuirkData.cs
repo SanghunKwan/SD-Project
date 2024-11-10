@@ -4,12 +4,12 @@ using System.IO;
 using UnityEngine;
 
 
-public class QuirkData : MonoBehaviour
+public class QuirkData : JsonLoad
 {
     public static QuirkData manager;
     public QuirkS quirkInfo { get; private set; }
     public QuirkS diseaseInfo { get; private set; }
-    
+
 
     [System.Serializable]
     public class Quirk
@@ -38,35 +38,18 @@ public class QuirkData : MonoBehaviour
     private void Awake()
     {
         manager = this;
-        string dataAddress = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Assets/DataTable/Quirk_Data.json"));
 
-        quirkInfo = (QuirkS)JsonUtility.FromJson(dataAddress, typeof(QuirkS));
-        
-
-
-        string dataAddress2 = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Assets/DataTable/Disease_Data.json"));
-
-        diseaseInfo = (QuirkS)JsonUtility.FromJson(dataAddress2, typeof(QuirkS));
-
+        quirkInfo = LoadData<QuirkS>("Quirk_Data");
+        diseaseInfo = LoadData<QuirkS>("Disease_Data");
     }
-
-
-
-
-
     [ContextMenu("JsonPrototype")]
     public void SDF()
     {
-        Quirk asdf = new Quirk();
-        QuirkS quirks = new QuirkS();
-        quirks.quirks = new Quirk[3];
-        quirks.quirks[0] = asdf;
-        quirks.quirks[1] = asdf;
-        quirks.quirks[2] = asdf;
+        SDF<QuirkS>();
+    }
 
-        string wnth = Path.Combine(Application.dataPath, "DataTable/asdf.json");
-
-        File.WriteAllText(wnth, JsonUtility.ToJson(quirks, true));
-
+    public override void Init()
+    {
+        throw new System.NotImplementedException();
     }
 }

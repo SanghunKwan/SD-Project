@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class ActivateInit : MonoBehaviour
 {
-    [SerializeField] InitInterface[] initInterfaces;
+    [SerializeField] CamTuringWindow[] camTuringWindow;
+    [SerializeField] InitObject[] initObjects;
     void Start()
     {
-        for (int i = 0; i < initInterfaces.Length; i++)
+        for (int i = 0; i < camTuringWindow.Length; i++)
         {
-            initInterfaces[i].Init();
+            camTuringWindow[i].Init();
+
+        }
+        for (int i = 0; i < initObjects.Length; i++)
+        {
+            initObjects[i].Init();
         }
     }
-
 
 }

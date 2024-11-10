@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
-using Unity.VisualScripting;
 
 
-public class StageButtonSet : InitInterface, IPointerDownHandler
+public class StageButtonSet : InitObject, IPointerDownHandler
 {
     Button[] buttons;
     [SerializeField] Button stageButton;
@@ -66,7 +65,7 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
             participatingTeamViews[i] = new ParticipatingTeamView(buttons[i].transform);
 
         floorManager.GetData(out data);
-        saveStageView.nowFloor = data.nowFloor;
+        saveStageView.nowFloor = data.topFloor;
 
         lastindex = buttons.Length - 1;
         moveLength = offset * buttons.Length;
@@ -89,7 +88,7 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
         ButtonMove(lastindex, moveLength);
         int bigNum = m_biggestNum;
         text[lastindex].text = bigNum.ToString();
-        buttons[lastindex].interactable = data.nowFloor + temporarilyAddFloor >= bigNum;
+        buttons[lastindex].interactable = data.topFloor + temporarilyAddFloor >= bigNum;
         ChangeButtonAction(lastindex, bigNum);
         participatingTeamViews[lastindex].SetStageNum(bigNum);
         SetButtonPosition(-1);
@@ -99,7 +98,7 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
         ButtonMove(firstIndex, -moveLength);
         int tempNum = m_biggestNum - text.Length;
         text[firstIndex].text = tempNum.ToString();
-        buttons[firstIndex].interactable = data.nowFloor + temporarilyAddFloor >= tempNum;
+        buttons[firstIndex].interactable = data.topFloor + temporarilyAddFloor >= tempNum;
         ChangeButtonAction(firstIndex, tempNum);
         participatingTeamViews[firstIndex].SetStageNum(tempNum);
         SetButtonPosition(1);
@@ -120,13 +119,13 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
         for (int i = firstIndex; i < text.Length; i++)
         {
             text[i].text = biggestFloor.ToString();
-            buttons[i].interactable = data.nowFloor >= biggestFloor;
+            buttons[i].interactable = data.topFloor >= biggestFloor;
             biggestFloor--;
         }
         for (int i = 0; i < firstIndex; i++)
         {
             text[i].text = biggestFloor.ToString();
-            buttons[i].interactable = data.nowFloor >= biggestFloor;
+            buttons[i].interactable = data.topFloor >= biggestFloor;
             biggestFloor--;
         }
     }
@@ -205,7 +204,7 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
     {
         heroTeam.SetTeamActiveCount(StageManager.instance.GetStageTeamCount(stageNum));
 
-        stageButton.interactable = data.nowFloor >= stageNum - temporarilyAddFloor;
+        stageButton.interactable = data.topFloor >= stageNum - temporarilyAddFloor;
         stageSaveButton.interactable = stageButton.interactable && saveStageView.IsLastIndex;
 
         missionExplain.ChangeExplain(stageNum);
@@ -235,7 +234,7 @@ public class StageButtonSet : InitInterface, IPointerDownHandler
     }
     public void StageSetInteractiveWhile(int floor)
     {
-        int floorDecrease = floor - data.nowFloor;
+        int floorDecrease = floor - data.topFloor;
 
         if (floorDecrease < 0) return;
 

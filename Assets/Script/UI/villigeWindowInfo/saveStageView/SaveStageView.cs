@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SaveStageView : InitInterface
+public class SaveStageView : InitObject
 {
     SaveStageViewNode[] nodes;
     int nowIndex;
@@ -66,6 +65,7 @@ public class SaveStageView : InitInterface
     public void NodeButtonPress(int nodeIndex)
     {
         int tempFloor = nodes[nodeIndex].saveStage;
+
         if (nodes[nodeIndex].saveStage >= nowFloor && !AddFloorCheck(nodeIndex))
             nodes[nodeIndex].exitAction = () =>
             {
@@ -74,12 +74,28 @@ public class SaveStageView : InitInterface
                 nodesToRemove.Clear();
             };
         else
-            nodes[nodeIndex].exitAction = () => NodeShift(nodeIndex);
+        {
+            nodes[nodeIndex].exitAction = () =>
+            {
+                NodeShift(nodeIndex);
+            };
+        }
 
         NowNode.AnimRepeatStop();
 
         nodes[nodeIndex].NodeReset();
     }
+    bool SearchNum(int tempFloor, int nodeIndex)
+    {
+        bool found = false;
+
+        for (int i = 0; i < nodeIndex; i++)
+        {
+            found |= nodes[i].saveStage == tempFloor;
+        }
+        return found;
+    }
+
     void NodeShift(int nodeIndex)
     {
         int i = nodeIndex;
@@ -101,13 +117,14 @@ public class SaveStageView : InitInterface
         {
             defaultBool |= nodes[i].saveStage == nodes[nodeIndex].saveStage;
         }
+
         for (int i = nodeIndex + 1; i < nodes.Length && !defaultBool
                                                      && nodes[i].saveStage <= nodes[nodeIndex].saveStage; i++)
         {
             defaultBool |= nodes[i].saveStage == nodes[nodeIndex].saveStage;
         }
 
-        for (int i = nodeIndex + 1; i < nodes.Length && latelyFind == false; i++)
+        for (int i = nodeIndex + 1; i < nodes.Length && !latelyFind; i++)
         {
             latelyFind |= nodes[i].saveStage == nodes[nodeIndex].saveStage;
             if (nodes[i].saveStage > nodes[nodeIndex].saveStage)
@@ -158,7 +175,17 @@ public class SaveStageView : InitInterface
         stageButtonSet.RemainStage(nodes[nodeIndex].saveStage);
         nowIndex = nodeIndex;
 
-
+        bool isLastBiggest = true;
+        for (int i = 0; i < nodeIndex; i++)
+        {
+            isLastBiggest &= nodes[nodeIndex].saveStage > nodes[i].saveStage;
+        }
+        if (isLastBiggest)
+        {
+            stageButtonSet.StageSetInteractiveWhile(nodes[nodeIndex].saveStage);
+            stageButtonSet.StageRangeAdd(-1);
+            tempAddFloor -= 1;
+        }
     }
     void MaxFloorDecrease(int eraseStage)
     {

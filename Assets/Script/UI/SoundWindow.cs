@@ -2,17 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class SoundWindow : tempMenuWindow
+public class SoundWindow : InitObject
 {
     [SerializeField] SoundManager soundManager;
-    SoundSlider[] soundSliders;
+    [SerializeField] SoundSlider[] soundSliders;
     Action<SoundType>[] soundAction = new Action<SoundType>[2];
     SettingWindow settingWindow;
     public Action noSave;
     public bool isResistered { get; private set; } = false;
-    public Action Sliderinit;
+    public Action Sliderinit { get; set; }
 
 
     public enum SoundType
@@ -27,8 +26,6 @@ public class SoundWindow : tempMenuWindow
 
     private void Awake()
     {
-        soundSliders = transform.GetComponentsInChildren<SoundSlider>();
-
         soundAction[0] = SoundCal;
         soundAction[1] = (sType) => CalAndAllo(sType, soundManager.saved[0] / 10000);
 
@@ -40,7 +37,7 @@ public class SoundWindow : tempMenuWindow
         int nType = (int)type;
         soundManager.saved[nType] = nNum;
         soundAction[nType >> (nType / 2)](type);
-
+        settingWindow.isChanged = true;
 
     }
     void SoundCal(SoundType type)
@@ -69,4 +66,11 @@ public class SoundWindow : tempMenuWindow
         isResistered = true;
     }
 
+    public override void Init()
+    {
+        foreach (var item in soundSliders)
+        {
+            item.Init();
+        }
+    }
 }

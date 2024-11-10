@@ -5,30 +5,23 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class KeyWindow : tempMenuWindow
+public class KeyWindow : InitObject
 {
-    [SerializeField] PlayerInput input;
     [SerializeField] BlackScreen blackScreen;
-    [SerializeField] CharacterList characterList;
 
     Action<string> textChange;
     SettingWindow settingWindow;
 
+    public Action changekeyRemove { get; set; }
     public Action setBack { get; set; }
     public Action changeSave { get; set; }
     public Action keyInit { get; set; }
 
     Action<InputControl> inputSave;
+    Action<string> eventTextChanged = (str) => { };
     public bool isResistered { get; private set; } = false;
 
-    enum KeymapType
-    {
-        PlayerInput,
-        PlayerOwn,
-        NewKeyInput,
-        BuildingOrder
-    }
-    KeymapType nowKeyType;
+    [SerializeField] InitObject[] keyButtonInputs;
 
     private void Awake()
     {
@@ -37,32 +30,22 @@ public class KeyWindow : tempMenuWindow
         setBack += () => isResistered = false;
 
     }
-    void SetKeyMap(KeymapType keymap)
-    {
-        input.SwitchCurrentActionMap(keymap.ToString());
-    }
-
-    void SetDefaultKeyMap()
-    {
-        input.SwitchCurrentActionMap(input.defaultActionMap);
-    }
-
     public void ScreenEffectStart(Action cancel, Action<InputControl> save, Action<string> strChange)
     {
         textChange = strChange;
         inputSave = save;
         blackScreen.GetActionClick(() =>
         {
-            SetDefaultKeyMap();
+            PlayerInputManager.manager.SetKeyMap(PlayerInputManager.KeymapType.BuildingOrder);
             cancel();
         });
-        SetKeyMap(KeymapType.NewKeyInput);
+
+        PlayerInputManager.manager.SetKeyMap(PlayerInputManager.KeymapType.NewKeyInput);
     }
 
     public void ChangeKey(InputControl control)
     {
-        nowKeyType = KeymapType.PlayerOwn;
-        input.defaultActionMap = nowKeyType.ToString();
+        PlayerInputManager.manager.ChangeDefaultKey(PlayerInputManager.KeymapType.PlayerOwn);
 
         blackScreen.Escape();
 
@@ -70,37 +53,57 @@ public class KeyWindow : tempMenuWindow
         inputSave(control);
 
     }
-    public void ToggleKeyType(bool onoff)
-    {
 
-        if (onoff)
-            SetKeyMap(KeymapType.BuildingOrder);
-        else
-            SetKeyMap(nowKeyType);
-    }
     public Action<string> GetKeyInfo(KeyButtonInput.BindingOrderActionNameInit[] byTransform,
                            KeyButtonInput.BindingOrderNumActionName[] byInt)
     {
         return (Keyboard) =>
         {
+            PlayerInputManager.manager.SetDefaultKeyMap();
             for (int i = 0; i < byTransform.Length; i++)
             {
-                input.currentActionMap[byTransform[i].actionName.ToString()].ApplyBindingOverride(byTransform[i].bindingOrder, Keyboard);
+                PlayerInputManager.manager.KeyActionChange(byTransform[i].bindingOrder, byTransform[i].actionName.ToString(), Keyboard);
             }
 
             for (int i = 0; i < byInt.Length; i++)
             {
-                input.currentActionMap[byInt[i].actionName.ToString()].ApplyBindingOverride(byInt[i].bindingOrder, Keyboard);
+                PlayerInputManager.manager.KeyActionChange(byInt[i].bindingOrder, byInt[i].actionName.ToString(), Keyboard);
             }
+            PlayerInputManager.manager.SetKeyMap(PlayerInputManager.KeymapType.BuildingOrder);
         };
+    }
+    public event Action<string> OnKeyTextChanged
+    {
+        add
+        {
+            eventTextChanged += value;
+        }
+        remove
+        {
+            eventTextChanged -= value;
+        }
+    }
+    public void SomethingInput(in string str)
+    {
+        settingWindow.isChanged = true;
+        eventTextChanged.Invoke(str);
     }
     private void OnEnable()
     {
         if (isResistered)
             return;
         settingWindow.setBack += setBack;
+        settingWindow.beforeApply += changekeyRemove;
         settingWindow.setApply += changeSave;
         keyInit();
         isResistered = true;
+    }
+
+    public override void Init()
+    {
+        foreach (var item in keyButtonInputs)
+        {
+            item.Init();
+        }
     }
 }

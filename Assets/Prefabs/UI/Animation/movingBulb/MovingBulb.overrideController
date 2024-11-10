@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MovingBulb
+  m_Controller: {fileID: 9100000, guid: 8f705d3a15c81e24fb744947b74d04a7, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 238a92f91b380aa4780bf3214000e5c6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7be745b67e364b747bbb414ec159f83a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ff5b5ff6fda3b0a41b8cc9d9cdc028f4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7a745718bacea00489b8465daefcaa29, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7df11f2f09bef8b47abf56e42dc18550, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8152a28b0c460a447b7942f3d4714481, type: 2}

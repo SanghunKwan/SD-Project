@@ -39,7 +39,7 @@ public class PrintFloor : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (floorManager.GetData(out FloorManager.FloorData data))
         {
-            m_nowFloor = data.nowFloor;
+            m_nowFloor = data.topFloor;
         }
         PrintText();
     }

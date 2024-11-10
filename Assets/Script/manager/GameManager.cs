@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public List<CUnit> playerCharacter { get; private set; } = new List<CUnit>();
     public int playerDetected;
     public int nPCDetected;
+    int keyDictionaryCount;
 
     public float[] rec { get; private set; } = new float[4];
 
@@ -32,8 +33,8 @@ public class GameManager : MonoBehaviour
     public Action[] timeUIEvent = new Action[2];
     public Action<Vector3> screenMove { get; set; } = (screenMove) => { };
 
-    Dictionary<string, string> keyboardConverter = new Dictionary<string, string>();
 
+    Dictionary<string, string> keyboardConverter = new Dictionary<string, string>();
     KeyCode code = KeyCode.LeftShift;
 
     Action[] inputSpace = new Action[2];
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
 
 
     public PointerEventData pointerEventData { get; set; }
+    public WindowManager windowManager { get; set; }
 
     private void Awake()
     {
@@ -504,7 +506,7 @@ public class GameManager : MonoBehaviour
         {
             int Dmg = Attacker.curstat.ATK * atkMultiply * (100 - Target.curstat.DEF) / 10000;
 
-            Target.curstat.HP -= Dmg * Convert.ToInt32(UnityEngine.SceneManagement.SceneManager.GetActiveScene() != UnityEngine.SceneManagement.SceneManager.GetSceneByBuildIndex(1));
+            Target.curstat.HP -= Dmg * Convert.ToInt32(UnityEngine.SceneManagement.SceneManager.GetActiveScene() != UnityEngine.SceneManagement.SceneManager.GetSceneByBuildIndex(2));
             Target.Hit(skill);
             Target.PrintDamage(-Dmg);
 
@@ -649,13 +651,18 @@ public class GameManager : MonoBehaviour
         isReady = false;
     }
 
-    public void ConverterChange(in string oldStr, in string newStr)
+    public void ConverterChange(in string key, in string value)
     {
-        string temp = keyboardConverter[oldStr];
-        keyboardConverter.Remove(oldStr);
-        keyboardConverter.Add(newStr, temp);
+        keyboardConverter.Add(key, value);
+        Debug.Log(keyboardConverter.Count.ToString() + "  " + key + "  " + value);
     }
-
-
-
+    public string GetEmptyKey()
+    {
+        return "empty" + keyDictionaryCount++.ToString();
+    }
+    public void KeyConverterKeyDelete(in string oldStr, out string value)
+    {
+        value = keyboardConverter[oldStr];
+        keyboardConverter.Remove(oldStr);
+    }
 }

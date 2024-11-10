@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SaveStageViewNode : InitInterface, IPointerExitHandler
+public class SaveStageViewNode : InitObject, IPointerExitHandler
 {
     Text text;
     Animator animator;

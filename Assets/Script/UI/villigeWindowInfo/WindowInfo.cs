@@ -5,7 +5,7 @@ using Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WindowInfo : MonoBehaviour
+public class WindowInfo : tempMenuWindow
 {
     public WindowStatus wStatus { get; private set; }
 

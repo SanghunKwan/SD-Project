@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class MaterialsData : MonoBehaviour
+public class MaterialsData : JsonLoad
 {
     [Serializable]
     public class NeedMaterials
@@ -29,20 +29,17 @@ public class MaterialsData : MonoBehaviour
 
     private void Start()
     {
-        string jSonIO = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Assets/DataTable/Materials_Data.json"));
-
-        data = JsonUtility.FromJson<NeedList>(jSonIO);
+        data = LoadData<NeedList>("Materials_Data");
     }
-
 
     [ContextMenu("json¸¸µé±â")]
     public void SDF()
     {
-        NeedList asdf = new NeedList();
+        SDF<NeedList>();
+    }
 
-        string wnth = Path.Combine(Application.dataPath, "DataTable/asdf.json");
-
-        File.WriteAllText(wnth, JsonUtility.ToJson(asdf, true));
-
+    public override void Init()
+    {
+        throw new NotImplementedException();
     }
 }

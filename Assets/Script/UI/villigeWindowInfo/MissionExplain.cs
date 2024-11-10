@@ -4,9 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MissionExplain : InitInterface
+[RequireComponent(typeof(AnimationFadeOutDisable))]
+public class MissionExplain : InitObject
 {
     public Animator anim { get; private set; }
+    AnimationFadeOutDisable animationEvent;
     TextMeshProUGUI mission_name;
     TextMeshProUGUI mission_purpose;
     [SerializeField] Sprite[] rewardImages;
@@ -39,6 +41,7 @@ public class MissionExplain : InitInterface
     public override void Init()
     {
         anim = GetComponent<Animator>();
+        animationEvent = GetComponent<AnimationFadeOutDisable>();
         mission_name = transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         mission_purpose = transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>();
 
@@ -46,26 +49,7 @@ public class MissionExplain : InitInterface
             frames[i] = new ImageFrame(transform.GetChild(1).GetChild(2), i);
     }
 
-    #region 애니매이션 이벤트
-    public void AnimationEnd()
-    {
-        gameObject.SetActive(false);
-    }
-    public void AnimationStart()
-    {
-        Fade(false);
-    }
-    public void FadeInEnd()
-    {
-        Fade(true);
-    }
-    void Fade(bool onoff)
-    {
-        int count = transform.GetChild(1).childCount;
-        for (int i = 0; i < count; i++)
-            transform.GetChild(1).GetChild(i).gameObject.SetActive(onoff);
-    }
-    #endregion
+
     #region text 변경
     public void ChangeExplain(int floorNum)
     {
@@ -91,4 +75,8 @@ public class MissionExplain : InitInterface
     }
 
     #endregion
+    public void AnimationStart()
+    {
+        animationEvent.AnimationStart();
+    }
 }

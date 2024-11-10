@@ -14,6 +14,7 @@ public class AddressableManager : MonoBehaviour
 
     [SerializeField] AssetLabelReference[] label;
 
+    public static AddressableManager manager;
 
     public enum PreviewImage
     {
@@ -58,17 +59,41 @@ public class AddressableManager : MonoBehaviour
         VideoMouseMove = 1,
         VideoView = 2,
     }
+    public enum MainMenuImage
+    {
+        Logo,
+        Title,
+        TrashCan,
+        TrashCanLid
+    }
+    public enum LabelName
+    {
+        MainMenu,
+        Building,
+        VideoView,
+        VideoMouseMove,
+        MeleeUpgraded,
+        RangeUpgraded,
+        RangeNormal,
+        MeleeNormal,
+        RangeBase,
+        MeleeBase,
+        RangeSkill,
+        MeleeSkill,
+
+    }
 
 
 
     private void Start()
     {
+        manager = this;
         for (int i = 0; i < label.Length; i++)
         {
             LoadData(label[i].labelString);
         }
     }
-    public void LoadData(in string LabelName)
+    public void LoadData(in string LabelName, Action action = null)
     {
         if (!loadedData.ContainsKey(LabelName))
         {
@@ -78,6 +103,7 @@ public class AddressableManager : MonoBehaviour
             handle.Completed += (asy) =>
             {
                 Debug.Log(loadedData[name].Result.Count);
+                action?.Invoke();
             };
         }
     }

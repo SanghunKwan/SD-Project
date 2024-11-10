@@ -121,7 +121,7 @@ public class TowerWindow : CamTuringWindow
     MissionExplain missionExplain;
     HighLightImage highLightImage;
     SaveStageView saveStageView;
-    [SerializeField] InitInterface[] needInit;
+    [SerializeField] InitObject[] needInit;
 
     public override void Init()
     {
@@ -190,7 +190,7 @@ public class TowerWindow : CamTuringWindow
 
         floorManager.GetData(out FloorManager.FloorData data);
 
-        int tempNum = data.nowFloor - 1;
+        int tempNum = data.topFloor - 1;
         int floorToIndex = tempNum / 10;
         float ratioInFloor = (tempNum % 10) / 10f;
 
@@ -201,7 +201,7 @@ public class TowerWindow : CamTuringWindow
     {
         floorManager.GetData(out FloorManager.FloorData data);
 
-        nowFloortag.Init(data.nowFloor);
+        nowFloortag.Init(data.topFloor);
     }
     public void NextStep()
     {
@@ -217,7 +217,7 @@ public class TowerWindow : CamTuringWindow
             stageButtonSet.StageSaveButton.gameObject.SetActive(true);
             saveStageView.gameObject.SetActive(true);
             int tempFloor = nowFloor * 10;
-            int printFloor = Mathf.Min(Mathf.Max(data.nowFloor, tempFloor + 1), tempFloor + 10);
+            int printFloor = Mathf.Min(Mathf.Max(data.topFloor, tempFloor + 1), tempFloor + 10);
 
             stageButtonSet.ActiveDrag(printFloor);
             stageButtonSet.SelectStage(printFloor);

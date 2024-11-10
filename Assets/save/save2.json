@@ -1,0 +1,26 @@
+{
+    "floor": 0,
+    "day": 0,
+    "nextScene": 1,
+    "floorData": {
+        "topFloor": 1,
+        "floorLooks": [
+            0
+        ],
+        "floorAngles": [
+            27.0
+        ]
+    },
+    "stageData": {
+        "nowFloor": 0,
+        "participatingTeamCount": 5,
+        "stageName": "",
+        "stagePurpose": "",
+        "stageRewardsImage": [
+            0,
+            1,
+            2,
+            3
+        ]
+    }
+}

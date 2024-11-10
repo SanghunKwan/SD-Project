@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 using Unit;
 
-public class SkillData : MonoBehaviour
+public class SkillData : JsonLoad
 {
     public static SkillData manager;
     public SKILLS SkillInfo { get; private set; }
@@ -65,9 +65,8 @@ public class SkillData : MonoBehaviour
     private void Start()
     {
         manager = this;
-        string skillDataAddress = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Assets/DataTable/Skill_Data.json"));
 
-        SkillInfo = (SKILLS)JsonUtility.FromJson(skillDataAddress, typeof(SKILLS));
+        SkillInfo = LoadData<SKILLS>("Skill_Data");
     }
 
     public IEnumerator MakeSkillStruct(int nIndex, WeaponComponent user, CObject target)
@@ -100,11 +99,11 @@ public class SkillData : MonoBehaviour
     [ContextMenu("asdf")]
     public void SDF()
     {
-        Skill asdf = new Skill();
+        SDF<SKILLS>();
+    }
 
-        string wnth = Path.Combine(Application.dataPath, "DataTable/asdf.json");
-
-        File.WriteAllText(wnth, JsonUtility.ToJson(asdf, true));
-
+    public override void Init()
+    {
+        throw new System.NotImplementedException();
     }
 }

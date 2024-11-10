@@ -98,6 +98,15 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""0cba85fc-3b9b-4c9c-8c1e-ea2293a8a6b4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1475,6 +1484,17 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
                     ""action"": ""DoubleArmySelect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcd8ebeb-92d9-4018-ba03-087a429cabd7"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1549,6 +1569,15 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
                     ""name"": ""ActionAdd"",
                     ""type"": ""Button"",
                     ""id"": ""ee2ebefe-b921-47c8-beaa-0ab32a461738"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""0d872f55-268f-4c28-9bd9-12e4c84406ab"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -2930,6 +2959,17 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
                     ""action"": ""ActionAdd"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f6f2b73-64d9-4a19-97c1-6dc41eeda182"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -3039,6 +3079,7 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
         m_PlayerInput_TimeDelay = m_PlayerInput.FindAction("TimeDelay", throwIfNotFound: true);
         m_PlayerInput_SimpleAct = m_PlayerInput.FindAction("SimpleAct", throwIfNotFound: true);
         m_PlayerInput_ActionAdd = m_PlayerInput.FindAction("ActionAdd", throwIfNotFound: true);
+        m_PlayerInput_Escape = m_PlayerInput.FindAction("Escape", throwIfNotFound: true);
         // PlayerOwn
         m_PlayerOwn = asset.FindActionMap("PlayerOwn", throwIfNotFound: true);
         m_PlayerOwn_ArmySelect = m_PlayerOwn.FindAction("ArmySelect", throwIfNotFound: true);
@@ -3049,6 +3090,7 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
         m_PlayerOwn_TimeDelay = m_PlayerOwn.FindAction("TimeDelay", throwIfNotFound: true);
         m_PlayerOwn_SimpleAct = m_PlayerOwn.FindAction("SimpleAct", throwIfNotFound: true);
         m_PlayerOwn_ActionAdd = m_PlayerOwn.FindAction("ActionAdd", throwIfNotFound: true);
+        m_PlayerOwn_Escape = m_PlayerOwn.FindAction("Escape", throwIfNotFound: true);
         // NewKeyInput
         m_NewKeyInput = asset.FindActionMap("NewKeyInput", throwIfNotFound: true);
         m_NewKeyInput_Esc = m_NewKeyInput.FindAction("Esc", throwIfNotFound: true);
@@ -3125,6 +3167,7 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInput_TimeDelay;
     private readonly InputAction m_PlayerInput_SimpleAct;
     private readonly InputAction m_PlayerInput_ActionAdd;
+    private readonly InputAction m_PlayerInput_Escape;
     public struct PlayerInputActions
     {
         private @PlayerInputScript m_Wrapper;
@@ -3137,6 +3180,7 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
         public InputAction @TimeDelay => m_Wrapper.m_PlayerInput_TimeDelay;
         public InputAction @SimpleAct => m_Wrapper.m_PlayerInput_SimpleAct;
         public InputAction @ActionAdd => m_Wrapper.m_PlayerInput_ActionAdd;
+        public InputAction @Escape => m_Wrapper.m_PlayerInput_Escape;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -3170,6 +3214,9 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
             @ActionAdd.started += instance.OnActionAdd;
             @ActionAdd.performed += instance.OnActionAdd;
             @ActionAdd.canceled += instance.OnActionAdd;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
         }
 
         private void UnregisterCallbacks(IPlayerInputActions instance)
@@ -3198,6 +3245,9 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
             @ActionAdd.started -= instance.OnActionAdd;
             @ActionAdd.performed -= instance.OnActionAdd;
             @ActionAdd.canceled -= instance.OnActionAdd;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
         }
 
         public void RemoveCallbacks(IPlayerInputActions instance)
@@ -3227,6 +3277,7 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerOwn_TimeDelay;
     private readonly InputAction m_PlayerOwn_SimpleAct;
     private readonly InputAction m_PlayerOwn_ActionAdd;
+    private readonly InputAction m_PlayerOwn_Escape;
     public struct PlayerOwnActions
     {
         private @PlayerInputScript m_Wrapper;
@@ -3239,6 +3290,7 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
         public InputAction @TimeDelay => m_Wrapper.m_PlayerOwn_TimeDelay;
         public InputAction @SimpleAct => m_Wrapper.m_PlayerOwn_SimpleAct;
         public InputAction @ActionAdd => m_Wrapper.m_PlayerOwn_ActionAdd;
+        public InputAction @Escape => m_Wrapper.m_PlayerOwn_Escape;
         public InputActionMap Get() { return m_Wrapper.m_PlayerOwn; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -3272,6 +3324,9 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
             @ActionAdd.started += instance.OnActionAdd;
             @ActionAdd.performed += instance.OnActionAdd;
             @ActionAdd.canceled += instance.OnActionAdd;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
         }
 
         private void UnregisterCallbacks(IPlayerOwnActions instance)
@@ -3300,6 +3355,9 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
             @ActionAdd.started -= instance.OnActionAdd;
             @ActionAdd.performed -= instance.OnActionAdd;
             @ActionAdd.canceled -= instance.OnActionAdd;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
         }
 
         public void RemoveCallbacks(IPlayerOwnActions instance)
@@ -3436,6 +3494,7 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
         void OnTimeDelay(InputAction.CallbackContext context);
         void OnSimpleAct(InputAction.CallbackContext context);
         void OnActionAdd(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
     public interface IPlayerOwnActions
     {
@@ -3447,6 +3506,7 @@ public partial class @PlayerInputScript: IInputActionCollection2, IDisposable
         void OnTimeDelay(InputAction.CallbackContext context);
         void OnSimpleAct(InputAction.CallbackContext context);
         void OnActionAdd(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
     public interface INewKeyInputActions
     {

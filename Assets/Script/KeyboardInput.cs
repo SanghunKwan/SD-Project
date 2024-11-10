@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class KeyboardInput : MonoBehaviour
 {
+    [SerializeField] menuWindow menuWindow;
+    [SerializeField] WindowManager windowManager;
     public void OnSelect(InputAction.CallbackContext inputAction)
     {
         if (inputAction.phase == InputActionPhase.Started)
@@ -53,11 +55,25 @@ public class KeyboardInput : MonoBehaviour
     }
     public void OnDoubleArmySelect(InputAction.CallbackContext inputAction)
     {
-        if (inputAction.phase == InputActionPhase.Performed && 
+        if (inputAction.phase == InputActionPhase.Performed &&
             PlayerNavi.nav.PlayerCharacter[GameManager.manager.GetConvert(inputAction.control.displayName)].Count > 0)
         {
 
             GameManager.manager.ScreenToPoint(PlayerNavi.nav.getCenter);
+        }
+    }
+    public void OnEscape(InputAction.CallbackContext inputAction)
+    {
+        if (inputAction.phase == InputActionPhase.Performed)
+        {
+            menuWindow.OnOffWindow();
+        }
+    }
+    public void OnWindowClose(InputAction.CallbackContext inputAction)
+    {
+        if (inputAction.phase == InputActionPhase.Performed)
+        {
+            windowManager.CloseWindow();
         }
     }
 }

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MainMenu
+  m_EditorClassIdentifier: 
+  m_GroupName: MainMenu
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 25de54d73c723054d8edac1d398fd4ee
+  m_SerializeEntries:
+  - m_GUID: 49cab540f7276b24f97708dc010ea230
+    m_Address: Assets/AddData/MainMenu/Dark_Silhouette.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainMenu
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e8a2a5faea094f43a9d03aaae3fb09d
+    m_Address: Assets/AddData/MainMenu/title3.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainMenu
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 76319fe903ec938419677ddd7ed9a3cd
+    m_Address: Assets/AddData/MainMenu/TrashcanLower.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainMenu
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ecad6ef854c8f847aae4e1ea9937db8
+    m_Address: Assets/AddData/MainMenu/trashcanLid.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainMenu
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 7818842f378eaa14f8b31e0a0d173aef, type: 2}
+    - {fileID: 11400000, guid: 084cb6780e9ce3a4ca7efa7125b6e3de, type: 2}

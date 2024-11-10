@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public abstract class InitInterface : MonoBehaviour
+
+public interface InitInterface
 {
-    public abstract void Init();
+    public void Init();
 }
