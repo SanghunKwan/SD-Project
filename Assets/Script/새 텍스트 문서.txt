@@ -54,3 +54,5 @@ building time이 1 이상인 건물은 지으면 바로 완성되지 않고 건�
 //
 아군에게 피격으로 반격 시 고개를 계속 도리도리하는 버그.
 unit circle이 매우 빠르게 회전하는 것. deltaTime 추가.
+
+inventory description에서 서로 다른 인벤토리 설명

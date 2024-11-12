@@ -4,10 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 using UnityEngine.UI;
-using Unit;
-using System.Linq;
 
-public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler, IPointerMoveHandler, IPointerDownHandler
+public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     int SlotNum;
     int prevSlotNum;
@@ -16,39 +14,52 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     bool isNotLine;
 
     bool isDragActive;
-    Action[] clicks;
+    Action<Vector2>[] clicks;
 
     Image dragImage;
     Vector2 pointerOffset;
-
     InventoryComponent inventoryComponent;
+
+    IEnumerator enumWaiting;
+    bool IsSlotExist
+    {
+        get { return inventoryComponent.CheckItemSlotExist(SlotNum); }
+    }
     private void Start()
     {
-        Clicks();
+        SetClicks();
         GameObject.FindWithTag("CanvasWorld").transform.GetChild(0).GetComponent<ClickDrag>().SetDown(() => inventoryComponent.ActiveDescription(false));
         inventoryComponent = transform.parent.parent.GetComponent<InventoryComponent>();
+        SlotNum = transform.GetSiblingIndex();
     }
-    void Clicks()
+    void SetClicks()
     {
-        clicks = new Action[2];
+        clicks = new Action<Vector2>[3];
 
-        clicks[0] = () => { InventoryManager.i.CallItemInfo(SlotNum); };//left
-        clicks[1] = () => { InventoryManager.i.Use(SlotNum); };//right
+        clicks[(int)PointerEventData.InputButton.Left] = (pos) =>
+        {
+            StopWaiting();
+            inventoryComponent.SetDescription(SlotNum, pos);
+        };
+        clicks[(int)PointerEventData.InputButton.Right] = (pos) => { InventoryManager.i.Use(SlotNum); };
+        clicks[(int)PointerEventData.InputButton.Middle] = (pos) => { };
     }
-
+    #region input 이벤트
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (isOnItem && InventoryManager.i.CheckSlot(SlotNum))
-        {
-            dragImage = InventoryManager.i.HideSlot(SlotNum, eventData.pressPosition, out pointerOffset, out prevSlotNum);
-            isDragActive = true;
-        }
+        if (!IsSlotExist)
+            return;
+
+        isDragActive = true;
+        dragImage = inventoryComponent.GetDragImage(SlotNum);
+        pointerOffset = (Vector2)dragImage.rectTransform.position - eventData.position;
+        Debug.Log(pointerOffset);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (isDragActive)
-            dragImage.rectTransform.position = eventData.position - pointerOffset;
+            dragImage.rectTransform.position = eventData.position + pointerOffset;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -58,51 +69,65 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
         Destroy(dragImage.gameObject);
         isDragActive = false;
-        InventoryManager.i.ReturnItem(prevSlotNum);
 
-        if (isOnItem && eventData.button == PointerEventData.InputButton.Left)
-            InventoryManager.i.ItemSwap(prevSlotNum, SlotNum);
+        inventoryComponent.ItemSwap(SlotNum);
 
-        else if (eventData.position.x < 1390 || eventData.position.y > 235)
-        {
-            var units = GameManager.manager.playerCharacter;
-            if (PlayerNavi.nav.lists.Count > 0)
-                units = PlayerNavi.nav.lists.Select(character => character.cUnit).ToList();
+        //        if (eventData.button == PointerEventData.InputButton.Left)
+        //            InventoryManager.i.ThrowAway(unit, prevSlotNum, hit.point);
 
-            Ray ray = Camera.main.ScreenPointToRay(eventData.position);
-            int layerMask = 1 << LayerMask.NameToLayer("Floor");
-            if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, layerMask))
-            {
-                CUnit unit = GameManager.manager.GetNearest(units, hit.point,
-                                                (cunit) => true, 1000) as CUnit;
+        //        else if (eventData.button == PointerEventData.InputButton.Right)
+        //            InventoryManager.i.UseOne(unit, prevSlotNum);
 
-                if (eventData.button == PointerEventData.InputButton.Left)
-                    InventoryManager.i.ThrowAway(unit, prevSlotNum, hit.point);
-
-                else if (eventData.button == PointerEventData.InputButton.Right)
-                    InventoryManager.i.UseOne(unit, prevSlotNum);
-
-            }
-            else
-                Debug.Log("Raycast  실패");
-        }
+        //    }
+        //    else
+        //        Debug.Log("Raycast  실패");
+        //}
 
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (isOnItem && InventoryManager.i.CheckSlot(SlotNum) && !eventData.dragging)
-            clicks[(int)eventData.button]();
-    }
+        if (!IsSlotExist || eventData.dragging)
+            return;
 
-    public void OnPointerMove(PointerEventData eventData)
-    {
-        inventoryComponent.ActiveDescription(true);
-        inventoryComponent.SetDescription(SlotNum, eventData.position);
+        clicks[(int)eventData.button](eventData.position);
     }
-
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
+        isOnItem = true;
+        inventoryComponent.OnPointerEnter(SlotNum);
+
+        if (!IsSlotExist)
+            return;
+
+        StartWaiting(1.5f, CheckOnSlot);
+    }
+    void StartWaiting(float seconds, Action action)
+    {
+        enumWaiting = WaitOnSlot(seconds, action);
+        StartCoroutine(enumWaiting);
+    }
+    IEnumerator WaitOnSlot(float seconds, Action action)
+    {
+        yield return new WaitForSeconds(seconds);
+        action();
+    }
+    void StopWaiting()
+    {
+        if (enumWaiting != null)
+            StopCoroutine(enumWaiting);
+    }
+    void CheckOnSlot()
+    {
+        if (isOnItem)
+            inventoryComponent.SetDescription(SlotNum, Input.mousePosition);
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isOnItem = false;
         inventoryComponent.ActiveDescription(false);
     }
+
+
+    #endregion
 }

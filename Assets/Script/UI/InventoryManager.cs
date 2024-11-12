@@ -194,24 +194,6 @@ public class InventoryManager : JsonLoad
         //    return onClick;
         return null;
     }
-    public void ReturnItem(int i)
-    {
-    //    itemUI[i].enabled = true;
-    }
-    public void CallItemInfo(int i)
-    {
-        //    if (descriptionCor != default)
-        //        StopCoroutine(descriptionCor);
-        //    descriptionCor = ItemInfoOnOff(true);
-        //    StartCoroutine(descriptionCor);
-
-        //    RectTransform rec = tmg.transform.parent.GetComponent<RectTransform>();
-        //    rec.position = itemUI[i].rectTransform.position + Vector3.left * 40 + Vector3.up * 20;
-
-        //    int code = inventoryRoom[UItoroom[i]].itemCode;
-        //    tmg.text = info.items[code].description;
-
-    }
     //IEnumerator ItemInfoOnOff(bool onoff)
     //{
     //    tmg.transform.parent.gameObject.SetActive(true);

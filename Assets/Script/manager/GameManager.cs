@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviour
     Dictionary<string, string> keyboardConverter = new Dictionary<string, string>();
     KeyCode code = KeyCode.LeftShift;
 
-    Action[] inputSpace = new Action[2];
-    Action[] inputSpaceUp = new Action[2];
+    Action[] inputSpace = new Action[3];
+    Action[] inputSpaceUp = new Action[3];
     public Action callConstructionUI;
 
 
@@ -52,11 +52,13 @@ public class GameManager : MonoBehaviour
 
         isReady = true;
 
-        inputSpace[0] = TimeDelay;
-        inputSpace[1] = VilligeBuildingScroll;
+        inputSpace[0] = () => { };
+        inputSpace[1] = TimeDelay;
+        inputSpace[2] = VilligeBuildingScroll;
 
-        inputSpaceUp[0] = TimeDelayEnd;
-        inputSpaceUp[1] = () => { };
+        inputSpaceUp[0] = () => { };
+        inputSpaceUp[1] = TimeDelayEnd;
+        inputSpaceUp[2] = () => { };
 
 
 

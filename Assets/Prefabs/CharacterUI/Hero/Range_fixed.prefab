@@ -186,7 +186,7 @@ MonoBehaviour:
   meshResolution: 1
   filter: {fileID: 3436178122997081757, guid: 57e71e843ad690c498d2f6a5595d812e, type: 3}
   Detailtime: 1
-  Head: {fileID: 0}
+  Head: {fileID: 4508646675295223307}
   defaultMaterial: {fileID: 2100000, guid: 95c04c5084391c44ea53e4b1d7b7a68f, type: 2}
 --- !u!114 &5983662283031617189
 MonoBehaviour:
@@ -264,6 +264,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8b898a0386ee0a846b280e6a9d0803a7, type: 3}
   DieVoice:
   - {fileID: 8300000, guid: 1b6e9dc40339c374d8e79d6d2d69237a, type: 3}
+  soundManager: {fileID: 0}
 --- !u!114 &3650026122256560318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,6 +1113,11 @@ PrefabInstance:
       addedObject: {fileID: 7527175383759557193}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
+--- !u!1 &4508646675295223307 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3755312176768100577, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
+  m_PrefabInstance: {fileID: 760091032519022314}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4676389754118856183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5362025121098124061, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}

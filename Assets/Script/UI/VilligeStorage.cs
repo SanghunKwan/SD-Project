@@ -10,7 +10,7 @@ public class VilligeStorage : MonoBehaviour, IStorageVisible
     StorageComponent storageComponent;
 
     public Action<int>[] OnItemCountChanged { get; set; }
-    private void Awake()
+    private void Start()
     {
         storageComponent = GetComponent<StorageComponent>();
         nodes = GetComponentsInChildren<VilligeStroageNode>();

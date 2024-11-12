@@ -28,6 +28,14 @@ public class InventoryStorage : StorageComponent
             brunchIndex.Capacity = 5;
 
         }
+        public Slot(in Slot deepCopy)
+        {
+            itemCode = deepCopy.itemCode;
+            itemCount = deepCopy.itemCount;
+            brunchIndex = new List<int>(deepCopy.brunchIndex);
+            beforeSlotIndex = deepCopy.beforeSlotIndex;
+            onChangeSlotIndex = (Action<int>)deepCopy.onChangeSlotIndex.Clone();
+        }
         public void SetSlot(int code, int count)
         {
             itemCode = code;
@@ -98,7 +106,7 @@ public class InventoryStorage : StorageComponent
             UseAll(codeIndex, count <= 0);
         }
 
-        if (addNum != 0)
+        if (addNum == 0)
             return;
 
         //addNum이 양수이면 새로운 index를 받고 slots[새로운 Index]의 beforeSlotIndex = codeIndex;
@@ -112,7 +120,8 @@ public class InventoryStorage : StorageComponent
         {
             DecreaseItemCount(itemCode, addNum);
         }
-        base.ItemCountChange(itemCode, addNum);
+        eventAlert(itemcode2slotindex[itemCode]);
+        m_itemCounts[itemCode] += addNum;
     }
     void UseAll(int codeIndex, bool lessEqualZero)
     {
@@ -128,13 +137,17 @@ public class InventoryStorage : StorageComponent
         {
             //팝업.
             //인벤토리가 가득 찼습니다.
+            Debug.Log("인벤토리 꽉 참");
         }
         else
         {
             AllocateSlot2(item, out int emptyIndex);
             slots[emptyIndex].SetSlot(item.itemCode, addNum);
             slots[emptyIndex].beforeSlotIndex = beforeIndex;
-            slots[beforeIndex].AddListener((newIndex) => slots[emptyIndex].beforeSlotIndex = newIndex);
+            itemcode2slotindex[item.itemCode] = emptyIndex;
+
+            if (beforeIndex >= 0)
+                slots[beforeIndex].AddListener((newIndex) => slots[emptyIndex].beforeSlotIndex = newIndex);
         }
     }
     void DecreaseItemCount(int itemCode, int addNum)
@@ -251,10 +264,12 @@ public class InventoryStorage : StorageComponent
 
     public void SwapSlot(int slot1Index, int slot2Index)
     {
-        Slot tempSlot = slots[slot1Index];
-
+        Slot tempSlot = new Slot(slots[slot1Index]);
         slots[slot1Index].SwapSlot(slot2Index, slots[slot2Index]);
         slots[slot2Index].SwapSlot(slot1Index, tempSlot);
+
+        eventAlert(slot1Index);
+        eventAlert(slot2Index);
     }
     #endregion
 
