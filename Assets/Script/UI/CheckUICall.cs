@@ -52,6 +52,21 @@ public class CheckUICall : MonoBehaviour
             m_Ui.ChangeButton(buttonChange.buttonIndex, buttonChange.buttonType);
         }
     }
+
+    public void CallUIOnce(bool needMove)
+    {
+        CallUI();
+        SetUIButton();
+        ChangeButtonType();
+        HideButton(needMove);
+    }
+    void HideButton(bool needMove)
+    {
+        if (needMove)
+            HideButtonWithMove();
+        else
+            HideButtonWithNoMove();
+    }
     public void HideButtonWithMove()
     {
         foreach (var item in hiddenButton)
@@ -65,12 +80,6 @@ public class CheckUICall : MonoBehaviour
         {
             m_Ui.SetButtonInactiveNoPositionChange(item);
         }
-    }
-    public void CallUIOnce()
-    {
-        CallUI();
-        SetUIButton();
-        ChangeButtonType();
     }
 
     #region CheckUiCallChange 관련 기능

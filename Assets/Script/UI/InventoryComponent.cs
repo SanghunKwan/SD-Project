@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -82,9 +83,18 @@ public class InventoryComponent : InitObject, IStorageVisible
         GameObject dragImage = new GameObject("DragImage");
         dragImage.transform.SetParent(inventoryDescription.transform.parent);
         Image image = dragImage.AddComponent<Image>();
-        ImageCopyNSetting(image, itemSlots[slotIndex].itemImage);
+        Image targetImage = itemSlots[slotIndex].itemImage;
+        ImageCopyNSetting(image, targetImage);
+        CopyTransformChild(image.transform, targetImage.transform, 0);
 
         return image;
+    }
+
+    void ImageCopyNSetting(in Image copy, in Image target)
+    {
+        ImageCopy(copy, target);
+        copy.raycastTarget = false;
+        target.color = Color.clear;
     }
     void ImageCopy(in Image copy, in Image target)
     {
@@ -92,11 +102,14 @@ public class InventoryComponent : InitObject, IStorageVisible
         copy.rectTransform.sizeDelta = target.rectTransform.sizeDelta;
         copy.rectTransform.position = target.rectTransform.position;
     }
-    void ImageCopyNSetting(in Image copy, in Image target)
+    void CopyTransformChild(in Transform objectTransform, in Transform targetTransform, int childNum)
     {
-        ImageCopy(copy, target);
-        copy.raycastTarget = false;
-        target.color = Color.clear;
+        Transform targetChildTransform = targetTransform.GetChild(childNum);
+        GameObject newGameObject = Instantiate(targetChildTransform.gameObject);
+
+        newGameObject.transform.SetParent(objectTransform);
+        newGameObject.transform.localPosition = targetChildTransform.localPosition;
+        targetChildTransform.gameObject.SetActive(false);
     }
     public void ItemSwap(int slotIndex)
     {
@@ -106,6 +119,15 @@ public class InventoryComponent : InitObject, IStorageVisible
     {
         nowSlotIndex = slotIndex;
     }
+    public void Use(int slotIndex)
+    {
+        //스테이지에서
+        //모든 영웅들이 하나씩 사용
+
+        //마을에서
+        //창고 인벤토리로 이동
+    }
+
     #endregion
     #region 사용금지
     public void ChangeNum(int itemCode)

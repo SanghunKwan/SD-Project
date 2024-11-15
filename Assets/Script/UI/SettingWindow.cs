@@ -92,7 +92,7 @@ public class SettingWindow : tempMenuWindow
     }
     void OpenCheckUI(MonoBehaviour window)
     {
-        windowMoveUI[window.transform.GetSiblingIndex()].CallUIOnce();
+        windowMoveUI[window.transform.GetSiblingIndex()].CallUIOnce(false);
     }
     public void ClickWindowQuitButton(int i)
     {
@@ -100,7 +100,7 @@ public class SettingWindow : tempMenuWindow
     }
     void OpenCheckUI(int i)
     {
-        windowQuitUI[i].CallUIOnce();
+        windowQuitUI[i].CallUIOnce(false);
     }
 
 }

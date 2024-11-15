@@ -41,7 +41,12 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
             StopWaiting();
             inventoryComponent.SetDescription(SlotNum, pos);
         };
-        clicks[(int)PointerEventData.InputButton.Right] = (pos) => { InventoryManager.i.Use(SlotNum); };
+        clicks[(int)PointerEventData.InputButton.Right] = (pos) =>
+        {
+            StopWaiting();
+            inventoryComponent.Use(SlotNum);
+            InventoryManager.i.Use(SlotNum);
+        };
         clicks[(int)PointerEventData.InputButton.Middle] = (pos) => { };
     }
     #region input 이벤트
@@ -67,6 +72,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         if (!isDragActive)
             return;
 
+
         Destroy(dragImage.gameObject);
         isDragActive = false;
 
@@ -77,17 +83,11 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
         //        else if (eventData.button == PointerEventData.InputButton.Right)
         //            InventoryManager.i.UseOne(unit, prevSlotNum);
-
-        //    }
-        //    else
-        //        Debug.Log("Raycast  실패");
-        //}
-
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!IsSlotExist || eventData.dragging)
+        if (!IsSlotExist || isDragActive)
             return;
 
         clicks[(int)eventData.button](eventData.position);
@@ -97,7 +97,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         isOnItem = true;
         inventoryComponent.OnPointerEnter(SlotNum);
 
-        if (!IsSlotExist)
+        if (!IsSlotExist || eventData.dragging)
             return;
 
         StartWaiting(1.5f, CheckOnSlot);
@@ -119,7 +119,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     }
     void CheckOnSlot()
     {
-        if (isOnItem)
+        if (isOnItem && !isDragActive)
             inventoryComponent.SetDescription(SlotNum, Input.mousePosition);
     }
     public void OnPointerExit(PointerEventData eventData)

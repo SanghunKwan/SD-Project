@@ -8,8 +8,8 @@ using TMPro;
 
 public class DescriptionWindow : MonoBehaviour
 {
-    [SerializeField] AddressableManager addressableManager;
     [SerializeField] SettingDescManager settingDescManager;
+    AddressableManager addressableManager;
     VideoPlayer videoPlayer;
     TextMeshProUGUI text;
     RawImage texture;
@@ -24,6 +24,7 @@ public class DescriptionWindow : MonoBehaviour
 
     private void Awake()
     {
+        addressableManager = AddressableManager.manager;
         videoPlayer = transform.GetChild(1).GetComponent<VideoPlayer>();
         button = transform.Find("PageButton").GetComponentsInChildren<Button>();
         text = videoPlayer.transform.Find("descText").GetComponent<TextMeshProUGUI>();

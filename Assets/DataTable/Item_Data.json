@@ -124,6 +124,15 @@
             "type": 1,
             "description": "<align=center><u>황금동전</u></align>\\n<size=40>재료. 영지 이벤트에서 얻음.</size>",
             "needSlots": 1
+        },
+        {
+            "name": "test2",
+            "itemCode": 14,
+            "MaxCount": 5,
+            "type": 1,
+            "description": "<align=center><u>테스트</u></align>\\n<size=40>퀘스트. 영지에서 장비 회수.</size>",
+            "needSlots": 2,
+            "figure": 1
         }
 
     ]
