@@ -48,13 +48,22 @@ public class InventoryStorage : StorageComponent
             itemCode = code;
             itemCount = count;
         }
-        public void SwapSlot(int slotIndex, in Slot slot)
+        public void SwapSlot(int nowSlotIndex, int slotIndex, in Slot slot)
         {
+            Debug.Log("nowSlotIndex :" + nowSlotIndex);
             //교체 시 brunchIndex list 내용물도 교체해줘야함.
             onChangeSlotIndex(slotIndex);
             itemCode = slot.itemCode;
             itemCount = slot.itemCount;
             brunchIndex = slot.brunchIndex;
+
+            brunchIndex.Remove(nowSlotIndex);
+            if (slot.itemCode != 0)
+                InsertSlotIndexWithSort(slotIndex, brunchIndex);
+            foreach (var item in brunchIndex)
+            {
+                Debug.Log("item : " + item);
+            }
             beforeSlotIndex = slot.beforeSlotIndex;
 
         }
@@ -72,6 +81,14 @@ public class InventoryStorage : StorageComponent
             {
                 Debug.Log(item);
             }
+        }
+        void InsertSlotIndexWithSort<T>(T item, List<T> list)
+        {
+            int tempIndex = list.BinarySearch(item);
+            if (tempIndex == 0)
+                return;
+            Debug.Log(tempIndex);
+            list.Insert(~tempIndex, item);
         }
     }
     public Slot[] slots { get; private set; }
@@ -297,21 +314,24 @@ public class InventoryStorage : StorageComponent
     public void SwapSlot(int slot1Index, int slot2Index)
     {
         Slot tempSlot = new Slot(slots[slot1Index]);
-        slots[slot1Index].SwapSlot(slot2Index, slots[slot2Index]);
-        slots[slot2Index].SwapSlot(slot1Index, tempSlot);
+        slots[slot1Index].SwapSlot(slot1Index, slot2Index, slots[slot2Index]);
+        slots[slot2Index].SwapSlot(slot2Index, slot1Index, tempSlot);
 
         if (emptySlotList.Contains(slot2Index))
         {
             emptySlotList.Remove(slot2Index);
-            int tempIndex = emptySlotList.BinarySearch(slot1Index);
-            emptySlotList.Insert(~tempIndex, slot1Index);
-
+            InsertSlotIndexWithSort(slot1Index, emptySlotList);
         }
         eventAlert(slot1Index);
         eventAlert(slot2Index);
-
-
     }
+
+    void InsertSlotIndexWithSort<T>(T item, List<T> list)
+    {
+        int tempIndex = list.BinarySearch(item);
+        list.Insert(~tempIndex, item);
+    }
+
     #endregion
 
 

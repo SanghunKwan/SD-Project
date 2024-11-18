@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,7 +55,10 @@ public class InventoryComponent : InitObject, IStorageVisible
     #region ½Ã°¢È­
     void OriginImage(int slotIndex)
     {
-        itemSlots[slotIndex].SetSlot(inventoryStorage.slots[slotIndex]);
+        foreach (var item in inventoryStorage.slots[slotIndex].brunchIndex)
+        {
+            itemSlots[item].SetSlot(inventoryStorage.slots[item]);
+        }
     }
     public void ActiveDescription(bool onoff)
     {
@@ -128,7 +130,14 @@ public class InventoryComponent : InitObject, IStorageVisible
 
     public void ItemSwap(int slotIndex)
     {
-        inventoryStorage.SwapSlot(slotIndex, nowSlotIndex);
+        int[] ints = itemSlots[slotIndex].slotdata.brunchIndex.ToArray();
+        int offset = nowSlotIndex - slotIndex;
+
+        for (int i = ints.Length - 1; i >= 0; i--)
+        {
+            Debug.Log(ints[i].ToString() + "   " + (ints[i] + offset));
+            inventoryStorage.SwapSlot(ints[i], ints[i] + offset);
+        }
     }
     public void OnPointerEnter(int slotIndex)
     {

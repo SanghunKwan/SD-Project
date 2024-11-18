@@ -58,7 +58,6 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         isDragActive = true;
         dragImage = inventoryComponent.GetDragImage(SlotNum);
         pointerOffset = (Vector2)dragImage.position - eventData.position;
-        Debug.Log(pointerOffset);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -78,11 +77,6 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
         inventoryComponent.ItemSwap(SlotNum);
 
-        //        if (eventData.button == PointerEventData.InputButton.Left)
-        //            InventoryManager.i.ThrowAway(unit, prevSlotNum, hit.point);
-
-        //        else if (eventData.button == PointerEventData.InputButton.Right)
-        //            InventoryManager.i.UseOne(unit, prevSlotNum);
     }
 
     public void OnPointerClick(PointerEventData eventData)
