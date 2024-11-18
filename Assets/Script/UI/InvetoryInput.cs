@@ -16,7 +16,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     bool isDragActive;
     Action<Vector2>[] clicks;
 
-    Image dragImage;
+    RectTransform dragImage;
     Vector2 pointerOffset;
     InventoryComponent inventoryComponent;
 
@@ -57,14 +57,14 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
         isDragActive = true;
         dragImage = inventoryComponent.GetDragImage(SlotNum);
-        pointerOffset = (Vector2)dragImage.rectTransform.position - eventData.position;
+        pointerOffset = (Vector2)dragImage.position - eventData.position;
         Debug.Log(pointerOffset);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (isDragActive)
-            dragImage.rectTransform.position = eventData.position + pointerOffset;
+            dragImage.position = eventData.position + pointerOffset;
     }
 
     public void OnEndDrag(PointerEventData eventData)

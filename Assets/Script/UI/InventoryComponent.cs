@@ -78,18 +78,32 @@ public class InventoryComponent : InitObject, IStorageVisible
     {
         return Slot2Code(slotIndex) != 0;
     }
-    public Image GetDragImage(int slotIndex)
+    public RectTransform GetDragImage(int slotIndex)
     {
-        GameObject dragImage = new GameObject("DragImage");
+        GameObject dragImage = new GameObject("DragObject", typeof(RectTransform));
         dragImage.transform.SetParent(inventoryDescription.transform.parent);
-        Image image = dragImage.AddComponent<Image>();
+        RectTransform returnTransform = (RectTransform)dragImage.transform;
         Image targetImage = itemSlots[slotIndex].itemImage;
-        ImageCopyNSetting(image, targetImage);
+        Image image = BrunchImagesSetting(slotIndex, dragImage.transform);
+
         CopyTransformChild(image.transform, targetImage.transform, 0);
 
-        return image;
+        return returnTransform;
     }
-
+    Image BrunchImagesSetting(int slotIndex, in Transform dragTransform)
+    {
+        List<int> brunchList = itemSlots[slotIndex].slotdata.brunchIndex;
+        int brunchNum = brunchList.Count;
+        Image[] images = new Image[brunchNum];
+        for (int i = 0; i < brunchNum; i++)
+        {
+            GameObject tempObject = new GameObject();
+            tempObject.transform.SetParent(dragTransform);
+            images[i] = tempObject.AddComponent<Image>();
+            ImageCopyNSetting(images[i], itemSlots[brunchList[i]].itemImage);
+        }
+        return images[brunchList.IndexOf(slotIndex)];
+    }
     void ImageCopyNSetting(in Image copy, in Image target)
     {
         ImageCopy(copy, target);
@@ -111,6 +125,7 @@ public class InventoryComponent : InitObject, IStorageVisible
         newGameObject.transform.localPosition = targetChildTransform.localPosition;
         targetChildTransform.gameObject.SetActive(false);
     }
+
     public void ItemSwap(int slotIndex)
     {
         inventoryStorage.SwapSlot(slotIndex, nowSlotIndex);

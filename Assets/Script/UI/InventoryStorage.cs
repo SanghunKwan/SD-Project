@@ -24,7 +24,7 @@ public class InventoryStorage : StorageComponent
     {
         public int itemCode { get; private set; }
         public int itemCount { get; private set; }
-        List<int> brunchIndex = new List<int>();
+        public List<int> brunchIndex { get; set; }
         public int beforeSlotIndex { get; set; } = -1;
         Action<int> onChangeSlotIndex = (num) => { };
 
@@ -32,7 +32,7 @@ public class InventoryStorage : StorageComponent
         {
             itemCode = 0;
             itemCount = 0;
-            brunchIndex.Capacity = 5;
+            brunchIndex = new List<int>(5);
 
         }
         public Slot(in Slot deepCopy)
@@ -50,6 +50,7 @@ public class InventoryStorage : StorageComponent
         }
         public void SwapSlot(int slotIndex, in Slot slot)
         {
+            //교체 시 brunchIndex list 내용물도 교체해줘야함.
             onChangeSlotIndex(slotIndex);
             itemCode = slot.itemCode;
             itemCount = slot.itemCount;
@@ -61,11 +62,15 @@ public class InventoryStorage : StorageComponent
         {
             onChangeSlotIndex = action;
         }
-        public void SetBrunchIndex(params int[] slotIndex)
+        public void SetBrunchIndex(int slotIndex)
         {
-            foreach (var item in slotIndex)
+            brunchIndex.Add(slotIndex);
+        }
+        public void ReadBrunch()
+        {
+            foreach (var item in brunchIndex)
             {
-                brunchIndex.Add(item);
+                Debug.Log(item);
             }
         }
     }
@@ -105,10 +110,10 @@ public class InventoryStorage : StorageComponent
                                 => IsInventoryEmpty(slots[slotIndex]);
 
         checkEmptyFigure[(int)Figure.Horizon] = (int slotIndex, int needSlotCount, ref Slot slot)
-                                => IsSlotEmpty(slotIndex, needSlotCount, IsInOneLine, 1, ref slot);
+                                => IsSlotEmpty(slotIndex, needSlotCount, IsInOneLine, Figure.Horizon, ref slot);
 
         checkEmptyFigure[(int)Figure.Vertic] = (int slotIndex, int needSlotCount, ref Slot slot)
-                                => IsSlotEmpty(slotIndex, needSlotCount, IsInOneVerticalLine, slotInALIne, ref slot);
+                                => IsSlotEmpty(slotIndex, needSlotCount, IsInOneVerticalLine, Figure.Vertic, ref slot);
     }
 
     #region 기본 개수 증가
@@ -150,12 +155,13 @@ public class InventoryStorage : StorageComponent
             return;
 
         int newIndex = emptySlotList.BinarySearch(codeIndex);
+        //brunchList 초기화.
         emptySlotList.Insert(~newIndex, codeIndex);
     }
 
     void IncreaseItemCount(in Item item, int beforeIndex, int addNum)
     {
-        if (AllocateSlot2(item, out int emptyIndex))
+        if (AllocateSlot(item, out int emptyIndex))
         {
             int step = figure2step[(int)item.figure];
             itemcode2slotindex[item.itemCode] = emptyIndex;
@@ -188,7 +194,7 @@ public class InventoryStorage : StorageComponent
             ItemCountChange(itemCode, addNum);
         }
     }
-    bool AllocateSlot2(in Item item, out int emptyIndex)
+    bool AllocateSlot(in Item item, out int emptyIndex)
     {
         int length = emptySlotList.Count;
         Slot slot = new Slot();
@@ -231,12 +237,22 @@ public class InventoryStorage : StorageComponent
     {
         int codeIndex = itemcode2slotindex[itemCode];
         int temp;
+        Slot tempslot = slots[codeIndex];
+        List<int> tempList = tempslot.brunchIndex;
+
+        tempList.Clear();
+        m_itemCounts[itemCode] += itemCount - tempslot.itemCount;
+
         for (int i = 0; i < needSlots; i++)
         {
             temp = codeIndex + i * step;
-            slots[temp].SetSlot(itemCode, itemCount);
+            tempslot = slots[temp];
+            tempslot.SetSlot(itemCode, itemCount);
+            tempslot.brunchIndex = tempList;
+            tempslot.SetBrunchIndex(temp);
             eventAlert(temp);
         }
+        tempslot.ReadBrunch();
     }
     #endregion
     #region Slot empty 확인
@@ -248,11 +264,12 @@ public class InventoryStorage : StorageComponent
     {
         return (slotIndex % slotInALIne) + needSlotCount <= slotInALIne;
     }
-    bool IsSlotEmpty(int slotIndex, int needSlotCount, Func<int, int, bool> lineCheck, int step, ref Slot slot)
+    bool IsSlotEmpty(int slotIndex, int needSlotCount, Func<int, int, bool> lineCheck, Figure figure, ref Slot slot)
     {
         if (!lineCheck(slotIndex, needSlotCount))
             return false;
 
+        int step = figure2step[(int)figure];
         int forCount = needSlotCount * step;
         for (int i = step; i < forCount; i += step)
         {
