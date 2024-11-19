@@ -56,9 +56,7 @@ public class InventoryComponent : InitObject, IStorageVisible
     void OriginImage(int slotIndex)
     {
         foreach (var item in inventoryStorage.slots[slotIndex].brunchIndex)
-        {
             itemSlots[item].SetSlot(inventoryStorage.slots[item]);
-        }
     }
     public void ActiveDescription(bool onoff)
     {
@@ -130,13 +128,29 @@ public class InventoryComponent : InitObject, IStorageVisible
 
     public void ItemSwap(int slotIndex)
     {
-        int[] ints = itemSlots[slotIndex].slotdata.brunchIndex.ToArray();
         int offset = nowSlotIndex - slotIndex;
+        int[] brunchIndexList = itemSlots[slotIndex].slotdata.brunchIndex.ToArray();
 
-        for (int i = ints.Length - 1; i >= 0; i--)
+        if (inventoryStorage.IsEnoughSpace(slotIndex, offset))
+            for (int i = brunchIndexList.Length - 1; i >= 0; i--)
+            {
+                inventoryStorage.SwapItem(brunchIndexList[i], brunchIndexList[i] + offset);
+            }
+        else
+            offset = 0;
+        OriginImagebySlot(brunchIndexList, offset);
+    }
+    void OriginImagebySlot(in int[] brunchList, int offset)
+    {
+        int length = brunchList.Length;
+        int byIndex;
+        int addOffset;
+        for (int i = 0; i < length; i++)
         {
-            Debug.Log(ints[i].ToString() + "   " + (ints[i] + offset));
-            inventoryStorage.SwapSlot(ints[i], ints[i] + offset);
+            byIndex = brunchList[i];
+            addOffset = byIndex + offset;
+            itemSlots[byIndex].SetSlot(inventoryStorage.slots[byIndex]);
+            itemSlots[addOffset].SetSlot(inventoryStorage.slots[addOffset]);
         }
     }
     public void OnPointerEnter(int slotIndex)
