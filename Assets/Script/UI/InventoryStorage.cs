@@ -49,16 +49,13 @@ public class InventoryStorage : StorageComponent
             itemCode = code;
             itemCount = count;
         }
-        public void SwapSlot(int nowSlotIndex, int targetSlotIndex, in Slot targetSlot)
+        public void SwapSlot(int targetSlotIndex, in Slot targetSlot)
         {
             onChangeSlotIndex(targetSlotIndex);
             itemCode = targetSlot.itemCode;
             itemCount = targetSlot.itemCount;
             brunchIndex = targetSlot.brunchIndex;
 
-            brunchIndex.Remove(targetSlotIndex);
-            if (itemCode != 0)
-                InsertSlotIndexWithSort(nowSlotIndex, brunchIndex);
             beforeSlotIndex = targetSlot.beforeSlotIndex;
         }
         public void AddListener(Action<int> action)
@@ -75,14 +72,6 @@ public class InventoryStorage : StorageComponent
             {
                 Debug.Log(item);
             }
-        }
-        void InsertSlotIndexWithSort<T>(T item, List<T> list)
-        {
-            int tempIndex = list.BinarySearch(item);
-            if (tempIndex == 0)
-                return;
-
-            list.Insert(~tempIndex, item);
         }
     }
     public Slot[] slots { get; private set; }
@@ -265,6 +254,10 @@ public class InventoryStorage : StorageComponent
         }
         tempslot.ReadBrunch();
     }
+    public void DecreaseSelectedSlot(in Slot slot)
+    {
+        m_itemCounts[slot.itemCode] -= slot.itemCount;
+    }
     #endregion
     #region Slot empty 확인
     bool IsInventoryEmpty(in Slot slot)
@@ -322,27 +315,42 @@ public class InventoryStorage : StorageComponent
     #endregion
 
     #region 외부 이벤트
-
-
-    public void SwapItem(int slot1Index, int slot2Index)
+    public void SetSlot(in Slot slot, int offset)
     {
-        Slot tempSlot = new Slot(slots[slot2Index]);
+        int[] brunchArray = slot.brunchIndex.ToArray();
+
+        int length = brunchArray.Length;
+
+        for (int i = 0; i < length; i++)
+        {
+            slot.brunchIndex[i] += offset;
+            //수정 예정
+            slots[slot.brunchIndex[i]].SwapSlot(1, slot);
+        }
+
+    }
+
+
+
+    public void SwapItem(int originIndex, int targetIndex)
+    {
+        Slot tempSlot = new Slot(slots[targetIndex]);
         if (tempSlot.brunchIndex.Count > 1)
         {
             //아이템을 제거 후 재생성
         }
         else
         {
-            SwapSlot(slot1Index, slot2Index, tempSlot);
+            SwapSlot(originIndex, targetIndex, tempSlot);
         }
     }
-    void SwapSlot(int slot1Index, int slot2Index, in Slot tempSlot)
+    void SwapSlot(int originIndex, int targetIndex, in Slot tempSlot)
     {
-        slots[slot2Index].SwapSlot(slot2Index, slot1Index, slots[slot1Index]);
-        slots[slot1Index].SwapSlot(slot1Index, slot2Index, tempSlot);
+        //slots[targetIndex].SwapSlot(targetIndex, originIndex, slots[originIndex]);
+        //slots[originIndex].SwapSlot(originIndex, targetIndex, tempSlot);
 
-        if (emptySlotList.Remove(slot2Index))
-            InsertSlotIndexWithSort(slot1Index, emptySlotList);
+        if (emptySlotList.Remove(targetIndex))
+            InsertSlotIndexWithSort(originIndex, emptySlotList);
     }
     void InsertSlotIndexWithSort<T>(T item, List<T> list)
     {

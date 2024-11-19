@@ -125,20 +125,60 @@ public class InventoryComponent : InitObject, IStorageVisible
         newGameObject.transform.localPosition = targetChildTransform.localPosition;
         targetChildTransform.gameObject.SetActive(false);
     }
+    public void ItemRemove(int slotIndex)
+    {
+        InventoryStorage.Slot slot = itemSlots[slotIndex].slotdata;
+        ItemRemoveBySlot(slot);
+    }
+    public void ItemRemoveBySlot(in InventoryStorage.Slot slot)
+    {
+        inventoryStorage.DecreaseSelectedSlot(slot);
 
+        int length = slot.brunchIndex.Count;
+        int brunchIndex;
+
+        for (int i = 0; i < length; i++)
+        {
+            brunchIndex = slot.brunchIndex[i];
+            itemSlots[brunchIndex].slotdata = new InventoryStorage.Slot();
+            itemSlots[brunchIndex].SetSlot(itemSlots[brunchIndex].slotdata);
+        }
+    }
     public void ItemSwap(int slotIndex)
     {
         int offset = nowSlotIndex - slotIndex;
-        int[] brunchIndexList = itemSlots[slotIndex].slotdata.brunchIndex.ToArray();
+        InventoryStorage.Slot slot = itemSlots[slotIndex].slotdata;
+        InventoryStorage.Slot memorySlot = new InventoryStorage.Slot();
+        int[] brunchIndexList = slot.brunchIndex.ToArray();
+        int length = brunchIndexList.Length;
+        Action callSavedItems = () => { };
 
         if (inventoryStorage.IsEnoughSpace(slotIndex, offset))
-            for (int i = brunchIndexList.Length - 1; i >= 0; i--)
+        {
+            ItemRemove(slotIndex);
+
+            for (int i = 0; i < length; i++)
             {
-                inventoryStorage.SwapItem(brunchIndexList[i], brunchIndexList[i] + offset);
+                if (CanBackUpItem(brunchIndexList[i], ref memorySlot, callSavedItems))
+                    ItemRemoveBySlot(memorySlot);
             }
+            inventoryStorage.SetSlot(slot, offset);
+            callSavedItems();
+        }
         else
             offset = 0;
         OriginImagebySlot(brunchIndexList, offset);
+    }
+    bool CanBackUpItem(int slotIndex, ref InventoryStorage.Slot slot, Action action)
+    {
+        slot = itemSlots[slotIndex].slotdata;
+        if (slot.itemCode == 0)
+            return false;
+
+        int code = slot.itemCode;
+        int count = slot.itemCount;
+        action += () => inventoryStorage.ItemCountChange(code, count);
+        return true;
     }
     void OriginImagebySlot(in int[] brunchList, int offset)
     {
