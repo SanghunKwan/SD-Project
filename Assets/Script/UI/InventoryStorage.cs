@@ -33,8 +33,6 @@ public class InventoryStorage : StorageComponent
             itemCode = 0;
             itemCount = 0;
             brunchIndex = new List<int>(5);
-
-
         }
         public Slot(in Slot deepCopy)
         {
@@ -66,12 +64,13 @@ public class InventoryStorage : StorageComponent
         {
             brunchIndex.Add(slotIndex);
         }
-        public void ReadBrunch()
+        public void SetEmpty()
         {
-            foreach (var item in brunchIndex)
-            {
-                Debug.Log(item);
-            }
+            onChangeSlotIndex(-1);
+            itemCode = 0;
+            itemCount = 0;
+            brunchIndex = new List<int>(5);
+            beforeSlotIndex = -1;
         }
     }
     public Slot[] slots { get; private set; }
@@ -138,24 +137,27 @@ public class InventoryStorage : StorageComponent
         }
         else
         {
-            DecreaseItemCount(itemCode, addNum);
+            DecreaseItemCount(item.itemCode, addNum);
         }
     }
+
     void SlotOperateWithCodeIndex(int codeIndex, ref int addNum, in Item item)
     {
         Slot slot = slots[codeIndex];
         int count = Mathf.Clamp(addNum + slot.itemCount, 0, item.MaxCount);
         addNum += slot.itemCount - count;
-        ChangeCount(slot.itemCode, count, item.needSlots, figure2step[(int)item.figure]);
+        //count는 결과로 가진 개수
+        //addNum은 더할 수 있는 개수
+        ChangeCountBySlot(slot, addNum, codeIndex);
         CheckUseAll(codeIndex, count <= 0);
     }
-    void CheckUseAll(int codeIndex, bool lessEqualZero)
+    void CheckUseAll(int codeIndex, bool lessEqualZero = true)
     {
         if (!lessEqualZero)
             return;
 
+
         int newIndex = emptySlotList.BinarySearch(codeIndex);
-        //brunchList 초기화.
         emptySlotList.Insert(~newIndex, codeIndex);
     }
 
@@ -165,7 +167,7 @@ public class InventoryStorage : StorageComponent
         {
             int step = figure2step[(int)item.figure];
             itemcode2slotindex[item.itemCode] = emptyIndex;
-            ChangeCount(item.itemCode, addNum, item.needSlots, figure2step[(int)item.figure]);
+            ChangeCount(item.itemCode, addNum, item.needSlots, step);
 
             if (beforeIndex >= 0)
                 slots[beforeIndex].AddListener((newIndex) => slots[emptyIndex].beforeSlotIndex = newIndex);
@@ -215,9 +217,7 @@ public class InventoryStorage : StorageComponent
 
         int length = item.needSlots;
         int slotIndex = emptySlotList[index];
-        int step = 1;
-        if (item.figure == Figure.Vertic)
-            step = slotInALIne;
+        int step = figure2step[(int)item.figure];
 
         if (checkEmptyFigure[(int)item.figure](slotIndex, length, ref slot))
         {
@@ -237,6 +237,7 @@ public class InventoryStorage : StorageComponent
     {
         int codeIndex = itemcode2slotindex[itemCode];
         int temp;
+        Debug.Log("itemCode : " + itemCode.ToString() + "codeIndex : " + codeIndex);
         Slot tempslot = slots[codeIndex];
         List<int> tempList = tempslot.brunchIndex;
 
@@ -246,13 +247,13 @@ public class InventoryStorage : StorageComponent
         for (int i = 0; i < needSlots; i++)
         {
             temp = codeIndex + i * step;
+            Debug.Log("temp : " + temp);
             tempslot = slots[temp];
             tempslot.SetSlot(itemCode, itemCount);
             tempslot.brunchIndex = tempList;
             tempslot.SetBrunchIndex(temp);
             eventAlert(temp);
         }
-        tempslot.ReadBrunch();
     }
     public void DecreaseSelectedSlot(in Slot slot)
     {
@@ -318,46 +319,70 @@ public class InventoryStorage : StorageComponent
     public void SetSlot(in Slot slot, int offset)
     {
         int[] brunchArray = slot.brunchIndex.ToArray();
-
         int length = brunchArray.Length;
-
+        int tempIndex;
+        ReturnCodetoSlot(slot, slot.beforeSlotIndex, offset);
         for (int i = 0; i < length; i++)
         {
             slot.brunchIndex[i] += offset;
-            //수정 예정
-            slots[slot.brunchIndex[i]].SwapSlot(1, slot);
+            tempIndex = slot.brunchIndex[i];
+            slots[tempIndex].SwapSlot(tempIndex, slot);
+            emptySlotList.Remove(tempIndex);
         }
-
     }
-
-
-
-    public void SwapItem(int originIndex, int targetIndex)
+    public void SetSlotEmpty(int slotIndex)
     {
-        Slot tempSlot = new Slot(slots[targetIndex]);
-        if (tempSlot.brunchIndex.Count > 1)
+        Slot slot = slots[slotIndex];
+        slot.SetEmpty();
+        CheckUseAll(slotIndex);
+    }
+    public void CheckCodetoSlot(int slotIndex)
+    {
+        int code = slots[slotIndex].itemCode;
+        if (slots[slotIndex].brunchIndex.Contains(itemcode2slotindex[code]))
         {
-            //아이템을 제거 후 재생성
+            itemcode2slotindex[code] = slots[slotIndex].beforeSlotIndex;
         }
-        else
+    }
+    public void ReturnCodetoSlot(in Slot slot, int beforeSlotIndex, int offset)
+    {
+        int code = slot.itemCode;
+        if (itemcode2slotindex[code] == beforeSlotIndex)
         {
-            SwapSlot(originIndex, targetIndex, tempSlot);
+            itemcode2slotindex[code] = slot.brunchIndex[0] + offset;
         }
     }
-    void SwapSlot(int originIndex, int targetIndex, in Slot tempSlot)
+    public void ItemCountChangeByIndex(int slotIndex, int addNum, out int usedNum)
     {
-        //slots[targetIndex].SwapSlot(targetIndex, originIndex, slots[originIndex]);
-        //slots[originIndex].SwapSlot(originIndex, targetIndex, tempSlot);
+        Item item = InventoryManager.i.info.items[slots[slotIndex].itemCode];
+        int originNum = addNum;
 
-        if (emptySlotList.Remove(targetIndex))
-            InsertSlotIndexWithSort(originIndex, emptySlotList);
-    }
-    void InsertSlotIndexWithSort<T>(T item, List<T> list)
-    {
-        int tempIndex = list.BinarySearch(item);
-        list.Insert(~tempIndex, item);
+        SlotOperateWithCodeIndex(slotIndex, ref addNum, item);
+        usedNum = -originNum - addNum;
     }
 
+    void ChangeCountBySlot(in Slot slot, int addNum, int codeIndex)
+    {
+        Slot tempslot;
+        int temp;
+        int itemCode = slot.itemCode;
+        int itemCount = slot.itemCount;
+        int needSlots;
+        int[] brunchArray = slot.brunchIndex.ToArray();
+        needSlots = brunchArray.Length;
+
+        m_itemCounts[itemCode] += itemCount - addNum;
+
+        for (int i = 0; i < needSlots; i++)
+        {
+            temp = brunchArray[i];
+            Debug.Log("temp : " + temp);
+
+            tempslot = slots[temp];
+            tempslot.SetSlot(itemCode, itemCount);
+            eventAlert(temp);
+        }
+    }
     #endregion
 
 

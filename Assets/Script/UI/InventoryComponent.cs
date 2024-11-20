@@ -29,11 +29,22 @@ public class InventoryComponent : InitObject, IStorageVisible
             itemImage.color = Color.white * Convert.ToInt32(slotdata.itemCode != 0);
         }
     }
+
     ItemSlot[] itemSlots;
     int nowSlotIndex;
 
     InventoryStorage inventoryStorage;
     [SerializeField] InventoryDescription inventoryDescription;
+
+    enum InventoryType
+    {
+        Stage,
+        Villige,
+        Store,
+        Max
+    }
+    [SerializeField] InventoryType type;
+    Action<int>[] useAction;
     public override void Init()
     {
         inventoryStorage = GetComponent<InventoryStorage>();
@@ -51,6 +62,10 @@ public class InventoryComponent : InitObject, IStorageVisible
         Debug.Log("임시 아이템 추가");
         inventoryStorage.ItemCountChange(1, 1);
 
+        useAction = new Action<int>[(int)InventoryType.Max];
+        useAction[(int)InventoryType.Stage] = StageUse;
+        useAction[(int)InventoryType.Villige] = VilligeUse;
+        useAction[(int)InventoryType.Store] = StoreUse;
     }
     #region 시각화
     void OriginImage(int slotIndex)
@@ -127,31 +142,24 @@ public class InventoryComponent : InitObject, IStorageVisible
     }
     public void ItemRemove(int slotIndex)
     {
-        InventoryStorage.Slot slot = itemSlots[slotIndex].slotdata;
-        ItemRemoveBySlot(slot);
-    }
-    public void ItemRemoveBySlot(in InventoryStorage.Slot slot)
-    {
-        inventoryStorage.DecreaseSelectedSlot(slot);
-
-        int length = slot.brunchIndex.Count;
-        int brunchIndex;
-
+        int[] removeSlots = itemSlots[slotIndex].slotdata.brunchIndex.ToArray();
+        int length = removeSlots.Length;
+        inventoryStorage.CheckCodetoSlot(slotIndex);
         for (int i = 0; i < length; i++)
         {
-            brunchIndex = slot.brunchIndex[i];
-            itemSlots[brunchIndex].slotdata = new InventoryStorage.Slot();
-            itemSlots[brunchIndex].SetSlot(itemSlots[brunchIndex].slotdata);
+            inventoryStorage.SetSlotEmpty(removeSlots[i]);
         }
     }
     public void ItemSwap(int slotIndex)
     {
         int offset = nowSlotIndex - slotIndex;
-        InventoryStorage.Slot slot = itemSlots[slotIndex].slotdata;
+        InventoryStorage.Slot slot = new InventoryStorage.Slot(itemSlots[slotIndex].slotdata);
         InventoryStorage.Slot memorySlot = new InventoryStorage.Slot();
         int[] brunchIndexList = slot.brunchIndex.ToArray();
         int length = brunchIndexList.Length;
+        int brunchOffset;
         Action callSavedItems = () => { };
+        Action callChangedSlots = () => { };
 
         if (inventoryStorage.IsEnoughSpace(slotIndex, offset))
         {
@@ -159,8 +167,9 @@ public class InventoryComponent : InitObject, IStorageVisible
 
             for (int i = 0; i < length; i++)
             {
-                if (CanBackUpItem(brunchIndexList[i], ref memorySlot, callSavedItems))
-                    ItemRemoveBySlot(memorySlot);
+                brunchOffset = brunchIndexList[i] + offset;
+                if (CanBackUpItem(brunchOffset, ref memorySlot, ref callSavedItems, ref callChangedSlots))
+                    ItemRemove(brunchOffset);
             }
             inventoryStorage.SetSlot(slot, offset);
             callSavedItems();
@@ -168,16 +177,19 @@ public class InventoryComponent : InitObject, IStorageVisible
         else
             offset = 0;
         OriginImagebySlot(brunchIndexList, offset);
+        callChangedSlots();
     }
-    bool CanBackUpItem(int slotIndex, ref InventoryStorage.Slot slot, Action action)
+    bool CanBackUpItem(int slotIndex, ref InventoryStorage.Slot slot, ref Action itemCount, ref Action imageSlot)
     {
-        slot = itemSlots[slotIndex].slotdata;
+        slot = inventoryStorage.slots[slotIndex];
         if (slot.itemCode == 0)
             return false;
 
         int code = slot.itemCode;
         int count = slot.itemCount;
-        action += () => inventoryStorage.ItemCountChange(code, count);
+        int[] brunchArray = slot.brunchIndex.ToArray();
+        itemCount += () => inventoryStorage.ItemCountChange(code, count);
+        imageSlot += () => OriginImagebySlot(brunchArray);
         return true;
     }
     void OriginImagebySlot(in int[] brunchList, int offset)
@@ -193,17 +205,58 @@ public class InventoryComponent : InitObject, IStorageVisible
             itemSlots[addOffset].SetSlot(inventoryStorage.slots[addOffset]);
         }
     }
+    void OriginImagebySlot(in int[] brunchList)
+    {
+        int length = brunchList.Length;
+        int byIndex;
+        for (int i = 0; i < length; i++)
+        {
+            byIndex = brunchList[i];
+            itemSlots[byIndex].SetSlot(inventoryStorage.slots[byIndex]);
+        }
+    }
     public void OnPointerEnter(int slotIndex)
     {
         nowSlotIndex = slotIndex;
     }
     public void Use(int slotIndex)
     {
+        useAction[(int)type](slotIndex);
         //스테이지에서
         //모든 영웅들이 하나씩 사용
 
         //마을에서
         //창고 인벤토리로 이동
+
+
+    }
+    void VilligeUse(int slotIndex)
+    {
+        //아이템 삭제
+        ItemRemove(slotIndex);
+        //storage 개수 연산
+
+        //store에 개수 추가
+        //이미지화
+    }
+    void StoreUse(int slotIndex)
+    {
+        //개수 연산
+        //개수가 -가 되면 돈 연산.
+        //villige에 개수 추가
+        //이미지화
+    }
+    void StageUse(int slotIndex)
+    {
+        InventoryStorage.Slot slot = inventoryStorage.slots[slotIndex];
+        //nav에서 선택중인 영웅 수만큼 개수 연산
+        int heroCount = PlayerNavi.nav.lists.Count;
+        inventoryStorage.ItemCountChangeByIndex(slotIndex, -heroCount, out int usedNum);
+        //아이템 수 / 영웅 수 * 효과를 연산. 만약 부족하면 전체에게 효과가 떨어지며 제공.
+        Debug.Log("아이템 사용" + usedNum);
+        //이미지화
+        OriginImagebySlot(slot.brunchIndex.ToArray());
+        Debug.Log("남은 아이템 수" + slot.itemCount);
     }
 
     #endregion
