@@ -35,7 +35,7 @@ public class SkillData : JsonLoad
     }
     public enum ItemSkillEffect
     {
-        NONE,
+        HEALING,
         BURN,
         MAX
     }

@@ -249,14 +249,19 @@ public class InventoryComponent : InitObject, IStorageVisible
     void StageUse(int slotIndex)
     {
         InventoryStorage.Slot slot = inventoryStorage.slots[slotIndex];
-        //nav에서 선택중인 영웅 수만큼 개수 연산
+        Character[] characters = PlayerNavi.nav.lists.ToArray();
         int heroCount = PlayerNavi.nav.lists.Count;
-        inventoryStorage.ItemCountChangeByIndex(slotIndex, -heroCount, out int usedNum);
-        //아이템 수 / 영웅 수 * 효과를 연산. 만약 부족하면 전체에게 효과가 떨어지며 제공.
-        Debug.Log("아이템 사용" + usedNum);
-        //이미지화
+        int itemCode = slot.itemCode;
+
+        inventoryStorage.ItemCountChangeByIndex(slotIndex, -heroCount, out float usedNum);
+        //(usedNum / heroCount) 1인당 효과
+        foreach (var item in characters)
+        {
+            inventoryStorage.AffectItem(item.cUnit, itemCode, usedNum / heroCount);
+        }
+
+
         OriginImagebySlot(slot.brunchIndex.ToArray());
-        Debug.Log("남은 아이템 수" + slot.itemCount);
     }
 
     #endregion

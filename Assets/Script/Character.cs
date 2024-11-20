@@ -69,9 +69,9 @@ public class Character : UnitMove
         {
             yield return null;
         }
-        ZXCV();
+        GetLineRenderer();
     }
-    void ZXCV()
+    void GetLineRenderer()
     {
         GameObject lineObjct1 = ObjectUIPool.pool.Call(ObjectUIPool.Folder.UILineRenderer);
         lineObjct1.transform.SetParent(circleCanvas, false);
