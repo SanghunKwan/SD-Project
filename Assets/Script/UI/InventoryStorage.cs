@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Unit;
 using UnityEngine;
-using static InventoryStorage;
 
 [RequireComponent(typeof(CheckUICallChange))]
 public class InventoryStorage : StorageComponent
@@ -92,10 +91,11 @@ public class InventoryStorage : StorageComponent
     delegate bool RefFunc(int num1, int num2, ref Slot slot);
     RefFunc[] checkEmptyFigure = new RefFunc[(int)Figure.Max];
     Action<CUnit, Item, float>[] itemAffectAction = new Action<CUnit, Item, float>[(int)SkillData.ItemSkillEffect.MAX];
+    Action onAfterInit = () => { };
 
     CheckUICallChange uiCallChange;
 
-
+    InventoryComponent.InventoryType m_type;
 
     public override void Init()
     {
@@ -113,6 +113,7 @@ public class InventoryStorage : StorageComponent
 
         SetInitFunc();
         SetInitAffectAction();
+        onAfterInit();
     }
     void SetInitFunc()
     {
@@ -129,6 +130,14 @@ public class InventoryStorage : StorageComponent
     {
         itemAffectAction[(int)SkillData.ItemSkillEffect.HEALING] = (cunit, item, percent) => AffectItemHealing(cunit, item, percent);
     }
+    public void AddInit(Action action)
+    {
+        onAfterInit += action;
+    }
+    public void SetType(InventoryComponent.InventoryType type)
+    {
+        m_type = type;
+    }
 
     #region 기본 개수 증가
     public override void ItemCountChange(int itemCode, int addNum)
@@ -141,9 +150,6 @@ public class InventoryStorage : StorageComponent
 
         if (addNum == 0)
             return;
-
-        //addNum이 양수이면 새로운 index를 받고 slots[새로운 Index]의 beforeSlotIndex = codeIndex;
-        //addNum이 음수이면 slots[slots[codeIndex].beforeSlotIndex]를 가져옴.
 
         if (addNum > 0)
         {
@@ -158,11 +164,15 @@ public class InventoryStorage : StorageComponent
     void SlotOperateWithCodeIndex(int codeIndex, ref int addNum, in Item item)
     {
         Slot slot = slots[codeIndex];
-        int count = Mathf.Clamp(addNum + slot.itemCount, 0, item.MaxCount);
+        int count = addNum + slot.itemCount;
+        if (m_type != InventoryComponent.InventoryType.Store)
+        {
+            count = Mathf.Clamp(count, 0, item.MaxCount);
+        }
         addNum += slot.itemCount - count;
         //count는 최종 개수
         //addNum은 더하는 개수
-        ChangeCountBySlot(slot, count, codeIndex);
+        ChangeCountBySlot(slot, count);
         if (count <= 0)
         {
             slot.SetEmpty();
@@ -186,9 +196,15 @@ public class InventoryStorage : StorageComponent
         {
             int step = figure2step[(int)item.figure];
             itemcode2slotindex[item.itemCode] = emptyIndex;
-            ChangeCount(item.itemCode, addNum, item.needSlots, step);
-
             LinkIndex(beforeIndex, emptyIndex);
+
+
+            if (m_type != InventoryComponent.InventoryType.Store && addNum > item.MaxCount)
+            {
+                IncreaseItemCount(item, emptyIndex, addNum - item.MaxCount);
+                addNum = item.MaxCount;
+            }
+            ChangeCount(item.itemCode, addNum, item.needSlots, step);
         }
         else
         {
@@ -204,11 +220,7 @@ public class InventoryStorage : StorageComponent
     {
         if (beforeIndex >= 0)
         {
-            slots[beforeIndex].AddListener((newIndex) =>
-            {
-                slots[emptyIndex].beforeSlotIndex = newIndex;
-                Debug.Log("전환");
-            });
+            slots[beforeIndex].AddListener((newIndex) => slots[emptyIndex].beforeSlotIndex = newIndex);
             slots[emptyIndex].beforeSlotIndex = beforeIndex;
         }
     }
@@ -395,7 +407,7 @@ public class InventoryStorage : StorageComponent
         usedNum = -originNum + addNum;
     }
 
-    void ChangeCountBySlot(in Slot slot, int count, int codeIndex)
+    void ChangeCountBySlot(in Slot slot, int count)
     {
         Slot tempslot;
         int temp;
@@ -405,8 +417,7 @@ public class InventoryStorage : StorageComponent
         int[] brunchArray = slot.brunchIndex.ToArray();
         needSlots = brunchArray.Length;
 
-        m_itemCounts[itemCode] += itemCount;
-
+        m_itemCounts[itemCode] -= itemCount;
         for (int i = 0; i < needSlots; i++)
         {
             temp = brunchArray[i];
@@ -429,5 +440,5 @@ public class InventoryStorage : StorageComponent
     }
     #endregion
 
-
+    
 }

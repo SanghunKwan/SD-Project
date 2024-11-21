@@ -37,4 +37,13 @@ public class StorageComponent : InitObject
     {
         eventAlert += callWhenCountChanged;
     }
+    #region temp
+    public void SetItems()
+    {
+        for (int i = 0; i < 13; i++)
+        {
+            m_itemCounts[i] = i * 2;
+        }
+    }
+    #endregion
 }

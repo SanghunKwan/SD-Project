@@ -36,7 +36,7 @@ public class InventoryComponent : InitObject, IStorageVisible
     InventoryStorage inventoryStorage;
     [SerializeField] InventoryDescription inventoryDescription;
 
-    enum InventoryType
+    public enum InventoryType
     {
         Stage,
         Villige,
@@ -48,7 +48,6 @@ public class InventoryComponent : InitObject, IStorageVisible
     public override void Init()
     {
         inventoryStorage = GetComponent<InventoryStorage>();
-        inventoryStorage.Init();
         inventoryStorage.AddListener(OriginImage);
 
         Transform slotParent = transform.GetChild(1);
@@ -59,13 +58,14 @@ public class InventoryComponent : InitObject, IStorageVisible
         {
             itemSlots[i] = new ItemSlot(slotParent.GetChild(i));
         }
-        Debug.Log("임시 아이템 추가");
-        inventoryStorage.ItemCountChange(1, 1);
 
         useAction = new Action<int>[(int)InventoryType.Max];
         useAction[(int)InventoryType.Stage] = StageUse;
         useAction[(int)InventoryType.Villige] = VilligeUse;
         useAction[(int)InventoryType.Store] = StoreUse;
+
+        inventoryStorage.Init();
+        inventoryStorage.SetType(type);
     }
     #region 시각화
     void OriginImage(int slotIndex)
@@ -156,7 +156,7 @@ public class InventoryComponent : InitObject, IStorageVisible
     }
     public void DragEnd(int slotIndex)
     {
-        
+
     }
     public void ItemSwap(int slotIndex)
     {
@@ -181,7 +181,7 @@ public class InventoryComponent : InitObject, IStorageVisible
                     ItemRemove(brunchOffset);
             }
             inventoryStorage.SetSlot(slot, offset);
-            
+
             callSavedItems();
         }
         else

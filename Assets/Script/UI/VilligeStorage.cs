@@ -8,6 +8,7 @@ public class VilligeStorage : MonoBehaviour, IStorageVisible
 {
     VilligeStroageNode[] nodes;
     StorageComponent storageComponent;
+    [SerializeField] InventoryStorage storeInventory;
 
     public Action<int>[] OnItemCountChanged { get; set; }
     private void Start()
@@ -23,9 +24,21 @@ public class VilligeStorage : MonoBehaviour, IStorageVisible
         {
             item.Init();
         }
+
+        storeInventory.AddInit(LinkWithStore);
     }
     public void ChangeNum(int itemCode)
     {
         OnItemCountChanged[itemCode](storageComponent.ItemCounts[itemCode]);
     }
+
+    #region 상점 세팅 action
+    void LinkWithStore()
+    {
+        for (int i = 6; i <= 11; i++)
+        {
+            storeInventory.ItemCountChange(i, storageComponent.ItemCounts[i]);
+        }
+    }
+    #endregion
 }
