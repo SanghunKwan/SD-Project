@@ -45,7 +45,6 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         {
             StopWaiting();
             inventoryComponent.Use(SlotNum);
-            InventoryManager.i.Use(SlotNum);
         };
         clicks[(int)PointerEventData.InputButton.Middle] = (pos) => { };
     }

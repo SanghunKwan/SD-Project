@@ -124,6 +124,7 @@ public class InventoryComponent : InitObject, IStorageVisible
         ImageCopy(copy, target);
         copy.raycastTarget = false;
         target.color = Color.clear;
+        target.transform.GetChild(0).gameObject.SetActive(false);
     }
     void ImageCopy(in Image copy, in Image target)
     {
@@ -144,16 +145,23 @@ public class InventoryComponent : InitObject, IStorageVisible
     {
         int[] removeSlots = itemSlots[slotIndex].slotdata.brunchIndex.ToArray();
         int length = removeSlots.Length;
-        inventoryStorage.CheckCodetoSlot(slotIndex);
         for (int i = 0; i < length; i++)
         {
+            inventoryStorage.CheckCodetoSlot(removeSlots[i]);
             inventoryStorage.SetSlotEmpty(removeSlots[i]);
+
+            //뒤에 있는 slot을 reset했더니
+            //앞에 있는 slot이 이를 알지 못하고 계속 beforeslot을 변경함.
         }
+    }
+    public void DragEnd(int slotIndex)
+    {
+        
     }
     public void ItemSwap(int slotIndex)
     {
         int offset = nowSlotIndex - slotIndex;
-        InventoryStorage.Slot slot = new InventoryStorage.Slot(itemSlots[slotIndex].slotdata);
+        InventoryStorage.Slot slot = new InventoryStorage.Slot(inventoryStorage.slots[slotIndex]);
         InventoryStorage.Slot memorySlot = new InventoryStorage.Slot();
         int[] brunchIndexList = slot.brunchIndex.ToArray();
         int length = brunchIndexList.Length;
@@ -163,6 +171,7 @@ public class InventoryComponent : InitObject, IStorageVisible
 
         if (inventoryStorage.IsEnoughSpace(slotIndex, offset))
         {
+
             ItemRemove(slotIndex);
 
             for (int i = 0; i < length; i++)
@@ -172,6 +181,7 @@ public class InventoryComponent : InitObject, IStorageVisible
                     ItemRemove(brunchOffset);
             }
             inventoryStorage.SetSlot(slot, offset);
+            
             callSavedItems();
         }
         else
@@ -222,13 +232,6 @@ public class InventoryComponent : InitObject, IStorageVisible
     public void Use(int slotIndex)
     {
         useAction[(int)type](slotIndex);
-        //스테이지에서
-        //모든 영웅들이 하나씩 사용
-
-        //마을에서
-        //창고 인벤토리로 이동
-
-
     }
     void VilligeUse(int slotIndex)
     {
@@ -248,10 +251,15 @@ public class InventoryComponent : InitObject, IStorageVisible
     }
     void StageUse(int slotIndex)
     {
-        InventoryStorage.Slot slot = inventoryStorage.slots[slotIndex];
         Character[] characters = PlayerNavi.nav.lists.ToArray();
-        int heroCount = PlayerNavi.nav.lists.Count;
+        int heroCount = characters.Length;
+
+        if (heroCount <= 0)
+            return;
+
+        InventoryStorage.Slot slot = inventoryStorage.slots[slotIndex];
         int itemCode = slot.itemCode;
+        int[] brunchArray = slot.brunchIndex.ToArray();
 
         inventoryStorage.ItemCountChangeByIndex(slotIndex, -heroCount, out float usedNum);
         //(usedNum / heroCount) 1인당 효과
@@ -259,9 +267,7 @@ public class InventoryComponent : InitObject, IStorageVisible
         {
             inventoryStorage.AffectItem(item.cUnit, itemCode, usedNum / heroCount);
         }
-
-
-        OriginImagebySlot(slot.brunchIndex.ToArray());
+        OriginImagebySlot(brunchArray);
     }
 
     #endregion

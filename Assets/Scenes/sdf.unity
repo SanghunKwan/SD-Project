@@ -8088,6 +8088,10 @@ PrefabInstance:
       propertyPath: UIEvents.Array.data[0].UiEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8904274298286120983, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
+      propertyPath: slots.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8672031221686842176, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
     - {fileID: 8545342777279986809, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}

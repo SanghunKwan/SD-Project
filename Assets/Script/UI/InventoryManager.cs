@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using System;
 using Unit;
 
@@ -12,7 +11,6 @@ public class InventoryManager : JsonLoad
 
     [SerializeField] Image clickImage;
 
-    TextMeshProUGUI tmg;
     public Image InventoryDescription { get; private set; }
 
     [Serializable]
@@ -51,9 +49,6 @@ public class InventoryManager : JsonLoad
     public void AddItem(in CUnit unit, int itemCode)
     {
         inventoryStorage.ItemCountChange(itemCode, 1);
-    }
-    void Erase(int slotIndex, int num)
-    {
     }
     #endregion
     public void ThrowAway(in CUnit cunit, int i, Vector3 vec)
@@ -115,70 +110,6 @@ public class InventoryManager : JsonLoad
     //}
     //#endregion
 
-
-    public void ItemSwap(int i1, int i2)
-    {
-    //    int i = UItoroom[i1];
-    //    UItoroom[i1] = UItoroom[i2];
-    //    UItoroom[i2] = i;
-
-    //    bool onoff = itemUI[i1].enabled;
-    //    itemUI[i1].enabled = itemUI[i2].enabled;
-    //    itemUI[i2].enabled = onoff;
-
-    //    roomToImage[UItoroom[i1]] = i1;
-    //    if (itemUI[i2].enabled.Equals(true))
-    //        roomToImage[UItoroom[i2]] = i2;
-
-    //    LoadImage(UItoroom[i1]);
-    //    LoadImage(UItoroom[i2]);
-
-    //    RenewalText(i1);
-    //    RenewalText(i2);
-    }
-    public void Use(int i)
-    {
-        //ItemEffectApply(i);
-        //ItemCheckRemaining(i);
-    }
-    public void UseOne(CUnit unit, int i)
-    {
-    //    if (inventoryRoom[UItoroom[i]].type != ItemType.Consumption)
-    //        return;
-
-    //    UseItem(unit, ref inventoryRoom[UItoroom[i]]);
-    //    ItemCheckRemaining(i);
-    //}
-    //void ItemCheckRemaining(int i)
-    //{
-    //    RenewalText(i);
-    //    if (inventoryRoom[UItoroom[i]].itemCount <= 0)
-    //        Erase(i);
-    }
-
-    //private void ItemEffectApply(int i)
-    //{
-    //    if (inventoryRoom[UItoroom[i]].type != ItemType.Consumption)
-    //        return;
-
-    //    int listNum = 0;
-    //    while (inventoryRoom[UItoroom[i]].itemCount > 0 && playerNavi.lists.Count > listNum)
-    //    {
-    //        UseItem(playerNavi.lists[listNum].cUnit, ref inventoryRoom[UItoroom[i]]);
-    //        listNum++;
-    //    }
-    //}
-    //void UseItem(CUnit unit, ref Item item)
-    //{
-    //    item.itemCount--;
-    //    unit.Recovery(item.HP);
-    //    //스킬, status 기능은 이후 추가
-    //}
-
-    public bool CheckSlot(int i)
-    {
-        return true;// itemUI[i].enabled;
-    }
 
     public Image HideSlot(int i, Vector2 pressedPosition, out Vector2 ImageOffset, out int slot2)
     {

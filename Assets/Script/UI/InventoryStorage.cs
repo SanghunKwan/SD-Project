@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unit;
 using UnityEngine;
+using static InventoryStorage;
 
 [RequireComponent(typeof(CheckUICallChange))]
 public class InventoryStorage : StorageComponent
@@ -21,12 +22,13 @@ public class InventoryStorage : StorageComponent
         Vertic,
         Max
     }
+    [Serializable]
     public class Slot
     {
-        public int itemCode { get; private set; }
+        public int itemCode;
         public int itemCount { get; private set; }
-        public List<int> brunchIndex { get; set; }
-        public int beforeSlotIndex { get; set; } = -1;
+        public List<int> brunchIndex;
+        public int beforeSlotIndex = -1;
         Action<int> onChangeSlotIndex { get; set; } = (num) => { };
 
         public Slot()
@@ -41,7 +43,11 @@ public class InventoryStorage : StorageComponent
             itemCount = deepCopy.itemCount;
             brunchIndex = deepCopy.brunchIndex;
             beforeSlotIndex = deepCopy.beforeSlotIndex;
-            onChangeSlotIndex = (Action<int>)deepCopy.onChangeSlotIndex.Clone();
+
+            foreach (var item in deepCopy.onChangeSlotIndex.GetInvocationList())
+            {
+                onChangeSlotIndex += (Action<int>)item;
+            }
         }
         public void SetSlot(int code, int count)
         {
@@ -50,12 +56,14 @@ public class InventoryStorage : StorageComponent
         }
         public void SwapSlot(int targetSlotIndex, in Slot targetSlot)
         {
+            onChangeSlotIndex = targetSlot.onChangeSlotIndex;
             onChangeSlotIndex(targetSlotIndex);
             itemCode = targetSlot.itemCode;
             itemCount = targetSlot.itemCount;
             brunchIndex = targetSlot.brunchIndex;
 
             beforeSlotIndex = targetSlot.beforeSlotIndex;
+
         }
         public void AddListener(Action<int> action)
         {
@@ -74,12 +82,12 @@ public class InventoryStorage : StorageComponent
             beforeSlotIndex = -1;
         }
     }
-    public Slot[] slots { get; private set; }
+    public Slot[] slots;
 
     [SerializeField] int slotInALIne;
-    int[] itemcode2slotindex;
+    public int[] itemcode2slotindex;
     int[] figure2step;
-    List<int> emptySlotList;
+    public List<int> emptySlotList;
 
     delegate bool RefFunc(int num1, int num2, ref Slot slot);
     RefFunc[] checkEmptyFigure = new RefFunc[(int)Figure.Max];
@@ -128,7 +136,6 @@ public class InventoryStorage : StorageComponent
         Item item = InventoryManager.i.info.items[itemCode];
 
         int codeIndex = itemcode2slotindex[itemCode];
-
         if (codeIndex != -1)
             SlotOperateWithCodeIndex(codeIndex, ref addNum, item);
 
@@ -156,6 +163,11 @@ public class InventoryStorage : StorageComponent
         //count는 최종 개수
         //addNum은 더하는 개수
         ChangeCountBySlot(slot, count, codeIndex);
+        if (count <= 0)
+        {
+            slot.SetEmpty();
+            CheckCodetoSlot(codeIndex);
+        }
         CheckUseAll(codeIndex, count <= 0);
     }
     void CheckUseAll(int codeIndex, bool lessEqualZero = true)
@@ -163,7 +175,7 @@ public class InventoryStorage : StorageComponent
         if (!lessEqualZero)
             return;
 
-        slots[codeIndex].SetSlot(0, 0);
+
         int newIndex = emptySlotList.BinarySearch(codeIndex);
         emptySlotList.Insert(~newIndex, codeIndex);
     }
@@ -176,8 +188,7 @@ public class InventoryStorage : StorageComponent
             itemcode2slotindex[item.itemCode] = emptyIndex;
             ChangeCount(item.itemCode, addNum, item.needSlots, step);
 
-            if (beforeIndex >= 0)
-                slots[beforeIndex].AddListener((newIndex) => slots[emptyIndex].beforeSlotIndex = newIndex);
+            LinkIndex(beforeIndex, emptyIndex);
         }
         else
         {
@@ -187,6 +198,18 @@ public class InventoryStorage : StorageComponent
 
             uiCallChange.SetUICall();
             uiCallChange.PopUp(true);
+        }
+    }
+    public void LinkIndex(int beforeIndex, int emptyIndex)
+    {
+        if (beforeIndex >= 0)
+        {
+            slots[beforeIndex].AddListener((newIndex) =>
+            {
+                slots[emptyIndex].beforeSlotIndex = newIndex;
+                Debug.Log("전환");
+            });
+            slots[emptyIndex].beforeSlotIndex = beforeIndex;
         }
     }
     void DecreaseItemCount(int itemCode, int addNum)
@@ -244,7 +267,6 @@ public class InventoryStorage : StorageComponent
     {
         int codeIndex = itemcode2slotindex[itemCode];
         int temp;
-        Debug.Log("itemCode : " + itemCode.ToString() + "codeIndex : " + codeIndex);
         Slot tempslot = slots[codeIndex];
         List<int> tempList = tempslot.brunchIndex;
 
@@ -254,7 +276,6 @@ public class InventoryStorage : StorageComponent
         for (int i = 0; i < needSlots; i++)
         {
             temp = codeIndex + i * step;
-            Debug.Log("temp : " + temp);
             tempslot = slots[temp];
             tempslot.SetSlot(itemCode, itemCount);
             tempslot.brunchIndex = tempList;
@@ -334,12 +355,18 @@ public class InventoryStorage : StorageComponent
             slot.brunchIndex[i] += offset;
             tempIndex = slot.brunchIndex[i];
             slots[tempIndex].SwapSlot(tempIndex, slot);
+            LinkIndex(slot.beforeSlotIndex, tempIndex);
             emptySlotList.Remove(tempIndex);
         }
     }
     public void SetSlotEmpty(int slotIndex)
     {
         Slot slot = slots[slotIndex];
+        int beforeNum = slot.beforeSlotIndex;
+        if (beforeNum >= 0)
+        {
+            slots[beforeNum].AddListener((num) => { });
+        }
         slot.SetEmpty();
         CheckUseAll(slotIndex);
     }
@@ -383,7 +410,6 @@ public class InventoryStorage : StorageComponent
         for (int i = 0; i < needSlots; i++)
         {
             temp = brunchArray[i];
-            Debug.Log("temp : " + temp.ToString() + "    number : " + count);
 
             tempslot = slots[temp];
             tempslot.SetSlot(itemCode, count);
