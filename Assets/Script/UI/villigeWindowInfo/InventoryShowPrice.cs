@@ -17,11 +17,11 @@ class PriceNode
         text.text = newPrice.ToString("N0");
     }
 }
-public class InventoryShowPrice : MonoBehaviour
+public class InventoryShowPrice : InitObject
 {
     InventoryComponent inventoryComponent;
     PriceNode priceNode;
-    void Start()
+    public override void Init()
     {
         inventoryComponent = transform.parent.parent.GetComponent<InventoryComponent>();
         priceNode = new PriceNode(transform.GetChild(1));
@@ -34,4 +34,5 @@ public class InventoryShowPrice : MonoBehaviour
     {
         priceNode.ChangePrice(newPrice);
     }
+
 }

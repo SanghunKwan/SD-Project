@@ -18,6 +18,7 @@ public class InventoryPriceController : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             prices[i] = priceParent.GetChild(i).GetComponent<InventoryShowPrice>();
+            prices[i].Init();
             SetPrice(i);
             CheckSupplyCount(i);
         }

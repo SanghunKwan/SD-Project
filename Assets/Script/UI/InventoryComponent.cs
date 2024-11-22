@@ -143,14 +143,14 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         newGameObject.transform.localPosition = targetChildTransform.localPosition;
         targetChildTransform.gameObject.SetActive(false);
     }
-    public void ItemRemove(int slotIndex)
+    public void ItemRemove(int slotIndex, in InventoryComponent inventoryComponent)
     {
-        int[] removeSlots = itemSlots[slotIndex].slotdata.brunchIndex.ToArray();
+        int[] removeSlots = inventoryComponent.inventoryStorage.slots[slotIndex].brunchIndex.ToArray();
         int length = removeSlots.Length;
         for (int i = 0; i < length; i++)
         {
-            inventoryStorage.CheckCodetoSlot(removeSlots[i]);
-            inventoryStorage.SetSlotEmpty(removeSlots[i]);
+            inventoryComponent.inventoryStorage.CheckCodetoSlot(removeSlots[i]);
+            inventoryComponent.inventoryStorage.SetSlotEmpty(removeSlots[i]);
 
             //뒤에 있는 slot을 reset했더니
             //앞에 있는 slot이 이를 알지 못하고 계속 beforeslot을 변경함.
@@ -182,7 +182,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
 
         if (inventoryStorage.IsEnoughSpace(slotIndex, offset))
         {
-            ItemRemove(slotIndex);
+            ItemRemove(slotIndex, this);
             CheckBeforeItems(slot, brunchIndexList, offset, ref callChangedSlots);
         }
         else
@@ -201,24 +201,24 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         {
             brunchOffset = brunchIndexList[i] + offset;
             if (CanBackUpItem(brunchOffset, ref memorySlot, ref callSavedItems, ref callChangedSlots))
-                ItemRemove(brunchOffset);
+                ItemRemove(brunchOffset, nowInventoryComponent);
         }
-        inventoryStorage.SetSlot(slot, offset);
+        nowInventoryComponent.inventoryStorage.SetSlot(brunchIndexList, slot, offset);
 
         callSavedItems();
     }
 
     bool CanBackUpItem(int slotIndex, ref InventoryStorage.Slot slot, ref Action itemCount, ref Action imageSlot)
     {
-        slot = inventoryStorage.slots[slotIndex];
+        slot = nowInventoryComponent.inventoryStorage.slots[slotIndex];
         if (slot.itemCode == 0)
             return false;
 
         int code = slot.itemCode;
         int count = slot.itemCount;
         int[] brunchArray = slot.brunchIndex.ToArray();
-        itemCount += () => inventoryStorage.ItemCountChange(code, count);
-        imageSlot += () => OriginImagebySlotArray(brunchArray);
+        itemCount += () => nowInventoryComponent.inventoryStorage.ItemCountChange(code, count);
+        imageSlot += () => nowInventoryComponent.OriginImagebySlotArray(brunchArray);
         return true;
     }
     void OriginImagebySlotArray(in int[] brunchList, int offset)
@@ -259,7 +259,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     void VilligeUse(int slotIndex)
     {
         //아이템 삭제
-        ItemRemove(slotIndex);
+        ItemRemove(slotIndex, this);
         //storage 개수 연산
 
         //store에 개수 추가
@@ -297,51 +297,26 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     {
         InventoryStorage.Slot slot = inventoryStorage.slots[slotIndex];
         StorageComponent.Item item = InventoryManager.i.info.items[slot.itemCode];
-        InventoryStorage.Slot slotTarget = nowInventoryComponent.inventoryStorage.slots[slotIndex];
+        InventoryStorage.Slot slotTarget = nowInventoryComponent.inventoryStorage.slots[nowSlotIndex];
 
         int moveCount = Mathf.Clamp(slot.itemCount, 0, item.MaxCount - slotTarget.itemCount);
+        int[] brunchSlots = slot.brunchIndex.ToArray();
 
 
-        if (inventoryStorage.IsEnoughSpaceWithOthers(inventoryStorage, slotIndex, nowInventoryComponent.inventoryStorage, nowSlotIndex))
-        {
-            Action action = () => { };
-            //swap처럼 삭제 후 재생성.
-            CheckBeforeItems(slotTarget, slotTarget.brunchIndex.ToArray(), 0, ref action);
-
-
-        }
-
-
-
-
-        //
-
-        //
-
-
-        if (slotTarget.itemCode == 0 || slot.itemCode == slotTarget.itemCode)
-        {
-
-            if (slot.itemCount == 0)
-            {
-                //store에서 옮김.
-                //가격 반영.
-                //(slotTarget.itemCount == item.MaxCount)까지 옮김.
-            }
-            else
-            {
-                nowInventoryComponent.inventoryStorage.ItemCountChange(slot.itemCode, moveCount);
-                nowInventoryComponent.ItemSwap(slotIndex);
-                inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _);
-            }
-            Debug.Log(nowInventoryComponent.inventoryStorage.slots[nowSlotIndex].itemCount);
-            nowInventoryComponent.OriginImage(nowSlotIndex);
-        }
-        else if (slotTarget.itemCode != 0 && slot.itemCode != slotTarget.itemCode)
+        if (slotTarget.itemCode != 0 && slot.itemCode != slotTarget.itemCode 
+            || inventoryStorage.IsEnoughSpaceWithOthers(inventoryStorage, slotIndex, nowInventoryComponent.inventoryStorage, nowSlotIndex))
         {
             nowInventoryComponent.inventoryStorage.ItemCountChange(slot.itemCode, slot.itemCount);
             inventoryStorage.ItemCountChangeByIndex(slotIndex, -slot.itemCount, out _);
         }
+        else
+        {
+            Action action = () => { };
+            inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _);
+            CheckBeforeItems(slot, brunchSlots, nowSlotIndex - slotIndex, ref action);
+            action();
+        }
+        nowInventoryComponent.OriginImagebySlotArray(slotTarget.brunchIndex.ToArray());
     }
 
     #endregion

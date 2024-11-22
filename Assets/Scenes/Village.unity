@@ -53318,6 +53318,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7774018402050829510, guid: 6587162158ee6b34bbfe0a67c9586fc9, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -379,19 +379,28 @@ public class InventoryStorage : StorageComponent
     }
     public bool IsEnoughSpaceWithOthers(in InventoryStorage inventory1, int slotIndex1, in InventoryStorage inventory2, int slotIndex2)
     {
+        int[] tempArray = inventory1.slots[slotIndex1].brunchIndex.ToArray();
+        int[] tempArray2 = (int[])tempArray.Clone();
+        int length = tempArray.Length;
+        int offset = slotIndex2 - slotIndex1;
+
+        for (int i = 0; i < length; i++)
+        {
+            tempArray2[i] += offset;
+        }
+
         return IsEnoughSpace
             (
-            inventory1.slots[slotIndex1].brunchIndex.ToArray(), inventory1.slotInALIne, 
-            inventory2.slots[slotIndex2].brunchIndex.ToArray(), inventory2.slotInALIne
+            tempArray, inventory1.slotInALIne,
+            tempArray2, inventory2.slotInALIne
             );
     }
 
     #endregion
 
     #region 외부 이벤트
-    public void SetSlot(in Slot slot, int offset)
+    public void SetSlot(in int[]  brunchArray ,in Slot slot, int offset)
     {
-        int[] brunchArray = slot.brunchIndex.ToArray();
         int length = brunchArray.Length;
         int tempIndex;
         ReturnCodetoSlot(slot, slot.beforeSlotIndex, offset);
