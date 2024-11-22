@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unit;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(CheckUICallChange))]
 public class InventoryStorage : StorageComponent
@@ -148,10 +149,10 @@ public class InventoryStorage : StorageComponent
         if (codeIndex != -1)
             SlotOperateWithCodeIndex(codeIndex, ref addNum, item);
 
-        if (addNum == 0)
+        if (addNum == 0 && m_type != InventoryComponent.InventoryType.Store)
             return;
 
-        if (addNum > 0)
+        if (addNum >= 0)
         {
             IncreaseItemCount(item, codeIndex, addNum);
         }
@@ -163,6 +164,7 @@ public class InventoryStorage : StorageComponent
 
     void SlotOperateWithCodeIndex(int codeIndex, ref int addNum, in Item item)
     {
+        Debug.Log(codeIndex.ToString() + addNum);
         Slot slot = slots[codeIndex];
         int count = addNum + slot.itemCount;
         if (m_type != InventoryComponent.InventoryType.Store)
@@ -173,6 +175,9 @@ public class InventoryStorage : StorageComponent
         //count는 최종 개수
         //addNum은 더하는 개수
         ChangeCountBySlot(slot, count);
+        if (m_type == InventoryComponent.InventoryType.Store)
+            return;
+
         if (count <= 0)
         {
             slot.SetEmpty();
@@ -201,8 +206,8 @@ public class InventoryStorage : StorageComponent
 
             if (m_type != InventoryComponent.InventoryType.Store && addNum > item.MaxCount)
             {
-                IncreaseItemCount(item, emptyIndex, addNum - item.MaxCount);
                 addNum = item.MaxCount;
+                IncreaseItemCount(item, emptyIndex, addNum - item.MaxCount);
             }
             ChangeCount(item.itemCode, addNum, item.needSlots, step);
         }
@@ -300,6 +305,15 @@ public class InventoryStorage : StorageComponent
         m_itemCounts[slot.itemCode] -= slot.itemCount;
     }
     #endregion
+    #region slot 개수 추가
+    public void ItemCountChangeBySlot(int slotIndex, int addNum, in Item item)
+    {
+        Slot slot = slots[slotIndex];
+
+    }
+
+    #endregion
+
     #region Slot empty 확인
     bool IsInventoryEmpty(in Slot slot)
     {
@@ -338,21 +352,40 @@ public class InventoryStorage : StorageComponent
     public bool IsEnoughSpace(int slotIndex, int offset)
     {
         int[] tempArray = slots[slotIndex].brunchIndex.ToArray();
+        int[] offsetArray = (int[])tempArray.Clone();
         int length = tempArray.Length;
+        for (int i = 0; i < length; i++)
+        {
+            offsetArray[i] += offset;
+        }
+        return IsEnoughSpace(tempArray, slotInALIne, offsetArray, slotInALIne);
+    }
+    bool IsEnoughSpace(in int[] brunchArray1, int slotLine1, in int[] brunchArray2, int slotLine2)
+    {
+        int length = brunchArray1.Length;
         int originBrunch;
         int offsetBrunch;
-        int brunchDifference = (tempArray[0] + offset) / slotInALIne - tempArray[0] / slotInALIne;
+        int brunchDifference = (brunchArray1[0] / slotLine1) - (brunchArray2[0] / slotLine2);
 
         for (int i = 0; i < length; i++)
         {
-            originBrunch = tempArray[i] / slotInALIne;
-            offsetBrunch = (tempArray[i] + offset) / slotInALIne;
+            originBrunch = brunchArray1[i] / slotLine1;
+            offsetBrunch = brunchArray2[i] / slotLine2;
 
             if (originBrunch + brunchDifference != offsetBrunch)
                 return false;
         }
         return true;
     }
+    public bool IsEnoughSpaceWithOthers(in InventoryStorage inventory1, int slotIndex1, in InventoryStorage inventory2, int slotIndex2)
+    {
+        return IsEnoughSpace
+            (
+            inventory1.slots[slotIndex1].brunchIndex.ToArray(), inventory1.slotInALIne, 
+            inventory2.slots[slotIndex2].brunchIndex.ToArray(), inventory2.slotInALIne
+            );
+    }
+
     #endregion
 
     #region 외부 이벤트
@@ -407,6 +440,7 @@ public class InventoryStorage : StorageComponent
         usedNum = -originNum + addNum;
     }
 
+
     void ChangeCountBySlot(in Slot slot, int count)
     {
         Slot tempslot;
@@ -440,5 +474,5 @@ public class InventoryStorage : StorageComponent
     }
     #endregion
 
-    
+
 }

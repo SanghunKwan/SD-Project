@@ -69,11 +69,10 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         if (!isDragActive)
             return;
 
-
         Destroy(dragImage.gameObject);
         isDragActive = false;
 
-        inventoryComponent.ItemSwap(SlotNum);
+        inventoryComponent.DragEnd(SlotNum);
 
     }
 
@@ -118,6 +117,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     {
         isOnItem = false;
         inventoryComponent.ActiveDescription(false);
+        inventoryComponent.OnPointerEnter(eventData);
     }
 
 

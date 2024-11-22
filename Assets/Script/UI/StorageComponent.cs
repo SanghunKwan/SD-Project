@@ -42,7 +42,12 @@ public class StorageComponent : InitObject
     {
         for (int i = 0; i < 13; i++)
         {
-            m_itemCounts[i] = i * 2;
+            if(i == 8)
+            {
+                m_itemCounts[i] = 0;
+                continue;
+            }
+            m_itemCounts[i] = i;
         }
     }
     #endregion
