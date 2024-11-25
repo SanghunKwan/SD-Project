@@ -206,7 +206,13 @@ public class InventoryStorage : StorageComponent
 
             uiCallChange.SetUICall();
             uiCallChange.PopUp(true);
+
+            ThrowAway(item.itemCode);
         }
+    }
+    public void ThrowAway(int itemCode)
+    {
+        GameManager.manager.storageManager.ThrowAwayItem(Vector3.zero, itemCode);
     }
     public void LinkIndex(int beforeIndex, int emptyIndex)
     {

@@ -671,10 +671,8 @@ public class GameManager : MonoBehaviour
     }
     public bool IsOnOneRight(CObject obj, Vector3 vec)
     {
-        Quaternion dir = Quaternion.Euler(0, obj.transform.eulerAngles.y, 0);
-        Vector3 tempVec = dir * (obj.transform.position - vec);
+        Quaternion dir = Quaternion.Euler(0, -obj.transform.eulerAngles.y, 0);
 
-        return tempVec.x > 0;
-
+        return (dir * (vec - obj.transform.position)).x > 0;
     }
 }

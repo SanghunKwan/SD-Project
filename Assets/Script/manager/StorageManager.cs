@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unit;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Linq;
 using System.Threading.Tasks;
-using UnityEngine.UI.Extensions.Tweens;
 using System;
 
 public class StorageManager : MonoBehaviour
@@ -29,13 +27,25 @@ public class StorageManager : MonoBehaviour
     {
         m_inventoryComponents[(int)InventoryComponent.InventoryType.Stage].inventoryStorage.ItemCountChange(itemCode, itemCount);
     }
-    public void ThrowAwayItem(PointerEventData eventData, InventoryStorage.Slot slot)
+    public void ThrowAwaySlot(in Vector3 clickPoint, InventoryStorage.Slot slot)
     {
         int itemCount = slot.itemCount;
         int poolCode = ItemCode2ItemPoolCode(slot.itemCode);
         int layerMask = 1 << LayerMask.NameToLayer("UI");
 
-        Physics.Raycast(Camera.main.ScreenPointToRay(eventData.position), out RaycastHit hit, 30, ~layerMask);
+        ThrowAwayAct(clickPoint, layerMask, itemCount, poolCode);
+    }
+    public void ThrowAwayItem(in Vector3 clickPoint, int itemCode)
+    {
+        int itemCount = 1;
+        int poolCode = ItemCode2ItemPoolCode(itemCode);
+        int layerMask = 1 << LayerMask.NameToLayer("UI");
+
+        ThrowAwayAct(clickPoint, layerMask, itemCount, poolCode);
+    }
+    void ThrowAwayAct(in Vector3 clickPoint, int layerMask, int itemCount, int poolCode)
+    {
+        Physics.Raycast(Camera.main.ScreenPointToRay(clickPoint), out RaycastHit hit, 30, ~layerMask);
 
         List<CUnit> clist = (from character in PlayerNavi.nav.lists
                              select character.cUnit).ToList();

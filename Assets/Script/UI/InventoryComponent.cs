@@ -274,7 +274,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
             ResetDrag(slotIndex);
             return;
         }
-        GameManager.manager.storageManager.ThrowAwayItem(eventData, inventoryStorage.slots[slotIndex]);
+        GameManager.manager.storageManager.ThrowAwaySlot(eventData.position, inventoryStorage.slots[slotIndex]);
 
         ItemRemove(slotIndex, this);
     }
