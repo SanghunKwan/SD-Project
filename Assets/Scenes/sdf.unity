@@ -6868,6 +6868,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe63e82c29b88e448063d9c60ea6b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2088239305 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8894352057624006047, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
+  m_PrefabInstance: {fileID: 5803968329823553805}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709889429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621215bf5815b73408edafb3de905096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2099562275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7187,6 +7198,34 @@ PrefabInstance:
     - target: {fileID: 379246634350861678, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 566795959978979425, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
+      propertyPath: list.Array.data[0].buttonEvents.Array.data[0].UiEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 566795959978979425, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
+      propertyPath: list.Array.data[0].buttonEvents.Array.data[0].UiEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 566795959978979425, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
+      propertyPath: list.Array.data[0].buttonEvents.Array.data[0].UiEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2088239305}
+    - target: {fileID: 566795959978979425, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
+      propertyPath: list.Array.data[0].buttonEvents.Array.data[0].UiEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 566795959978979425, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
+      propertyPath: list.Array.data[0].buttonEvents.Array.data[0].UiEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: RemoveUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 566795959978979425, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
+      propertyPath: list.Array.data[0].buttonEvents.Array.data[0].UiEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: CheckUICall, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 566795959978979425, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
+      propertyPath: list.Array.data[0].buttonEvents.Array.data[0].UiEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: CheckUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1201490753191425136, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
       propertyPath: m_AnchorMax.y

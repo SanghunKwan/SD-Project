@@ -15,7 +15,11 @@ public class CheckUICall : MonoBehaviour
     [SerializeField] ButtonEvent[] UIEvents;
     [SerializeField] CheckUI.COMPONENTINDEX[] hiddenButton;
 
-
+    private void Start()
+    {
+        m_Ui = Instantiate(UI, transformUI);
+        m_Ui.gameObject.SetActive(false);
+    }
     [Serializable]
     public class ButtonTypeChange
     {
@@ -30,7 +34,7 @@ public class CheckUICall : MonoBehaviour
     }
     public void CallUI()
     {
-        m_Ui = Instantiate(UI, transformUI);
+        m_Ui.gameObject.SetActive(true);
     }
     public void SetUIButton()
     {
@@ -81,7 +85,10 @@ public class CheckUICall : MonoBehaviour
             m_Ui.SetButtonInactiveNoPositionChange(item);
         }
     }
-
+    public void RevealAllButton()
+    {
+        //버튼, 버튼 parent 다 gameobject.setactive(ture)로 할 겄.
+    }
     #region CheckUiCallChange 관련 기능
     public void DataChange(CheckUICallChange.ChangeData data)
     {
