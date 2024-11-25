@@ -11562,6 +11562,7 @@ Transform:
   - {fileID: 842430475}
   - {fileID: 46209292}
   - {fileID: 579258496}
+  - {fileID: 1948844582}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1523831109
@@ -13198,6 +13199,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bbf6cfd14bec34bb01b8b8877bdb91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1813605952 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3277090820823984046, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+  m_PrefabInstance: {fileID: 102871350047860029}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c208e83ff95754ba32d6811e44fece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1879115077
 GameObject:
   m_ObjectHideFlags: 0
@@ -13698,6 +13710,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946717003}
   m_CullTransparentMesh: 1
+--- !u!1 &1948844581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1948844582}
+  - component: {fileID: 1948844583}
+  m_Layer: 0
+  m_Name: StorageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1948844582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948844581}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1522713235}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1948844583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948844581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8082de142eb3194589c2748763db150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inventoryComponents:
+  - {fileID: 0}
+  - {fileID: 657896459}
+  - {fileID: 8614826947660577992}
 --- !u!1 &1956435510
 GameObject:
   m_ObjectHideFlags: 0
@@ -15560,6 +15620,26 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1561780866771882924, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561780866771882924, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionId
+      value: 0ba58bad-9287-418d-855e-574ee1a07b9f
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561780866771882924, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionName
+      value: BuildingOrder/New action[/Keyboard/shift]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561780866771882924, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561780866771882924, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561780866771882924, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3425621756773969539}
@@ -15567,6 +15647,26 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3425621756773969539}
+    - target: {fileID: 1561780866771882924, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1813605952}
+    - target: {fileID: 1561780866771882924, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561780866771882924, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnShiftToggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561780866771882924, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: KeyboardInput, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561780866771882924, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2053668028188870210, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
       propertyPath: m_Camera
       value: 

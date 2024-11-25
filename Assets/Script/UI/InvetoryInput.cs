@@ -19,7 +19,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     Vector2 pointerOffset;
     InventoryComponent inventoryComponent;
 
-    IEnumerator enumWaiting;
+    static IEnumerator enumWaiting;
     bool IsSlotExist
     {
         get { return inventoryComponent.CheckItemSlotExist(SlotNum); }
@@ -72,8 +72,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         Destroy(dragImage.gameObject);
         isDragActive = false;
 
-        inventoryComponent.DragEnd(SlotNum);
-
+        inventoryComponent.DragEnd(SlotNum, eventData);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -95,6 +94,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     }
     void StartWaiting(float seconds, Action action)
     {
+        StopWaiting();
         enumWaiting = WaitOnSlot(seconds, action);
         StartCoroutine(enumWaiting);
     }

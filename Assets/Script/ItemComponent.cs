@@ -101,7 +101,7 @@ public class ItemComponent : MonoBehaviour
     {
         if (other.gameObject.layer == 7)
         {
-            InventoryAddItem(other.GetComponent<CUnit>());
+            InventoryAddItem();
             uiCircle.transform.SetParent(ObjectUIPool.pool.transform.GetChild((int)ObjectUIPool.Folder.UIItemCircle));
             uiCircle.gameObject.SetActive(false);
 
@@ -131,9 +131,9 @@ public class ItemComponent : MonoBehaviour
     {
         index = indexNum;
     }
-    void InventoryAddItem(in CUnit unit)
+    void InventoryAddItem()
     {
-        InventoryManager.i.AddItem(unit, index);
+        GameManager.manager.storageManager.AddItem(index, 1);
     }
 
 }

@@ -35,16 +35,18 @@ public class GameManager : MonoBehaviour
 
 
     Dictionary<string, string> keyboardConverter = new Dictionary<string, string>();
-    KeyCode code = KeyCode.LeftShift;
+    public KeyCode shiftCode { get; private set; } = KeyCode.LeftShift;
 
     Action[] inputSpace = new Action[3];
     Action[] inputSpaceUp = new Action[3];
     public Action callConstructionUI;
 
-
     public PointerEventData pointerEventData { get; set; }
-    public WindowManager windowManager { get; set; }
 
+    #region гою╖ managers
+    public WindowManager windowManager { get; set; }
+    public StorageManager storageManager { get; set; }
+    #endregion
     private void Awake()
     {
         manager = this;
@@ -279,7 +281,7 @@ public class GameManager : MonoBehaviour
 
         bool GetShift()
         {
-            return Input.GetKey(code);
+            return Input.GetKey(shiftCode);
         }
 
 
@@ -317,7 +319,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-        code = newCode;
+        shiftCode = newCode;
     }
     public void DragUnitPosition(Vector3 vector3, Vector2 vector2, bool dragging)
     {
@@ -434,7 +436,7 @@ public class GameManager : MonoBehaviour
         (values[index1], values[index2]) = (values[index2], values[index1]);
     }
 
-    public CObject GetNearest<T>(List<T> units, Vector3 targetPos, Predicate<T> predicate, float range) where T : CObject
+    public CObject GetNearest<T>(in List<T> units, Vector3 targetPos, Predicate<T> predicate, float range) where T : CObject
     {
         List<UnitDistance> heap = new List<UnitDistance>();
         heap.Add(new UnitDistance());
@@ -666,5 +668,13 @@ public class GameManager : MonoBehaviour
     {
         value = keyboardConverter[oldStr];
         keyboardConverter.Remove(oldStr);
+    }
+    public bool IsOnOneRight(CObject obj, Vector3 vec)
+    {
+        Quaternion dir = Quaternion.Euler(0, obj.transform.eulerAngles.y, 0);
+        Vector3 tempVec = dir * (obj.transform.position - vec);
+
+        return tempVec.x > 0;
+
     }
 }
