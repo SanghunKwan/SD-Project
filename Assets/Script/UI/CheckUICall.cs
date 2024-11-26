@@ -18,7 +18,6 @@ public class CheckUICall : MonoBehaviour
     private void Start()
     {
         m_Ui = Instantiate(UI, transformUI);
-        m_Ui.gameObject.SetActive(false);
     }
     [Serializable]
     public class ButtonTypeChange

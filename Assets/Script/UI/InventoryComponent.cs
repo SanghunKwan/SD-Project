@@ -38,7 +38,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     public InventoryStorage inventoryStorage { get; private set; }
     static InventoryComponent nowInventoryComponent;
     [SerializeField] InventoryDescription inventoryDescription;
-
+    [SerializeField] CheckUICallChange[] uICallChange;
     public enum InventoryType
     {
         Stage,
@@ -48,7 +48,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     }
     [SerializeField] InventoryType type;
     Action<int>[] useAction;
-    Action<int, PointerEventData>[] throwAction;
+    Action<int, Vector3>[] throwAction;
     Action<int>[] swapAction;
     public override void Init()
     {
@@ -80,7 +80,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         useAction[((int)InventoryType.Villige) + 3] = (slotIndex) => VilligeUse(slotIndex, InventoryType.Store);
         useAction[((int)InventoryType.Store) + 3] = (slotIndex) => VilligeUse(slotIndex, InventoryType.Villige);
 
-        throwAction = new Action<int, PointerEventData>[(int)InventoryType.Max];
+        throwAction = new Action<int, Vector3>[(int)InventoryType.Max];
         throwAction[(int)InventoryType.Stage] = ThrowInStage;
         throwAction[(int)InventoryType.Villige] = (slotIndex, data) => VilligeUse(slotIndex, InventoryType.Store);
         throwAction[(int)InventoryType.Store] = (slotIndex, data) => VilligeUse(slotIndex, InventoryType.Villige);
@@ -265,18 +265,30 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     #region 버리기
     void ThrowAway(int slotIndex, in PointerEventData eventData)
     {
-        throwAction[(int)type](slotIndex, eventData);
+        throwAction[(int)type](slotIndex, eventData.position);
     }
-    void ThrowInStage(int slotIndex, PointerEventData eventData)
+    void ThrowInStage(int slotIndex, Vector3 eventPosition)
     {
         if (PlayerNavi.nav.lists.Count <= 0)
         {
+            uICallChange[0].SetandCallOnce(3, true);
             ResetDrag(slotIndex);
             return;
         }
-        GameManager.manager.storageManager.ThrowAwaySlot(eventData.position, inventoryStorage.slots[slotIndex]);
-
-        ItemRemove(slotIndex, this);
+        else
+        {
+            uICallChange[1].DataList[0].buttonEvents[0].UiEvent.RemoveAllListeners();
+            uICallChange[1].DataList[0].buttonEvents[0].UiEvent.AddListener(
+                () =>
+                {
+                    GameManager.manager.storageManager.ThrowAwaySlot(eventPosition, inventoryStorage.slots[slotIndex]);
+                    ItemRemove(slotIndex, this);
+                    Debug.Log("여기에 window 끄기 추가");
+                }
+                );
+            uICallChange[1].SetandCallOnce(0);
+        }
+        //1은 하나만 버리기, 2는 그냥 끄기
     }
     void ResetDrag(int slotIndex)
     {

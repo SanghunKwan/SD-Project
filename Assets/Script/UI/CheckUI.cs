@@ -30,7 +30,11 @@ public class CheckUI : tempMenuWindow
     public enum COMPONENTINDEX
     {
         Left,
-        Right
+        Right,
+
+        Left3buttons = 0,
+        Middle3buttons,
+        Right3buttons,
     }
 
     #region GUI
@@ -65,7 +69,13 @@ public class CheckUI : tempMenuWindow
     public void ObjectRemove()
     {
         gameObject.SetActive(false);
-        Destroy(gameObject);
+        int length = buttons.Length;
+
+        for (int i = 0; i < length; i++)
+        {
+            buttons[i].transform.parent.gameObject.SetActive(true);
+            buttons[i].transform.gameObject.SetActive(true);
+        }
     }
     public void AddButtonFunction(COMPONENTINDEX index, Action action)
     {

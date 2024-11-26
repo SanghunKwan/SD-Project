@@ -12,6 +12,8 @@ public class StorageManager : MonoBehaviour
     GameManager gameManager;
 
     [SerializeField] Vector3 offset;
+    GameObject lastFinder;
+    CObject lastFinderCObject;
 
     public InventoryComponent inventoryComponents(InventoryComponent.InventoryType type)
     {
@@ -23,8 +25,13 @@ public class StorageManager : MonoBehaviour
         gameManager = GameManager.manager;
         gameManager.storageManager = this;
     }
-    public void AddItem(int itemCode, int itemCount)
+    public void AddItem(int itemCode, int itemCount, GameObject itemFinder)
     {
+        if (lastFinder != itemFinder)
+        {
+            lastFinder = itemFinder;
+            lastFinderCObject = null;
+        }
         m_inventoryComponents[(int)InventoryComponent.InventoryType.Stage].inventoryStorage.ItemCountChange(itemCode, itemCount);
     }
     public void ThrowAwaySlot(in Vector3 clickPoint, InventoryStorage.Slot slot)
@@ -33,18 +40,6 @@ public class StorageManager : MonoBehaviour
         int poolCode = ItemCode2ItemPoolCode(slot.itemCode);
         int layerMask = 1 << LayerMask.NameToLayer("UI");
 
-        ThrowAwayAct(clickPoint, layerMask, itemCount, poolCode);
-    }
-    public void ThrowAwayItem(in Vector3 clickPoint, int itemCode)
-    {
-        int itemCount = 1;
-        int poolCode = ItemCode2ItemPoolCode(itemCode);
-        int layerMask = 1 << LayerMask.NameToLayer("UI");
-
-        ThrowAwayAct(clickPoint, layerMask, itemCount, poolCode);
-    }
-    void ThrowAwayAct(in Vector3 clickPoint, int layerMask, int itemCount, int poolCode)
-    {
         Physics.Raycast(Camera.main.ScreenPointToRay(clickPoint), out RaycastHit hit, 30, ~layerMask);
 
         List<CUnit> clist = (from character in PlayerNavi.nav.lists
@@ -52,10 +47,21 @@ public class StorageManager : MonoBehaviour
 
         CObject target = gameManager.GetNearest(clist, hit.point, (character) => true, 35);
 
-
         ThrowAwaySave(itemCount, poolCode, target, gameManager.IsOnOneRight(target, hit.point), out _);
     }
+    public void ThrowAwayItem(in Vector3 clickPoint, int itemCode)
+    {
+        int itemCount = 1;
+        int poolCode = ItemCode2ItemPoolCode(itemCode);
+        int layerMask = 1 << LayerMask.NameToLayer("UI");
 
+        Physics.Raycast(Camera.main.ScreenPointToRay(clickPoint), out RaycastHit hit, 30, ~layerMask);
+
+        if (lastFinderCObject == null)
+            lastFinderCObject = lastFinder.GetComponent<CObject>();
+
+        ThrowAwaySave(itemCount, poolCode, lastFinderCObject, gameManager.IsOnOneRight(lastFinderCObject, hit.point), out _);
+    }
     void ThrowAwaySave(int itemCount, int poolCode, CObject target, bool isRight, out Task task)
     {
         task = RepeatThrowAway(itemCount, poolCode, target, isRight);

@@ -7,7 +7,8 @@ using UnityEngine;
 public class CheckUICallChange : MonoBehaviour
 {
     [SerializeField] CheckUICall uiCall;
-    [SerializeField] List<ChangeData> list;
+    [SerializeField] List<ChangeData> m_list;
+    public List<ChangeData> DataList { get { return m_list; } }
     public int nowIndex { get; set; }
 
 
@@ -25,10 +26,16 @@ public class CheckUICallChange : MonoBehaviour
 
     public void SetUICall()
     {
-        uiCall.DataChange(list[nowIndex]);
+        uiCall.DataChange(m_list[nowIndex]);
     }
     public void PopUp(bool needMove)
     {
         uiCall.CallUIOnce(needMove);
+    }
+    public void SetandCallOnce(int index, bool needMove = false)
+    {
+        nowIndex = index;
+        SetUICall();
+        PopUp(needMove);
     }
 }

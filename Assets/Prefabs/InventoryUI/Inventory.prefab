@@ -169,6 +169,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryDescription: {fileID: 0}
+  uICallChange:
+  - {fileID: 566795959978979425}
+  type: 0
 --- !u!114 &8904274298286120983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +184,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020c581880c9a654c9fd06187c015cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slots: []
   slotInALIne: 5
+  itemcode2slotindex: 
+  emptySlotList: 
 --- !u!114 &8894352057624006047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiCall: {fileID: 8894352057624006047}
-  list:
+  m_list:
   - toUserQuestion: "\uC778\uBCA4\uD1A0\uB9AC\uAC00 \uAC00\uB4DD \uCC3C\uC2B5\uB2C8\uB2E4."
     toUserAnswers:
     - buttonIndex: 1
@@ -280,7 +286,8 @@ MonoBehaviour:
     - buttonIndex: 1
       buttonType: 1
     hiddenButton: 00000000
-  - toUserQuestion: "\uC778\uBCA4\uD1A0\uB9AC \uACF5\uAC04\uC774 \uBD80\uC871\uD569\uB2C8\uB2E4."
+  - toUserQuestion: "\uC778\uBCA4\uD1A0\uB9AC\uC5D0 \uB0A8\uC740 \uACF5\uAC04\uBCF4\uB2E4
+      \uD070 \uC544\uC774\uD15C\uC785\uB2C8\uB2E4."
     toUserAnswers:
     - buttonIndex: 1
       buttonAnswer: "\uD655\uC778"
@@ -305,7 +312,34 @@ MonoBehaviour:
     - buttonIndex: 1
       buttonType: 1
     hiddenButton: 00000000
-  - toUserQuestion: "\uC778\uBCA4\uD1A0\uB9AC\uC5D0 \uC815\uB9AC\uAC00 \uD544\uC694\uD569\uB2C8\uB2E4."
+  - toUserQuestion: "\uC778\uBCA4\uD1A0\uB9AC \uACF5\uAC04\uACFC \uC544\uC774\uD15C
+      \uBAA8\uC591\uC774 \uB2E4\uB985\uB2C8\uB2E4."
+    toUserAnswers:
+    - buttonIndex: 1
+      buttonAnswer: "\uD655\uC778"
+    buttonEvents:
+    - buttonIndex: 1
+      UiEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 8894352057624006047}
+            m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
+            m_MethodName: CallCheckUIRemove
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    buttonTypes:
+    - buttonIndex: 1
+      buttonType: 1
+    hiddenButton: 00000000
+  - toUserQuestion: "\uC544\uC774\uD15C\uC744 \uBC84\uB9B4 \uC601\uC6C5\uC744 \uC120\uD0DD\uD574\uC57C
+      \uD569\uB2C8\uB2E4."
     toUserAnswers:
     - buttonIndex: 1
       buttonAnswer: "\uD655\uC778"

@@ -1,0 +1,169 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3966587714017191837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3183763492380108860}
+  - component: {fileID: 8845741525752193863}
+  - component: {fileID: 6708873967609338691}
+  m_Layer: 0
+  m_Name: stageInventoryUICall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3183763492380108860
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3966587714017191837}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 548, y: 235}
+  m_Pivot: {x: 1, y: 0}
+--- !u!114 &8845741525752193863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3966587714017191837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621215bf5815b73408edafb3de905096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI: {fileID: 5287346296941250698, guid: 1ced7817b8370024380bd575a95ab637, type: 3}
+  toUserQuestion: "\uC9C8\uBB38"
+  toUserAnswers:
+  - buttonIndex: 1
+    buttonAnswer: "\uD655\uC778"
+  buttonTypeChanges:
+  - buttonIndex: 2
+    buttonType: 1
+  transformUI: {fileID: 0}
+  UIEvents:
+  - buttonIndex: 0
+    UiEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3966587714017191837}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - buttonIndex: 1
+    UiEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3966587714017191837}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  hiddenButton: 00000000
+--- !u!114 &6708873967609338691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3966587714017191837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7759a76e94df9148838fd26e3d56156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiCall: {fileID: 8845741525752193863}
+  m_list:
+  - toUserQuestion: "\uC815\uB9D0 \uBC84\uB9AC\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
+    toUserAnswers:
+    - buttonIndex: 0
+      buttonAnswer: "\uBAA8  \uB450"
+    - buttonIndex: 1
+      buttonAnswer: "\uD55C \uAC1C\uB9CC"
+    - buttonIndex: 2
+      buttonAnswer: "\uCDE8"
+    buttonEvents:
+    - buttonIndex: 0
+      UiEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 3966587714017191837}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - buttonIndex: 1
+      UiEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 3966587714017191837}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - buttonIndex: 2
+      UiEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 6708873967609338691}
+            m_TargetAssemblyTypeName: CheckUICallChange, Assembly-CSharp
+            m_MethodName: SetUICall
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    buttonTypes:
+    - buttonIndex: 2
+      buttonType: 1
+    hiddenButton: 
