@@ -40,6 +40,10 @@ public class ButtonTextHighlighted : MonoBehaviour, IPointerEnterHandler, IPoint
     {
         textColor = originColor;
     }
+    private void OnDisable()
+    {
+        textColor = originColor;
+    }
     private void Awake()
     {
         if (isTextUI)

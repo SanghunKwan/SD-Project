@@ -113,7 +113,7 @@ MonoBehaviour:
     - buttonIndex: 1
       buttonAnswer: "\uD55C \uAC1C\uB9CC"
     - buttonIndex: 2
-      buttonAnswer: "\uCDE8"
+      buttonAnswer: "\uCDE8  \uC18C"
     buttonEvents:
     - buttonIndex: 0
       UiEvent:

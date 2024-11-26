@@ -164,7 +164,7 @@ public class InventoryStorage : StorageComponent
         }
     }
 
-    void SlotOperateWithCodeIndex(int codeIndex, ref int addNum, in Item item)
+    public void SlotOperateWithCodeIndex(int codeIndex, ref int addNum, in Item item)
     {
         Slot slot = slots[codeIndex];
         int count = addNum + slot.itemCount;
@@ -291,7 +291,6 @@ public class InventoryStorage : StorageComponent
 
         tempList.Clear();
         m_itemCounts[itemCode] += itemCount - tempslot.itemCount;
-
         for (int i = 0; i < needSlots; i++)
         {
             temp = codeIndex + i * step;

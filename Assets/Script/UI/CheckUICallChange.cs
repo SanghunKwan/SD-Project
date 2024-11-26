@@ -8,6 +8,7 @@ public class CheckUICallChange : MonoBehaviour
 {
     [SerializeField] CheckUICall uiCall;
     [SerializeField] List<ChangeData> m_list;
+    public CheckUICall CheckUICall { get { return uiCall; } }
     public List<ChangeData> DataList { get { return m_list; } }
     public int nowIndex { get; set; }
 

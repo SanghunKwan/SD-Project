@@ -4783,6 +4783,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8894352057624006047, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
+      propertyPath: transformUI
+      value: 
+      objectReference: {fileID: 1753523569}
     - target: {fileID: 8904274298286120983, guid: ff2f1e63a426ccd448784d959be8d9cb, type: 3}
       propertyPath: slotInALIne
       value: 5
@@ -8844,9 +8848,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42db5aa13c6027e40915ebc54b5b1e7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickImage: {fileID: 0}
-  playerNavi: {fileID: 0}
-  inventoryStorage: {fileID: 0}
 --- !u!65 &1115957486
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13758,6 +13759,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 657896459}
   - {fileID: 8614826947660577992}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &1956435510
 GameObject:
   m_ObjectHideFlags: 0
@@ -33432,31 +33434,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiCall: {fileID: 2043392268794643325}
-  list:
+  m_list:
   - toUserQuestion: "\uCD9C\uC804\uD558\uB294 \uBAA8\uB4E0 \uD300\uC5D0 \uB9AC\uB354\uAC00
       \uD3EC\uD568\uB418\uC5B4\uC57C \uD569\uB2C8\uB2E4."
-    toUserAnswers: []
-    buttonEvents:
-    - buttonIndex: 0
-      UiEvent:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 2043392268794643325}
-            m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
-            m_MethodName: CallCheckUIRemove
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    buttonTypes: []
-    hiddenButton: 01000000
-  - toUserQuestion: "\uC774\uB300\uB85C \uCD9C\uC815\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
-    toUserAnswers: []
+    toUserAnswers:
+    - buttonIndex: 1
+      buttonAnswer: "\uD655\uC778"
     buttonEvents:
     - buttonIndex: 1
       UiEvent:
@@ -33474,22 +33457,13 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-    - buttonIndex: 0
-      UiEvent:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 0}
-            m_TargetAssemblyTypeName: StageManager, Assembly-CSharp
-            m_MethodName: SceneLoad
-            m_Mode: 3
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
+    buttonTypes:
+    - buttonIndex: 1
+      buttonType: 1
+    hiddenButton: 00000000
+  - toUserQuestion: 
+    toUserAnswers: []
+    buttonEvents: []
     buttonTypes: []
     hiddenButton: 
   conditions:
@@ -38908,7 +38882,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2043392268794643325}
         m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
         m_MethodName: CallUIOnce
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -53330,6 +53304,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1753523569}
     m_Modifications:
+    - target: {fileID: 2259795708198544341, guid: 6587162158ee6b34bbfe0a67c9586fc9, type: 3}
+      propertyPath: m_list.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6002322126106151239, guid: 6587162158ee6b34bbfe0a67c9586fc9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -53414,13 +53392,13 @@ PrefabInstance:
       propertyPath: inventoryDescription
       value: 
       objectReference: {fileID: 7196476491399432194}
+    - target: {fileID: 6384494044496840143, guid: 6587162158ee6b34bbfe0a67c9586fc9, type: 3}
+      propertyPath: transformUI
+      value: 
+      objectReference: {fileID: 1753523569}
     - target: {fileID: 7664208082192358964, guid: 6587162158ee6b34bbfe0a67c9586fc9, type: 3}
       propertyPath: m_Name
       value: Inventory (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7774018402050829510, guid: 6587162158ee6b34bbfe0a67c9586fc9, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

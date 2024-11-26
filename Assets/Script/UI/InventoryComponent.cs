@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -273,22 +274,38 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         {
             uICallChange[0].SetandCallOnce(3, true);
             ResetDrag(slotIndex);
-            return;
         }
         else
         {
-            uICallChange[1].DataList[0].buttonEvents[0].UiEvent.RemoveAllListeners();
-            uICallChange[1].DataList[0].buttonEvents[0].UiEvent.AddListener(
-                () =>
-                {
-                    GameManager.manager.storageManager.ThrowAwaySlot(eventPosition, inventoryStorage.slots[slotIndex]);
-                    ItemRemove(slotIndex, this);
-                    Debug.Log("여기에 window 끄기 추가");
-                }
-                );
-            uICallChange[1].SetandCallOnce(0);
+            InventoryStorage.Slot slot = inventoryStorage.slots[slotIndex];
+            StorageComponent.Item item = InventoryManager.i.info.items[slot.itemCode];
+            UIEventSet(0, () =>
+            {
+                GameManager.manager.storageManager.ThrowAwaySlotAll(eventPosition, slot);
+                ItemRemove(slotIndex, this);
+                uICallChange[1].CheckUICall.CallCheckUIRemove();
+            });
+
+            UIEventSet(1, () =>
+            {
+                int addNum = -1;
+                GameManager.manager.storageManager.ThrowAwaySlot(eventPosition, 1, slot.itemCode);
+                inventoryStorage.SlotOperateWithCodeIndex(slotIndex, ref addNum, item);
+                uICallChange[1].CheckUICall.CallCheckUIRemove();
+            });
+
+            UIEventSet(2, () =>
+            {
+                ResetDrag(slotIndex);
+                uICallChange[1].CheckUICall.CallCheckUIRemove();
+            });
         }
-        //1은 하나만 버리기, 2는 그냥 끄기
+        uICallChange[1].SetandCallOnce(0);
+    }
+    void UIEventSet(int buttonIndex, in UnityAction action)
+    {
+        uICallChange[1].DataList[0].buttonEvents[buttonIndex].UiEvent.RemoveAllListeners();
+        uICallChange[1].DataList[0].buttonEvents[buttonIndex].UiEvent.AddListener(action);
     }
     void ResetDrag(int slotIndex)
     {

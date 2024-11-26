@@ -34,11 +34,16 @@ public class StorageManager : MonoBehaviour
         }
         m_inventoryComponents[(int)InventoryComponent.InventoryType.Stage].inventoryStorage.ItemCountChange(itemCode, itemCount);
     }
-    public void ThrowAwaySlot(in Vector3 clickPoint, InventoryStorage.Slot slot)
+    public void ThrowAwaySlotAll(in Vector3 clickPoint, InventoryStorage.Slot slot)
     {
         int itemCount = slot.itemCount;
-        int poolCode = ItemCode2ItemPoolCode(slot.itemCode);
+
+        ThrowAwaySlot(clickPoint, itemCount, slot.itemCode);
+    }
+    public void ThrowAwaySlot(in Vector3 clickPoint, int itemCount, int itemCode)
+    {
         int layerMask = 1 << LayerMask.NameToLayer("UI");
+        int poolCode = ItemCode2ItemPoolCode(itemCode);
 
         Physics.Raycast(Camera.main.ScreenPointToRay(clickPoint), out RaycastHit hit, 30, ~layerMask);
 

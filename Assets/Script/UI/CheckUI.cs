@@ -75,7 +75,9 @@ public class CheckUI : tempMenuWindow
         {
             buttons[i].transform.parent.gameObject.SetActive(true);
             buttons[i].transform.gameObject.SetActive(true);
+            buttons[i].onClick.RemoveAllListeners();
         }
+
     }
     public void AddButtonFunction(COMPONENTINDEX index, Action action)
     {
