@@ -33461,10 +33461,50 @@ MonoBehaviour:
     - buttonIndex: 1
       buttonType: 1
     hiddenButton: 00000000
-  - toUserQuestion: 
-    toUserAnswers: []
-    buttonEvents: []
-    buttonTypes: []
+  - toUserQuestion: "\uC774\uB300\uB85C \uCD9C\uC804\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
+    toUserAnswers:
+    - buttonIndex: 0
+      buttonAnswer: "\uCD9C  \uC804"
+    - buttonIndex: 1
+      buttonAnswer: "\uCDE8  \uC18C"
+    buttonEvents:
+    - buttonIndex: 1
+      UiEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 2043392268794643325}
+            m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
+            m_MethodName: CallCheckUIRemove
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - buttonIndex: 0
+      UiEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 0}
+            m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    buttonTypes:
+    - buttonIndex: 0
+      buttonType: 1
+    - buttonIndex: 1
+      buttonType: 0
     hiddenButton: 
   conditions:
   - {fileID: 1978006027}

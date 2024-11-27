@@ -222,19 +222,19 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         if (inventoryStorage.IsEnoughSpace(slotIndex, offset))
         {
             ItemRemove(slotIndex, this);
-            CheckBeforeItems(slot, brunchIndexList, offset, ref callChangedSlots);
+            CheckBeforeItems(brunchIndexList, offset, slot.itemCode, slot.itemCount, ref callChangedSlots);
         }
         else
             offset = 0;
         OriginImagebySlotArray(brunchIndexList, offset);
         callChangedSlots();
     }
-    void CheckBeforeItems(InventoryStorage.Slot slot, in int[] brunchIndexList, int offset, ref Action callChangedSlots)
+    void CheckBeforeItems(in int[] brunchIndexList, int offset, int itemCode, int itemCount, ref Action callChangedSlots)
     {
         int length = brunchIndexList.Length;
         int brunchOffset;
         InventoryStorage.Slot memorySlot = new InventoryStorage.Slot();
-        InventoryStorage.Item item = InventoryManager.i.info.items[slot.itemCode];
+        InventoryStorage.Item item = InventoryManager.i.info.items[itemCode];
         Action callSavedItems = () => { };
 
         for (int i = 0; i < length; i++)
@@ -243,7 +243,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
             if (CanBackUpItem(brunchOffset, ref memorySlot, ref callSavedItems, ref callChangedSlots))
                 ItemRemove(brunchOffset, nowInventoryComponent);
         }
-        nowInventoryComponent.inventoryStorage.ItemCountChangeBySlot(nowSlotIndex, slot.itemCount, item);
+        nowInventoryComponent.inventoryStorage.ItemCountChangeBySlot(nowSlotIndex, itemCount, item);
         nowInventoryComponent.inventoryStorage.EmptySlotIndexRemove(nowSlotIndex, item.needSlots, item.figure);
         callSavedItems();
     }
@@ -330,7 +330,6 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         int itemCode = slot.itemCode;
         if (moveCount == 0)
             moveCount = SlotMoveCount(slot, InventoryManager.i.info.items[itemCode]);
-        Debug.Log(slotIndex);
 
         inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _);
         GameManager.manager.storageManager.inventoryComponents(type).
@@ -338,7 +337,10 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     }
     int SlotMoveCount(in InventoryStorage.Slot slot, in StorageComponent.Item item)
     {
-        return Mathf.Clamp(slot.itemCount, 0, item.MaxCount);
+        if (type != InventoryType.Store)
+            return Mathf.Clamp(slot.itemCount, 0, item.MaxCount);
+        else
+            return item.MaxCount;
     }
     void StageUse(int slotIndex)
     {
@@ -366,25 +368,28 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         StorageComponent.Item item = InventoryManager.i.info.items[slot.itemCode];
         InventoryStorage.Slot slotTarget = nowInventoryComponent.inventoryStorage.slots[nowSlotIndex];
 
+
         int moveCount = Mathf.Clamp(slot.itemCount, 0, item.MaxCount - slotTarget.itemCount);
+        if (moveCount <= 0)
+        {
+            moveCount = item.MaxCount - slotTarget.itemCount;
+        }
         int[] brunchSlots = slot.brunchIndex.ToArray();
 
 
-        if ((slotTarget.itemCode != 0 && slot.itemCode != slotTarget.itemCode)
-            || inventoryStorage.IsEnoughSpaceWithOthers(inventoryStorage, slotIndex, nowInventoryComponent.inventoryStorage, nowSlotIndex))
+        if (nowInventoryComponent.type == InventoryType.Store
+            || (slotTarget.itemCode != 0 && slot.itemCode != slotTarget.itemCode)
+            || !inventoryStorage.IsEnoughSpaceWithOthers(inventoryStorage, slotIndex, nowInventoryComponent.inventoryStorage, nowSlotIndex))
         {
-            nowInventoryComponent.inventoryStorage.ItemCountChangeBySlot(nowSlotIndex, moveCount, item);
-            nowInventoryComponent.inventoryStorage.EmptySlotIndexRemove(nowSlotIndex, item.needSlots, item.figure);
-            inventoryStorage.ItemCountChangeByIndex(slotIndex, -slot.itemCount, out _);
-            Debug.Log("itemCountChangeByIndex");
+            nowInventoryComponent.inventoryStorage.ItemCountChange(slot.itemCode, moveCount);
+            inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _);
         }
         else
         {
             Action action = () => { };
+            CheckBeforeItems(brunchSlots, nowSlotIndex - slotIndex, item.itemCode, moveCount, ref action);
             inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _);
-            CheckBeforeItems(slot, brunchSlots, nowSlotIndex - slotIndex, ref action);
             action();
-            Debug.Log("justAdd");
         }
         nowInventoryComponent.OriginImagebySlotArray(slotTarget.brunchIndex.ToArray());
     }

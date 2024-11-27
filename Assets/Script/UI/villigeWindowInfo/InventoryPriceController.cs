@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(InventoryStorage))]
 public class InventoryPriceController : MonoBehaviour
 {
     InventoryShowPrice[] prices;
     InventoryStorage inventoryStorage;
-
 
     private void Start()
     {
@@ -20,13 +20,13 @@ public class InventoryPriceController : MonoBehaviour
             prices[i] = priceParent.GetChild(i).GetComponent<InventoryShowPrice>();
             prices[i].Init();
             SetPrice(i);
-            CheckSupplyCount(i);
+            CheckSupplyCount(i, inventoryStorage.slots[i].itemCount);
         }
-
+        inventoryStorage.StoreEventCountFallUnderZero = CheckSupplyCount;
     }
-    public void CheckSupplyCount(int slotIndex)
+    public void CheckSupplyCount(int slotIndex, int itemCount)
     {
-        SupplyShow(slotIndex, inventoryStorage.slots[slotIndex].itemCount <= 0);
+        SupplyShow(slotIndex, itemCount <= 0);
     }
     public void SupplyShow(int slotIndex, bool onoff)
     {
