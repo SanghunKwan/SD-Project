@@ -18,7 +18,10 @@ public class VilligeStorage : MonoBehaviour, IStorageVisible
 
         storageComponent.AddListener(ChangeNum);
 
-        OnItemCountChanged = new Action<int>[InventoryManager.i.info.items.Length];
+        int length = InventoryManager.i.info.items.Length;
+        OnItemCountChanged = new Action<int>[length];
+        for (int i = 0; i < length; i++)
+            OnItemCountChanged[i] = (num) => { };
 
         foreach (var item in nodes)
         {

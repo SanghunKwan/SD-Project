@@ -40,14 +40,20 @@ public class StorageComponent : InitObject
     #region temp
     public void SetItems()
     {
-        for (int i = 0; i < 13; i++)
+        for (int i = 0; i <= 13; i++)
         {
-            if(i == 8)
+            if (i == 8)
             {
-                m_itemCounts[i] = 0;
+                ItemCountChange(i, 0);
                 continue;
             }
-            m_itemCounts[i] = i;
+            else if (i == 13)
+            {
+                ItemCountChange(i, 20000);
+                continue;
+            }
+            //m_itemCounts[i] = i;
+            ItemCountChange(i, i);
         }
     }
     #endregion

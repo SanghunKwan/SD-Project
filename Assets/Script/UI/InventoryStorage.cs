@@ -96,6 +96,7 @@ public class InventoryStorage : StorageComponent
     Action<CUnit, Item, float>[] itemAffectAction = new Action<CUnit, Item, float>[(int)SkillData.ItemSkillEffect.MAX];
     Action onAfterInit = () => { };
     public Action<int, int> StoreEventCountFallUnderZero { get; set; } = (slotIndex, count) => { };
+    public Action<int, int, int> StorePaymentEvent { get; set; } = (itemCode, firstCount, lastCount) => { };
 
     CheckUICallChange uiCallChange;
 
@@ -159,9 +160,10 @@ public class InventoryStorage : StorageComponent
         if (addNum == 0)
             return;
 
+        CheckNeedMore(item, codeIndex);
         if (addNum >= 0)
         {
-            CheckNeedMore(item, codeIndex);
+            
             IncreaseItemCount(item, addNum);
         }
         else
@@ -169,7 +171,7 @@ public class InventoryStorage : StorageComponent
             DecreaseItemCount(item.itemCode, addNum);
         }
     }
-    void IncreaseItemCount(in Item item, int addNum)
+    public void IncreaseItemCount(in Item item, int addNum)
     {
         if (itemCode2slotData[item.itemCode].slotNeedMore.Count > 0)
         {
@@ -275,12 +277,15 @@ public class InventoryStorage : StorageComponent
         addNum += slot.itemCount - count;
         //count는 최종 개수
         //addNum은 추가로 더해야할 수
-
         ZeroSetEmpty(codeIndex, count);
+
+        StorePaymentEvent(item.itemCode, slot.itemCount, count);
 
         ChangeCountByItem(slot, brunchArray, count);
 
         StoreEventCountFallUnderZero(codeIndex, count);
+
+
     }
     void CheckNeedMore(in Item item, int slotIndex)
     {
@@ -455,6 +460,7 @@ public class InventoryStorage : StorageComponent
 
         int newIndex = emptySlotList.BinarySearch(codeIndex);
         emptySlotList.Insert(~newIndex, codeIndex);
+        itemCode2slotData[codeIndex].slotNeedMore.Remove(newIndex);
     }
     public void CheckCodetoSlot(int slotIndex)
     {
@@ -471,6 +477,8 @@ public class InventoryStorage : StorageComponent
 
         SlotOperateWithCodeIndex(slotIndex, ref addNum, item);
         usedNum = -originNum + addNum;
+
+        CheckNeedMore(item, slotIndex);
     }
 
 

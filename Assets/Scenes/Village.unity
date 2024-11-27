@@ -53344,6 +53344,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1753523569}
     m_Modifications:
+    - target: {fileID: 2121864469004336952, guid: 6587162158ee6b34bbfe0a67c9586fc9, type: 3}
+      propertyPath: itemUIStorageComponent
+      value: 
+      objectReference: {fileID: 607871207}
     - target: {fileID: 2259795708198544341, guid: 6587162158ee6b34bbfe0a67c9586fc9, type: 3}
       propertyPath: m_list.Array.size
       value: 3

@@ -18,7 +18,7 @@ public class VilligeStroageNode : InitObject
     }
     void CountChanged(int count)
     {
-        text.text = count.ToString();
+        text.text = count.ToString("N0");
     }
 
 
