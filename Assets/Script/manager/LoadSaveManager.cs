@@ -2,44 +2,62 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SaveData;
 
-public class LoadSaveManager : JsonSaveLoad
+namespace SaveData
 {
     [Serializable]
     public class SaveDataInfo
     {
-        //탑 최대층에 관련된 데이터
-        public FloorManager.FloorData floorData;
         public int day;
         //현재 날짜
         public int nextScene;
         //현재 입장해있는 공간(마을 1, 탑 2)
-        public int floor;
-        //현재 입장해있는 층수(마을에선 0)
+
+
         public Unit.Hero[] hero;
         public Unit.CObject[] building;
-        public Unit.CUnit[] monsters;
-        public float spaceNum;
         public InventoryManager.itemInfo inventory;
-
-
-        /*
-         이 외 추가할 내용
-        7. 마을 내 가지고 있는 재산.
-         
-         
-         */
-
-
+        //탑 최대층에 관련된 데이터
+        public FloorManager.FloorData floorData;
 
         public SaveDataInfo()
         {
-            floor = 0;
             day = 0;
-            nextScene = 1;
+            nextScene = 2;
             floorData = new FloorManager.FloorData();
         }
     }
+    public class HeroData
+    {
+        UnitData unitData;
+        string name;
+
+    }
+    public class UnitData
+    {
+        ObjectData objectData;
+        Unit.TypeNum typeNum;
+        Unit.Species species;
+
+    }
+    public class ObjectData
+    {
+        Vector3 position;
+        Quaternion quaternion;
+        bool selected;
+        Unit.unit_status cur_status;
+    }
+    public class DropItemData
+    {
+        Vector3 position;
+        int index;
+    }
+}
+
+public class LoadSaveManager : JsonSaveLoad
+{
+
     #region 데이터 체크
     public bool IsValidData(int index)
     {
@@ -54,7 +72,6 @@ public class LoadSaveManager : JsonSaveLoad
     public void LoadData(int index, out SaveDataInfo info)
     {
         info = LoadSave<SaveDataInfo>(index);
-        Debug.Log(info.floor);
     }
     public void CreateSaveFile(int index)
     {

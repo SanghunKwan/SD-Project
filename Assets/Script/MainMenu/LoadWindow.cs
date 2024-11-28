@@ -59,7 +59,7 @@ public class LoadWindow : MonoBehaviour
         }
         else
         {
-            loadSaveManager.LoadData(index, out LoadSaveManager.SaveDataInfo info);
+            loadSaveManager.LoadData(index, out SaveData.SaveDataInfo info);
 
             //게임 시작
             StageManager.instance.FromMainMenu(1);

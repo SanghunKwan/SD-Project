@@ -18,6 +18,9 @@ public abstract class JsonSaveLoad : JsonLoad
     {
         string wnth = Path.Combine(Application.dataPath, "save", fileName + ".json");
         File.Delete(wnth);
+#if UNITY_EDITOR
+        File.Delete(wnth + ".meta");
+#endif
     }
     #endregion
 
