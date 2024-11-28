@@ -95,6 +95,7 @@ public class InventoryStorage : StorageComponent
     RefFunc[] checkEmptyFigure = new RefFunc[(int)Figure.Max];
     Action<CUnit, Item, float>[] itemAffectAction = new Action<CUnit, Item, float>[(int)SkillData.ItemSkillEffect.MAX];
     Action onAfterInit = () => { };
+    Action<int>[] inventoryFullAction = new Action<int>[(int)InventoryComponent.InventoryType.Max];
     public Action<int, int> StoreEventCountFallUnderZero { get; set; } = (slotIndex, count) => { };
     public Action<int, int, int> StorePaymentEvent { get; set; } = (itemCode, firstCount, lastCount) => { };
 
@@ -122,6 +123,7 @@ public class InventoryStorage : StorageComponent
 
         SetInitFunc();
         SetInitAffectAction();
+        SetAction();
         onAfterInit();
     }
     void SetInitFunc()
@@ -138,6 +140,12 @@ public class InventoryStorage : StorageComponent
     void SetInitAffectAction()
     {
         itemAffectAction[(int)SkillData.ItemSkillEffect.HEALING] = (cunit, item, percent) => AffectItemHealing(cunit, item, percent);
+    }
+    void SetAction()
+    {
+        inventoryFullAction[(int)InventoryComponent.InventoryType.Stage] = ThrowAway;
+        inventoryFullAction[(int)InventoryComponent.InventoryType.Villige] = GiveBack2Store;
+        inventoryFullAction[(int)InventoryComponent.InventoryType.Store] = (num) => { };
     }
     public void AddInit(Action action)
     {
@@ -163,7 +171,7 @@ public class InventoryStorage : StorageComponent
         CheckNeedMore(item, codeIndex);
         if (addNum >= 0)
         {
-            
+
             IncreaseItemCount(item, addNum);
         }
         else
@@ -194,12 +202,17 @@ public class InventoryStorage : StorageComponent
             uiCallChange.SetUICall();
             uiCallChange.PopUp(true);
 
-            ThrowAway(item.itemCode);
+            inventoryFullAction[(int)m_type](item.itemCode);
         }
     }
-    public void ThrowAway(int itemCode)
+    void ThrowAway(int itemCode)
     {
         GameManager.manager.storageManager.ThrowAwayItem(Vector3.zero, itemCode);
+    }
+    void GiveBack2Store(int itemCode)
+    {
+        GameManager.manager.storageManager.inventoryComponents(InventoryComponent.InventoryType.Store)
+            .inventoryStorage.ItemCountChange(itemCode, 1);
     }
 
     void DecreaseItemCount(int itemCode, int addNum)
