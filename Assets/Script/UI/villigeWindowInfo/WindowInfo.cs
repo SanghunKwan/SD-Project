@@ -46,7 +46,7 @@ public class WindowInfo : tempMenuWindow
         wStatus.GetStatus(hero);
         wStatus.AlloStatus();
 
-        TypeNum type = Enum.Parse<TypeNum>(hero.stat.type);
+        TypeNum type = hero.stat.type;
         profileImg.sprite = profileSprites[(int)type];
         profileImg.rectTransform.anchoredPosition = profileVec[(int)type];
         profileImg.rectTransform.sizeDelta = profileSizeDelta[(int)type];

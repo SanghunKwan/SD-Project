@@ -9,11 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 2b37d53e4b661524fbabd9413f51600c
   - enabled: 1
-    path: Assets/Scenes/sdf.unity
-    guid: 866f99e278b78d549b3406098a050c3e
+    path: Assets/Scenes/StageDefault.unity
+    guid: cbb5517fe8775f9439663b2b94457978
   - enabled: 1
     path: Assets/Scenes/Village.unity
     guid: d42686d6af997cd458d2d3ef211c9a4a
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: eec6436529b6c1d40af19a8b400d63a1
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: cc4b18a5df62cd441b7887f570fe2d67, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: c7c4435c888819d44bed95fa8077505a, type: 2}

@@ -104,7 +104,7 @@ public class StageManager : JsonLoad
     public void FromMainMenu(int SceneIndex)
     {
         
-        SceneManager.LoadScene(SceneIndex);
+        SceneManager.LoadSceneAsync(SceneIndex);
         GameManager.manager.ReadytoSceneLoad();
     }
     void DontdestoryList()

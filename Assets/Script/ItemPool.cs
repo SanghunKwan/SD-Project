@@ -11,13 +11,14 @@ public class ItemPool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        folders = new Transform[itemPrefabs.Length];
-        for (int i = 0; i < itemPrefabs.Length; i++)
+        int length = itemPrefabs.Length;
+        folders = new Transform[length];
+        for (int i = 0; i < length; i++)
         {
             if (i == 11)
             {
                 folders[i] = new GameObject("Item_Corpse").transform;
-                folders[i].SetParent(transform); 
+                folders[i].SetParent(transform);
                 continue;
             }
             folders[i] = new GameObject(itemPrefabs[i].name).transform;

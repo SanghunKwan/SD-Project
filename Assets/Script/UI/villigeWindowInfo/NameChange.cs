@@ -27,8 +27,8 @@ public class NameChange : MonoBehaviour
     public void GetName(Hero getHero)
     {
         hero = getHero;
-        nameInputField.text = hero.stat.NAME;
-        unitTypeText.text = hero.stat.type;
+        nameInputField.text = hero.curstat.NAME;
+        unitTypeText.text = hero.stat.type.ToString();
     }
 
     #region on¿Ã∫•∆Æ

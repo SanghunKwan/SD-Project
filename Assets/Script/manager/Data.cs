@@ -11,7 +11,9 @@ namespace Unit
     {
         Goblin,
         player,
-        MAX
+        Object = 100,
+        Building = 200,
+        MAX = 4
     }
     public enum TypeNum
     {
@@ -20,7 +22,9 @@ namespace Unit
         Magic,
         Surprise,
         Boss,
-        Tank
+        Tank,
+        Object = 100,
+        Building = 200,
     }
     public enum WaitingTypeNum
     {
@@ -33,6 +37,7 @@ namespace Unit
     {
         public int ID;
         public string NAME;
+        public Species SPECIES;
         public int HP;
         public int ATK;
         public int DEF;
@@ -41,7 +46,7 @@ namespace Unit
         public int SPEED;
         public int ViewAngle;
         public int ViewRange;
-        public string type;
+        public TypeNum type;
         public int Accuracy;
         public float AtkSpeed;
         public int Range;
@@ -52,6 +57,7 @@ namespace Unit
         {
             ID = 6;
             NAME = "디스마스";
+            SPECIES = Species.player;
             HP = 27;
             ATK = 7;
             DEF = 0;
@@ -60,7 +66,7 @@ namespace Unit
             SPEED = 5;
             ViewAngle = 90;
             ViewRange = 6;
-            type = "Melee";
+            type = TypeNum.Melee;
             Accuracy = 85;
             AtkSpeed = 1.5f;
             Range = 1;
@@ -76,26 +82,28 @@ namespace Unit
             }
             ID = key;
             NAME = csvDatas[1];
-            HP = int.Parse(csvDatas[2]);
-            DEF = int.Parse(csvDatas[3]);
+            SPECIES = Enum.Parse<Species>(csvDatas[2]);
+            HP = int.Parse(csvDatas[3]);
             ATK = int.Parse(csvDatas[4]);
-            DOG = int.Parse(csvDatas[5]);
-            MORALE = int.Parse(csvDatas[6]);
-            SPEED = int.Parse(csvDatas[7]);
-            ViewAngle = int.Parse(csvDatas[8]);
-            ViewRange = int.Parse(csvDatas[9]);
-            type = csvDatas[10];
-            Accuracy = int.Parse(csvDatas[11]);
-            AtkSpeed = float.Parse(csvDatas[12]);
-            Range = int.Parse(csvDatas[13]);
-            Mentality = int.Parse(csvDatas[14]);
-            Stress = int.Parse(csvDatas[15]);
+            DEF = int.Parse(csvDatas[5]);
+            DOG = int.Parse(csvDatas[6]);
+            MORALE = int.Parse(csvDatas[7]);
+            SPEED = int.Parse(csvDatas[8]);
+            ViewAngle = int.Parse(csvDatas[9]);
+            ViewRange = int.Parse(csvDatas[10]);
+            type = Enum.Parse<TypeNum>(csvDatas[11]);
+            Accuracy = int.Parse(csvDatas[12]);
+            AtkSpeed = float.Parse(csvDatas[13]);
+            Range = int.Parse(csvDatas[14]);
+            Mentality = int.Parse(csvDatas[15]);
+            Stress = int.Parse(csvDatas[16]);
         }
         public unit_status Clone(unit_status status)
         {
             unit_status newStatus = new();
             newStatus.ID = status.ID;
             newStatus.NAME = status.NAME;
+            newStatus.SPECIES = status.SPECIES;
             newStatus.HP = status.HP;
             newStatus.ATK = status.ATK;
             newStatus.DEF = status.DEF;
@@ -118,6 +126,7 @@ namespace Unit
         {
             ID = int.Parse(CSVReader["ID"]);
             NAME = CSVReader["NAME"];
+            SPECIES = Enum.Parse<Species>(CSVReader["Speices"]);
             HP = int.Parse(CSVReader["HP"]);
             DEF = int.Parse(CSVReader["DEF"]);
             ATK = int.Parse(CSVReader["ATK"]);
@@ -126,7 +135,7 @@ namespace Unit
             SPEED = int.Parse(CSVReader["SPEED"]);
             ViewAngle = int.Parse(CSVReader["ViewAngle"]);
             ViewRange = int.Parse(CSVReader["ViewRange"]);
-            type = CSVReader["type"];
+            type = Enum.Parse<TypeNum>(CSVReader["Type"]);
             Accuracy = int.Parse(CSVReader["Accuracy"]);
             AtkSpeed = float.Parse(CSVReader["AtkSpeed"]);
             Range = int.Parse(CSVReader["Range"]);
@@ -140,11 +149,9 @@ namespace Unit
     public class Data : MonoBehaviour
     {
         public List<Dictionary<string, string>> Goblinlist = new List<Dictionary<string, string>>();
-        public Dictionary<int, unit_status> statusList { get; private set; }
+        public Dictionary<int, unit_status> statusList { get; private set; } = new Dictionary<int, unit_status>();
 
         public static Data Instance;
-        string[] monsterSpecies = new string[] { "goblin", "player" };
-        string[] type = new string[] { "Melee", "Range", "Magic", "Surprise", "Boss", "Tank" };
 
         // Start is called before the first frame update
         void Awake()
@@ -175,40 +182,19 @@ namespace Unit
             }
             Debug.Log("monsterData 로딩완료");
         }
-
-
-
         //정보 호출
         public unit_status GetInfo(Species species, TypeNum num)
         {
-            unit_status um = new();
+            var specie = from status in statusList.Values
+                         where status.SPECIES.Equals(species)
+                         where status.type.Equals(num)
+                         select status;
 
-            var specie = from Dictionary in Goblinlist
-                         where Dictionary["NAME"].Equals(monsterSpecies[(int)species])
-                         where Dictionary["type"].Equals(type[(int)num])
-                         select Dictionary;
-
-            IEnumerator<Dictionary<string, string>> enumerable = specie.GetEnumerator();
-
-            if (enumerable.MoveNext())
-            {
-                um.Read(enumerable.Current);
-            }
-            return um;
+            return specie.First();
         }
         public unit_status GetInfo(int ID)
         {
-            unit_status um = new();
-
-            var specie = from Dictionary in Goblinlist
-                         where Dictionary["ID"].Equals(ID.ToString())
-                         select Dictionary;
-
-            foreach (var item in specie)
-            {
-                um.Read(item);
-            }
-            return um;
+            return statusList[ID];
         }
 
         public Vector3 CameratoCanvas(Vector3 position)

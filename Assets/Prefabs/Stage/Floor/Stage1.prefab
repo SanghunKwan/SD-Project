@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 5037096750904998186}
   - component: {fileID: 4280997331040634882}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Link
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
