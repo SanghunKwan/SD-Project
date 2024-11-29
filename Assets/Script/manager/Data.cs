@@ -28,6 +28,7 @@ namespace Unit
         Warden,
         Patrol
     }
+    [Serializable]
     public class unit_status
     {
         public int ID;
@@ -46,27 +47,49 @@ namespace Unit
         public int Range;
         public int Mentality;
         public int Stress;
-        public int Lv;
 
         public unit_status()
         {
-            ID = 0;
-            NAME = "";
-            HP = 0;
-            ATK = 0;
+            ID = 6;
+            NAME = "디스마스";
+            HP = 27;
+            ATK = 7;
             DEF = 0;
-            DOG = 0;
+            DOG = 10;
             MORALE = 0;
-            SPEED = 0;
-            ViewAngle = 0;
-            ViewRange = 0;
-            type = "";
-            Accuracy = 0;
-            AtkSpeed = 0;
-            Range = 0;
-            Mentality = 0;
-            Stress = 0;
-            Lv = 1;
+            SPEED = 5;
+            ViewAngle = 90;
+            ViewRange = 6;
+            type = "Melee";
+            Accuracy = 85;
+            AtkSpeed = 1.5f;
+            Range = 1;
+            Mentality = 30;
+            Stress = 5;
+        }
+        public unit_status(int key, in string[] csvDatas)
+        {
+            if (csvDatas.Length == 16)
+            {
+                Debug.Log("데이터를 확인해주세요");
+                return;
+            }
+            ID = key;
+            NAME = csvDatas[1];
+            HP = int.Parse(csvDatas[2]);
+            DEF = int.Parse(csvDatas[3]);
+            ATK = int.Parse(csvDatas[4]);
+            DOG = int.Parse(csvDatas[5]);
+            MORALE = int.Parse(csvDatas[6]);
+            SPEED = int.Parse(csvDatas[7]);
+            ViewAngle = int.Parse(csvDatas[8]);
+            ViewRange = int.Parse(csvDatas[9]);
+            type = csvDatas[10];
+            Accuracy = int.Parse(csvDatas[11]);
+            AtkSpeed = float.Parse(csvDatas[12]);
+            Range = int.Parse(csvDatas[13]);
+            Mentality = int.Parse(csvDatas[14]);
+            Stress = int.Parse(csvDatas[15]);
         }
         public unit_status Clone(unit_status status)
         {
@@ -87,7 +110,6 @@ namespace Unit
             newStatus.Range = status.Range;
             newStatus.Mentality = status.Mentality;
             newStatus.Stress = status.Stress;
-            newStatus.Lv = status.Lv;
 
             return newStatus;
         }
@@ -110,14 +132,15 @@ namespace Unit
             Range = int.Parse(CSVReader["Range"]);
             Mentality = int.Parse(CSVReader["Mentality"]);
             Stress = int.Parse(CSVReader["Stress"]);
-            Lv = 1;
         }
+
     }
 
 
     public class Data : MonoBehaviour
     {
         public List<Dictionary<string, string>> Goblinlist = new List<Dictionary<string, string>>();
+        public Dictionary<int, unit_status> statusList { get; private set; }
 
         public static Data Instance;
         string[] monsterSpecies = new string[] { "goblin", "player" };
@@ -127,33 +150,34 @@ namespace Unit
         void Awake()
         {
             Instance = this;
+
             string Goblin_Data = Path.Combine(Directory.GetCurrentDirectory(), @"Assets\DataTable\Monster_Data.csv");
             //ReadCSV list = new ReadCSV();
-            Dictionary<string, string> ReadCSV = new Dictionary<string, string>();
-
             using (StreamReader MonsterData = new StreamReader(Goblin_Data))
             {
                 string str_goblin_Data = MonsterData.ReadLine();
                 str_goblin_Data = str_goblin_Data.Replace("\"", "");
-                string[] qwer = str_goblin_Data.Split(',');
+                string[] itemName = str_goblin_Data.Split(',');
 
+                string[] itemDetail;
                 str_goblin_Data = MonsterData.ReadLine();
+                int key;
                 while (str_goblin_Data != null)
                 {
                     str_goblin_Data = str_goblin_Data.Replace("\"", "");
-                    string[] uiop = str_goblin_Data.Split(',');
-                    for (int i = 0; i < uiop.Length; i++)
-                    {
-                        ReadCSV.Add(qwer[i], uiop[i]);
-                    }
+                    itemDetail = str_goblin_Data.Split(',');
+
+                    key = int.Parse(itemDetail[0]);
+                    statusList.Add(key, new unit_status(key, itemDetail));
+
                     str_goblin_Data = MonsterData.ReadLine();
-                    Goblinlist.Add(new Dictionary<string, string>(ReadCSV));
-                    ReadCSV.Clear();
                 }
             }
-
-            Debug.Log("로딩완료");
+            Debug.Log("monsterData 로딩완료");
         }
+
+
+
         //정보 호출
         public unit_status GetInfo(Species species, TypeNum num)
         {

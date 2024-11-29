@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using System.Text.Json;
 
 public abstract class JsonLoad : InitObject
 {
@@ -39,10 +40,10 @@ public abstract class JsonLoad : InitObject
         using (StreamReader sr = new StreamReader(SavePath(index)))
         {
             sr.ReadLine();
-            for (int i = 0; i < readJson.Length; i++)
-            {
-                readJson[i] = sr.ReadLine();
-            }
+            readJson[0] = sr.ReadLine();
+            sr.ReadLine();
+            sr.ReadLine();
+            readJson[1] = sr.ReadLine();
         }
         for (int i = 0; i < intJson.Length; i++)
         {

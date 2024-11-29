@@ -17,6 +17,7 @@ public enum ItemType
 public class ItemComponent : MonoBehaviour
 {
     [SerializeField] int index;
+    public int Index { get { return index; } }
 
 
     Transform CircleCanvas;

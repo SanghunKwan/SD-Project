@@ -59,7 +59,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     }
     public string HeroInfoText()
     {
-        return "<mark=#00000055><size=60>" + hero.keycode + " </size></mark> " + hero.stat.Lv + " " + hero.stat.NAME;
+        return "<mark=#00000055><size=60>" + hero.keycode + " </size></mark> " + hero.lv + " " + hero.stat.NAME;
     }
     protected override void Start()
     {

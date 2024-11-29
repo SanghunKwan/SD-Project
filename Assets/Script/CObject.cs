@@ -10,6 +10,7 @@ namespace Unit
     public class CObject : MonoBehaviour
     {
         public int[] dots { get; protected set; } = new int[(int)SkillData.EFFECTINDEX.MAX];
+        public int id { get { return ID; } }
         public unit_status stat { get; protected set; }
         public unit_status curstat { get; protected set; }
         public bool selected { get; protected set; } = false;
@@ -165,7 +166,7 @@ namespace Unit
         }
         public void DragEnd(bool ctrl = true, bool shift = false)
         {
-            Selected((selecting()  || shift || ctrl) && !(selecting() && ctrl));
+            Selected((selecting() || shift || ctrl) && !(selecting() && ctrl));
             drag = false;
         }
         public virtual void Selected(bool asdf)

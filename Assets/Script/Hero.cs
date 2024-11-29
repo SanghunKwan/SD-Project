@@ -27,6 +27,8 @@ namespace Unit
                                                                                          new QuirkData.Quirk(),
                                                                                          new QuirkData.Quirk()};
         public int[] EquipsNum { get; private set; } = { 1, 1, 1 };
+        public int[] SkillsNum { get; private set; } = { 1, 1, 1, 1 };
+        public int lv { get; private set; } = 1;
 
         public ActionAlert.ActionType VilligeAction { get; private set; } = ActionAlert.ActionType.walking;
         public AddressableManager.BuildingImage BuildingAction { get; private set; }

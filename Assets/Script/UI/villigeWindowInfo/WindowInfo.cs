@@ -53,7 +53,7 @@ public class WindowInfo : tempMenuWindow
 
 
         nameChange.GetName(hero);
-        level.GetLevel(hero.stat.Lv);
+        level.GetLevel(hero.lv);
         quirk.SetQuirk(hero.quirks);
         disease.SetQuirk(hero.disease);
         action.ChangeAction(hero.VilligeAction, hero.BuildingAction);
