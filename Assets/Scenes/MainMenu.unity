@@ -209,9 +209,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1210046965}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &49833741
@@ -1171,8 +1171,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   addressableManager: {fileID: 908736603}
-  labels:
-  - m_LabelString: MainMenu
   initObjects:
   - {fileID: 1653163983}
   - {fileID: 5992846}
@@ -1740,7 +1738,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3976187599
+    rgba: 4294954703
   m_fontColor: {r: 0.81129605, g: 0.8066038, b: 1, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 3
@@ -1856,10 +1854,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1942,7 +1940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0faf33c8f108946a1ccf7fa8540314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  label: []
+  label:
+  - m_LabelString: MainMenu
 --- !u!4 &908736604
 Transform:
   m_ObjectHideFlags: 0
@@ -2198,9 +2197,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 980114226}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &946518602
@@ -3267,6 +3266,8 @@ MonoBehaviour:
   - {fileID: 2976764568746061588, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
   objects:
   - {fileID: 6357710306899917329, guid: c293943926f11984687c205e0f08505c, type: 3}
+  backGround: {fileID: 0}
+  targetSceneNum: 0
 --- !u!1 &1518955482
 GameObject:
   m_ObjectHideFlags: 0
@@ -3810,10 +3811,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -4624,9 +4625,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1593364780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2078978890
@@ -6733,6 +6734,10 @@ PrefabInstance:
     - target: {fileID: 4713402847367346583, guid: 99286dcf51a742d438efec01b5d52637, type: 3}
       propertyPath: m_Name
       value: Melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713402847367346583, guid: 99286dcf51a742d438efec01b5d52637, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4743368839776906437, guid: 99286dcf51a742d438efec01b5d52637, type: 3}
       propertyPath: m_LocalPosition.x

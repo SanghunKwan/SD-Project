@@ -220,7 +220,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         if (!onoff)
             return;
 
-        characterList.buildingSetWindow.AddressableManager.GetData("Building", imageNum, out Sprite sprite);
+        characterList.buildingSetWindow.AddressableManager.GetData(AddressableManager.LabelName.Building, imageNum, out Sprite sprite);
 
         jobImage.sprite = sprite;
     }

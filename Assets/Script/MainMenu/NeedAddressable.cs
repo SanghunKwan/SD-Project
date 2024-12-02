@@ -51,7 +51,7 @@ public class NeedAddressable : InitObject
     }
     protected void GetData<T>(T type, out Sprite sprite) where T : struct, Enum
     {
-        AddressableManager.manager.GetData(label.ToString(), type, out sprite);
+        AddressableManager.manager.GetData(label, type, out sprite);
     }
     Sprite FuncAction<T>(T type) where T : struct, Enum
     {

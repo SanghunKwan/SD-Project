@@ -3,7 +3,9 @@
     "references": [
         "com.unity.animations.springbone"
     ],
-    "optionalUnityReferences": [],
+    "optionalUnityReferences": [
+	"Editor"
+],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

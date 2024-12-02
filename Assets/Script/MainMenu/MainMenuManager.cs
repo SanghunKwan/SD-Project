@@ -6,7 +6,6 @@ using UnityEngine.AddressableAssets;
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] AddressableManager addressableManager;
-    [SerializeField] AssetLabelReference[] labels;
 
     [SerializeField] InitObject[] initObjects;
 
@@ -42,24 +41,17 @@ public class MainMenuManager : MonoBehaviour
     }
 
 
-    
+
     private void Start()
     {
-        LoadData();
         camAnimHash = Animator.StringToHash("move");
-    }
-    void LoadData()
-    {
-        for (int i = 0; i < labels.Length; i++)
-        {
-            addressableManager.LoadData(labels[i].labelString, IntroPlay);
-        }
+        addressableManager.AddEvent(AddressableManager.LabelName.MainMenu, IntroPlay);
     }
     void IntroPlay()
     {
-        addressableManager.GetData(labels[0].labelString, AddressableManager.MainMenuImage.Logo, out Sprite sprite);
+        addressableManager.GetData(AddressableManager.LabelName.MainMenu, AddressableManager.MainMenuImage.Logo, out Sprite sprite);
         intro.PlayLogo(sprite);
     }
-    
+
 
 }

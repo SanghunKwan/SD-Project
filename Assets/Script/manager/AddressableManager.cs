@@ -6,11 +6,11 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using UnityEngine.Video;
-
+using System.Linq;
 public class AddressableManager : MonoBehaviour
 {
-    Dictionary<string, AsyncOperationHandle<IList<Sprite>>> loadedData = new();
-    Dictionary<string, AsyncOperationHandle<VideoClip>> loadedVideo = new();
+    Dictionary<string, AsyncOperationHandle<IList<Sprite>>> loadedData;
+    Dictionary<string, AsyncOperationHandle<VideoClip>> loadedVideo;
 
     [SerializeField] AssetLabelReference[] label;
 
@@ -85,26 +85,61 @@ public class AddressableManager : MonoBehaviour
 
 
 
-    private void Start()
+    private void Awake()
     {
+        InheritOldManager();
+
         manager = this;
-        for (int i = 0; i < label.Length; i++)
+        OrganizeData();
+
+    }
+    void InheritOldManager()
+    {
+        if (manager != null)
+        {
+            loadedData = manager.loadedData;
+            loadedVideo = manager.loadedVideo;
+        }
+        else
+        {
+            loadedData = new();
+            loadedVideo = new();
+        }
+    }
+    void OrganizeData()
+    {
+        foreach (var item in loadedVideo.Values)
+        {
+            Addressables.Release(item);
+        }
+        loadedVideo.Clear();
+
+        HashSet<string> hashLabelString = new HashSet<string>(label.Select(str => str.labelString));
+
+        string[] labelString = (from key in loadedData.Keys
+                                where !hashLabelString.Contains(key)
+                                select key).ToArray();
+
+        int length = labelString.Length;
+
+        for (int i = 0; i < length; i++)
+        {
+            UnloadData(labelString[i]);
+        }
+
+        length = label.Length;
+        for (int i = 0; i < length; i++)
         {
             LoadData(label[i].labelString);
         }
+        Debug.Log("³²Àº data ¼ö : " + loadedData.Count);
     }
     public void LoadData(in string LabelName, Action action = null)
     {
         if (!loadedData.ContainsKey(LabelName))
         {
-            AsyncOperationHandle<IList<Sprite>> handle = Addressables.LoadAssetsAsync<Sprite>(LabelName, null);
+            AsyncOperationHandle<IList<Sprite>> handle = Addressables.LoadAssetsAsync<Sprite>(LabelName, (spr) => action?.Invoke());
             loadedData.Add(LabelName, handle);
-            string name = LabelName;
-            handle.Completed += (asy) =>
-            {
-                Debug.Log(loadedData[name].Result.Count);
-                action?.Invoke();
-            };
         }
     }
     public void LoadVideo(in string LabelName, Action<VideoClip> action)
@@ -130,15 +165,31 @@ public class AddressableManager : MonoBehaviour
     {
         sprite = loadedData[LabelName].Result[Convert.ToInt32(skillImage)];
     }
+    public void GetData<T>(LabelName labelName, T skillImage, out Sprite sprite) where T : struct, Enum
+    {
+        GetData(labelName.ToString(), skillImage, out sprite);
+    }
+    public void AddEvent(LabelName labelName, Action action)
+    {
+        if (loadedData[labelName.ToString()].IsDone)
+            action();
+        else
+            loadedData[labelName.ToString()].Completed += (asy) => { action(); };
+    }
     async void ChangeSprite(Image image, AsyncOperationHandle<IList<Sprite>> handle)
     {
+
         await handle.Task;
         Debug.Log(handle.Status);
         //image.sprite = loadedData[LabelName].Result[0];
     }
-    public void UnloadData(in string LabelName)
+    public void UnloadData(in AsyncOperationHandle<IList<Sprite>> handle)
     {
-        Addressables.Release(loadedData[LabelName]);
-        loadedData.Remove(LabelName);
+        Addressables.Release(handle);
+    }
+    public void UnloadData(in string key)
+    {
+        Addressables.Release(loadedData[key]);
+        loadedData.Remove(key);
     }
 }

@@ -153,7 +153,7 @@ public class TowerWindow : CamTuringWindow
 
         if (onoff)
         {
-            addressableManager.GetData("Building", type, out Sprite sprite);
+            addressableManager.GetData(AddressableManager.LabelName.Building, type, out Sprite sprite);
             buildingIcon.sprite = sprite;
         }
         else

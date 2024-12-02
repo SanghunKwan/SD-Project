@@ -81,7 +81,7 @@ public class BuildingSetWindow : CamTuringWindow
 
             infoText.text = str;
 
-            addressableManager.GetData("Building", upgradeType, out Sprite sprite);
+            addressableManager.GetData(AddressableManager.LabelName.Building, upgradeType, out Sprite sprite);
             upgradeImage.sprite = sprite;
 
             LoadNeed(saveData);
@@ -91,7 +91,7 @@ public class BuildingSetWindow : CamTuringWindow
     }
     void SetBuildingNameImg(in AddressableManager.BuildingImage buildType)
     {
-        addressableManager.GetData("Building", buildType, out Sprite sprite);
+        addressableManager.GetData(AddressableManager.LabelName.Building, buildType, out Sprite sprite);
         buildingImage.sprite = sprite;
     }
     void SetBuildingNameText(int type)

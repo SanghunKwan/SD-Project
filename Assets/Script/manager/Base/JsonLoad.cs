@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using System.Text.Json;
 
 public abstract class JsonLoad : InitObject
 {
@@ -14,7 +13,7 @@ public abstract class JsonLoad : InitObject
     }
     protected string TablePath(in string fileName)
     {
-        return Path.Combine(Directory.GetCurrentDirectory(), "Assets/DataTable", fileName + ".json");
+        return Path.Combine(Application.dataPath, "DataTable", fileName + ".json");
     }
     #endregion
     #region 세이브 로드
@@ -25,7 +24,7 @@ public abstract class JsonLoad : InitObject
     }
     protected string SavePath(int index)
     {
-        return Path.Combine(Directory.GetCurrentDirectory(), "Assets/save", "save" + (index + 1).ToString() + ".json");
+        return Path.Combine(Application.persistentDataPath, "save", "save" + (index + 1).ToString() + ".json");
     }
     #endregion
     #region 세이브 데이터 확인

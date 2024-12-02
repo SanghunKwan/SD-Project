@@ -27,7 +27,7 @@ public class BuildingImg : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
     {
         scrollRect = transform.parent.parent.parent.transform.GetComponent<ScrollRect>();
         image = GetComponent<Image>();
-        addMgr.GetData("Building", type, out Sprite sprite);
+        addMgr.GetData(AddressableManager.LabelName.Building, type, out Sprite sprite);
         image.sprite = sprite;
         scrollViewPort = scrollRect.transform.GetChild(0).GetComponent<BuildingScrollView>();
         actions.Add(InScrollDrag);

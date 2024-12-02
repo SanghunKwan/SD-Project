@@ -61,8 +61,9 @@ public class LoadWindow : MonoBehaviour
         {
             loadSaveManager.LoadData(index, out SaveData.SaveDataInfo info);
 
+
             //게임 시작
-            StageManager.instance.FromMainMenu(1);
+            StageManager.instance.CallLoadingScene(1);
 
         }
 

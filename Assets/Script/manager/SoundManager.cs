@@ -27,14 +27,16 @@ public class SoundManager : MonoBehaviour
         {
             SourceDictionary[i] = new Dictionary<Transform, AudioSource>();
         }
+        
+    }
+    private void Start()
+    {
         AudioSource bgmSource = transform.GetChild(0).GetComponent<AudioSource>();
-
         SourceDictionary[(int)DictionaryType.BGM].Add(bgmSource.transform, bgmSource);
 
         dicTypeAction[0] = NewCompPlay;
         dicTypeAction[1] = OldCompPlay;
     }
-
     public void VolumeChange(SoundWindow.SoundType type, float fNum)
     {
         int DicIndex = (int)type - 1;
