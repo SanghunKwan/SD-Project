@@ -59,6 +59,7 @@
                     "cur_status": {
                         "ID": 6,
                         "NAME": "디스마스",
+                        "SPECIES": 1,
                         "HP": 27,
                         "ATK": 7,
                         "DEF": 0,
@@ -67,7 +68,7 @@
                         "SPEED": 5,
                         "ViewAngle": 90,
                         "ViewRange": 6,
-                        "type": "Melee",
+                        "type": 0,
                         "Accuracy": 85,
                         "AtkSpeed": 1.5,
                         "Range": 1,

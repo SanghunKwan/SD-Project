@@ -24,7 +24,7 @@ public abstract class JsonLoad : InitObject
     }
     protected string SavePath(int index)
     {
-        return Path.Combine(Application.persistentDataPath, "save", "save" + (index + 1).ToString() + ".json");
+        return Path.Combine(Application.dataPath, "save", "save" + (index + 1).ToString() + ".json");
     }
     #endregion
     #region 세이브 데이터 확인
