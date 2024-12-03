@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-using UnityEngine.Events;
 
 public class LoadingManager : StageManager
 {
+    AsyncOperation loading;
     protected override void Awake()
     {
+        if(instance != null)
         targetSceneNum = instance.targetSceneNum;
         base.Awake();
     }
@@ -30,24 +31,18 @@ public class LoadingManager : StageManager
 
         loadActionList.Add((sc, mode) => action());
         SceneManager.sceneLoaded += loadActionList[^1];
-        GameManager.manager.ReadytoSceneLoad();
-        SceneManager.LoadSceneAsync(SceneIndex, LoadSceneMode.Additive);
-    }
-    public void LastSceneUnload(Action eventAction)
-    {
-        foreach (var obj in unloadActionList)
-        {
-            SceneManager.sceneUnloaded -= obj;
-        }
-        unloadActionList.Clear();
-
-        unloadActionList.Add((sc) => eventAction());
-        SceneManager.sceneUnloaded += unloadActionList[^1];
-        SceneManager.UnloadSceneAsync(GetIndexScene());
+        loading = SceneManager.LoadSceneAsync(SceneIndex);
     }
     public void LoadTargetScene(Action action)
     {
         SceneLoad(targetSceneNum, action);
+    }
+    public float GetLoadingStatus()
+    {
+        if (loading != null)
+            return loading.progress;
+        else
+            return 0.0f;
     }
     #endregion
 

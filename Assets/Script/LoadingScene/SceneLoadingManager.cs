@@ -10,34 +10,30 @@ public class SceneLoadingManager : MonoBehaviour
     [SerializeField] Image backGround;
     [SerializeField] Camera tempCamera;
     LoadingManager loadingManager;
+    [SerializeField] GameObject loadingObj;
 
     private void Start()
     {
         loadingManager = StageManager.instance as LoadingManager;
-        WaitforSeconds(1500, () => loadingManager.LastSceneUnload(DelayLastSceneUnloaded));
+        WaitforSeconds(2000, NewSceneLoad);
+    }
+    private void FixedUpdate()
+    {
+        SetAnimation(loadingManager.GetLoadingStatus());
+    }
+    void SetAnimation(float result)
+    {
+        Debug.Log(result);
+        loadingObj.transform.localRotation = Quaternion.Euler(0, 0, -360 * result);
     }
     async void WaitforSeconds(int milliseconds, Action action)
     {
         await Task.Delay(milliseconds);
         action();
     }
-    void DelayLastSceneUnloaded()
+    void NewSceneLoad()
     {
-        TempObjectSetActive(true);
-        WaitforSeconds(1500, () => loadingManager.LoadTargetScene(LoadingSceneFadeOut));
+        loadingManager.LoadTargetScene(() => { });
     }
-    void TempObjectSetActive(bool onoff)
-    {
-        tempCamera.gameObject.SetActive(onoff);
-        backGround.transform.GetChild(0).gameObject.SetActive(onoff);
-    }
-    void LoadingSceneFadeOut()
-    {
-        TempObjectSetActive(false);
-        backGround.gameObject.SetActive(false);
-        WaitforSeconds(1500, () => loadingManager.LastSceneUnload(StageManager.instance.BackGroundFadeOut));
-    }
-
-
 
 }

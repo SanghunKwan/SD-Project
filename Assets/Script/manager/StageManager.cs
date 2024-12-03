@@ -16,7 +16,8 @@ public class StageManager : JsonLoad
     public bool isDone { get; set; } = false;
     [SerializeField] GameObject[] Stage;
     [SerializeField] GameObject[] objects;
-    [SerializeField] Animator backGround;
+    [SerializeField] Animator sceneFadeAnim;
+    int triggerNamedNoDelay;
     protected List<UnityAction<Scene, LoadSceneMode>> loadActionList;
     protected List<UnityAction<Scene>> unloadActionList;
     public int targetSceneNum;
@@ -75,12 +76,15 @@ public class StageManager : JsonLoad
             loadActionList = instance.loadActionList;
             unloadActionList = instance.unloadActionList;
             saveData = instance.saveData;
+            triggerNamedNoDelay = instance.triggerNamedNoDelay;
         }
         else
         {
             loadActionList = new(3);
             unloadActionList = new(3);
             saveData = LoadData<StageDatas>("StageData");
+            triggerNamedNoDelay = Animator.StringToHash("fadeOutNoDelay");
+            
         }
         instance = this;
     }
@@ -95,6 +99,7 @@ public class StageManager : JsonLoad
                 Instantiate(objects[i], folder.transform);
             }
         }
+        SceneReveal();
     }
 
     // Update is called once per frame
@@ -108,19 +113,7 @@ public class StageManager : JsonLoad
             newPlane.transform.GetChild(0).GetChild(0).localPosition -= new Vector3(50.2f, 0, 0);
         }
     }
-    #region 씬
-    public void CallLoadingScene(int targetScene)
-    {
-        foreach (var obj in loadActionList)
-        {
-            SceneManager.sceneLoaded -= obj;
-        }
-        loadActionList.Clear();
-
-        SceneManager.LoadSceneAsync(3, LoadSceneMode.Additive);
-        GameManager.manager.ReadytoSceneLoad();
-        targetSceneNum = targetScene;
-    }
+    #region 스테이지
     public CObject CallObject(OBJECTNUM num, Transform trans)
     {
         CObject obj = transform.GetChild((int)num).GetChild(0).GetComponent<CObject>();
@@ -130,20 +123,47 @@ public class StageManager : JsonLoad
 
         return obj;
     }
+    #endregion
+    #region 씬
+    public void CallLoadingScene(int targetScene)
+    {
+        foreach (var obj in loadActionList)
+        {
+            SceneManager.sceneLoaded -= obj;
+        }
+        loadActionList.Clear();
+
+        SceneBlackOut();
+        targetSceneNum = targetScene;
+    }
+    protected void SceneBlackOut()
+    {
+        sceneFadeAnim.gameObject.SetActive(true);
+        sceneFadeAnim.enabled = true;
+
+        OnAnimationEnd(() =>
+        {
+            SceneManager.LoadSceneAsync(3);
+            GameManager.manager.ReadytoSceneLoad();
+        });
+    }
+    protected void SceneReveal()
+    {
+        sceneFadeAnim.gameObject.SetActive(true);
+        sceneFadeAnim.enabled = true;
+        sceneFadeAnim.SetTrigger(triggerNamedNoDelay);
+
+        OnAnimationEnd(() => sceneFadeAnim.gameObject.SetActive(false));
+    }
+
+    async void OnAnimationEnd(Action action)
+    {
+        await Task.Delay(2000);
+        action();
+    }
     public int GetIndexScene()
     {
         return SceneManager.GetActiveScene().buildIndex;
-    }
-    public void BackGroundFadeOut()
-    {
-        backGround.enabled = true;
-        backGround.SetTrigger("fadeOutNoDelay");
-        BackGroundSetActiveFalse();
-    }
-    async void BackGroundSetActiveFalse()
-    {
-        await Task.Delay(1000);
-        backGround.gameObject.SetActive(false);
     }
     #endregion
     #region 스테이지 데이터

@@ -760,7 +760,7 @@ MonoBehaviour:
   - {fileID: 2976764568746061588, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
   objects:
   - {fileID: 6357710306899917329, guid: c293943926f11984687c205e0f08505c, type: 3}
-  backGround: {fileID: 1641058148}
+  sceneFadeAnim: {fileID: 1641058148}
   targetSceneNum: 0
 --- !u!4 &687591255
 Transform:
@@ -2171,10 +2171,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
