@@ -146,7 +146,7 @@ namespace Unit
     }
 
 
-    public class Data : MonoBehaviour
+    public class Data : JsonSaveLoad
     {
         public List<Dictionary<string, string>> Goblinlist = new List<Dictionary<string, string>>();
         public Dictionary<int, unit_status> statusList { get; private set; } = new Dictionary<int, unit_status>();
@@ -158,7 +158,7 @@ namespace Unit
         {
             Instance = this;
 
-            string Goblin_Data = Path.Combine(Directory.GetCurrentDirectory(), @"Assets\DataTable\Monster_Data.csv");
+            string Goblin_Data = Path.Combine(GetFolder("DataTable"), @"Monster_Data.csv");
             //ReadCSV list = new ReadCSV();
             using (StreamReader MonsterData = new StreamReader(Goblin_Data))
             {
@@ -210,6 +210,9 @@ namespace Unit
             return position + Vector3.right * Screen.width * 0.5f + Vector3.up * Screen.height * 0.5f;
         }
 
-
+        public override void Init()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

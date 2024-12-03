@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using System.Threading.Tasks;
 using Unit;
 using UnityEngine;
 using UnityEngine.Events;
@@ -138,6 +138,12 @@ public class StageManager : JsonLoad
     {
         backGround.enabled = true;
         backGround.SetTrigger("fadeOutNoDelay");
+        BackGroundSetActiveFalse();
+    }
+    async void BackGroundSetActiveFalse()
+    {
+        await Task.Delay(1000);
+        backGround.gameObject.SetActive(false);
     }
     #endregion
     #region 스테이지 데이터

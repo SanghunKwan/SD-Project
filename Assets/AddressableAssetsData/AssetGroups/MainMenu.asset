@@ -30,7 +30,7 @@ MonoBehaviour:
     - MainMenu
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 76319fe903ec938419677ddd7ed9a3cd
-    m_Address: Assets/AddData/MainMenu/trashcanLower.png
+    m_Address: Assets/AddData/MainMenu/trashcanBottom.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - MainMenu

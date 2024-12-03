@@ -40,7 +40,7 @@ public enum Materials
     Tomato,
     GreenFruit
 }
-public class DropManager : MonoBehaviour
+public class DropManager : JsonSaveLoad
 {
     public static DropManager instance;
 
@@ -52,7 +52,7 @@ public class DropManager : MonoBehaviour
         pool = GetComponent<ItemPool>();
         instance = this;
 
-        string Item_Data = Path.Combine(Directory.GetCurrentDirectory(), @"Assets\DataTable\Drop_Data.csv");
+        string Item_Data = Path.Combine(GetFolder("DataTable"), @"Drop_Data.csv");
 
         using(StreamReader reader = new StreamReader(Item_Data))
         {
@@ -90,4 +90,8 @@ public class DropManager : MonoBehaviour
         return null;
     }
 
+    public override void Init()
+    {
+        throw new System.NotImplementedException();
+    }
 }

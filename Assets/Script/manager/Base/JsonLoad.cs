@@ -13,7 +13,7 @@ public abstract class JsonLoad : InitObject
     }
     protected string TablePath(in string fileName)
     {
-        return Path.Combine(Application.dataPath, "DataTable", fileName + ".json");
+        return Path.Combine(GetFolder("DataTable"), fileName + ".json");
     }
     #endregion
     #region 세이브 로드
@@ -24,7 +24,7 @@ public abstract class JsonLoad : InitObject
     }
     protected string SavePath(int index)
     {
-        return Path.Combine(Application.dataPath, "save", "save" + (index + 1).ToString() + ".json");
+        return Path.Combine(GetFolder("save"), "save" + (index + 1).ToString() + ".json");
     }
     #endregion
     #region 세이브 데이터 확인
@@ -52,12 +52,21 @@ public abstract class JsonLoad : InitObject
         day = intJson[1];
     }
     #endregion
-
+    #region 경로
+    protected void CreateFolder(in string folderName)
+    {
+        Directory.CreateDirectory(GetFolder(folderName));
+    }
+    protected string GetFolder(in string folderName)
+    {
+        return Path.Combine(Application.streamingAssetsPath, folderName);
+    }
+    #endregion
     public void SDF<T>() where T : class, new()
     {
         T asdf = new T();
 
-        string wnth = Path.Combine(Application.dataPath, "DataTable/asdf.json");
+        string wnth = Path.Combine(Application.streamingAssetsPath, "DataTable/asdf.json");
 
         File.WriteAllText(wnth, JsonUtility.ToJson(asdf, true));
 
