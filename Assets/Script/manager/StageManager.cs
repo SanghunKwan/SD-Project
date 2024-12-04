@@ -19,14 +19,10 @@ public class StageManager : JsonLoad
     [SerializeField] Animator sceneFadeAnim;
     int triggerNamedNoDelay;
     protected List<UnityAction<Scene, LoadSceneMode>> loadActionList;
-    protected List<UnityAction<Scene>> unloadActionList;
     public int targetSceneNum;
+    protected (int, int, List<UnityAction<Scene, LoadSceneMode>>, List<UnityAction<Scene>>) stageManagerData;
 
 
-    public enum OBJECTNUM
-    {
-        BONEWALL,
-    }
     [Serializable]
     public class StageData
     {
@@ -69,24 +65,16 @@ public class StageManager : JsonLoad
     }
 
 
-    protected virtual void Awake()
+    protected void Awake()
     {
-        if (instance != null)
-        {
-            loadActionList = instance.loadActionList;
-            unloadActionList = instance.unloadActionList;
-            saveData = instance.saveData;
-            triggerNamedNoDelay = instance.triggerNamedNoDelay;
-        }
-        else
-        {
-            loadActionList = new(3);
-            unloadActionList = new(3);
-            saveData = LoadData<StageDatas>("StageData");
-            triggerNamedNoDelay = Animator.StringToHash("fadeOutNoDelay");
-            
-        }
+        VirtualAwake();
         instance = this;
+    }
+    protected virtual void VirtualAwake()
+    {
+        loadActionList = new(3);
+        saveData = LoadData<StageDatas>("StageData");
+        triggerNamedNoDelay = Animator.StringToHash("fadeOutNoDelay");
     }
     protected virtual void Start()
     {
@@ -113,28 +101,35 @@ public class StageManager : JsonLoad
             newPlane.transform.GetChild(0).GetChild(0).localPosition -= new Vector3(50.2f, 0, 0);
         }
     }
-    #region 스테이지
-    public CObject CallObject(OBJECTNUM num, Transform trans)
-    {
-        CObject obj = transform.GetChild((int)num).GetChild(0).GetComponent<CObject>();
-        obj.gameObject.SetActive(true);
-        obj.transform.position = trans.position;
-        obj.transform.SetParent(transform);
-
-        return obj;
-    }
-    #endregion
     #region 씬
     public void CallLoadingScene(int targetScene)
+    {
+        SceneLoadActionAdd(() =>
+        {
+            instance.loadActionList = loadActionList;
+            instance.saveData = saveData;
+            instance.triggerNamedNoDelay = triggerNamedNoDelay;
+
+            instance.targetSceneNum = targetScene;
+        });
+
+        SceneLoadActionAdd(SceneEventClear);
+
+        SceneBlackOut();
+    }
+
+    protected void SceneLoadActionAdd(Action action)
+    {
+        loadActionList.Add((sc, mode) => action());
+        SceneManager.sceneLoaded += loadActionList[^1];
+    }
+    protected void SceneEventClear()
     {
         foreach (var obj in loadActionList)
         {
             SceneManager.sceneLoaded -= obj;
         }
         loadActionList.Clear();
-
-        SceneBlackOut();
-        targetSceneNum = targetScene;
     }
     protected void SceneBlackOut()
     {
@@ -166,13 +161,13 @@ public class StageManager : JsonLoad
         return SceneManager.GetActiveScene().buildIndex;
     }
     #endregion
-    #region 스테이지 데이터
+
     [ContextMenu("json만들기")]
     public void SDF()
     {
         SDF<StageDatas>();
     }
-
+    #region 스테이지 데이터
     public int GetStageTeamCount(int stage)
     {
         return saveData.data[stage].participatingTeamCount;

@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     #region гою╖ managers
     public WindowManager windowManager { get; set; }
     public StorageManager storageManager { get; set; }
+    public BattleClearManager battleClearManager { get; set; }
     #endregion
     private void Awake()
     {

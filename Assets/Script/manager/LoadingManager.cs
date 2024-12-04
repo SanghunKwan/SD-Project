@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using System.Threading.Tasks;
 
-public class LoadingManager : StageManager
+public class LoadingManager : StageChildManager
 {
     AsyncOperation loading;
-    protected override void Awake()
-    {
-        if(instance != null)
-        targetSceneNum = instance.targetSceneNum;
-        base.Awake();
-    }
     protected override void Start()
     {
     }
@@ -23,15 +18,19 @@ public class LoadingManager : StageManager
     #region ¾À
     public void SceneLoad(int SceneIndex, Action action)
     {
-        foreach (var obj in loadActionList)
-        {
-            SceneManager.sceneLoaded -= obj;
-        }
-        loadActionList.Clear();
+        SceneLoadActionAdd(action);
+        SceneLoadActionAdd(SceneEventClear);
 
-        loadActionList.Add((sc, mode) => action());
-        SceneManager.sceneLoaded += loadActionList[^1];
         loading = SceneManager.LoadSceneAsync(SceneIndex);
+        loading.allowSceneActivation = false;
+
+        WaitforSeconds(500);
+    }
+    
+    async void WaitforSeconds(int milisecond)
+    {
+        await Task.Delay(milisecond);
+        loading.allowSceneActivation = true;
     }
     public void LoadTargetScene(Action action)
     {

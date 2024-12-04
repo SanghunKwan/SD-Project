@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static StageBattleManager;
 
 
 namespace Unit
@@ -83,8 +84,7 @@ namespace Unit
             gameObject.AddComponent<CorpseComponent>();
             if (overlappedCorpse >= 2)
             {
-                StageManager.instance.CallObject(StageManager.OBJECTNUM.BONEWALL, transform).gameObject.SetActive(true);
-
+                GameManager.manager.battleClearManager.CallObject(BattleClearManager.OBJECTNUM.BONEWALL, transform).gameObject.SetActive(true);
             }
         }
         public void FindAll()
