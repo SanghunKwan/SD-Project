@@ -73,15 +73,14 @@ public class StageFloorComponent : InitObject
     }
     void GetEmptyIndex(out int[] emptyIndex)
     {
-        int bitSum = 0;
-        BitArray bit = new BitArray(4);
+        int bit = 0;
+
         for (int i = 0; i < directionCount; i++)
         {
-            bit[i] = nearComponent[i];
-            bitSum += Convert.ToInt32(bit[i]);
+            if (nearComponent[i] != null)
+                bit += 2 ^ i;
         }
-        emptyIndex = new int[bitSum];
-
+        emptyIndex = new int[bit];
     }
 
 
