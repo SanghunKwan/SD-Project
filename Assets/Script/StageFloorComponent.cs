@@ -1,17 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.AI.Navigation;
 using UnityEngine;
 
 public class StageFloorComponent : MonoBehaviour
 {
-    NavMeshLink[] navMeshLinks;
-    [SerializeField] NavMeshLink linkPrefab;
+    StageFloorComponent[] nearComponent;
     Transform navMeshParent;
 
-    static readonly int[] linkPosition = new int[4] { 0, 1, 0, -1 };
-
-    static readonly float[] planeSize = new float[1] { 25.5f };
     [SerializeField] int stageIndex;
 
     public enum Direction2Array
@@ -28,23 +24,67 @@ public class StageFloorComponent : MonoBehaviour
         int directionCount = (int)Direction2Array.Max;
 
         navMeshParent = transform.GetChild(0);
-        navMeshLinks = new NavMeshLink[directionCount];
-
+        nearComponent = new StageFloorComponent[directionCount];
     }
-    public void NewLink(Direction2Array direction)
+    public void NewLink(GameObject link, Direction2Array direction)
     {
         int iDirection = (int)direction;
 
-        navMeshLinks[iDirection] = Instantiate(linkPrefab, navMeshParent);
-        navMeshLinks[iDirection].transform.SetLocalPositionAndRotation(GetPosition(direction), Quaternion.Euler(0, (iDirection % 2) * 90, 0));
-        navMeshLinks[iDirection].gameObject.SetActive(true);
+        link.transform.SetParent(navMeshParent);
+        link.transform.SetLocalPositionAndRotation(GetLinkPosition(direction), Quaternion.Euler(0, (iDirection % 2) * 90, 0));
+        link.SetActive(true);
     }
-    Vector3 GetPosition(Direction2Array direction)
+    public void NewStage(StageFloorComponent newStageFloorComponent, Direction2Array direction)
     {
         int iDirection = (int)direction;
-        float xValue = linkPosition[iDirection] * planeSize[stageIndex];
-        float zValue = linkPosition[(iDirection + 1) % (int)Direction2Array.Max] * planeSize[stageIndex];
+
+        nearComponent[iDirection] = newStageFloorComponent;
+        nearComponent[iDirection].nearComponent[(iDirection + 2) % (int)Direction2Array.Max] = this;
+        nearComponent[iDirection].transform.localPosition = GetStagePosition(direction);
+    }
+
+    #region Vector3
+    Vector3 GetLinkPosition(Direction2Array direction)
+    {
+        BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
+
+        int iDirection = (int)direction;
+        float xValue = battleClearManager.linkPosition[iDirection] * battleClearManager.planeSize[stageIndex];
+        float zValue = battleClearManager.linkPosition[(iDirection + 1) % (int)Direction2Array.Max] * battleClearManager.planeSize[stageIndex];
 
         return new Vector3(xValue, 0, zValue);
     }
+    Vector3 GetStagePosition(Direction2Array direction)
+    {
+        BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
+
+        int iDirection = (int)direction;
+        Vector2 value = battleClearManager.stagePosition[iDirection] * battleClearManager.planeSize[stageIndex] * 1.414f;
+
+        return new Vector3(value.x, 0, value.y);
+    }
+    #endregion
+    #region GetEmptyDirection
+    public Direction2Array GetEmptyDirection()
+    {
+        GetEmptyIndex(out int[] emptyIndex);
+        return (Direction2Array)UnityEngine.Random.Range(0, emptyIndex.Length);
+    }
+    void GetEmptyIndex(out int[] emptyIndex)
+    {
+        int length = (int)Direction2Array.Max;
+        int index = 0;
+        int[] tempArray = new int[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            if (nearComponent[i] != null)
+                continue;
+
+            tempArray[index++] = i;
+        }
+        emptyIndex = new int[index];
+        Array.Copy(tempArray, emptyIndex, index);
+    }
+    #endregion
 }

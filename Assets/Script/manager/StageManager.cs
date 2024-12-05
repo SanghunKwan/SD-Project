@@ -1,3 +1,4 @@
+using SaveData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,16 +13,11 @@ public class StageManager : JsonLoad
 {
     public static StageManager instance;
 
-    public bool Newstage { get; set; } = false;
-    public bool isDone { get; set; } = false;
-    [SerializeField] GameObject[] Stage;
-    [SerializeField] GameObject[] objects;
     [SerializeField] Animator sceneFadeAnim;
     int triggerNamedNoDelay;
-    protected List<UnityAction<Scene, LoadSceneMode>> loadActionList;
     public int targetSceneNum;
-    protected (int, int, List<UnityAction<Scene, LoadSceneMode>>, List<UnityAction<Scene>>) stageManagerData;
-
+    public int saveDataIndex { get; set;}
+    protected List<UnityAction<Scene, LoadSceneMode>> loadActionList;
 
     [Serializable]
     public class StageData
@@ -32,36 +28,13 @@ public class StageManager : JsonLoad
         public string stagePurpose;
         public int[] stageRewardsImage;
 
-        public StageData()
-        {
-            nowFloor = 0;
-            participatingTeamCount = 5;
-            stageName = "";
-            stagePurpose = "";
-            stageRewardsImage = new int[4] { 0, 1, 2, 3 };
-
-        }
-        public StageData(int floor)
-        {
-            nowFloor = floor;
-            participatingTeamCount = 10;
-            stageName = "asdf";
-            stagePurpose = "fdsa";
-            stageRewardsImage = new int[4] { 0, 1, 2, 3 };
-        }
     }
-    public StageDatas saveData { get; private set; }
+    public StageDatas stageData { get; private set; }
     [Serializable]
     public class StageDatas
     {
         public StageData[] data;
 
-        public StageDatas()
-        {
-            data = new StageData[100];
-            for (int i = 0; i < data.Length; i++)
-                data[i] = new StageData(i);
-        }
     }
 
 
@@ -73,51 +46,34 @@ public class StageManager : JsonLoad
     protected virtual void VirtualAwake()
     {
         loadActionList = new(3);
-        saveData = LoadData<StageDatas>("StageData");
+        stageData = LoadData<StageDatas>("StageData");
         triggerNamedNoDelay = Animator.StringToHash("fadeOutNoDelay");
     }
-    protected virtual void Start()
+    void Start()
     {
-        for (int i = 0; i < objects.Length; i++)
-        {
-            GameObject folder = new GameObject(objects[i].name);
-            folder.transform.SetParent(transform);
-            for (int j = 0; j < 5; j++)
-            {
-                Instantiate(objects[i], folder.transform);
-            }
-        }
         SceneReveal();
     }
 
-    // Update is called once per frame
-    protected virtual void Update()
-    {
-        //새로운 스테이지 생성. 수정 필요.
-        if (Newstage && !isDone)
-        {
-            isDone = true;
-            GameObject newPlane = Instantiate(Stage[0], Vector3.zero, Quaternion.identity);
-            newPlane.transform.GetChild(0).GetChild(0).localPosition -= new Vector3(50.2f, 0, 0);
-        }
-    }
     #region 씬
-    public void CallLoadingScene(int targetScene)
+    public void CallLoadingScene(int nextScene)
     {
         SceneLoadActionAdd(() =>
         {
-            instance.loadActionList = loadActionList;
-            instance.saveData = saveData;
-            instance.triggerNamedNoDelay = triggerNamedNoDelay;
-
-            instance.targetSceneNum = targetScene;
+            DataSuccession();
+            instance.targetSceneNum = nextScene;
         });
 
         SceneLoadActionAdd(SceneEventClear);
 
         SceneBlackOut();
     }
-
+    protected void DataSuccession()
+    {
+        instance.loadActionList = loadActionList;
+        instance.stageData = stageData;
+        instance.triggerNamedNoDelay = triggerNamedNoDelay;
+        instance.saveDataIndex = saveDataIndex;
+    }
     protected void SceneLoadActionAdd(Action action)
     {
         loadActionList.Add((sc, mode) => action());
@@ -142,7 +98,7 @@ public class StageManager : JsonLoad
             GameManager.manager.ReadytoSceneLoad();
         });
     }
-    protected void SceneReveal()
+    protected virtual void SceneReveal()
     {
         sceneFadeAnim.gameObject.SetActive(true);
         sceneFadeAnim.enabled = true;
@@ -170,7 +126,7 @@ public class StageManager : JsonLoad
     #region 스테이지 데이터
     public int GetStageTeamCount(int stage)
     {
-        return saveData.data[stage].participatingTeamCount;
+        return stageData.data[stage].participatingTeamCount;
     }
 
     public override void Init()

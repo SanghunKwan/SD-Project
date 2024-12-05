@@ -8,17 +8,15 @@ using System.Threading.Tasks;
 public class LoadingManager : StageChildManager
 {
     AsyncOperation loading;
-    protected override void Start()
+    protected override void SceneReveal()
     {
     }
     // Update is called once per frame
-    protected override void Update()
-    {
-    }
     #region ¾À
     public void SceneLoad(int SceneIndex, Action action)
     {
         SceneLoadActionAdd(action);
+        SceneLoadActionAdd(DataSuccession);
         SceneLoadActionAdd(SceneEventClear);
 
         loading = SceneManager.LoadSceneAsync(SceneIndex);
@@ -26,7 +24,7 @@ public class LoadingManager : StageChildManager
 
         WaitforSeconds(500);
     }
-    
+
     async void WaitforSeconds(int milisecond)
     {
         await Task.Delay(milisecond);

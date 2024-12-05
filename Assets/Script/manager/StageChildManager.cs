@@ -6,5 +6,9 @@ public class StageChildManager : StageManager
 {
     protected override void VirtualAwake()
     {
+#if UNITY_EDITOR
+        base.VirtualAwake();
+        saveDataIndex = 1;
+#endif
     }
 }

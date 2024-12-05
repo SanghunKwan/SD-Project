@@ -61,15 +61,11 @@ public class LoadWindow : MonoBehaviour
         {
             loadSaveManager.LoadData(index, out SaveData.SaveDataInfo info);
 
-
             //게임 시작
-            StageManager.instance.CallLoadingScene(1);
+            StageManager.instance.saveDataIndex = index;
+            StageManager.instance.CallLoadingScene(info.nextScene);
 
         }
-
-        //loadButtons[index].Set
-
-        //true일 때 새 게임 false 일 때 이어하기
     }
     #endregion
     #region 저장하기

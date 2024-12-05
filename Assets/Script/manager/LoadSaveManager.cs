@@ -25,7 +25,7 @@ namespace SaveData
         public SaveDataInfo()
         {
             day = 0;
-            nextScene = 2;
+            nextScene = 1;
             hero = new HeroData[1] { new HeroData() };
             floorData = new FloorManager.FloorData();
             stageData = new StageData();

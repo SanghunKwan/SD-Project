@@ -53,7 +53,7 @@ public class MissionExplain : InitObject
     #region text º¯°æ
     public void ChangeExplain(int floorNum)
     {
-        StageManager.StageData data = StageManager.instance.saveData.data[floorNum];
+        StageManager.StageData data = StageManager.instance.stageData.data[floorNum];
 
         mission_name.text = data.stageName;
         mission_purpose.text = data.stagePurpose;
