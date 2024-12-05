@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class StageChildManager : StageManager
 {
+    [SerializeField] int editorIndex;
     protected override void VirtualAwake()
     {
 #if UNITY_EDITOR
         base.VirtualAwake();
-        saveDataIndex = 1;
+        saveDataIndex = editorIndex;
 #endif
     }
 }

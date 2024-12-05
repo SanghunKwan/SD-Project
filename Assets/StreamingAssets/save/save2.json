@@ -92,8 +92,7 @@
             0
         ],
         "floors": [
-            0,
-            1
+            0
         ],
         "nowFloorIndex": 0,
         "isAllClear": false,

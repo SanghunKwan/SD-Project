@@ -80,7 +80,7 @@ namespace SaveData
         public StageData()
         {
             heros = new int[1] { 0 };
-            floors = new int[2] { 0, 1 };
+            floors = new int[5] { 0,1,2,3,4 };
             nowFloorIndex = 0;
             isAllClear = false;
         }

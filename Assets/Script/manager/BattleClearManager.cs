@@ -68,7 +68,10 @@ public class BattleClearManager : MonoBehaviour
     {
         int length = floors.Length;
         stageFloorComponents = new StageFloorComponent[length];
+
         stageFloorComponents[0] = battleClearPool.MakeStage(PoolStageIndex(floors[0]));
+        stageFloorComponents[0].Init();
+        stageFloorComponents[0].gameObject.SetActive(true);
         StageFloorComponent.Direction2Array randomDirection;
         for (int i = 1; i < length; i++)
         {
@@ -80,9 +83,6 @@ public class BattleClearManager : MonoBehaviour
     }
     int PoolStageIndex(int nowFloor)
     {
-        if (nowFloor % 10 != 0)
-            return nowFloor / 10;
-        else
-            return 10;
+        return (nowFloor / 10) + (Convert.ToInt32(nowFloor % 10 == 0) * 10);
     }
 }

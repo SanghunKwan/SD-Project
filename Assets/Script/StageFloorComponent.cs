@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageFloorComponent : MonoBehaviour
+public class StageFloorComponent : InitObject
 {
     StageFloorComponent[] nearComponent;
     Transform navMeshParent;
 
     [SerializeField] int stageIndex;
-
+    int directionCount = (int)Direction2Array.Max;
     public enum Direction2Array
     {
         RightUP,
@@ -18,10 +18,9 @@ public class StageFloorComponent : MonoBehaviour
         LeftUP,
         Max
     }
-
-    private void Awake()
+    public override void Init()
     {
-        int directionCount = (int)Direction2Array.Max;
+        directionCount = (int)Direction2Array.Max;
 
         navMeshParent = transform.GetChild(0);
         nearComponent = new StageFloorComponent[directionCount];
@@ -39,8 +38,10 @@ public class StageFloorComponent : MonoBehaviour
         int iDirection = (int)direction;
 
         nearComponent[iDirection] = newStageFloorComponent;
-        nearComponent[iDirection].nearComponent[(iDirection + 2) % (int)Direction2Array.Max] = this;
-        nearComponent[iDirection].transform.localPosition = GetStagePosition(direction);
+        nearComponent[iDirection].Init();
+        nearComponent[iDirection].nearComponent[(iDirection + 2) % directionCount] = this;
+        Debug.Log((iDirection + 2) % directionCount);
+        nearComponent[iDirection].transform.localPosition = transform.localPosition + GetStagePosition(direction);
     }
 
     #region Vector3
@@ -50,7 +51,7 @@ public class StageFloorComponent : MonoBehaviour
 
         int iDirection = (int)direction;
         float xValue = battleClearManager.linkPosition[iDirection] * battleClearManager.planeSize[stageIndex];
-        float zValue = battleClearManager.linkPosition[(iDirection + 1) % (int)Direction2Array.Max] * battleClearManager.planeSize[stageIndex];
+        float zValue = battleClearManager.linkPosition[(iDirection + 1) % directionCount] * battleClearManager.planeSize[stageIndex];
 
         return new Vector3(xValue, 0, zValue);
     }
@@ -68,23 +69,21 @@ public class StageFloorComponent : MonoBehaviour
     public Direction2Array GetEmptyDirection()
     {
         GetEmptyIndex(out int[] emptyIndex);
-        return (Direction2Array)UnityEngine.Random.Range(0, emptyIndex.Length);
+        return (Direction2Array)emptyIndex[UnityEngine.Random.Range(0, emptyIndex.Length)];
     }
     void GetEmptyIndex(out int[] emptyIndex)
     {
-        int length = (int)Direction2Array.Max;
-        int index = 0;
-        int[] tempArray = new int[length];
-
-        for (int i = 0; i < length; i++)
+        int bitSum = 0;
+        BitArray bit = new BitArray(4);
+        for (int i = 0; i < directionCount; i++)
         {
-            if (nearComponent[i] != null)
-                continue;
-
-            tempArray[index++] = i;
+            bit[i] = nearComponent[i];
+            bitSum += Convert.ToInt32(bit[i]);
         }
-        emptyIndex = new int[index];
-        Array.Copy(tempArray, emptyIndex, index);
+        emptyIndex = new int[bitSum];
+
     }
+
+
     #endregion
 }

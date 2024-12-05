@@ -329,6 +329,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7401e6f4e7198bc41bb9d923e5319ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &130261882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 130261883}
+  - component: {fileID: 130261884}
+  m_Layer: 0
+  m_Name: HeroSpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &130261883
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130261882}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 565492013}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &130261884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130261882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e282a76643e2934b9fb68b14eef9ebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &158187281 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4049094823143546871, guid: bf2152f0fa267c64a9ff6ed7e28f9a05, type: 3}
@@ -641,6 +685,15 @@ MonoBehaviour:
   - {fileID: 2745895824407301361, guid: 9be3144bf27ab634480811f6b05b66f5, type: 3}
   - {fileID: 2745895824407301361, guid: 9be3144bf27ab634480811f6b05b66f5, type: 3}
   - {fileID: 2745895824407301361, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
+  - {fileID: 2745895824407301361, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
+  - {fileID: 2745895824407301361, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
+  - {fileID: 2745895824407301361, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
+  - {fileID: 2745895824407301361, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
+  - {fileID: 2745895824407301361, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
+  - {fileID: 2745895824407301361, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
+  - {fileID: 2745895824407301361, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
+  - {fileID: 2745895824407301361, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
+  - {fileID: 2745895824407301361, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
   link: {fileID: 8903683555701856603, guid: 83e7b0ae936d5824ba84d43c08084ff2, type: 3}
   poolNum: 5
 --- !u!114 &399040047
@@ -662,6 +715,15 @@ MonoBehaviour:
   - {x: -1, y: -1}
   - {x: -1, y: 1}
   m_planeSize:
+  - 25.5
+  - 25.5
+  - 25.5
+  - 25.5
+  - 25.5
+  - 25.5
+  - 25.5
+  - 25.5
+  - 25.5
   - 25.5
   - 25.5
   - 25.5
@@ -818,6 +880,7 @@ Transform:
   - {fileID: 579258496}
   - {fileID: 297873107}
   - {fileID: 399040045}
+  - {fileID: 130261883}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &579258495
@@ -911,6 +974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneFadeAnim: {fileID: 1641058148}
   targetSceneNum: 0
+  editorIndex: 2
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

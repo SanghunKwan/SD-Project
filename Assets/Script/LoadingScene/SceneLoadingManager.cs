@@ -24,7 +24,6 @@ public class SceneLoadingManager : MonoBehaviour
     void SetAnimation(float result)
     {
         float angleLast = -result * 360;
-        Debug.Log(result);
         if (turningAngle > angleLast)
         {
             turningAngle -= 30;
