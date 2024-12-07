@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 130261883}
   - component: {fileID: 130261884}
   m_Layer: 0
-  m_Name: HeroSpawnManager
+  m_Name: SpawnManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,7 +358,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 929805027}
   m_Father: {fileID: 565492013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &130261884
@@ -373,6 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e282a76643e2934b9fb68b14eef9ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startDelayMiliSec: 2500
 --- !u!114 &158187281 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4049094823143546871, guid: bf2152f0fa267c64a9ff6ed7e28f9a05, type: 3}
@@ -974,7 +976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneFadeAnim: {fileID: 1641058148}
   targetSceneNum: 0
-  editorIndex: 2
+  editorIndex: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,6 +1583,54 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &929805026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 929805027}
+  - component: {fileID: 929805028}
+  m_Layer: 0
+  m_Name: UnitSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &929805027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929805026}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 130261883}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &929805028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929805026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c1f2cb3b1b3a14d89f35ee0b149f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnManager: {fileID: 130261884}
+  monsters: []
+  heroes: []
+  cobjects: []
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

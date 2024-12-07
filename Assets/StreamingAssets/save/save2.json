@@ -92,12 +92,17 @@
             0
         ],
         "floors": [
-            0
+            0,
+            1,
+            2,
+            3,
+            4
         ],
         "nowFloorIndex": 0,
         "isAllClear": false,
         "slots": [],
         "unitData": [],
+        "monsterData": [],
         "objectDatas": [],
         "dropItemDatas": []
     }

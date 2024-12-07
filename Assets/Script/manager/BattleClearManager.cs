@@ -20,6 +20,7 @@ public class BattleClearManager : MonoBehaviour
     StageFloorComponent[] stageFloorComponents;
 
     SaveDataInfo saveData;
+    public SaveDataInfo SaveDataInfo { get { return saveData; } }
     Action[] setStageByNextScene;
 
     [SerializeField] LoadSaveManager loadSaveManager;
@@ -44,9 +45,8 @@ public class BattleClearManager : MonoBehaviour
     }
     private void Start()
     {
-        GameManager.manager.battleClearManager = this;
-
         loadSaveManager.LoadData(StageManager.instance.saveDataIndex, out saveData);
+        GameManager.manager.SetBattleClearManager(this);
         SetStage(saveData.nextScene);
 
     }

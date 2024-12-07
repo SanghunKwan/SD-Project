@@ -46,8 +46,10 @@ public class GameManager : MonoBehaviour
     #region 하위 managers
     public WindowManager windowManager { get; set; }
     public StorageManager storageManager { get; set; }
-    public BattleClearManager battleClearManager { get; set; }
+    public BattleClearManager battleClearManager { get; private set; }
+    public Action onBattleClearManagerRegistered { get; set; }
     #endregion
+
     private void Awake()
     {
         manager = this;
@@ -650,6 +652,14 @@ public class GameManager : MonoBehaviour
         callConstructionUI();
     }
     #endregion 키보드 입력
+    #region Manager 할당
+    public void SetBattleClearManager(BattleClearManager newBattleClearManager)
+    {
+        battleClearManager = newBattleClearManager;
+        onBattleClearManagerRegistered?.Invoke();
+        onBattleClearManagerRegistered = null;
+    }
+    #endregion
 
     public void ReadytoSceneLoad()
     {

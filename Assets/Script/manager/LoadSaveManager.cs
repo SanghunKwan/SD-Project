@@ -75,14 +75,29 @@ namespace SaveData
         public InventoryStorage.Slot[] slots;
 
         public UnitData[] unitData;
+        public MonsterData[] monsterData;
         public ObjectData[] objectDatas;
         public DropItemData[] dropItemDatas;
         public StageData()
         {
             heros = new int[1] { 0 };
-            floors = new int[5] { 0,1,2,3,4 };
+            floors = new int[5] { 0, 1, 2, 3, 4 };
             nowFloorIndex = 0;
             isAllClear = false;
+        }
+    }
+    [Serializable]
+    public class MonsterData
+    {
+        public WaitingTypeNum waitingTypeNum;
+        public UnitState_Monster.StandType standType;
+
+        public UnitData unitData;
+        public MonsterData()
+        {
+            waitingTypeNum = WaitingTypeNum.Wandering;
+            standType = UnitState_Monster.StandType.Basic;
+            unitData = new UnitData();
         }
     }
     [Serializable]

@@ -40,7 +40,6 @@ public class StageFloorComponent : InitObject
         nearComponent[iDirection] = newStageFloorComponent;
         nearComponent[iDirection].Init();
         nearComponent[iDirection].nearComponent[(iDirection + 2) % directionCount] = this;
-        Debug.Log((iDirection + 2) % directionCount);
         nearComponent[iDirection].transform.localPosition = transform.localPosition + GetStagePosition(direction);
     }
 
@@ -60,7 +59,7 @@ public class StageFloorComponent : InitObject
         BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
 
         int iDirection = (int)direction;
-        Vector2 value = battleClearManager.stagePosition[iDirection] * battleClearManager.planeSize[stageIndex] * 1.414f;
+        Vector2 value = 1.414f * battleClearManager.planeSize[stageIndex] * battleClearManager.stagePosition[iDirection];
 
         return new Vector3(value.x, 0, value.y);
     }
@@ -74,13 +73,29 @@ public class StageFloorComponent : InitObject
     void GetEmptyIndex(out int[] emptyIndex)
     {
         int bit = 0;
-
+        int count = 0;
+        int index = 0;
         for (int i = 0; i < directionCount; i++)
         {
             if (nearComponent[i] != null)
-                bit += 2 ^ i;
+                continue;
+
+            bit += (1 << i);
+            count++;
         }
-        emptyIndex = new int[bit];
+        emptyIndex = new int[count];
+        for (int i = 0; i < directionCount; i++)
+        {
+            if ((bit & 1) == 0)
+            {
+                bit >>= 1;
+                continue;
+            }
+
+            emptyIndex[index] = i;
+            bit >>= 1;
+            index++;
+        }
     }
 
 
