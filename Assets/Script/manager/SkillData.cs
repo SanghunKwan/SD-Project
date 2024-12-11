@@ -37,6 +37,7 @@ public class SkillData : JsonLoad
     {
         HEALING,
         BURN,
+        Reinforcement,
         MAX
     }
     [System.Serializable]

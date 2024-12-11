@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Unit;
 using UnityEngine;
 
 public abstract class ClickCamTurningComponent : MonoBehaviour
@@ -23,12 +24,14 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
 
     Action delaySetCam = () => { };
     public Action tickCamMove { get; set; } = () => { };
+    public CObject CObject { get; private set; }
 
     protected virtual void Awake()
     {
         camMain = Camera.main;
         camTurningWindow = GameObject.FindWithTag("UI").transform.Find(windowName).GetComponent<CamTuringWindow>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+        CObject = GetComponent<CObject>();
     }
 
     private void OnMouseUpAsButton()

@@ -27,10 +27,11 @@ public class SoundManager : MonoBehaviour
         {
             SourceDictionary[i] = new Dictionary<Transform, AudioSource>();
         }
-        
+
     }
     private void Start()
     {
+        GameManager.manager.soundManager = this;
         AudioSource bgmSource = transform.GetChild(0).GetComponent<AudioSource>();
         SourceDictionary[(int)DictionaryType.BGM].Add(bgmSource.transform, bgmSource);
 

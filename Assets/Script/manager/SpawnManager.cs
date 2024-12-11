@@ -11,22 +11,26 @@ public class SpawnManager : MonoBehaviour
     public HeroData[] heroDatas { get; private set; }
     public MonsterData[] monsterDatas { get; private set; }
     public ObjectData[] objectDatas { get; private set; }
+    public BuildingData[] buildingDatas { get; private set; }
     public DropItemData[] dropItemDatas { get; private set; }
-    int[] competeIndex;
+
+
+
+    public int[] competeIndex { get; private set; }
 
     private void Start()
     {
         GameManager.manager.onBattleClearManagerRegistered += DelayStart;
-        WaitforSeconds(1500, SpawnHeroRepeat);
-    }
-    async void WaitforSeconds(int miliseconds, Action action)
-    {
-        await Task.Delay(miliseconds);
-        action();
     }
     void DelayStart()
     {
         SaveDataInfo saveDataInfo = GameManager.manager.battleClearManager.SaveDataInfo;
+
+        monsterDatas = saveDataInfo.stageData.monsterData;
+        objectDatas = saveDataInfo.stageData.objectDatas;
+        buildingDatas = saveDataInfo.building;
+        dropItemDatas = saveDataInfo.stageData.dropItemDatas;
+
 
         competeIndex = saveDataInfo.stageData.heros;
         heroDatas = new HeroData[competeIndex.Length];
@@ -35,28 +39,10 @@ public class SpawnManager : MonoBehaviour
         {
             heroDatas[i] = saveDataInfo.hero[competeIndex[i]];
         }
-        monsterDatas = saveDataInfo.stageData.monsterData;
-        objectDatas = saveDataInfo.stageData.objectDatas;
-        dropItemDatas = saveDataInfo.stageData.dropItemDatas;
 
-    }
-    void SpawnHeroRepeat()
-    {
-        int waitTime = 0;
-        int length = competeIndex.Length;
-
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
-            WaitforSeconds(waitTime, SpawnHero);
-            waitTime += 900;
+            transform.GetChild(i).gameObject.SetActive(true);
         }
-    }
-    void SpawnHero()
-    {
-
-    }
-
-    void SpawnCobject(ObjectData data)
-    {
     }
 }

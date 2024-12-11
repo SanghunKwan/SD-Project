@@ -18,7 +18,6 @@ public class loadingbar : MonoBehaviour
     public float speed = 0.0f;
     int caseSize;
     int leastSize = 100;
-    unit_status full_status;
     unit_status current_status;
 
     System.Action[] action = new System.Action[(int)BARTYPE.MAX];
@@ -36,21 +35,20 @@ public class loadingbar : MonoBehaviour
         action[(int)bartype]();
     }
 
-    public void GetStatus(unit_status stat, unit_status curstat, int size)
+    public void GetStatus(unit_status curstat, int size)
     {
-        full_status = stat;
         current_status = curstat;
         caseSize = size + leastSize;
 
     }
     void HPUpdate()
     {
-        imageComp.rectTransform.sizeDelta = new Vector2((float)current_status.HP / full_status.HP * (caseSize - 2), leastSize);
+        imageComp.rectTransform.sizeDelta = new Vector2((float)current_status.curHP / current_status.HP * (caseSize - 2), leastSize);
     }
     void MENTALITYUpdate()
     {
-        imageComp.rectTransform.sizeDelta = new Vector2((float)current_status.Mentality
-                                                        / full_status.Mentality * (caseSize - 2), leastSize);
+        imageComp.rectTransform.sizeDelta = new Vector2((float)current_status.curMORALE
+                                                        / current_status.MORALE * (caseSize - 2), leastSize);
     }
 
     public void BarUpdate()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 [RequireComponent(typeof(BattleClearManager))]
@@ -7,8 +8,10 @@ public class BattleClearPool : MonoBehaviour
 {
     [SerializeField] GameObject[] objects;
     [SerializeField] StageFloorComponent[] stages;
-    [SerializeField] GameObject link;
+    [SerializeField] NavMeshLink link;
+    NavMeshLink[] linkpool;
     [SerializeField] int poolNum;
+    int nowPoolIndex;
 
     void Start()
     {
@@ -18,8 +21,10 @@ public class BattleClearPool : MonoBehaviour
 
         MakePoolObject(0, objects, poolNum);
 
+        linkpool = new NavMeshLink[poolNum];
+
         for (int i = 0; i < poolNum; i++)
-            Instantiate(link, transform.GetChild(2));
+            linkpool[i] = Instantiate(link, transform.GetChild(2));
 
     }
     void MakePoolObject<T>(int folderIndex, in T[] array, int poolStorageCount) where T : Object
@@ -40,8 +45,8 @@ public class BattleClearPool : MonoBehaviour
     {
         return Instantiate(stages[stageIndex], transform.GetChild(1));
     }
-    public GameObject MakeLink()
+    public NavMeshLink MakeLink()
     {
-        return transform.GetChild(2).GetChild(0).gameObject;
+        return linkpool[nowPoolIndex++];
     }
 }

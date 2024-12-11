@@ -126,13 +126,14 @@
             "needSlots": 1
         },
         {
-            "name": "test2",
+            "name": "WeaponLevel2",
             "itemCode": 14,
             "MaxCount": 5,
-            "type": 1,
-            "description": "<align=center><u>테스트</u></align>\\n<size=40>퀘스트. 영지에서 장비 회수.</size>",
+            "type": 5,
+            "description": "<align=center><u>중급장비</u></align>\\n<size=40>소모품. 원정동안 선택한 영웅의 장비를 중급으로 만듦.</size>",
             "needSlots": 2,
-            "figure": 1
+            "figure": 1,
+            "itemSkillEffect": 2
         }
 
     ],

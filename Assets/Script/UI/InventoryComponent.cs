@@ -352,12 +352,16 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
 
         InventoryStorage.Slot slot = inventoryStorage.slots[slotIndex];
         int itemCode = slot.itemCode;
+        StorageComponent.Item item = InventoryManager.i.info.items[itemCode];
+
+        if (item.type < ItemType.Consumption || item.type > ItemType.EquipsWeapon)
+            return;
 
         inventoryStorage.ItemCountChangeByIndex(slotIndex, -heroCount, out float usedNum);
         //(usedNum / heroCount) 1인당 효과
-        foreach (var item in characters)
+        foreach (var character in characters)
         {
-            inventoryStorage.AffectItem(item.cUnit, itemCode, usedNum / heroCount);
+            inventoryStorage.AffectItem(character.cUnit, item, usedNum / heroCount);
         }
     }
     #endregion

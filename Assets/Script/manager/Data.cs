@@ -4,15 +4,16 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using System;
+using static EquipDataManager;
 
 namespace Unit
 {
     public enum Species
     {
         Goblin,
-        player,
         Object = 100,
         Building = 200,
+        player = 300,
         MAX = 4
     }
     public enum TypeNum
@@ -53,12 +54,16 @@ namespace Unit
         public int Mentality;
         public int Stress;
 
+        public int curHP;
+        public int curMORALE;
+
         public unit_status()
         {
-            ID = 6;
+            ID = 301;
             NAME = "디스마스";
             SPECIES = Species.player;
             HP = 27;
+            curHP = 27;
             ATK = 7;
             DEF = 0;
             DOG = 10;
@@ -142,6 +147,28 @@ namespace Unit
             Mentality = int.Parse(CSVReader["Mentality"]);
             Stress = int.Parse(CSVReader["Stress"]);
         }
+        public void RefreshStatus(unit_status originalStat, int equipDataIndex)
+        {
+            EquipValueData data = Data.Instance.equipDataManager.GetEquipData(equipDataIndex);
+
+            HP = originalStat.HP + data.HP;
+            ATK = originalStat.ATK + data.ATK;
+            DOG = originalStat.DOG + data.DOG;
+            SPEED = originalStat.SPEED + data.SPEED;
+            ViewAngle = originalStat.ViewAngle + data.ViewAngle;
+            ViewRange = originalStat.ViewRange + data.ViewRange;
+            Accuracy = originalStat.Accuracy + data.Accuracy;
+            AtkSpeed = originalStat.AtkSpeed + data.AtkSpeed;
+            Range = originalStat.Range + data.Range;
+            Mentality = originalStat.Mentality + data.Mentality;
+            Stress = originalStat.Stress + data.Stress;
+
+            curHP += data.HP;
+        }
+        public void QuirkDiseaseCalculate(in int[] quirkArray)
+        {
+            //질병 및 기벽 반영 예정.
+        }
 
     }
 
@@ -152,6 +179,8 @@ namespace Unit
         public Dictionary<int, unit_status> statusList { get; private set; } = new Dictionary<int, unit_status>();
 
         public static Data Instance;
+
+        public EquipDataManager equipDataManager { get; set; }
 
         // Start is called before the first frame update
         void Awake()

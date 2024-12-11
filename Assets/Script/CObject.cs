@@ -10,6 +10,7 @@ namespace Unit
     public class CObject : MonoBehaviour
     {
         public int[] dots { get; protected set; } = new int[(int)SkillData.EFFECTINDEX.MAX];
+        public Vector3 dotsDirection { get; protected set; }
         public int id { get { return ID; } }
         public unit_status stat { get; protected set; }
         public unit_status curstat { get; protected set; }
@@ -30,7 +31,7 @@ namespace Unit
 
         [SerializeField] bool mouseOnCollider = false;
         [SerializeField] protected int CirclePad = 0;
-        [SerializeField] int ID = 100;
+        [SerializeField] protected int ID = 100;
         [SerializeField] protected int BarOffset = 30;
 
         protected float charactertoUImultiply = 100;
@@ -78,7 +79,7 @@ namespace Unit
             hpbarScript = copyBar.transform.GetChild(0).GetComponent<loadingbar>();
 
             if (stat is not null)
-                hpbarScript.GetStatus(stat, curstat, BarOffset);
+                hpbarScript.GetStatus(curstat, BarOffset);
 
             copyUICircle = circleObjct.GetComponent<UICircle>();
 
@@ -99,14 +100,23 @@ namespace Unit
         protected virtual void Start()
         {
 
-            stat = Data.Instance.GetInfo(ID);
-            curstat = stat.Clone(stat);
+            if (stat == null)
+            {
+                stat = Data.Instance.GetInfo(ID);
+                curstat = stat.Clone(stat);
+                curstat.curHP = curstat.HP;
+                curstat.curMORALE = curstat.MORALE;
+            }
             DropInfo = DropManager.instance.GetDropInfo(ID);
             if (hpbarScript)
             {
-                hpbarScript.GetStatus(stat, curstat, BarOffset);
+                hpbarScript.GetStatus(curstat, BarOffset);
             }
-
+        }
+        public void LoadCurStat(unit_status statData)
+        {
+            stat = Data.Instance.GetInfo(ID);
+            curstat = statData;
         }
 
         protected IEnumerator CorLateUpdate()
@@ -124,7 +134,7 @@ namespace Unit
         void OnDisable()
         {
             ObjectCollider.enabled = true;
-            curstat = stat;
+            curstat.Clone(stat);
             selected = false;
             drag = false;
             mouseOnCollider = false;
@@ -355,14 +365,14 @@ namespace Unit
 
                 float StartVel = dots[(int)SkillData.EFFECTINDEX.KNOCKBACK] * 2 / 0.7f;
 
-                Vector3 direction = (transform.position - vec).normalized;
+                dotsDirection = (transform.position - vec).normalized;
 
                 if (CorEndKnockBack != null)
                 {
                     StopCoroutine(CorEndKnockBack);
                 }
 
-                CorEndKnockBack = EndKnockBack(direction, StartVel);
+                CorEndKnockBack = EndKnockBack(dotsDirection, StartVel);
                 StartCoroutine(CorEndKnockBack);
             }
             if (ints[(int)SkillData.EFFECTINDEX.FEAR] > 0)

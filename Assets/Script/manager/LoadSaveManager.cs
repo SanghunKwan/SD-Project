@@ -41,6 +41,7 @@ namespace SaveData
         public string keycode;
         public int[] equipNum;
         public int[] skillNum;
+        public int villigeAction;
         public int workBuilding;
         public bool isDead;
         public UnitData unitData;
@@ -54,6 +55,7 @@ namespace SaveData
             keycode = "=";
             equipNum = new int[3] { 1, 1, 1 };
             skillNum = new int[4] { 1, 1, 1, 1 };
+            villigeAction = 0;
             workBuilding = 0;
             isDead = false;
             unitData = new UnitData();
@@ -81,7 +83,7 @@ namespace SaveData
         public StageData()
         {
             heros = new int[1] { 0 };
-            floors = new int[5] { 0, 1, 2, 3, 4 };
+            floors = new int[] { 1, 2 };
             nowFloorIndex = 0;
             isAllClear = false;
         }
@@ -91,12 +93,16 @@ namespace SaveData
     {
         public WaitingTypeNum waitingTypeNum;
         public UnitState_Monster.StandType standType;
+        public Vector3 originTransform;
+        public Vector3 patrolDestination;
 
         public UnitData unitData;
         public MonsterData()
         {
             waitingTypeNum = WaitingTypeNum.Wandering;
             standType = UnitState_Monster.StandType.Basic;
+            originTransform = Vector3.zero;
+            patrolDestination = Vector3.zero;
             unitData = new UnitData();
         }
     }
@@ -104,15 +110,27 @@ namespace SaveData
     public class UnitData
     {
         public bool detected;
+        public bool attackMove;
+        public bool ishold;
+        public Vector3 destination;
+        public Vector3 depart;
         public ObjectData objectData;
         public UnitData()
         {
             detected = true;
+            attackMove = false;
+            ishold = false;
+            destination = Vector3.zero;
+            depart = Vector3.zero;
             objectData = new ObjectData();
         }
         public UnitData(CUnit unit)
         {
             detected = unit.detected;
+            attackMove = unit.unitMove.attackMove;
+            ishold = unit.unitMove.isHold;
+            destination = unit.unitMove.destination;
+            depart = unit.unitMove.depart;
             objectData = new ObjectData(unit);
         }
     }
@@ -120,6 +138,7 @@ namespace SaveData
     public class ObjectData
     {
         public Vector3 position;
+        public Vector3 dotsDirection;
         public Quaternion quaternion;
         public bool selected;
         public unit_status cur_status;
@@ -130,7 +149,7 @@ namespace SaveData
             position = Vector3.zero;
             quaternion = Quaternion.Euler(0, 0, 0);
             selected = false;
-            id = 6;
+            id = 101;
             cur_status = new unit_status();
             dots = new int[(int)SkillData.EFFECTINDEX.MAX] { 0, 0, 0, 0 };
         }

@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     public PointerEventData pointerEventData { get; set; }
 
     #region гою╖ managers
+    public SoundManager soundManager { get; set; }
     public WindowManager windowManager { get; set; }
     public StorageManager storageManager { get; set; }
     public BattleClearManager battleClearManager { get; private set; }
@@ -513,7 +514,7 @@ public class GameManager : MonoBehaviour
         {
             int Dmg = Attacker.curstat.ATK * atkMultiply * (100 - Target.curstat.DEF) / 10000;
 
-            Target.curstat.HP -= Dmg * Convert.ToInt32(UnityEngine.SceneManagement.SceneManager.GetActiveScene() != UnityEngine.SceneManagement.SceneManager.GetSceneByBuildIndex(2));
+            Target.curstat.curHP -= Dmg * Convert.ToInt32(UnityEngine.SceneManagement.SceneManager.GetActiveScene() != UnityEngine.SceneManagement.SceneManager.GetSceneByBuildIndex(2));
             Target.Hit(skill);
             Target.PrintDamage(-Dmg);
 
@@ -523,7 +524,7 @@ public class GameManager : MonoBehaviour
 
             MentalityCalculate();
 
-            if (Target.curstat.HP <= 0)
+            if (Target.curstat.curHP <= 0)
             {
                 Target.Death(Attacker.transform.position);
             }

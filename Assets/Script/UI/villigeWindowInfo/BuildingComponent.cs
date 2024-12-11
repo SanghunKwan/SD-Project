@@ -11,7 +11,7 @@ public class BuildingComponent : ClickCamTurningComponent
 
 
     public villigeInteract[] saveVilligeInteract { get; private set; } = new villigeInteract[3];
-
+    
 
     protected override void Awake()
     {

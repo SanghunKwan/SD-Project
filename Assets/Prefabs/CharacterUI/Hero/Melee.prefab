@@ -205,7 +205,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 7627b1092d4f00647b3b36de1c8b9f7b, type: 2}
   mouseOnCollider: 0
   CirclePad: 0
-  ID: 6
+  ID: 301
   BarOffset: 30
   overlappedCorpse: 0
   num: 0
@@ -229,6 +229,8 @@ MonoBehaviour:
   targetEnermy: {fileID: 0}
   targetMove: {fileID: 0}
   isCounter: 0
+  isHold: 0
+  isLoaded: 0
   arrive: 0
   attackMove: 0
   nav: {fileID: 0}

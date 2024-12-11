@@ -35,7 +35,7 @@ public class UnitState : MonoBehaviour
     List<AudioClip[]> voices = new List<AudioClip[]>();
 
     //юс╫ц soundmananger
-    [SerializeField] protected SoundManager soundManager;
+    protected SoundManager soundManager;
 
     public enum voiceType
     {
@@ -72,13 +72,10 @@ public class UnitState : MonoBehaviour
         voices.Add(HitVoice);
         voices.Add(DieVoice);
     }
-    public void GetSoundManager(SoundManager manager)
-    {
-        soundManager = manager;
-    }
 
     protected virtual void Start()
     {
+        soundManager = GameManager.manager.soundManager;
         turningTime = 0;
 
 

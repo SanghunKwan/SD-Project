@@ -206,7 +206,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 7627b1092d4f00647b3b36de1c8b9f7b, type: 2}
   mouseOnCollider: 0
   CirclePad: 0
-  ID: 7
+  ID: 302
   BarOffset: 30
   overlappedCorpse: 0
   num: 1

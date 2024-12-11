@@ -77,7 +77,7 @@ public class CharacterList : MonoBehaviour
         scrollTransform.sizeDelta = new Vector2(scrollTransform.sizeDelta.x,
             Mathf.Min(viewPortTransform.sizeDelta.y, 650));
     }
-    public void NewCharacterCall(Unit.TypeNum type, Vector3 vec, SoundManager soundManager)
+    public void NewCharacterCall(Unit.TypeNum type, Vector3 vec)
     {
         int offset = 0;
         for (int i = 0; i < viewPortTransform.childCount; i++)
@@ -98,7 +98,6 @@ public class CharacterList : MonoBehaviour
         villigeInteract nameTag = Instantiate(CharacterBackBoard, newCharacterTempBelong.transform);
         nameTag.HeroIniit((int)type);
         VilligeHero vh = nameTag.hero.gameObject.AddComponent<VilligeHero>();
-        vh.hero.unitMove.SetSound(soundManager);
         nameTag.hero.isDefaultName = true;
 
         trViewPort[keyToTeamsNum["="]].characters.Add(nameTag);

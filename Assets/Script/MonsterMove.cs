@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unit;
 using UnityEngine.AI;
-using JetBrains.Annotations;
 
 //길찾기, 기본 스탠딩 애니메이션 등
 
 
 public class MonsterMove : UnitMove
 {
-    Vector3 originTransform;
-    Vector3 patrolDestination;
+    public Vector3 originTransform { get; set; }
+    public Vector3 patrolDestination { get; set; }
     [SerializeField] GameObject anchor;
     IEnumerator monArrive;
     IEnumerator loadWait;
@@ -20,15 +19,16 @@ public class MonsterMove : UnitMove
 
 
 
-    [SerializeField] WaitingTypeNum waitType;
+    public WaitingTypeNum waitType;
 
-    [SerializeField] UnitState_Monster.StandType standType;
+    public UnitState_Monster.StandType standType;
 
 
     protected override void Awake()
     {
         base.Awake();
-        depart = originTransform = transform.position;
+        if (!isLoaded)
+            depart = originTransform = transform.position;
         unit_State.SelectSet(1);
         unitState_Monster = unit_State as UnitState_Monster;
     }
@@ -40,7 +40,7 @@ public class MonsterMove : UnitMove
 
 
 
-        if (waitType.Equals(WaitingTypeNum.Patrol))
+        if (!isLoaded && waitType.Equals(WaitingTypeNum.Patrol))
             SetPatrolPosition();
 
         unitState_Monster.SetStandType(standType);

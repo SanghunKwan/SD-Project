@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
-using static StageBattleManager;
 
 
 namespace Unit
@@ -46,24 +46,23 @@ namespace Unit
             unitMove = GetComponent<UnitMove>();
 
             base.Awake();
+
         }
         protected override void Start()
         {
-            stat = Data.Instance.GetInfo(species, num);
-            curstat = stat.Clone(stat);
-            DropInfo = DropManager.instance.GetDropInfo(stat.ID);
-            if (hpbarScript)
-            {
-                hpbarScript.GetStatus(stat, curstat, BarOffset);
-            }
-            unitMove.GetStatus(stat.Range, stat.SPEED);
+            base.Start();
+            unitMove.GetStatus(curstat.Range, curstat.SPEED);
             view = GetComponent<View>();
         }
-        public void EyeOpen()
+
+        public async void EyeOpen()
         {
+            while (view == null)
+                await Task.Yield();
+
             view.enabled = true;
-            view.ViewAngle = stat.ViewAngle;
-            view.ViewRange = stat.ViewRange;
+            view.ViewAngle = curstat.ViewAngle;
+            view.ViewRange = curstat.ViewRange;
         }
 
         public void SetDetected(bool asdf)
@@ -128,12 +127,15 @@ namespace Unit
 
         public virtual void Recovery(int add)
         {
-            curstat.HP += add;
-            if (curstat.HP > stat.HP)
+            curstat.curHP += add;
+            if (curstat.curHP > curstat.HP)
             {
-                curstat.HP = stat.HP;
+                curstat.curHP = curstat.HP;
             }
             hpbarScript.BarUpdate();
         }
+
+        public abstract void EquipOne(int equipNum);
+        public abstract void EquipUpgrade(int equipNum, int level);
     }
 }

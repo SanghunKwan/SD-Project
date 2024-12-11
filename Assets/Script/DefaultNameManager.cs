@@ -15,7 +15,7 @@ public class DefaultNameManager : MonoBehaviour
     {
         mananger = this;
 
-        string nameStr = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Assets/DataTable/DefaultName.csv"));
+        string nameStr = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "DataTable/DefaultName.csv"));
 
         names = nameStr.Split(",");
 

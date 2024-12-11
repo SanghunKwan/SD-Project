@@ -10,7 +10,9 @@ public enum ItemType
     NONE,
     Material,
     Consumption,
-    Equips,
+    EquipsHead,
+    EquipsArm,
+    EquipsWeapon,
     Special,
 
 }

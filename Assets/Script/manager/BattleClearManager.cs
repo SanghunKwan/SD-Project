@@ -17,7 +17,7 @@ public class BattleClearManager : MonoBehaviour
     [SerializeField] float[] m_planeSize;
     public float[] planeSize { get { return m_planeSize; } }
 
-    StageFloorComponent[] stageFloorComponents;
+    public StageFloorComponent[] stageFloorComponents { get; private set; }
 
     SaveDataInfo saveData;
     public SaveDataInfo SaveDataInfo { get { return saveData; } }
@@ -81,7 +81,7 @@ public class BattleClearManager : MonoBehaviour
             stageFloorComponents[i - 1].NewLink(battleClearPool.MakeLink(), randomDirection);
         }
     }
-    int PoolStageIndex(int nowFloor)
+    public int PoolStageIndex(int nowFloor)
     {
         return (nowFloor / 10) + (Convert.ToInt32(nowFloor % 10 == 0) * 10);
     }

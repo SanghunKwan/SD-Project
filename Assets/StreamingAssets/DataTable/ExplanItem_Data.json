@@ -28,7 +28,7 @@
             "ATK": "ATK : 7\n",
             "Stress": "Stress : 5\n",
             "Accuracy": "Accuracy : 85\n",
-            "AtkSpeed": "AtkSpeed : 1.5\n",
+            "AtkSpeed": "AtkDelay : 1.5\n",
             "Range": "Range : 1\n",
 
             "ExplainLength": 7
@@ -61,7 +61,79 @@
             "ATK": "ATK : 5\n",
             "Stress": "Stress : 7\n",
             "Accuracy": "Accuracy : 80\n",
-            "AtkSpeed": "AtkSpeed : 1.5\n",
+            "AtkSpeed": "AtkDelay : 1.5\n",
+            "Range": "Range : 6\n",
+
+            "ExplainLength": 7
+        },
+
+
+
+
+
+
+        {
+            "name": "투구",
+            "quality": 2,
+
+            "HP": "HP : 12\n",
+            "ViewAngle": "ViewAngle : 90\n",
+            "ViewRange": "ViewRange : 7\n",
+
+            "ExplainLength": 5
+        },
+        {
+            "name": "갑옷",
+            "quality": 2,
+
+            "HP": "HP : 25\n",
+            "DOG": "DOG : 15\n",
+            "SPEED": "SPEED : 6\n",
+
+
+            "ExplainLength": 5
+        },
+        {
+            "name": "검",
+            "quality": 2,
+
+            "ATK": "ATK : 10\n",
+            "Stress": "Stress : 8\n",
+            "Accuracy": "Accuracy : 90\n",
+            "AtkSpeed": "AtkDelay : 1.4\n",
+            "Range": "Range : 1\n",
+
+            "ExplainLength": 7
+        },
+        {
+            "name": "투구",
+            "quality": 2,
+
+            "HP": "HP : 8\n",
+            "ViewAngle": "ViewAngle : 80\n",
+            "ViewRange": "ViewRange : 11\n",
+
+            "ExplainLength": 5
+        },
+        {
+            "name": "갑옷",
+            "quality": 2,
+
+            "HP": "HP : 20\n",
+            "DOG": "DOG : 20\n",
+            "SPEED": "SPEED : 7\n",
+
+
+            "ExplainLength": 5
+        },
+        {
+            "name": "활",
+            "quality": 2,
+
+            "ATK": "ATK : 9\n",
+            "Stress": "Stress : 10\n",
+            "Accuracy": "Accuracy : 85\n",
+            "AtkSpeed": "AtkDelay : 1.4\n",
             "Range": "Range : 6\n",
 
             "ExplainLength": 7

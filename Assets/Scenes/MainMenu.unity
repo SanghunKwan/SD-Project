@@ -562,7 +562,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ebc09f94fd1280d46bb1b6e0a436d07d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 884d8517c65f37a41996ec6741912e49, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3357,10 +3357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b993fead09587ef40a2a33eef9d9a1b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stage:
-  - {fileID: 2976764568746061588, guid: e8069bd3a3b6a5140917ad5cf05d2843, type: 3}
-  objects:
-  - {fileID: 6357710306899917329, guid: c293943926f11984687c205e0f08505c, type: 3}
   sceneFadeAnim: {fileID: 1471081095}
   targetSceneNum: 0
 --- !u!1 &1471081093

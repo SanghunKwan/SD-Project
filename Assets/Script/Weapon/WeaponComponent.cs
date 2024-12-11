@@ -29,9 +29,9 @@ public abstract class WeaponComponent : MonoBehaviour
     }
     void Start()
     {
-        actions = new System.Action[(int)Species.MAX];
+        actions = new System.Action[2];
         actions[(int)Species.Goblin] = () => StartCoroutine(GoblinSurprise());
-        actions[(int)Species.player] = () => StartCoroutine(PlayerSurprise());
+        actions[(int)Species.Goblin + 1] = () => StartCoroutine(PlayerSurprise());
     }
 
     public void SurpriseAttack()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class StageFloorComponent : InitObject
@@ -25,13 +26,13 @@ public class StageFloorComponent : InitObject
         navMeshParent = transform.GetChild(0);
         nearComponent = new StageFloorComponent[directionCount];
     }
-    public void NewLink(GameObject link, Direction2Array direction)
+    public void NewLink(NavMeshLink link, Direction2Array direction)
     {
         int iDirection = (int)direction;
 
         link.transform.SetParent(navMeshParent);
         link.transform.SetLocalPositionAndRotation(GetLinkPosition(direction), Quaternion.Euler(0, (iDirection % 2) * 90, 0));
-        link.SetActive(true);
+        link.gameObject.SetActive(true);
     }
     public void NewStage(StageFloorComponent newStageFloorComponent, Direction2Array direction)
     {
@@ -49,8 +50,8 @@ public class StageFloorComponent : InitObject
         BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
 
         int iDirection = (int)direction;
-        float xValue = battleClearManager.linkPosition[iDirection] * battleClearManager.planeSize[stageIndex];
-        float zValue = battleClearManager.linkPosition[(iDirection + 1) % directionCount] * battleClearManager.planeSize[stageIndex];
+        float xValue = battleClearManager.linkPosition[iDirection] * battleClearManager.planeSize[battleClearManager.PoolStageIndex(stageIndex)];
+        float zValue = battleClearManager.linkPosition[(iDirection + 1) % directionCount] * battleClearManager.planeSize[battleClearManager.PoolStageIndex(stageIndex)];
 
         return new Vector3(xValue, 0, zValue);
     }

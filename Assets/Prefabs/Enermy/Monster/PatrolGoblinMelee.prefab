@@ -224,8 +224,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 164c4e1be915d3d4c91ec7bb72357814, type: 2}
   mouseOnCollider: 0
   CirclePad: 0
-  ID: 100
+  ID: 0
   BarOffset: 30
+  overlappedCorpse: 0
   num: 0
   species: 0
 --- !u!114 &5698732045373666163
@@ -258,6 +259,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54bdc71a3dc19749bf93ff6e2a2fea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackVoice:
+  - {fileID: 8300000, guid: 5d5bd0934e1a7894783c74dbb96c8b79, type: 3}
+  DodgeVoice:
+  - {fileID: 8300000, guid: 4bbc479c68f396c48a70d8d3d991b4b8, type: 3}
+  ShowStrength: []
+  EatVoice: []
+  WaitVoice: []
+  HitVoice:
+  - {fileID: 8300000, guid: 69df1c9b79614e04ea0474ed501a812f, type: 3}
+  DieVoice:
+  - {fileID: 8300000, guid: 87c5df7f5306ab84f8eba6d6af3622f0, type: 3}
   standClips:
   - {fileID: -203655887218126122, guid: a6b4c5cd07756e74a818d5c89e3b7c1c, type: 3}
   - {fileID: -203655887218126122, guid: d8b3c039f3d246e40920a50b8124cf6c, type: 3}
@@ -292,6 +304,8 @@ MonoBehaviour:
   targetEnermy: {fileID: 0}
   targetMove: {fileID: 0}
   isCounter: 0
+  isHold: 0
+  isLoaded: 0
   arrive: 0
   attackMove: 0
   nav: {fileID: 0}

@@ -140,6 +140,7 @@ public class InventoryStorage : StorageComponent
     void SetInitAffectAction()
     {
         itemAffectAction[(int)SkillData.ItemSkillEffect.HEALING] = (cunit, item, percent) => AffectItemHealing(cunit, item, percent);
+        itemAffectAction[(int)SkillData.ItemSkillEffect.Reinforcement] = (cunit, item, percent) => EquiptNewArm(cunit, item, percent);
     }
     void SetAction()
     {
@@ -458,13 +459,18 @@ public class InventoryStorage : StorageComponent
     public void SetSlotEmpty(int slotIndex)
     {
         Slot slot = slots[slotIndex];
+        int[] indexs = slot.brunchIndex.ToArray();
         int beforeNum = slot.beforeSlotIndex;
+        int length = indexs.Length;
         if (beforeNum >= 0)
             slots[beforeNum].AddListener(slot);
 
-
-        slot.SetEmpty();
-        CheckUseAll(slotIndex);
+        for (int i = 0; i < length; i++)
+        {
+            slot = slots[indexs[i]];
+            slot.SetEmpty();
+            CheckUseAll(indexs[i]);
+        }
     }
     void CheckUseAll(int codeIndex, bool lessEqualZero = true)
     {
@@ -495,15 +501,22 @@ public class InventoryStorage : StorageComponent
     }
 
 
-    public void AffectItem(in CUnit itemUser, int itemCode, float percent)
+    public void AffectItem(in CUnit itemUser, in Item item, float percent)
     {
-        Item item = InventoryManager.i.info.items[itemCode];
         itemAffectAction[(int)item.itemSkillEffect](itemUser, item, percent);
     }
     void AffectItemHealing(in CUnit cUnit, in Item item, float percent)
     {
         int addHp = Mathf.CeilToInt(item.HP * percent);
         cUnit.Recovery(addHp);
+    }
+    void EquiptNewArm(in CUnit cUnit, in Item item, float percent)
+    {
+        int itemType = item.type - ItemType.EquipsHead;
+        int itemLevel = Convert.ToInt32(item.itemCode > 16) + 2;
+        cUnit.EquipUpgrade(itemType, itemLevel);
+        cUnit.EquipOne(itemType);
+
     }
     #endregion
 

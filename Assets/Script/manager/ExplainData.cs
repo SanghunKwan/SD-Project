@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unit;
 using UnityEngine;
 
 public class ExplainData : JsonLoad
@@ -32,6 +33,7 @@ public class ExplainData : JsonLoad
         Pros,
         Cons
     }
+    #region 데이터 클래스
     [Serializable]
     public class SkillExplain
     {
@@ -73,6 +75,10 @@ public class ExplainData : JsonLoad
         public ItemExplain[] itemExplains = null;
     }
     ItemExplains explainItem;
+
+
+
+    #endregion
     public List<int> quality2Color = new List<int>();
 
     private void Start()
@@ -94,6 +100,7 @@ public class ExplainData : JsonLoad
     {
         return explainItem.itemExplains[index];
     }
+   
 
     public override void Init()
     {

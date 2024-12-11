@@ -54,7 +54,7 @@ public class DropManager : JsonSaveLoad
 
         string Item_Data = Path.Combine(GetFolder("DataTable"), @"Drop_Data.csv");
 
-        using(StreamReader reader = new StreamReader(Item_Data))
+        using (StreamReader reader = new StreamReader(Item_Data))
         {
             string sLine = reader.ReadLine();
             sLine = sLine.Replace("\"", "");
@@ -64,7 +64,7 @@ public class DropManager : JsonSaveLoad
             while (sLine != null)
             {
                 sLine = sLine.Replace("\"", "");
-                string[] sDetail  = sLine.Split(',');
+                string[] sDetail = sLine.Split(',');
                 for (int i = 0; i < sList.Length; i++)
                 {
                     dDetail.Add(sList[i], sDetail[i]);
@@ -78,6 +78,9 @@ public class DropManager : JsonSaveLoad
     }
     public DropInfo GetDropInfo(int id)
     {
+        if (id > 300)
+            return null;
+
         var asdf = from dic in Objectlist
                    where dic["ID"].Equals(id.ToString())
                    select dic;
@@ -86,7 +89,7 @@ public class DropManager : JsonSaveLoad
         {
             return new DropInfo(item);
         }
-        Debug.Log("버그 발생");
+        Debug.Log("버그 발생    " + "id : " + id.ToString());
         return null;
     }
 

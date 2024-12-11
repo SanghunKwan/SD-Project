@@ -77,7 +77,7 @@ namespace Unit
         {
             base.Hit(skill);
             copyBar.gameObject.SetActive(true);
-            if (curstat.HP < stat.HP * 0.3f && deathAlert == default)
+            if (curstat.curHP < curstat.HP * 0.3f && deathAlert == default)
             {
                 GameManager.manager.InputSpace();
                 PrintLowHP();
@@ -137,36 +137,83 @@ namespace Unit
 
         public void MakeQuirk()
         {
+            MakeQuirk(quirks, QuirkData.manager.quirkInfo, Random.Range(1, 8));
+        }
+        public void MakeDisease()
+        {
+            MakeQuirk(disease, QuirkData.manager.diseaseInfo, Random.Range(1, 2));
+        }
+        void MakeQuirk(QuirkData.Quirk[] quirkArray, QuirkData.QuirkS info, int quirkIndex)
+        {
             int i = 0;
-            while (quirks[i].index != 0)
+
+            while (quirkArray[i].index != 0)
             {
                 i++;
             }
-
-            quirks[i] = QuirkData.manager.quirkInfo.quirks[Random.Range(1, 8)];
-
-            int j = 0;
-
-            while (disease[j].index != 0)
-            {
-                j++;
-            }
-            disease[j] = QuirkData.manager.diseaseInfo.quirks[Random.Range(1, 2)];
+            quirkArray[i] = info.quirks[quirkIndex];
         }
+        #region LoadData
+        public void SetLevel(int num)
+        {
+            lv = num;
+        }
+        public void SetQuirk(in int[] data)
+        {
+            QuirkLoad(quirks, QuirkData.manager.quirkInfo, data);
+        }
+        public void SetDisease(in int[] data)
+        {
+            QuirkLoad(disease, QuirkData.manager.diseaseInfo, data);
+        }
+        void QuirkLoad(QuirkData.Quirk[] quirkArray, in QuirkData.QuirkS info, in int[] data)
+        {
+            int length = data.Length;
 
+            for (int i = 0; i < length; i++)
+            {
+                quirkArray[i] = info.quirks[data[i]];
+            }
 
+        }
+        public void SetData(int[] skillOrArm, in int[] data)
+        {
+            int length = data.Length;
+
+            for (int i = 0; i < length; i++)
+            {
+                skillOrArm[i] = data[i];
+            }
+        }
+        public void EquipSet()
+        {
+            EquipOne(0);
+            EquipOne(1);
+            EquipOne(2);
+        }
+        public override void EquipOne(int equipNum)
+        {
+            int jobNum = 2;
+            curstat.RefreshStatus(stat, ((EquipsNum[equipNum] - 1) * (3 * jobNum)) + equipNum);
+        }
+        #endregion
         public void alloBuilding(ActionAlert.ActionType type)
         {
             VilligeAction = type;
         }
         public void alloBuilding(AddressableManager.BuildingImage type)
         {
-            VilligeAction = ActionAlert.ActionType.buildingWork;
+            alloBuilding(ActionAlert.ActionType.buildingWork);
             BuildingAction = type;
         }
         public void Villige_CheckText()
         {
             villigeHero.villigeInteract.CheckText();
+        }
+
+        public override void EquipUpgrade(int equipNum, int level)
+        {
+            EquipsNum[equipNum] = level;
         }
     }
 }

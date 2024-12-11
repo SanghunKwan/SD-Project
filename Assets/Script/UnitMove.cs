@@ -29,8 +29,8 @@ public enum BitRole
 public abstract class UnitMove : MonoBehaviour
 {
     protected UnitState unit_State;
-    protected Vector3 depart;
-    public Vector3 destination { protected get; set; }
+    public Vector3 depart { get; protected set; }
+    public Vector3 destination { get; set; }
     protected int movestate;
     protected int actstate;
     protected float speed;
@@ -63,10 +63,10 @@ public abstract class UnitMove : MonoBehaviour
     int range;
     public BitArray bitArray = new BitArray(6, false);
     public bool isCounter = false;
-    protected bool isHold = false;
+    public bool isHold = false;
+    public bool isLoaded = false;
     public bool EnermySearch { get; private set; }
     public bool arrive;
-    //public bool 
     public bool attackMove;
     public bool isFear { get; protected set; }
     Dictionary<bool, Action> Chasing = new Dictionary<bool, Action>();
@@ -101,12 +101,7 @@ public abstract class UnitMove : MonoBehaviour
         unit_State = GetComponent<UnitState>();
         cUnit = GetComponent<CUnit>();
         weapon = GetComponent<WeaponComponent>();
-        
-    }
-    public void SetSound(SoundManager soundManager)
-    {
-        unit_State.GetSoundManager(soundManager);
-        
+
     }
     public void GetStatus(int _range, int _speed)
     {
@@ -194,6 +189,11 @@ public abstract class UnitMove : MonoBehaviour
         {
             StopCoroutine(FindEnermy);
         }
+    }
+    public void LoadDepart(Vector3 vec)
+    {
+        isLoaded = true;
+        depart = vec;
     }
     void BattleOff()
     {

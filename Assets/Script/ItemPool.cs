@@ -15,12 +15,13 @@ public class ItemPool : MonoBehaviour
         folders = new Transform[length];
         for (int i = 0; i < length; i++)
         {
-            if (i == 11)
+            if (i >= 11 && i <= 12)
             {
                 folders[i] = new GameObject("Item_Corpse").transform;
                 folders[i].SetParent(transform);
                 continue;
             }
+
             folders[i] = new GameObject(itemPrefabs[i].name).transform;
             folders[i].SetParent(transform);
             for (int j = 0; j < 10; j++)

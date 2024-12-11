@@ -20,7 +20,7 @@ namespace Unit
 
             mentalBar = MentalityBar.GetComponent<Image>();
             mentalBarScript = mentalBar.transform.GetChild(0).GetComponent<loadingbar>();
-            if (stat is not null) mentalBarScript.GetStatus(stat, curstat, BarOffset);
+            if (stat is not null) mentalBarScript.GetStatus(curstat, BarOffset);
         }
         protected override void CharUI()
         {
@@ -102,13 +102,13 @@ namespace Unit
         }
         public void MentalBarRenew()
         {
-            if (curstat.Mentality > stat.Mentality)
+            if (curstat.curMORALE > curstat.MORALE)
             {
-                curstat.Mentality = stat.Mentality;
+                curstat.curMORALE = curstat.MORALE;
             }
-            else if (curstat.Mentality <= 0)
+            else if (curstat.curMORALE <= 0)
             {
-                curstat.Mentality = 0;
+                curstat.curMORALE = 0;
                 GetStatusEffect(SkillData.manager.SkillInfo.skill[3].effect_IndexEnum, Vector3.zero);
                 StartCoroutine(RecoverMental());
             }
@@ -118,10 +118,10 @@ namespace Unit
         IEnumerator RecoverMental()
         {
             yield return new WaitUntil(() => unitMove.isFear);
-            float time = 7 / (float)stat.Mentality;
-            while (unitMove.isFear && stat.Mentality > curstat.Mentality)
+            float time = 7 / (float)curstat.MORALE;
+            while (unitMove.isFear && curstat.MORALE > curstat.curMORALE)
             {
-                curstat.Mentality++;
+                curstat.curMORALE++;
                 mentalBarScript.BarUpdate();
                 yield return new WaitForSeconds(time);
             }
@@ -136,8 +136,19 @@ namespace Unit
             if (!isAdd)
                 add *= -1;
 
-            curstat.Mentality += add;
+            curstat.curMORALE += add;
             MentalBarRenew();
+        }
+
+        public override void EquipOne(int equipNum)
+        {
+            //엘리트 몬스터. 장비 드랍.
+            throw new System.NotImplementedException();
+        }
+
+        public override void EquipUpgrade(int equipNum, int level)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
