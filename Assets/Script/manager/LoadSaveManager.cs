@@ -117,7 +117,7 @@ namespace SaveData
         public ObjectData objectData;
         public UnitData()
         {
-            detected = true;
+            detected = false;
             attackMove = false;
             ishold = false;
             destination = Vector3.zero;

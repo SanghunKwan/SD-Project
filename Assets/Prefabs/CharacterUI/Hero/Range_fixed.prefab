@@ -215,6 +215,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 8a7f5ee90f5561a4189c523803c31052, type: 2}
   - {fileID: 2100000, guid: d6ab43c564c49a24a86348494556b149, type: 2}
   - {fileID: 2100000, guid: df55e900168effb47b3507e13af37d3b, type: 2}
+  - {fileID: 2100000, guid: df55e900168effb47b3507e13af37d3b, type: 2}
+  - {fileID: 2100000, guid: df55e900168effb47b3507e13af37d3b, type: 2}
 --- !u!114 &426054067307806279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +232,8 @@ MonoBehaviour:
   targetEnermy: {fileID: 0}
   targetMove: {fileID: 0}
   isCounter: 0
+  isHold: 0
+  isLoaded: 0
   arrive: 0
   attackMove: 0
   nav: {fileID: 0}
@@ -264,7 +268,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8b898a0386ee0a846b280e6a9d0803a7, type: 3}
   DieVoice:
   - {fileID: 8300000, guid: 1b6e9dc40339c374d8e79d6d2d69237a, type: 3}
-  soundManager: {fileID: 0}
 --- !u!114 &3650026122256560318
 MonoBehaviour:
   m_ObjectHideFlags: 0

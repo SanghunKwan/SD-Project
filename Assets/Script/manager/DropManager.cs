@@ -78,7 +78,7 @@ public class DropManager : JsonSaveLoad
     }
     public DropInfo GetDropInfo(int id)
     {
-        if (id > 300)
+        if (id > 400)
             return null;
 
         var asdf = from dic in Objectlist

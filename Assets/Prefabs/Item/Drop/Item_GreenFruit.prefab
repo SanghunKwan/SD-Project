@@ -75,6 +75,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 8a7f5ee90f5561a4189c523803c31052, type: 2}
   - {fileID: 2100000, guid: 27f2cffc6b6083a4b92afbe84e3b368a, type: 2}
   - {fileID: 2100000, guid: df55e900168effb47b3507e13af37d3b, type: 2}
+  - {fileID: 2100000, guid: df55e900168effb47b3507e13af37d3b, type: 2}
+  - {fileID: 2100000, guid: df55e900168effb47b3507e13af37d3b, type: 2}
   CirclePad: 40
   getSpeed: 0.1
 --- !u!95 &5030225425574047208

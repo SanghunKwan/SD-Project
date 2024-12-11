@@ -43,7 +43,7 @@
             "workBuilding": 0,
             "isDead": false,
             "unitData": {
-                "detected": true,
+                "detected": false,
                 "objectData": {
                     "position": {
                         "x": 0.0,
