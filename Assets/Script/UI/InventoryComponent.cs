@@ -22,13 +22,18 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
             slotdata = new InventoryStorage.Slot();
         }
 
-        public void SetSlot(in InventoryStorage.Slot slot, InventoryType type)
+        public void SetSlot(in InventoryStorage.Slot slot, InventoryType type, int i)
         {
-            Debug.Log(slot.itemCode);
+            Debug.Log(i);
             slotdata = slot;
             itemNumText.gameObject.SetActive(slotdata.itemCount > Convert.ToInt32(type != InventoryType.Store));
             itemNumText.text = "x" + slotdata.itemCount.ToString();
-            itemImage.sprite = Resources.Load<Sprite>("InventoryImage/2d" + InventoryManager.i.info.items[slotdata.itemCode].name.Replace(" ", ""));
+            Sprite[] sprites = Resources.LoadAll<Sprite>("InventoryImage/2d" + InventoryManager.i.info.items[slotdata.itemCode].name.Replace(" ", ""));
+
+            if (sprites.Length <= 0)
+                itemImage.sprite = null;
+            else
+                itemImage.sprite = sprites[Mathf.Min(sprites.Length - 1, i)];
             itemImage.color = Color.white * Convert.ToInt32(slotdata.itemCode != 0);
         }
     }
@@ -54,7 +59,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     public override void Init()
     {
         inventoryStorage = GetComponent<InventoryStorage>();
-        inventoryStorage.AddListener(OriginImage);
+        inventoryStorage.AddListener((slotIndex, forIndex) => OriginImage(slotIndex, forIndex));
 
         Transform slotParent = transform.GetChild(1);
 
@@ -91,9 +96,9 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         swapAction[1] = ItemSwap;
     }
     #region 시각화
-    void OriginImage(int slotIndex)
+    void OriginImage(int slotIndex, int i = 0)
     {
-        itemSlots[slotIndex].SetSlot(inventoryStorage.slots[slotIndex], type);
+        itemSlots[slotIndex].SetSlot(inventoryStorage.slots[slotIndex], type, i);
     }
     public void ActiveDescription(bool onoff)
     {
@@ -114,8 +119,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         {
             byIndex = brunchList[i];
             addOffset = byIndex + offset;
-            OriginImage(byIndex);
-            OriginImage(addOffset);
+            OriginImage(addOffset, i);
         }
     }
     void OriginImagebySlotArray(in int[] brunchList)
@@ -125,7 +129,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         for (int i = 0; i < length; i++)
         {
             byIndex = brunchList[i];
-            OriginImage(byIndex);
+            OriginImage(byIndex, i);
         }
     }
     #endregion
@@ -226,8 +230,8 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         }
         else
             offset = 0;
-        OriginImagebySlotArray(brunchIndexList, offset);
         callChangedSlots();
+        OriginImagebySlotArray(brunchIndexList, offset);
     }
     void CheckBeforeItems(in int[] brunchIndexList, int offset, int itemCode, int itemCount, ref Action callChangedSlots)
     {
@@ -390,6 +394,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         }
         else
         {
+            //action 관련 삭제 가능?
             Action action = () => { };
             CheckBeforeItems(brunchSlots, nowSlotIndex - slotIndex, item.itemCode, moveCount, ref action);
             inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _);

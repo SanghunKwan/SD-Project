@@ -43,7 +43,6 @@ public class InputEffect : MonoBehaviour
             for (int k = 0; k < inItCount; k++)
             {
                 var effect = Instantiate(effects[i], transform.GetChild(i));
-                effect.GetComponent<EffectReturn>().type = i;
             }
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class StorageComponent : InitObject
 {
-    protected Action<int> eventAlert = (num) => { };
+    Action<int> eventAlert = (num) => { };
 
     [Serializable]
     public struct Item

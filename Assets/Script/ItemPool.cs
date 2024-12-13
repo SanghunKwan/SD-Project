@@ -15,9 +15,21 @@ public class ItemPool : MonoBehaviour
         folders = new Transform[length];
         for (int i = 0; i < length; i++)
         {
-            if (i >= 11 && i <= 12)
+            if (i >= 11)
             {
                 folders[i] = new GameObject("Item_Corpse").transform;
+                folders[i].SetParent(transform);
+                continue;
+            }
+            else if (i == 12)
+            {
+                folders[i] = new GameObject("Coin").transform;
+                folders[i].SetParent(transform);
+                continue;
+            }
+            else if (i == 13)
+            {
+                folders[i] = new GameObject("Item_WeaponLevel2").transform;
                 folders[i].SetParent(transform);
                 continue;
             }

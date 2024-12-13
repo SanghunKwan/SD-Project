@@ -17,6 +17,9 @@ public abstract class UnitSpawner : MonoBehaviour
 
     private void Start()
     {
+        if (SpawnManager.nowFloorIndex <= 0)
+            return;
+
         foreach (var item in SpawnManager.heroDatas)
         {
             SpawnHeroData(item);
@@ -48,7 +51,7 @@ public abstract class UnitSpawner : MonoBehaviour
         newObject.unitMove.attackMove = data.attackMove;
         newObject.unitMove.ChangeHold(data.ishold);
         newObject.unitMove.LoadDepart(data.depart);
-        
+
     }
     void NewSpawnedHeroSet(Hero newObject, HeroData data)
     {
@@ -69,7 +72,7 @@ public abstract class UnitSpawner : MonoBehaviour
         Debug.Log("isDead 기능 추가 예정");
 
     }
-    void SpawnHeroData(HeroData data)
+    public void SpawnHeroData(HeroData data)
     {
         Hero newHero = Instantiate(heroes[(data.unitData.objectData.id - 1) % 100],
                                            data.unitData.objectData.position, data.unitData.objectData.quaternion, PlayerNavi.nav.transform);

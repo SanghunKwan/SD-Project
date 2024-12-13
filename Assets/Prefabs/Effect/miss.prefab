@@ -96,3 +96,4 @@ MonoBehaviour:
   moving: 1
   vec: {x: 0, y: 0, z: 0}
   speed: 1
+  type: 1

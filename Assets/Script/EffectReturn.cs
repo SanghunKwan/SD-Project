@@ -19,9 +19,9 @@ public class EffectReturn : MonoBehaviour
     float tempUsingTimeSave = 0;
 
 
-    public int type { private get; set; }
+    public int type;
 
-    private void OnEnable()
+    private void Awake()
     {
         action = new Action[]
 
@@ -50,9 +50,18 @@ public class EffectReturn : MonoBehaviour
             },
             () =>
             {
-                
+
+            },
+            () =>
+            {
+
             }
         };
+
+    }
+    private void OnEnable()
+    {
+
         time = 0;
         action[type]();
     }
@@ -79,7 +88,7 @@ public class EffectReturn : MonoBehaviour
 
             rect.localPosition = Unit.Data.Instance.CameratoCanvas(vec);
 
-            vec +=  Time.unscaledDeltaTime * speed * Vector3.forward;
+            vec += Time.unscaledDeltaTime * speed * Vector3.forward;
             yield return null;
         }
         TempTimeRollBack();
@@ -133,6 +142,6 @@ public class EffectReturn : MonoBehaviour
             tempUsingTimeSave = 0;
         }
     }
-    
+
 
 }
