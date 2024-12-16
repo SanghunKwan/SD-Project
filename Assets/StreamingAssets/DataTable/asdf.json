@@ -1,0 +1,158 @@
+{
+    "performOnedata": [
+        {
+            "num": 1,
+            "name": "바보들의 대잔치",
+            "detail": "모든 몬스터 죽이기",
+            "reward": {
+                "rewardType": 0,
+                "rewardItems": [
+                    {
+                        "itemCode": 1,
+                        "itemCount": 1
+                    }
+                ]
+            },
+            "highLight": {
+                "timeStop": true,
+                "highLight": true,
+                "highLightPosition": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "trigger": 0,
+            "spot": {
+                "layer": 7,
+                "spot": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 1.0
+            },
+            "act": {
+                "layer": 7,
+                "whatDo": 4
+            }
+        }
+    ],
+    "floorQuestdata": [
+        {
+            "num": 1,
+            "name": "바보들의 대잔치",
+            "detail": "모든 몬스터 죽이기",
+            "reward": {
+                "rewardType": 0,
+                "rewardItems": [
+                    {
+                        "itemCode": 1,
+                        "itemCount": 1
+                    }
+                ]
+            },
+            "highLight": {
+                "timeStop": true,
+                "highLight": true,
+                "highLightPosition": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "trigger": 0,
+            "spot": {
+                "layer": 7,
+                "spot": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 1.0
+            },
+            "act": {
+                "layer": 7,
+                "whatDo": 4
+            }
+        }
+    ],
+    "stageQuestdata": [
+        {
+            "num": 1,
+            "name": "바보들의 대잔치",
+            "detail": "모든 몬스터 죽이기",
+            "reward": {
+                "rewardType": 0,
+                "rewardItems": [
+                    {
+                        "itemCode": 1,
+                        "itemCount": 1
+                    }
+                ]
+            },
+            "highLight": {
+                "timeStop": true,
+                "highLight": true,
+                "highLightPosition": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "trigger": 0,
+            "spot": {
+                "layer": 7,
+                "spot": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 1.0
+            },
+            "act": {
+                "layer": 7,
+                "whatDo": 4
+            }
+        }
+    ],
+    "villigeQuestdata": [
+        {
+            "num": 1,
+            "name": "바보들의 대잔치",
+            "detail": "모든 몬스터 죽이기",
+            "reward": {
+                "rewardType": 0,
+                "rewardItems": [
+                    {
+                        "itemCode": 1,
+                        "itemCount": 1
+                    }
+                ]
+            },
+            "highLight": {
+                "timeStop": true,
+                "highLight": true,
+                "highLightPosition": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            },
+            "trigger": 0,
+            "spot": {
+                "layer": 7,
+                "spot": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 1.0
+            },
+            "act": {
+                "layer": 7,
+                "whatDo": 4
+            }
+        }
+    ]
+}

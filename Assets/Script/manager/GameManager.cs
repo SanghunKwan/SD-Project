@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     Action[] inputSpace = new Action[3];
     Action[] inputSpaceUp = new Action[3];
     public Action callConstructionUI;
+    public Action onBattleClearManagerRegistered { get; set; }
 
     public PointerEventData pointerEventData { get; set; }
 
@@ -48,7 +49,7 @@ public class GameManager : MonoBehaviour
     public WindowManager windowManager { get; set; }
     public StorageManager storageManager { get; set; }
     public BattleClearManager battleClearManager { get; private set; }
-    public Action onBattleClearManagerRegistered { get; set; }
+    public QuestManager questManager { get; set; }
     #endregion
 
     private void Awake()
@@ -577,6 +578,8 @@ public class GameManager : MonoBehaviour
 
     public void InputSpace()
     {
+        if (Time.timeScale <= 0)
+            return;
 
         inputSpace[StageManager.instance.GetIndexScene()]();
 
@@ -597,10 +600,16 @@ public class GameManager : MonoBehaviour
     }
     public void SpaceUp()
     {
+        if (Time.timeScale <= 0)
+            return;
+
         inputSpaceUp[StageManager.instance.GetIndexScene()]();
     }
     public void TimeDelayEnd()
     {
+        if (Time.timeScale <= 0)
+            return;
+
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
         timeUIEvent[1]();

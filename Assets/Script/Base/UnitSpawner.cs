@@ -72,12 +72,14 @@ public abstract class UnitSpawner : MonoBehaviour
         Debug.Log("isDead 기능 추가 예정");
 
     }
-    public void SpawnHeroData(HeroData data)
+    public Hero SpawnHeroData(HeroData data)
     {
         Hero newHero = Instantiate(heroes[(data.unitData.objectData.id - 1) % 100],
                                            data.unitData.objectData.position, data.unitData.objectData.quaternion, PlayerNavi.nav.transform);
         NewSpawnedObjectSet(newHero, data.unitData.objectData);
         NewSpawnedUnitSet(newHero, data.unitData);
         NewSpawnedHeroSet(newHero, data);
+        
+        return newHero;
     }
 }

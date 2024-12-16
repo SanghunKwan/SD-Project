@@ -7,6 +7,7 @@ using Unit;
 
 namespace SaveData
 {
+    #region 세이브 데이터
     [Serializable]
     public class SaveDataInfo
     {
@@ -20,6 +21,7 @@ namespace SaveData
         public int[] items;
 
         public StageData stageData;
+        public QuestSaveData questSaveData;
 
 
         public SaveDataInfo()
@@ -83,7 +85,7 @@ namespace SaveData
         public StageData()
         {
             heros = new int[1] { 0 };
-            floors = new int[] { 1, 2 };
+            floors = new int[] { 0 };
             nowFloorIndex = 0;
             isAllClear = false;
         }
@@ -162,6 +164,7 @@ namespace SaveData
             id = cObject.id;
             dots = cObject.dots;
         }
+
     }
     [Serializable]
     public class DropItemData
@@ -174,8 +177,67 @@ namespace SaveData
             index = itemComponent.Index;
         }
     }
-}
+    [Serializable]
+    public class QuestSaveData
+    {
+        [Serializable]
+        public class BitSaveData
+        {
+            public long[] bits;
+            public List<int> nowQuestIndexList;
+            public BitSaveData(int questCount)
+            {
+                int bitCount = GetBitsIndex(questCount) + 1;
+                nowQuestIndexList = new List<int>(5);
+                bits = new long[bitCount];
+            }
+            public static int GetBitsIndex(int questNum)
+            {
+                return questNum / 64;
+            }
+        }
 
+        public BitSaveData performOneData;
+        public BitSaveData floorQuestData;
+        public BitSaveData stageQuestData;
+        public BitSaveData villigeQuestData;
+        public bool isLoaded;
+
+        BitSaveData[] data;
+        public BitSaveData this[QuestManager.QuestType type] { get { return data[(int)type]; } }
+
+        public QuestSaveData()
+        {
+            isLoaded = false;
+        }
+
+        public void SetDataSize()
+        {
+            QuestManager questManager = GameManager.manager.questManager;
+
+            performOneData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.PerformOnlyOne));
+            floorQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.FloorQuest));
+            stageQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.StageQuest));
+            villigeQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.VilligeQuest));
+
+        }
+        public void Init()
+        {
+            data = new BitSaveData[] { performOneData, floorQuestData, stageQuestData, villigeQuestData };
+        }
+        public void ClearQuest(QuestManager.QuestType type, int questNum)
+        {
+            data[(int)type].bits[BitSaveData.GetBitsIndex(questNum)] |= (long)1 << (questNum % 64);
+        }
+        public bool IsCleared(QuestManager.QuestType type, int questNum)
+        {
+            long bit = 1 << (questNum % 64);
+
+            return (data[(int)type].bits[BitSaveData.GetBitsIndex(questNum)] & bit) != 0;
+        }
+    }
+}
+#endregion
 public class LoadSaveManager : JsonSaveLoad
 {
 

@@ -4851,13 +4851,14 @@ GameObject:
   - component: {fileID: 8445763112410648400}
   - component: {fileID: 3339390747418099020}
   - component: {fileID: -471469877892139862}
+  - component: {fileID: 7609778399990141815}
   m_Layer: 7
   m_Name: Portal blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5516487406859467972
 Transform:
   m_ObjectHideFlags: 0
@@ -5713,7 +5714,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.5
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -9743,11 +9744,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9393bb1a2d5898a41b2625a4e59aaf1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usingTime: 0.4
+  usingTime: 7
   moving: 0
   vec: {x: 0, y: 0, z: 0}
   speed: 0
   type: 0
+--- !u!95 &7609778399990141815
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5607819269926399345}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f3d0c829b5518c145826ab2e0e09dede, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5995944143312657410
 GameObject:
   m_ObjectHideFlags: 0
