@@ -1,5 +1,5 @@
 {
-    "performOnedata": [
+    "stagePerformOnedata": [
         {
             "num": 0,
             "name": "유닛 선택하기",
@@ -12,12 +12,13 @@
             },
             "highLight": {
                 "timeStop": true,
-                "highLight": true,
+                "highLight": 2,
                 "highLightPosition": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
+                },
+                "size": 1
             },
             "trigger": 0,
             "spot": {
@@ -42,12 +43,72 @@
             },
             "highLight": {
                 "timeStop": false,
-                "highLight": false,
+                "highLight": 1,
                 "highLightPosition": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
+                },
+                "size": 1
+            },
+            "trigger": 1,
+            "act": {
+                "layer": 7,
+                "whatDo": 4
+            }
+        }
+    ],
+    "villigePerformOnedata": [
+        {
+            "num": 0,
+            "name": "유닛 선택하기",
+            "detail": "유닛을 좌클릭하여 선택",
+            "reward": {
+                "rewardType": 0,
+                "rewardItems": [
+                    {}
+                ]
+            },
+            "highLight": {
+                "timeStop": true,
+                "highLight": 1,
+                "highLightPosition": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "size": 1
+            },
+            "trigger": 0,
+            "spot": {
+                "layer": 7,
+                "spot": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 1.0
+            }
+        },
+        {
+            "num": 1,
+            "name": "유닛 이동하기",
+            "detail": "유닛을 선택한 생태에서 우클릭",
+            "reward": {
+                "rewardType": 0,
+                "rewardItems": [
+                    {}
+                ]
+            },
+            "highLight": {
+                "timeStop": false,
+                "highLight": 1,
+                "highLightPosition": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "size": 1
             },
             "trigger": 1,
             "act": {
@@ -69,12 +130,13 @@
             },
             "highLight": {
                 "timeStop": false,
-                "highLight": false,
+                "highLight": 1,
                 "highLightPosition": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
+                },
+                "size": 1
             },
             "trigger": 0,
             "spot": {
@@ -104,12 +166,13 @@
             },
             "highLight": {
                 "timeStop": false,
-                "highLight": false,
+                "highLight": 1,
                 "highLightPosition": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
+                },
+                "size": 1
             },
             "trigger": 0,
             "spot": {
@@ -139,12 +202,13 @@
             },
             "highLight": {
                 "timeStop": true,
-                "highLight": true,
+                "highLight": 1,
                 "highLightPosition": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
+                },
+                "size": 1
             },
             "trigger": 0,
             "spot": {

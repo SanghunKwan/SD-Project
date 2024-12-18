@@ -180,24 +180,49 @@ namespace SaveData
     [Serializable]
     public class QuestSaveData
     {
+        public enum SaveDataBit
+        {
+            Disable,
+            Enable,
+            Doing,
+            Complete
+        }
         [Serializable]
         public class BitSaveData
         {
+            //bit 2개에 퀘스트 하나의 정보 저장.
             public long[] bits;
             public List<int> nowQuestIndexList;
-            public BitSaveData(int questCount)
+            public BitSaveData(int MaxQuestNum)
             {
-                int bitCount = GetBitsIndex(questCount) + 1;
+                int bitCount = GetBitsIndex(MaxQuestNum) + 1;
                 nowQuestIndexList = new List<int>(5);
                 bits = new long[bitCount];
             }
             public static int GetBitsIndex(int questNum)
             {
-                return questNum / 64;
+                return questNum / 32;
+            }
+            public SaveDataBit GetQuestState(int questNum)
+            {
+                long questState = bits[GetBitsIndex(questNum)];
+
+                return (SaveDataBit)(questState >> (GetNumShift(questNum) & 3));
+            }
+            public void AddQuestState(int questNum, SaveDataBit setBit)
+            {
+                int shiftIndex = GetNumShift(questNum);
+                long changeBit = (long)setBit;
+                bits[GetBitsIndex(questNum)] = (bits[GetBitsIndex(questNum)] & ~(3L << shiftIndex)) | (changeBit << shiftIndex);
+            }
+            int GetNumShift(int questNum)
+            {
+                return (questNum % 32) * 2;
             }
         }
 
-        public BitSaveData performOneData;
+        public BitSaveData stagePerformOneData;
+        public BitSaveData villigePerformOneData;
         public BitSaveData floorQuestData;
         public BitSaveData stageQuestData;
         public BitSaveData villigeQuestData;
@@ -215,25 +240,25 @@ namespace SaveData
         {
             QuestManager questManager = GameManager.manager.questManager;
 
-            performOneData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.PerformOnlyOne));
+            stagePerformOneData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.StagePerformOnlyOne));
+            villigePerformOneData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.VilligePerformOnlyOne));
             floorQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.FloorQuest));
             stageQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.StageQuest));
             villigeQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.VilligeQuest));
-
         }
         public void Init()
         {
-            data = new BitSaveData[] { performOneData, floorQuestData, stageQuestData, villigeQuestData };
+            data = new BitSaveData[] { stagePerformOneData, villigePerformOneData, floorQuestData, stageQuestData, villigeQuestData };
         }
-        public void ClearQuest(QuestManager.QuestType type, int questNum)
-        {
-            data[(int)type].bits[BitSaveData.GetBitsIndex(questNum)] |= (long)1 << (questNum % 64);
-        }
-        public bool IsCleared(QuestManager.QuestType type, int questNum)
-        {
-            long bit = 1 << (questNum % 64);
+        
 
-            return (data[(int)type].bits[BitSaveData.GetBitsIndex(questNum)] & bit) != 0;
+        public SaveDataBit GetQuestState(QuestManager.QuestType type, int questNum)
+        {
+            return data[(int)type].GetQuestState(questNum);
+        }
+        public void SetQuestState(QuestManager.QuestType type, int questNum, SaveDataBit bit)
+        {
+            data[(int)type].AddQuestState(questNum, bit);
         }
     }
 }

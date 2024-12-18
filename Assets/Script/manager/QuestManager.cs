@@ -12,15 +12,25 @@ public class QuestManager : JsonLoad
         [Serializable]
         public class QuestHighLight
         {
+            public enum HighLightTarget
+            {
+                None,
+                Vector,
+                Hero,
+                Object,
+                Max
+            }
             public bool timeStop;
-            public bool highLight;
+            public HighLightTarget highLight;
             public Vector3 highLightPosition;
+            public float size;
 
             public QuestHighLight()
             {
                 timeStop = true;
-                highLight = true;
+                highLight = HighLightTarget.Vector;
                 highLightPosition = Vector3.zero;
+                size = 1;
             }
         }
         [Serializable]
@@ -118,7 +128,8 @@ public class QuestManager : JsonLoad
     {
         public QuestData[] this[QuestType index] { get { return data[(int)index]; } }
 
-        public QuestData[] performOnedata;
+        public QuestData[] stagePerformOnedata;
+        public QuestData[] villigePerformOnedata;
         public QuestData[] floorQuestdata;
         public QuestData[] stageQuestdata;
         public QuestData[] villigeQuestdata;
@@ -126,11 +137,12 @@ public class QuestManager : JsonLoad
         QuestData[][] data;
         public void Init()
         {
-            data = new QuestData[][] { performOnedata, floorQuestdata, stageQuestdata, villigeQuestdata };
+            data = new QuestData[][] { stagePerformOnedata, villigePerformOnedata, floorQuestdata, stageQuestdata, villigeQuestdata };
         }
         public QuestDatas()
         {
-            performOnedata = new QuestData[1];
+            stagePerformOnedata = new QuestData[1];
+            villigePerformOnedata = new QuestData[1];
             floorQuestdata = new QuestData[1];
             stageQuestdata = new QuestData[1];
             villigeQuestdata = new QuestData[1];
@@ -142,7 +154,8 @@ public class QuestManager : JsonLoad
 
     public enum QuestType
     {
-        PerformOnlyOne,
+        StagePerformOnlyOne,
+        VilligePerformOnlyOne,
         FloorQuest,
         StageQuest,
         VilligeQuest
@@ -156,7 +169,6 @@ public class QuestManager : JsonLoad
 
     private void Awake()
     {
-        SDF<QuestDatas>();
         questDatas = LoadData<QuestDatas>("QuestData");
         questDatas.Init();
     }

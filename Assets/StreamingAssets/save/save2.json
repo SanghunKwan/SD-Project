@@ -48,7 +48,7 @@
                     "position": {
                         "x": 0.0,
                         "y": 0.0,
-                        "z": 1.5
+                        "z": 2.5
                     },
                     "dotsDirection": {
                         "x": 0.0,
@@ -57,9 +57,9 @@
                     },
                     "quaternion": {
                         "x": 0.0,
-                        "y": 0.0,
+                        "y": -0.9198,
                         "z": 0.0,
-                        "w": 1.0
+                        "w": -0.3924
                     },
                     "selected": false,
                     "cur_status": {
@@ -128,7 +128,7 @@
                     "position": {
                         "x": 0.0,
                         "y": 0.0,
-                        "z": 1.5
+                        "z": 2.5
                     },
                     "dotsDirection": {
                         "x": 0.0,
@@ -137,9 +137,9 @@
                     },
                     "quaternion": {
                         "x": 0.0,
-                        "y": 0.0,
+                        "y": -0.9198,
                         "z": 0.0,
-                        "w": 1.0
+                        "w": -0.3924
                     },
                     "selected": false,
                     "cur_status": {
