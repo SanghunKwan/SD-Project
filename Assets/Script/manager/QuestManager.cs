@@ -16,8 +16,9 @@ public class QuestManager : JsonLoad
             {
                 None,
                 Vector,
-                Hero,
                 Object,
+                NoFocus,
+                FocusUI,
                 Max
             }
             public bool timeStop;
@@ -34,18 +35,43 @@ public class QuestManager : JsonLoad
             }
         }
         [Serializable]
-        public class QuestSpot
+        public class QuestRequirements
         {
+            public enum RequirementsType
+            {
+                spot,
+                item,
+                repeat,
+                Max
+            }
+
+            public RequirementsType type;
             public int layer;
             public Vector3 spot;
             public float radius;
 
-            public QuestSpot()
+            public ItemData[] itemDatas;
+
+            public QuestAct.UnitActType actionType;
+            public QuestAct.ActCondition actCondition;
+            public int accumulatedTime;
+
+
+            public QuestRequirements()
             {
+                type = RequirementsType.spot;
                 layer = 7;
                 spot = Vector3.zero;
                 radius = 1;
+                actCondition = QuestAct.ActCondition.Accumulated;
+                accumulatedTime = 0;
             }
+        }
+        [Serializable]
+        public class ItemData
+        {
+            public int itemCode;
+            public int itemCount;
         }
         [Serializable]
         public class QuestAct
@@ -57,16 +83,33 @@ public class QuestManager : JsonLoad
                 BackAttack,
                 Skill,
                 LowHP,
-                Die
+                Die,
+                Selected,
+                ItemUse,
+                ReGroup,
+                CallGroup,
+                LowHPRelease,
+                Max
+            }
+            public enum ActCondition
+            {
+                Accumulated,
+                LastUnit,
+                PreviousQuest,
             }
 
+            public Vector3 spot;
+            public float radius;
             public int layer;
-            public UnitActType whatDo;
+            public UnitActType whatCause;
+
 
             public QuestAct()
             {
+                spot = Vector3.zero;
+                radius = 1;
                 layer = 7;
-                whatDo = UnitActType.LowHP;
+                whatCause = UnitActType.LowHP;
             }
         }
         [Serializable]
@@ -76,27 +119,41 @@ public class QuestManager : JsonLoad
             {
                 Item,
                 NewStage,
-                SceneClear
-            }
-            [Serializable]
-            public class RewardItem
-            {
-                public int itemCode;
-                public int itemCount;
-                public RewardItem()
-                {
-                    itemCode = 1;
-                    itemCount = 1;
-                }
+                SceneClear,
+                Max
             }
             public RewardType rewardType;
-            public RewardItem[] rewardItems;
+            public ItemData[] rewardItems;
             public QuestReward()
             {
                 rewardType = RewardType.Item;
-                rewardItems = new RewardItem[1];
-                rewardItems[0] = new RewardItem();
+                rewardItems = new ItemData[1];
+                rewardItems[0] = new ItemData();
 
+            }
+        }
+        [Serializable]
+        public class QuestFollow
+        {
+            [Serializable]
+            public class QuestFollowData
+            {
+                public QuestType type;
+                public int questNum;
+
+                public QuestFollowData()
+                {
+                    type = QuestType.StagePerformOnlyOne;
+                    questNum = 0;
+                }
+            }
+
+            public QuestFollowData[] datas;
+            public bool needCallNextQuest;
+            public QuestFollow()
+            {
+                datas = new QuestFollowData[1];
+                needCallNextQuest = false;
             }
         }
 
@@ -107,8 +164,9 @@ public class QuestManager : JsonLoad
         public QuestHighLight highLight;
         public QuestTrigger trigger;
 
-        public QuestSpot spot;
+        public QuestRequirements require;
         public QuestAct act;
+        public QuestFollow follow;
 
         public QuestData()
         {
@@ -118,7 +176,7 @@ public class QuestManager : JsonLoad
             reward = new QuestReward();
             highLight = new QuestHighLight();
             trigger = QuestTrigger.Location;
-            spot = new QuestSpot();
+            require = new QuestRequirements();
             act = new QuestAct();
 
         }
@@ -137,6 +195,7 @@ public class QuestManager : JsonLoad
         QuestData[][] data;
         public void Init()
         {
+
             data = new QuestData[][] { stagePerformOnedata, villigePerformOnedata, floorQuestdata, stageQuestdata, villigeQuestdata };
         }
         public QuestDatas()
@@ -148,9 +207,6 @@ public class QuestManager : JsonLoad
             villigeQuestdata = new QuestData[1];
         }
     }
-
-    #endregion
-    QuestDatas questDatas;
 
     public enum QuestType
     {
@@ -166,9 +222,14 @@ public class QuestManager : JsonLoad
         UnitSpecificAct,
         Max
     }
+    #endregion
+
+    QuestDatas questDatas;
+    public QuestPool questPool { get; set; }
 
     private void Awake()
     {
+        SDF<QuestDatas>();
         questDatas = LoadData<QuestDatas>("QuestData");
         questDatas.Init();
     }

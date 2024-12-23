@@ -10,7 +10,7 @@ public class StageFloorComponent : InitObject
     Transform navMeshParent;
 
     [SerializeField] int stageIndex;
-    int directionCount = (int)Direction2Array.Max;
+    int directionCount;
     public enum Direction2Array
     {
         RightUP,
@@ -50,8 +50,8 @@ public class StageFloorComponent : InitObject
         BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
 
         int iDirection = (int)direction;
-        float xValue = battleClearManager.linkPosition[iDirection] * battleClearManager.planeSize[battleClearManager.PoolStageIndex(stageIndex)];
-        float zValue = battleClearManager.linkPosition[(iDirection + 1) % directionCount] * battleClearManager.planeSize[battleClearManager.PoolStageIndex(stageIndex)];
+        float xValue = battleClearManager.linkPosition[iDirection] * battleClearManager.planeSize[battleClearManager.PoolStageIndex(stageIndex)] / 3;
+        float zValue = battleClearManager.linkPosition[(iDirection + 1) % directionCount] * battleClearManager.planeSize[battleClearManager.PoolStageIndex(stageIndex)] / 3;
 
         return new Vector3(xValue, 0, zValue);
     }

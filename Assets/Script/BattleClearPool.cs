@@ -43,7 +43,9 @@ public class BattleClearPool : MonoBehaviour
     }
     public StageFloorComponent MakeStage(int stageIndex)
     {
-        return Instantiate(stages[stageIndex], transform.GetChild(1));
+        StageFloorComponent component = Instantiate(stages[stageIndex], transform.GetChild(1));
+        component.Init();
+        return component;
     }
     public NavMeshLink MakeLink()
     {

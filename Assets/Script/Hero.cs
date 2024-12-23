@@ -68,6 +68,9 @@ namespace Unit
 
             if (stat.HP.Equals(curstat.HP))
                 copyBar.gameObject.SetActive(asdf);
+
+            if (asdf)
+                GameManager.manager.onSelected.eventAction?.Invoke(gameObject.layer, transform.position);
         }
         protected override void GetSelecting()
         {
@@ -127,6 +130,7 @@ namespace Unit
             {
                 PrintLowHP(InputEffect.WARNINGANIMTYPE.CANCEL);
                 deathAlert = default;
+                
             }
         }
 

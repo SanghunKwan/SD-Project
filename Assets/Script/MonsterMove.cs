@@ -150,6 +150,7 @@ public class MonsterMove : UnitMove
 
         yield return new WaitForSeconds(2f);
         GameManager.manager.SetOtheronBattle(GameManager.manager.nPCharacter);
+        GameManager.manager.onCry.eventAction?.Invoke(gameObject.layer, transform.position);
 
         yield return new WaitForSeconds(1f);
         bitArray[0] = false;

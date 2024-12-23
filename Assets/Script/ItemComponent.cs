@@ -68,7 +68,6 @@ public class ItemComponent : MonoBehaviour
     {
         yield return new WaitWhile(() => index == 0);
         uiCircle.gameObject.SetActive(true);
-        Debug.Log((int)InventoryManager.i.info.items[index].type - 1);
         uiCircle.material = materials[(int)InventoryManager.i.info.items[index].type - 1];
         uiCircle.Arc = 0.1f;
         uiCircle.Padding = CirclePad;

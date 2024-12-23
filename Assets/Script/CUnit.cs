@@ -127,6 +127,7 @@ namespace Unit
 
         public virtual void Recovery(int add)
         {
+            GameManager.manager.onLowHPRelease.eventAction?.Invoke(gameObject.layer, transform.position);
             curstat.curHP += add;
             if (curstat.curHP > curstat.HP)
             {

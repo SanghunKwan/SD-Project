@@ -20,6 +20,8 @@ public class EffectReturn : MonoBehaviour
 
 
     public int type;
+    public int returnTransform;
+
 
     private void Awake()
     {
@@ -92,7 +94,7 @@ public class EffectReturn : MonoBehaviour
             yield return null;
         }
         TempTimeRollBack();
-        InputEffect.e.Callback(gameObject, type);
+        InputEffect.e.Callback(gameObject, returnTransform);
         while (true)
         {
             rect.localPosition = Unit.Data.Instance.CameratoCanvas(vec);
@@ -109,7 +111,7 @@ public class EffectReturn : MonoBehaviour
             yield return null;
         }
         TempTimeRollBack();
-        InputEffect.e.Callback(gameObject, type);
+        InputEffect.e.Callback(gameObject, returnTransform);
     }
     IEnumerator GoForward()
     {
@@ -121,11 +123,11 @@ public class EffectReturn : MonoBehaviour
             yield return null;
         }
         TempTimeRollBack();
-        InputEffect.e.Callback(gameObject, type);
+        InputEffect.e.Callback(gameObject, returnTransform);
     }
     public void AnimatorEnd()
     {
-        InputEffect.e.Callback(gameObject, type);
+        InputEffect.e.Callback(gameObject, returnTransform);
     }
 
 

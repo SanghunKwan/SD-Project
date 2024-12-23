@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class StorageComponent : InitObject
 {
-    Action<int> eventAlert = (num) => { };
+    protected Action<int> eventAlert = (num) => { };
 
     [Serializable]
     public struct Item
@@ -33,9 +33,13 @@ public class StorageComponent : InitObject
         m_itemCounts[itemCode] += addNum;
         eventAlert(itemCode);
     }
-    public virtual void AddListener(Action<int> callWhenCountChanged)
+    public void AddListener(Action<int> callWhenCountChanged)
     {
         eventAlert += callWhenCountChanged;
+    }
+    public void SubtractListener(Action<int> callWhenCountChanged)
+    {
+        eventAlert -= callWhenCountChanged;
     }
     #region temp
     public void SetItems()

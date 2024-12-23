@@ -331,6 +331,7 @@ public class InventoryStorage : StorageComponent
         int needSlots = brunchArray.Length;
 
         m_itemCounts[itemCode] += itemCount;
+        eventAlert(itemCode);
 
         for (int i = 0; i < needSlots; i++)
         {
@@ -506,6 +507,7 @@ public class InventoryStorage : StorageComponent
 
     public void AffectItem(in CUnit itemUser, in Item item, float percent)
     {
+        GameManager.manager.onItemUse.eventAction?.Invoke(item.itemCode, itemUser.transform.position);
         itemAffectAction[(int)item.itemSkillEffect](itemUser, item, percent);
     }
     void AffectItemHealing(in CUnit cUnit, in Item item, float percent)
@@ -528,12 +530,4 @@ public class InventoryStorage : StorageComponent
         onCountChanged += callWhenCountChanged;
     }
     #endregion
-
-    #region 접근 금지
-    public override void AddListener(Action<int> callWhenCountChanged)
-    {
-        throw new NotImplementedException();
-    }
-    #endregion
-
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QuestBackGround : MonoBehaviour
 {
@@ -8,19 +9,20 @@ public class QuestBackGround : MonoBehaviour
     public float size = 100;
     Vector2 sizeDelta;
     Camera mainCam;
+    Image maskImage;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        maskImage = GetComponent<Image>();
         mainCam = Camera.main;
     }
 
     #region ±â´É
     public void SetHighLight(in Vector3 position, float circleSize)
     {
-        gameObject.SetActive(true);
-        SetSize(circleSize);
-        SetTarget(position);
+        Vector3 vec = mainCam.WorldToScreenPoint(position + (circleSize * 0.5f * Vector3.up));
+        SetHighLightUI(vec, circleSize);
     }
     public void SetSize(float circleSize)
     {
@@ -29,14 +31,21 @@ public class QuestBackGround : MonoBehaviour
 
         rectTransform.sizeDelta = sizeDelta;
     }
-    public void SetTarget(in Vector3 position)
-    {
-        Vector3 vec = mainCam.WorldToScreenPoint(position + Vector3.up);
-        rectTransform.position = vec;
-    }
     public void SetOff()
     {
         gameObject.SetActive(false);
+    }
+    public void SetActiveHole(bool onoff)
+    {
+        maskImage.enabled = onoff;
+    }
+    public void SetHighLightUI(in Vector3 position, float circleSize)
+    {
+        gameObject.SetActive(true);
+        SetSize(circleSize);
+        SetActiveHole(true);
+
+        rectTransform.position = position;
     }
     #endregion
 }

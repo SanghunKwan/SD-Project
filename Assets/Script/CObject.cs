@@ -184,6 +184,9 @@ namespace Unit
             selected = asdf;
             copyBar.gameObject.SetActive(asdf);
             copyUICircle.gameObject.SetActive(asdf);
+
+            if (asdf)
+                GameManager.manager.onSelected.eventAction?.Invoke(gameObject.layer, transform.position);
         }
         protected void MaterialChange()
         {
@@ -293,6 +296,8 @@ namespace Unit
         public virtual void Hit(int skill)
         {
             hpbarScript.BarUpdate();
+            if (curstat.curHP < curstat.HP * 0.3f)
+                GameManager.manager.onLowHp.eventAction?.Invoke(gameObject.layer, transform.position);
             //피격 시 리액션
         }
         public virtual void Dodge()

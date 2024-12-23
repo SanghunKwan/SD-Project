@@ -190,13 +190,21 @@ namespace SaveData
         [Serializable]
         public class BitSaveData
         {
+            [Serializable]
+            public class QuestProgress
+            {
+                public int questIndex;
+                public int nowProgress;
+                public Vector3 callPosition;
+            }
+
             //bit 2개에 퀘스트 하나의 정보 저장.
             public long[] bits;
-            public List<int> nowQuestIndexList;
+            public List<QuestProgress> nowQuestList;
             public BitSaveData(int MaxQuestNum)
             {
                 int bitCount = GetBitsIndex(MaxQuestNum) + 1;
-                nowQuestIndexList = new List<int>(5);
+                nowQuestList = new List<QuestProgress>(5);
                 bits = new long[bitCount];
             }
             public static int GetBitsIndex(int questNum)
@@ -206,8 +214,9 @@ namespace SaveData
             public SaveDataBit GetQuestState(int questNum)
             {
                 long questState = bits[GetBitsIndex(questNum)];
+                Debug.Log(questState);
 
-                return (SaveDataBit)(questState >> (GetNumShift(questNum) & 3));
+                return (SaveDataBit)((questState >> GetNumShift(questNum)) & 3);
             }
             public void AddQuestState(int questNum, SaveDataBit setBit)
             {
@@ -245,12 +254,14 @@ namespace SaveData
             floorQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.FloorQuest));
             stageQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.StageQuest));
             villigeQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.VilligeQuest));
+
+            stagePerformOneData.bits[0] = 1;
         }
         public void Init()
         {
             data = new BitSaveData[] { stagePerformOneData, villigePerformOneData, floorQuestData, stageQuestData, villigeQuestData };
         }
-        
+
 
         public SaveDataBit GetQuestState(QuestManager.QuestType type, int questNum)
         {

@@ -52,9 +52,10 @@ namespace Unit
 
         public override void Selected(bool asdf)
         {
-            if (asdf == true)
+            if (asdf)
             {
                 monsterCheck = true;
+                GameManager.manager.onSelected.eventAction?.Invoke(gameObject.layer, transform.position);
             }
         }
         protected override void SelectingUICircleTurning()

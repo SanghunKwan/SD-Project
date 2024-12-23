@@ -41,7 +41,23 @@ public class GameManager : MonoBehaviour
     Action[] inputSpaceUp = new Action[3];
     public Action callConstructionUI;
     public Action onBattleClearManagerRegistered { get; set; }
-
+    #region actionEvent
+    public class ActionEvent
+    {
+        public Action<int, Vector3> eventAction;
+    }
+    public ActionEvent onCry { get; private set; } = new ActionEvent();
+    public ActionEvent onAttack { get; private set; } = new ActionEvent();
+    public ActionEvent onBackAttack { get; private set; } = new ActionEvent();
+    public ActionEvent onSkill { get; private set; } = new ActionEvent();
+    public ActionEvent onLowHp { get; private set; } = new ActionEvent();
+    public ActionEvent onDie { get; private set; } = new ActionEvent();
+    public ActionEvent onSelected { get; private set; } = new ActionEvent();
+    public ActionEvent onItemUse { get; private set; } = new ActionEvent();
+    public ActionEvent onRegroup { get; private set; } = new ActionEvent();
+    public ActionEvent onCallgroup { get; private set; } = new ActionEvent();
+    public ActionEvent onLowHPRelease { get; private set; } = new ActionEvent();
+    #endregion
     public PointerEventData pointerEventData { get; set; }
 
     #region гою╖ managers
@@ -70,6 +86,14 @@ public class GameManager : MonoBehaviour
 
 
         DefaultKeyboardConverter();
+
+        onCry = new ActionEvent();
+        onAttack = new ActionEvent();
+        onBackAttack = new ActionEvent();
+        onSkill = new ActionEvent();
+        onLowHp = new ActionEvent();
+        onDie = new ActionEvent();
+        onSelected = new ActionEvent();
     }
     void DefaultKeyboardConverter()
     {
@@ -165,7 +189,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Monster item in monster)
         {
-            item.curstat.Mentality -= 10;
+            item.curstat.curMORALE -= 7;
             item.MentalBarRenew();
         }
     }
@@ -500,6 +524,12 @@ public class GameManager : MonoBehaviour
             ambush = skillData.Equals(SkillData.SkillType.Ambush);
         }
 
+        if (ambush)
+            onBackAttack.eventAction?.Invoke(Attacker.gameObject.layer, Attacker.transform.position);
+        else if (skillData != null)
+            onSkill.eventAction?.Invoke(Attacker.gameObject.layer, Attacker.transform.position);
+        else
+            onAttack.eventAction?.Invoke(Attacker.gameObject.layer, Attacker.transform.position);
 
         int hit = UnityEngine.Random.Range(0, 101) + Attacker.curstat.Accuracy + hitweigh;
         if (hit < 100)
@@ -527,6 +557,7 @@ public class GameManager : MonoBehaviour
 
             if (Target.curstat.curHP <= 0)
             {
+                onDie.eventAction?.Invoke(Target.gameObject.layer, Target.transform.position);
                 Target.Death(Attacker.transform.position);
             }
 
@@ -559,6 +590,9 @@ public class GameManager : MonoBehaviour
             cUnit.Selected(true);
             playerNavi.HeroAdd(cUnit);
         }
+
+        if (playerNavi.lists.Count > 0)
+            onCallgroup.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
     }
     public string GetConvert(in string key)
     {
@@ -642,6 +676,9 @@ public class GameManager : MonoBehaviour
     public void RegroupTeam(in string key)
     {
         playerNavi.SetTeam(GetConvert(key));
+
+        if (playerNavi.lists.Count > 0)
+            onRegroup.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
     }
     public void ScreenToPoint(Vector3 vec)
     {

@@ -167,3 +167,4 @@ MonoBehaviour:
   vec: {x: 0, y: 0, z: 0}
   speed: 0
   type: 3
+  returnTransform: 3

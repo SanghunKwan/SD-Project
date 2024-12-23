@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class QuestUISlot : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI title;
     [SerializeField] TextMeshProUGUI detail;
     [SerializeField] Animator animator;
-    int triggerNum;
+    int triggerOffNum;
+    int triggerHighLightNum;
+
+    public Action hideAction { get; set; }
 
     private void Awake()
     {
-        triggerNum = Animator.StringToHash("fadeOut");
+        triggerOffNum = Animator.StringToHash("fadeOut");
+        triggerHighLightNum = Animator.StringToHash("highLight");
     }
     public void SetQuestText(in string dataTitle, in string dataDetail)
     {
@@ -21,11 +26,17 @@ public class QuestUISlot : MonoBehaviour
     }
     public void HideQuest()
     {
-        animator.SetTrigger(triggerNum);
+        animator.SetTrigger(triggerOffNum);
+        hideAction();
+        hideAction = null;
     }
     public void OnFadeOutEnd()
     {
         gameObject.SetActive(false);
         transform.SetAsLastSibling();
+    }
+    public void TimeStopHighLight()
+    {
+        animator.SetTrigger(triggerHighLightNum);
     }
 }

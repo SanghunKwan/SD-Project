@@ -1,5 +1,5 @@
 {
-    "performOnedata": [
+    "stagePerformOnedata": [
         {
             "num": 1,
             "name": "바보들의 대잔치",
@@ -8,33 +8,114 @@
                 "rewardType": 0,
                 "rewardItems": [
                     {
-                        "itemCode": 1,
-                        "itemCount": 1
+                        "itemCode": 0,
+                        "itemCount": 0
                     }
                 ]
             },
             "highLight": {
                 "timeStop": true,
-                "highLight": true,
+                "highLight": 1,
                 "highLightPosition": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
+                },
+                "size": 1.0
             },
             "trigger": 0,
-            "spot": {
+            "require": {
+                "type": 0,
                 "layer": 7,
                 "spot": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 },
-                "radius": 1.0
+                "radius": 1.0,
+                "itemDatas": [],
+                "actionType": 0,
+                "actCondition": 0,
+                "accumulatedTime": 0
             },
             "act": {
+                "spot": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 1.0,
                 "layer": 7,
-                "whatDo": 4
+                "whatCause": 4
+            },
+            "follow": {
+                "datas": [
+                    {
+                        "type": 0,
+                        "questNum": 0
+                    }
+                ],
+                "needCallNextQuest": false
+            }
+        }
+    ],
+    "villigePerformOnedata": [
+        {
+            "num": 1,
+            "name": "바보들의 대잔치",
+            "detail": "모든 몬스터 죽이기",
+            "reward": {
+                "rewardType": 0,
+                "rewardItems": [
+                    {
+                        "itemCode": 0,
+                        "itemCount": 0
+                    }
+                ]
+            },
+            "highLight": {
+                "timeStop": true,
+                "highLight": 1,
+                "highLightPosition": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "size": 1.0
+            },
+            "trigger": 0,
+            "require": {
+                "type": 0,
+                "layer": 7,
+                "spot": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 1.0,
+                "itemDatas": [],
+                "actionType": 0,
+                "actCondition": 0,
+                "accumulatedTime": 0
+            },
+            "act": {
+                "spot": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 1.0,
+                "layer": 7,
+                "whatCause": 4
+            },
+            "follow": {
+                "datas": [
+                    {
+                        "type": 0,
+                        "questNum": 0
+                    }
+                ],
+                "needCallNextQuest": false
             }
         }
     ],
@@ -47,33 +128,54 @@
                 "rewardType": 0,
                 "rewardItems": [
                     {
-                        "itemCode": 1,
-                        "itemCount": 1
+                        "itemCode": 0,
+                        "itemCount": 0
                     }
                 ]
             },
             "highLight": {
                 "timeStop": true,
-                "highLight": true,
+                "highLight": 1,
                 "highLightPosition": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
+                },
+                "size": 1.0
             },
             "trigger": 0,
-            "spot": {
+            "require": {
+                "type": 0,
                 "layer": 7,
                 "spot": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 },
-                "radius": 1.0
+                "radius": 1.0,
+                "itemDatas": [],
+                "actionType": 0,
+                "actCondition": 0,
+                "accumulatedTime": 0
             },
             "act": {
+                "spot": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 1.0,
                 "layer": 7,
-                "whatDo": 4
+                "whatCause": 4
+            },
+            "follow": {
+                "datas": [
+                    {
+                        "type": 0,
+                        "questNum": 0
+                    }
+                ],
+                "needCallNextQuest": false
             }
         }
     ],
@@ -86,33 +188,54 @@
                 "rewardType": 0,
                 "rewardItems": [
                     {
-                        "itemCode": 1,
-                        "itemCount": 1
+                        "itemCode": 0,
+                        "itemCount": 0
                     }
                 ]
             },
             "highLight": {
                 "timeStop": true,
-                "highLight": true,
+                "highLight": 1,
                 "highLightPosition": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
+                },
+                "size": 1.0
             },
             "trigger": 0,
-            "spot": {
+            "require": {
+                "type": 0,
                 "layer": 7,
                 "spot": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 },
-                "radius": 1.0
+                "radius": 1.0,
+                "itemDatas": [],
+                "actionType": 0,
+                "actCondition": 0,
+                "accumulatedTime": 0
             },
             "act": {
+                "spot": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 1.0,
                 "layer": 7,
-                "whatDo": 4
+                "whatCause": 4
+            },
+            "follow": {
+                "datas": [
+                    {
+                        "type": 0,
+                        "questNum": 0
+                    }
+                ],
+                "needCallNextQuest": false
             }
         }
     ],
@@ -125,33 +248,54 @@
                 "rewardType": 0,
                 "rewardItems": [
                     {
-                        "itemCode": 1,
-                        "itemCount": 1
+                        "itemCode": 0,
+                        "itemCount": 0
                     }
                 ]
             },
             "highLight": {
                 "timeStop": true,
-                "highLight": true,
+                "highLight": 1,
                 "highLightPosition": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
-                }
+                },
+                "size": 1.0
             },
             "trigger": 0,
-            "spot": {
+            "require": {
+                "type": 0,
                 "layer": 7,
                 "spot": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 },
-                "radius": 1.0
+                "radius": 1.0,
+                "itemDatas": [],
+                "actionType": 0,
+                "actCondition": 0,
+                "accumulatedTime": 0
             },
             "act": {
+                "spot": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 1.0,
                 "layer": 7,
-                "whatDo": 4
+                "whatCause": 4
+            },
+            "follow": {
+                "datas": [
+                    {
+                        "type": 0,
+                        "questNum": 0
+                    }
+                ],
+                "needCallNextQuest": false
             }
         }
     ]

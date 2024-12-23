@@ -26,6 +26,9 @@ public class BattleClearManager : MonoBehaviour
     [SerializeField] LoadSaveManager loadSaveManager;
     BattleClearPool battleClearPool;
 
+    int nowFloorIndex;
+    int lastFloorIndex;
+
     public enum OBJECTNUM
     {
         BONEWALL,
@@ -66,14 +69,13 @@ public class BattleClearManager : MonoBehaviour
     }
     void CallStages(in int[] floors)
     {
-        int length = floors.Length;
-        stageFloorComponents = new StageFloorComponent[length];
+        lastFloorIndex = floors.Length;
+        stageFloorComponents = new StageFloorComponent[lastFloorIndex];
 
         stageFloorComponents[0] = battleClearPool.MakeStage(PoolStageIndex(floors[0]));
-        stageFloorComponents[0].Init();
         stageFloorComponents[0].gameObject.SetActive(true);
         StageFloorComponent.Direction2Array randomDirection;
-        for (int i = 1; i < length; i++)
+        for (int i = 1; i < lastFloorIndex; i++)
         {
             stageFloorComponents[i] = battleClearPool.MakeStage(PoolStageIndex(floors[i]));
             randomDirection = stageFloorComponents[i - 1].GetEmptyDirection();
@@ -84,5 +86,15 @@ public class BattleClearManager : MonoBehaviour
     public int PoolStageIndex(int nowFloor)
     {
         return (nowFloor / 10) + (Convert.ToInt32(nowFloor % 10 == 0) * 10);
+    }
+
+    public void ActivateNextFloor()
+    {
+        if (++nowFloorIndex <= lastFloorIndex)
+            stageFloorComponents[nowFloorIndex].gameObject.SetActive(true);
+        else
+        {
+            Debug.Log("마지막 스테이지 클리어!");
+        }
     }
 }

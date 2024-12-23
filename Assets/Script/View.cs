@@ -15,6 +15,7 @@ public class View : MonoBehaviour
     RayInfo rayinfo = new();
     RayInfo rayinfo2 = new();
     UnitMove thismove;
+    int layerMask;
 
     [SerializeField] Material defaultMaterial;
     protected virtual void OnEnable()
@@ -25,10 +26,11 @@ public class View : MonoBehaviour
         filter = filterObject.GetComponent<MeshFilter>();
         filter.mesh = new Mesh();
         filter.mesh.name = "ViewAngleMesh";
-        
+
     }
     private void Start()
     {
+        layerMask = (1 << 7) | (1 << 9) | (1 << 10);
         thismove = GetComponent<UnitMove>();
     }
     private void LateUpdate()
@@ -73,7 +75,7 @@ public class View : MonoBehaviour
             float Newangle = (maxRay.angle + minRay.angle) * 0.5f;
 
             Vector3 vector3 = transform.position + AngletoPoint(Newangle) * ViewRange;
-            if (Physics.Raycast(transform.position, AngletoPoint(Newangle), out RaycastHit Newhit, ViewRange, ~(1<<15)))
+            if (Physics.Raycast(transform.position, AngletoPoint(Newangle), out RaycastHit Newhit, ViewRange, layerMask))
             {
                 newrayinfo = new RayInfo(Newangle, Newhit);
                 if (newrayinfo.trasposi.Equals(minRay.trasposi))
@@ -138,7 +140,7 @@ public class View : MonoBehaviour
             float angle = stepAngleSize * i + HeadTurn();
 
 
-            if (Physics.Raycast(transform.position, AngletoPoint(angle), out RaycastHit hit, ViewRange, ~(1<<15)))
+            if (Physics.Raycast(transform.position, AngletoPoint(angle), out RaycastHit hit, ViewRange, layerMask))
             {
 
                 rayinfo2 = new RayInfo(angle, hit);
