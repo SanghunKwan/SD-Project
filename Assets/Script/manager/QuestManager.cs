@@ -55,6 +55,7 @@ public class QuestManager : JsonLoad
             public QuestAct.UnitActType actionType;
             public QuestAct.ActCondition actCondition;
             public int accumulatedTime;
+            public int stageOffsetIndex;
 
 
             public QuestRequirements()
@@ -89,6 +90,7 @@ public class QuestManager : JsonLoad
                 ReGroup,
                 CallGroup,
                 LowHPRelease,
+                EnterStage,
                 Max
             }
             public enum ActCondition
@@ -119,6 +121,7 @@ public class QuestManager : JsonLoad
             {
                 Item,
                 NewStage,
+                StageSet,
                 SceneClear,
                 Max
             }

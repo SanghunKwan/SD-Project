@@ -39,7 +39,6 @@ public class StageFloorComponent : InitObject
         int iDirection = (int)direction;
 
         nearComponent[iDirection] = newStageFloorComponent;
-        nearComponent[iDirection].Init();
         nearComponent[iDirection].nearComponent[(iDirection + 2) % directionCount] = this;
         nearComponent[iDirection].transform.localPosition = transform.localPosition + GetStagePosition(direction);
     }
@@ -50,10 +49,15 @@ public class StageFloorComponent : InitObject
         BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
 
         int iDirection = (int)direction;
-        float xValue = battleClearManager.linkPosition[iDirection] * battleClearManager.planeSize[battleClearManager.PoolStageIndex(stageIndex)] / 3;
-        float zValue = battleClearManager.linkPosition[(iDirection + 1) % directionCount] * battleClearManager.planeSize[battleClearManager.PoolStageIndex(stageIndex)] / 3;
+        int arrayIndex = GetStageIndex(stageIndex);
+        float xValue = battleClearManager.linkPosition[iDirection] * battleClearManager.planeSize[arrayIndex] / 3;
+        float zValue = battleClearManager.linkPosition[(iDirection + 1) % directionCount] * battleClearManager.planeSize[arrayIndex] / 3;
 
         return new Vector3(xValue, 0, zValue);
+    }
+    public int GetStageIndex(int stageIndex)
+    {
+        return GameManager.manager.battleClearManager.PoolStageIndex(stageIndex);
     }
     Vector3 GetStagePosition(Direction2Array direction)
     {

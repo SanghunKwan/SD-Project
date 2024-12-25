@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     public ActionEvent onRegroup { get; private set; } = new ActionEvent();
     public ActionEvent onCallgroup { get; private set; } = new ActionEvent();
     public ActionEvent onLowHPRelease { get; private set; } = new ActionEvent();
+    public ActionEvent onPlayerEnterStage { get; private set; } = new ActionEvent();
     #endregion
     public PointerEventData pointerEventData { get; set; }
 
@@ -183,14 +184,22 @@ public class GameManager : MonoBehaviour
 
         PlayeronBattleoff();
 
-        IEnumerable<Monster> monster = from asdf in nPCharacter
-                                       where !((Monster)asdf).unitMove.isFear
-                                       select (Monster)asdf;
+        IEnumerable<Monster> monster = from unit in nPCharacter
+                                       where !((Monster)unit).unitMove.isFear
+                                       select (Monster)unit;
 
         foreach (Monster item in monster)
         {
             item.curstat.curMORALE -= 7;
             item.MentalBarRenew();
+        }
+
+        if (monster.Count() <= 0)
+        {
+            foreach (var item in playerCharacter)
+            {
+                item.SetDetected(false);
+            }
         }
     }
 

@@ -10,12 +10,12 @@ public class StageObjectPrefabs : StagePrefabsCaller
     {
         int length = stagePoolManager.stageFloors.Length;
         stagePool = new GameObject[length];
-        for (int i = stagePoolManager.nowFloorIndex; i < length; i++)
+        for (int i = stagePoolManager.startFloorIndex; i < length; i++)
         {
             stagePool[i]
                 = PlacePrefab(GameManager.manager.battleClearManager.stageFloorComponents[i], stagePoolManager.stageFloors[i]);
         }
-        stagePool[stagePoolManager.nowFloorIndex].SetActive(true);
+        stagePool[stagePoolManager.startFloorIndex].SetActive(true);
     }
     public override GameObject PlacePrefab(StageFloorComponent floor, int floorNum)
     {

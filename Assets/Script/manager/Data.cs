@@ -13,7 +13,7 @@ namespace Unit
         Goblin,
         Object = 100,
         Building = 200,
-        player = 300,
+        player = 1,
         MAX = 4
     }
     public enum TypeNum

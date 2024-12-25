@@ -26,8 +26,10 @@ public class BattleClearManager : MonoBehaviour
     [SerializeField] LoadSaveManager loadSaveManager;
     BattleClearPool battleClearPool;
 
-    int nowFloorIndex;
+    public int nowFloorIndex { get; private set; }
     int lastFloorIndex;
+
+    public Action<int> SetActiveNewStageObjects { get; set; }
 
     public enum OBJECTNUM
     {
@@ -88,13 +90,24 @@ public class BattleClearManager : MonoBehaviour
         return (nowFloor / 10) + (Convert.ToInt32(nowFloor % 10 == 0) * 10);
     }
 
-    public void ActivateNextFloor()
+    public void ActivateNextFloor(in QuestSpawner questSpawner)
     {
         if (++nowFloorIndex <= lastFloorIndex)
-            stageFloorComponents[nowFloorIndex].gameObject.SetActive(true);
+        {
+            GetStageComponent(0).gameObject.SetActive(true);
+            questSpawner.PrepareQuest(QuestManager.QuestType.FloorQuest, 1);
+        }
         else
         {
             Debug.Log("마지막 스테이지 클리어!");
         }
+    }
+    public void ActiveStageObject()
+    {
+        SetActiveNewStageObjects(nowFloorIndex);
+    }
+    public StageFloorComponent GetStageComponent(int offsetIndex)
+    {
+        return stageFloorComponents[nowFloorIndex + offsetIndex];
     }
 }

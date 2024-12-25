@@ -2,7 +2,6 @@ using SaveData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class QuestSpawner : MonoBehaviour
@@ -63,6 +62,7 @@ public class QuestSpawner : MonoBehaviour
         EventClearActions = new Action<QuestManager.QuestData.QuestReward>[(int)QuestManager.QuestData.QuestReward.RewardType.Max];
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.Item] = ClearForItem;
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.NewStage] = (reward) => ClearForStage();
+        EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.StageSet] = (reward) => ClearStageArrive();
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.SceneClear] = (reward) => ClearForScene();
 
     }
@@ -90,6 +90,7 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.ReGroup] = GameManager.manager.onRegroup;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.CallGroup] = GameManager.manager.onCallgroup;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.LowHPRelease] = GameManager.manager.onLowHPRelease;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.EnterStage] = GameManager.manager.onPlayerEnterStage;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
@@ -185,7 +186,9 @@ public class QuestSpawner : MonoBehaviour
         QuestManager.QuestData.QuestRequirements require = data.require;
 
 
-        questPool.PlaceQuest(require.spot, require.layer, (vec) =>
+        questPool.PlaceQuest(require.spot
+            + GameManager.manager.battleClearManager.GetStageComponent(require.stageOffsetIndex).transform.position,
+            require.layer, (vec) =>
         {
             EventClear(data.reward);
             completeAction();
@@ -248,7 +251,13 @@ public class QuestSpawner : MonoBehaviour
     }
     void ClearForStage()
     {
-        GameManager.manager.battleClearManager.ActivateNextFloor();
+        GameManager.manager.battleClearManager.ActivateNextFloor(this);
+
+        //새로운 스테이지 활성화
+    }
+    void ClearStageArrive()
+    {
+        GameManager.manager.battleClearManager.ActiveStageObject();
 
         //새로운 스테이지 활성화
     }
@@ -302,13 +311,13 @@ public class QuestSpawner : MonoBehaviour
 
 
     #region 외부 이벤트 요청
-    void PrepareQuest(QuestManager.QuestType type, int questNum)
+    public void PrepareQuest(QuestManager.QuestType type, int questNum)
     {
         //시작 가능한 퀘스트 trigger 생성.
         QuestManager.QuestData data = questManager.GetQuestData(type, questNum);
+        BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
 
         prepareQuestActions[(int)data.trigger](data.act, type, questNum);
-
     }
     void PrepareQuestbyLocation(QuestManager.QuestData.QuestAct act, QuestManager.QuestType type, int questNum)
     {

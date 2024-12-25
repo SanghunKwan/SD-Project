@@ -177,6 +177,8 @@ MonoBehaviour:
   targetEnermy: {fileID: 0}
   targetMove: {fileID: 0}
   isCounter: 0
+  isHold: 0
+  isLoaded: 0
   arrive: 0
   attackMove: 0
   nav: {fileID: 0}
@@ -200,7 +202,6 @@ MonoBehaviour:
   WaitVoice: []
   HitVoice: []
   DieVoice: []
-  soundManager: {fileID: 0}
 --- !u!114 &7651678164329185881
 MonoBehaviour:
   m_ObjectHideFlags: 0

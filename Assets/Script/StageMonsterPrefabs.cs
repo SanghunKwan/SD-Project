@@ -5,17 +5,14 @@ using UnityEngine;
 public class StageMonsterPrefabs : StagePrefabsCaller
 {
     [SerializeField] GameObject[] stageObjects;
-    GameObject[] stagePool;
     void Start()
     {
         int length = stagePoolManager.stageFloors.Length;
-        stagePool = new GameObject[length];
-        for (int i = stagePoolManager.nowFloorIndex; i < length; i++)
+        for (int i = stagePoolManager.startFloorIndex; i < length; i++)
         {
-            stagePool[i]
-                = PlacePrefab(GameManager.manager.battleClearManager.stageFloorComponents[i], stagePoolManager.stageFloors[i]);
+            PlacePrefab(GameManager.manager.battleClearManager.stageFloorComponents[i], stagePoolManager.stageFloors[i]);
         }
-        stagePool[stagePoolManager.nowFloorIndex].SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(true);
     }
     public override GameObject PlacePrefab(StageFloorComponent floor, int floorNum)
     {

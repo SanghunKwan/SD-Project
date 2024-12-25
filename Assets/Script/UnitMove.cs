@@ -101,7 +101,6 @@ public abstract class UnitMove : MonoBehaviour
         unit_State = GetComponent<UnitState>();
         cUnit = GetComponent<CUnit>();
         weapon = GetComponent<WeaponComponent>();
-
     }
     public void GetStatus(int _range, int _speed)
     {

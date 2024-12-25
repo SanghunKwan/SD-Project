@@ -36,7 +36,8 @@
                 "itemDatas": [],
                 "actionType": 0,
                 "actCondition": 0,
-                "accumulatedTime": 0
+                "accumulatedTime": 0,
+                "stageOffsetIndex": 0
             },
             "act": {
                 "spot": {
@@ -96,7 +97,8 @@
                 "itemDatas": [],
                 "actionType": 0,
                 "actCondition": 0,
-                "accumulatedTime": 0
+                "accumulatedTime": 0,
+                "stageOffsetIndex": 0
             },
             "act": {
                 "spot": {
@@ -156,7 +158,8 @@
                 "itemDatas": [],
                 "actionType": 0,
                 "actCondition": 0,
-                "accumulatedTime": 0
+                "accumulatedTime": 0,
+                "stageOffsetIndex": 0
             },
             "act": {
                 "spot": {
@@ -216,7 +219,8 @@
                 "itemDatas": [],
                 "actionType": 0,
                 "actCondition": 0,
-                "accumulatedTime": 0
+                "accumulatedTime": 0,
+                "stageOffsetIndex": 0
             },
             "act": {
                 "spot": {
@@ -276,7 +280,8 @@
                 "itemDatas": [],
                 "actionType": 0,
                 "actCondition": 0,
-                "accumulatedTime": 0
+                "accumulatedTime": 0,
+                "stageOffsetIndex": 0
             },
             "act": {
                 "spot": {
