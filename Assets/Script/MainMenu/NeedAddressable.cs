@@ -17,7 +17,8 @@ public class NeedAddressable : InitObject
         BuildingImage,
         ItemQuality,
         Video,
-        MainMenuImage
+        MainMenuImage,
+        StageSettlementImage
     }
 
     public EnumType Type;
@@ -28,6 +29,7 @@ public class NeedAddressable : InitObject
     public AddressableManager.ItemQuality itemQuality;
     public AddressableManager.Video video;
     public AddressableManager.MainMenuImage mainMenuImage;
+    public AddressableManager.StageSettlementImage stageSettlementImage;
 
 
 
@@ -48,6 +50,7 @@ public class NeedAddressable : InitObject
         actions.Add(() => FuncAction(itemQuality));
         actions.Add(() => FuncAction(video));
         actions.Add(() => FuncAction(mainMenuImage));
+        actions.Add(() => FuncAction(stageSettlementImage));
     }
     protected void GetData<T>(T type, out Sprite sprite) where T : struct, Enum
     {

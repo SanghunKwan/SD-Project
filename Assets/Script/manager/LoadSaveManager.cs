@@ -233,7 +233,6 @@ namespace SaveData
         public BitSaveData stagePerformOneData;
         public BitSaveData villigePerformOneData;
         public BitSaveData floorQuestData;
-        public BitSaveData stageQuestData;
         public BitSaveData villigeQuestData;
         public bool isLoaded;
 
@@ -252,14 +251,13 @@ namespace SaveData
             stagePerformOneData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.StagePerformOnlyOne));
             villigePerformOneData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.VilligePerformOnlyOne));
             floorQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.FloorQuest));
-            stageQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.StageQuest));
             villigeQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.VilligeQuest));
 
             stagePerformOneData.bits[0] = 1;
         }
         public void Init()
         {
-            data = new BitSaveData[] { stagePerformOneData, villigePerformOneData, floorQuestData, stageQuestData, villigeQuestData };
+            data = new BitSaveData[] { stagePerformOneData, villigePerformOneData, floorQuestData, villigeQuestData };
         }
 
 

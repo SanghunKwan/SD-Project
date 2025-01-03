@@ -756,7 +756,7 @@
             "name": "이동",
             "detail": "다른 스테이지로 이동",
             "reward": {
-                "rewardType": 0,
+                "rewardType": 2,
                 "rewardItems": [
                     {}
                 ]
@@ -780,7 +780,7 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "radius": 30.0,
+                "radius": 0,
                 "itemDatas": [
                     {
                     }
@@ -808,58 +808,6 @@
                     }
                 ],
                 "needCallNextQuest": true
-            }
-        }
-    ],
-    "stageQuestdata": [
-        {
-            "num": 0,
-            "name": "스테이지 클리어",
-            "detail": "모든 층 임무 완수",
-            "reward": {
-                "rewardType": 0,
-                "rewardItems": [
-                    {
-                        "itemCode": 1,
-                        "itemCount": 1
-                    }
-                ]
-            },
-            "highLight": {
-                "timeStop": false,
-                "highLight": 0,
-                "highLightPosition": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "size": 1
-            },
-            "trigger": 0,
-            "require": {
-                "type": 2,
-                "layer": 10,
-                "spot": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "radius": 0.0,
-                "itemDatas": [],
-                "actionType": 5,
-                "actCondition": 0,
-                "accumulatedTime": 0,
-                "stageOffsetIndex": 0
-            },
-            "act": {
-                "spot": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "radius": 1.0,
-                "layer": 7,
-                "whatCause": 4
             }
         }
     ],

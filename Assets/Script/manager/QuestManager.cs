@@ -122,7 +122,6 @@ public class QuestManager : JsonLoad
                 Item,
                 NewStage,
                 StageSet,
-                SceneClear,
                 Max
             }
             public RewardType rewardType;
@@ -192,21 +191,19 @@ public class QuestManager : JsonLoad
         public QuestData[] stagePerformOnedata;
         public QuestData[] villigePerformOnedata;
         public QuestData[] floorQuestdata;
-        public QuestData[] stageQuestdata;
         public QuestData[] villigeQuestdata;
 
         QuestData[][] data;
         public void Init()
         {
 
-            data = new QuestData[][] { stagePerformOnedata, villigePerformOnedata, floorQuestdata, stageQuestdata, villigeQuestdata };
+            data = new QuestData[][] { stagePerformOnedata, villigePerformOnedata, floorQuestdata, villigeQuestdata };
         }
         public QuestDatas()
         {
             stagePerformOnedata = new QuestData[1];
             villigePerformOnedata = new QuestData[1];
             floorQuestdata = new QuestData[1];
-            stageQuestdata = new QuestData[1];
             villigeQuestdata = new QuestData[1];
         }
     }
@@ -216,7 +213,6 @@ public class QuestManager : JsonLoad
         StagePerformOnlyOne,
         VilligePerformOnlyOne,
         FloorQuest,
-        StageQuest,
         VilligeQuest
     }
     public enum QuestTrigger

@@ -12,4 +12,11 @@ public class StageChildManager : StageManager
         saveDataIndex = editorIndex;
 #endif
     }
+
+    public void CallSettlementScene()
+    {
+        sceneFadeAnim.gameObject.SetActive(true);
+        //OnAnimationEnd();
+        //settlementWindowCall;
+    }
 }

@@ -12,10 +12,10 @@ public class StageManager : JsonLoad
 {
     public static StageManager instance;
 
-    [SerializeField] Animator sceneFadeAnim;
+    [SerializeField] protected Animator sceneFadeAnim;
     int triggerNamedNoDelay;
     public int targetSceneNum;
-    public int saveDataIndex { get; set;}
+    public int saveDataIndex { get; set; }
     protected List<UnityAction<Scene, LoadSceneMode>> loadActionList;
 
     [Serializable]
@@ -95,6 +95,7 @@ public class StageManager : JsonLoad
         {
             SceneManager.LoadSceneAsync(3);
             GameManager.manager.ReadytoSceneLoad();
+            ObjectUIPool.pool.ReadytoSceneLoad();
         });
     }
     protected virtual void SceneReveal()
@@ -106,7 +107,7 @@ public class StageManager : JsonLoad
         OnAnimationEnd(() => sceneFadeAnim.gameObject.SetActive(false));
     }
 
-    async void OnAnimationEnd(Action action)
+    protected async void OnAnimationEnd(Action action)
     {
         await Task.Delay(2000);
         action();

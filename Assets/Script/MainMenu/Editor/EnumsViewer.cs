@@ -12,6 +12,7 @@ public class EnumsViewer : Editor
     public ScriptableObject obj;
 
     List<Action> EnumsActions = new List<Action>();
+    SerializedProperty propertyLabel;
 
 
     public void OnEnable()
@@ -23,16 +24,19 @@ public class EnumsViewer : Editor
         if (AssetDatabase.Contains(target))
             needAddressable = null;
 
+        propertyLabel = serializedObject.FindProperty("label");
     }
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
         EditorGUILayout.ObjectField("Script", needAddressable, typeof(NeedAddressable), false);
         needAddressable.image = EditorGUILayout.ObjectField("Image", needAddressable.image, typeof(UnityEngine.UI.Image), true) as UnityEngine.UI.Image;
-
+        EditorGUILayout.PropertyField(propertyLabel);
         needAddressable.Type = (NeedAddressable.EnumType)EditorGUILayout.EnumPopup("EnumType", needAddressable.Type);
 
         EnumsActions[(int)needAddressable.Type]();
+
+        serializedObject.ApplyModifiedProperties();
     }
     void SetDictionary()
     {
@@ -42,6 +46,7 @@ public class EnumsViewer : Editor
         EnumsActions.Add(() => EnumPopSubstitute(ref needAddressable.itemQuality));
         EnumsActions.Add(() => EnumPopSubstitute(ref needAddressable.video));
         EnumsActions.Add(() => EnumPopSubstitute(ref needAddressable.mainMenuImage));
+        EnumsActions.Add(() => EnumPopSubstitute(ref needAddressable.stageSettlementImage));
     }
     void EnumPopSubstitute<T>(ref T imageTag) where T : struct, Enum
     {

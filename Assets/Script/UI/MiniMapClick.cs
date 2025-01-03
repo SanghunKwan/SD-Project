@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,11 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
             (hit)=>{ActionLeft(hit); },
             (hit)=>{ActionRight(hit); }
         };
+
+        if (GameManager.manager.battleClearManager == null)
+            GameManager.manager.onBattleClearManagerRegistered += RegisterStageClearEvent;
+        else
+            RegisterStageClearEvent();
     }
     void ActionLeft(RaycastHit hit)
     {
@@ -39,7 +45,15 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     {
         GameManager.manager.OrderUnit(hit);
     }
-    public IEnumerator DelayDrawPixel()
+    void RegisterStageClearEvent()
+    {
+        GameManager.manager.battleClearManager.onStageChanged = MinimapReload;
+    }
+    public void MinimapReload()
+    {
+        StartCoroutine(DelayDrawPixel());
+    }
+    IEnumerator DelayDrawPixel()
     {
         var texture = rawImage.texture as RenderTexture;
         yield return null;

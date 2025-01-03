@@ -11,6 +11,9 @@ public class BattleClearManager : MonoBehaviour
     [SerializeField] int[] m_linkPosition;
     public int[] linkPosition { get { return m_linkPosition; } }
 
+    public int nowFloorIndex { get; private set; }
+    int lastFloorIndex;
+
     [SerializeField] Vector2[] m_stagePosition;
     public Vector2[] stagePosition { get { return m_stagePosition; } }
 
@@ -21,15 +24,16 @@ public class BattleClearManager : MonoBehaviour
 
     SaveDataInfo saveData;
     public SaveDataInfo SaveDataInfo { get { return saveData; } }
-    Action[] setStageByNextScene;
 
     [SerializeField] LoadSaveManager loadSaveManager;
     BattleClearPool battleClearPool;
 
-    public int nowFloorIndex { get; private set; }
-    int lastFloorIndex;
+    [SerializeField] UnityEngine.UI.Button StageEndButton;
 
+
+    Action[] setStageByNextScene;
     public Action<int> SetActiveNewStageObjects { get; set; }
+    public Action onStageChanged { get; set; }
 
     public enum OBJECTNUM
     {
@@ -52,6 +56,7 @@ public class BattleClearManager : MonoBehaviour
     {
         loadSaveManager.LoadData(StageManager.instance.saveDataIndex, out saveData);
         GameManager.manager.SetBattleClearManager(this);
+        GameManager.manager.onPlayerEnterStage.eventAction += (num, vec) => { if (num == -1) nowFloorIndex++; };
         SetStage(saveData.nextScene);
 
     }
@@ -92,14 +97,16 @@ public class BattleClearManager : MonoBehaviour
 
     public void ActivateNextFloor(in QuestSpawner questSpawner)
     {
-        if (++nowFloorIndex <= lastFloorIndex)
+        if (nowFloorIndex + 1 < lastFloorIndex)
         {
-            GetStageComponent(0).gameObject.SetActive(true);
+            GetStageComponent(1).gameObject.SetActive(true);
             questSpawner.PrepareQuest(QuestManager.QuestType.FloorQuest, 1);
+            onStageChanged?.Invoke();
         }
         else
         {
             Debug.Log("마지막 스테이지 클리어!");
+            StageEndButton.gameObject.SetActive(true);
         }
     }
     public void ActiveStageObject()

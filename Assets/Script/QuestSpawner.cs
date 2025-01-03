@@ -63,7 +63,6 @@ public class QuestSpawner : MonoBehaviour
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.Item] = ClearForItem;
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.NewStage] = (reward) => ClearForStage();
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.StageSet] = (reward) => ClearStageArrive();
-        EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.SceneClear] = (reward) => ClearForScene();
 
     }
     void Start()
@@ -185,7 +184,6 @@ public class QuestSpawner : MonoBehaviour
     {
         QuestManager.QuestData.QuestRequirements require = data.require;
 
-
         questPool.PlaceQuest(require.spot
             + GameManager.manager.battleClearManager.GetStageComponent(require.stageOffsetIndex).transform.position,
             require.layer, (vec) =>
@@ -253,17 +251,13 @@ public class QuestSpawner : MonoBehaviour
     {
         GameManager.manager.battleClearManager.ActivateNextFloor(this);
 
-        //새로운 스테이지 활성화
+        //새로운 스테이지 floor 활성화
     }
     void ClearStageArrive()
     {
         GameManager.manager.battleClearManager.ActiveStageObject();
 
-        //새로운 스테이지 활성화
-    }
-    void ClearForScene()
-    {
-        //원정 성공 버튼 생성
+        //새로운 스테이지 오브젝트 활성화
     }
 
     #endregion
@@ -321,8 +315,12 @@ public class QuestSpawner : MonoBehaviour
     }
     void PrepareQuestbyLocation(QuestManager.QuestData.QuestAct act, QuestManager.QuestType type, int questNum)
     {
+        BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
         //collider를 통해 퀘스트 시작 포인트 가져오기
-        questPool.PlaceQuest(act.spot, act.layer, (vec) => MakeQuest(type, questNum, vec), act.radius);
+        Debug.Log(GameManager.manager.battleClearManager.nowFloorIndex);
+        questPool.PlaceQuest(act.spot + battleClearManager.GetStageComponent(0).transform.position,
+            act.layer, (vec) => MakeQuest(type, questNum, vec), act.radius);
+
     }
     void PrepareQuestbySpecificAction(QuestManager.QuestData.QuestAct act, QuestManager.QuestType type, int questNum)
     {

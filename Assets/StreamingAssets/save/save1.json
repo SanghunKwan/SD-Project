@@ -43,11 +43,11 @@
             "workBuilding": 0,
             "isDead": false,
             "unitData": {
-                "detected": true,
+                "detected": false,
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": 22.0,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 },
@@ -75,9 +75,9 @@
                     },
                     "selected": false,
                     "cur_status": {
-                        "ID": 6,
+                        "ID": 301,
                         "NAME": "디스마스",
-                        "SPECIES": 300,
+                        "SPECIES": 1,
                         "HP": 27,
                         "ATK": 7,
                         "DEF": 0,
@@ -91,7 +91,9 @@
                         "AtkSpeed": 1.5,
                         "Range": 1,
                         "Mentality": 30,
-                        "Stress": 5
+                        "Stress": 5,
+                        "curHP": 27,
+                        "curMORALE": 0
                     },
                     "id": 101,
                     "dots": [
@@ -110,11 +112,7 @@
             0
         ],
         "floors": [
-            0,
-            1,
-            2,
-            3,
-            4
+            0
         ],
         "nowFloorIndex": 0,
         "isAllClear": false,
@@ -123,5 +121,24 @@
         "monsterData": [],
         "objectDatas": [],
         "dropItemDatas": []
+    },
+    "questSaveData": {
+        "stagePerformOneData": {
+            "bits": [],
+            "nowQuestList": []
+        },
+        "villigePerformOneData": {
+            "bits": [],
+            "nowQuestList": []
+        },
+        "floorQuestData": {
+            "bits": [],
+            "nowQuestList": []
+        },
+        "villigeQuestData": {
+            "bits": [],
+            "nowQuestList": []
+        },
+        "isLoaded": false
     }
 }

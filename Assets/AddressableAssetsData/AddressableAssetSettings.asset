@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: d49b02cb2125a6547be07b7bded88ba5
   m_currentHash:
     serializedVersion: 2
-    Hash: 36813a72b706970e8ef0610aac1ff422
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -56,6 +56,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8805793e0f473f1418d2575a19b3caa3, type: 2}
   - {fileID: 11400000, guid: fadd807ed17815c4ab8c75ab428cc093, type: 2}
   - {fileID: 11400000, guid: e0c3d093392ceac458d4878ff33de11f, type: 2}
+  - {fileID: 11400000, guid: 8fde2d317153b534f9d4c27058252da6, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -109,6 +110,7 @@ MonoBehaviour:
     - VideoView
     - Building
     - MainMenu
+    - StageSettlement
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: e7ec4e844004b8545b1b0dfb9f60c482, type: 2}

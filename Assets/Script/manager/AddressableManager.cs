@@ -15,7 +15,8 @@ public class AddressableManager : MonoBehaviour
     [SerializeField] AssetLabelReference[] label;
 
     public static AddressableManager manager;
-
+    int loadedDataNum;
+    public Action onDataLoadComplete { get; set; }
     public enum PreviewImage
     {
         WeaponType,
@@ -80,7 +81,11 @@ public class AddressableManager : MonoBehaviour
         MeleeBase,
         RangeSkill,
         MeleeSkill,
-
+        StageSettlement
+    }
+    public enum StageSettlementImage
+    {
+        ClearImage
     }
 
 
@@ -130,17 +135,28 @@ public class AddressableManager : MonoBehaviour
         length = label.Length;
         for (int i = 0; i < length; i++)
         {
-            LoadData(label[i].labelString);
+            LoadData(label[i].labelString, DataCountChange);
         }
-        Debug.Log("남은 data 수 : " + loadedData.Count);
+        Debug.Log("현재 data 수 : " + loadedData.Count);
     }
     public void LoadData(in string LabelName, Action action = null)
     {
         if (!loadedData.ContainsKey(LabelName))
         {
-            AsyncOperationHandle<IList<Sprite>> handle = Addressables.LoadAssetsAsync<Sprite>(LabelName, (spr) => action?.Invoke());
+            AsyncOperationHandle<IList<Sprite>> handle = Addressables.LoadAssetsAsync<Sprite>(LabelName, (none) => { });
             loadedData.Add(LabelName, handle);
+            handle.CompletedTypeless += (asdf) => action?.Invoke();
         }
+        else
+            action?.Invoke();
+    }
+    void DataCountChange()
+    {
+        int count = loadedData.Count;
+        loadedDataNum++;
+        Debug.Log(loadedDataNum);
+        if (loadedDataNum == count)
+            onDataLoadComplete?.Invoke();
     }
     public void LoadVideo(in string LabelName, Action<VideoClip> action)
     {
