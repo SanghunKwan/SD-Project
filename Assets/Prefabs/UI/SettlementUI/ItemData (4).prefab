@@ -267,5 +267,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7243088281671304493}
-  iamge: {fileID: 4061609337296840197}
+  image: {fileID: 4061609337296840197}
   text: {fileID: 7331618309118218760}

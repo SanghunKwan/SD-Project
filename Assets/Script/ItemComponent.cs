@@ -14,7 +14,7 @@ public enum ItemType
     EquipsArm,
     EquipsWeapon,
     Special,
-
+    Max
 }
 public class ItemComponent : MonoBehaviour
 {
