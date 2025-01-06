@@ -23,6 +23,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - StageSettlement
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d08d53678d58574ca468b8a7dde0fd9
+    m_Address: Assets/AddData/StageSettlement/tile.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StageSettlement
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
   m_SchemaSet:

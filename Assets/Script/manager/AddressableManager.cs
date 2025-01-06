@@ -85,7 +85,8 @@ public class AddressableManager : MonoBehaviour
     }
     public enum StageSettlementImage
     {
-        ClearImage
+        ClearImage,
+        TitleImage
     }
 
 

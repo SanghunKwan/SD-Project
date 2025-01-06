@@ -14,6 +14,7 @@ public class InventoryManager : JsonLoad
         public int[] prices;
     }
     public itemInfo info { get; private set; }
+    public Dictionary<string, Sprite[]> resourceSprite { get; private set; }
 
     private void Awake()
     {
@@ -21,6 +22,11 @@ public class InventoryManager : JsonLoad
 
         info = LoadData<itemInfo>("Item_Data");
         StartCoroutine(DesReplace());
+
+        for (int i = 0; i < info.items.Length; i++)
+        {
+            resourceSprite.Add(info.items[i].name, Resources.LoadAll<Sprite>("InventoryImage/2d" + info.items[i].name.Replace(" ", "")));
+        }
     }
     IEnumerator DesReplace()
     {

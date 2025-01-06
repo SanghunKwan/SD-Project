@@ -10,7 +10,7 @@ public class SettlementManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI titleText;
     [SerializeField] Color[] titleColor = new Color[2];
     [SerializeField] Animator hideAnimator;
-    [SerializeField] SettleFloorController settleFloorController;
+    [SerializeField]SettleController[] settleControllers;
 
     public enum BattleResult
     {
@@ -22,7 +22,7 @@ public class SettlementManager : MonoBehaviour
     {
         SetBlackFade(true);
         DelayAction(2000, StartSettlementAnimation);
-
+        
     }
 
     public void SetBattleResult(BattleResult result)
@@ -65,6 +65,17 @@ public class SettlementManager : MonoBehaviour
     void StartSettlementAnimation()
     {
         hideAnimator.gameObject.SetActive(false);
-        settleFloorController.PlaySettleFloors(() => { });
+        PlaySettlementAnimation(0);
+    }
+    void PlaySettlementAnimation(int settleIndex)
+    {
+        Action onEndAction = () => PlaySettlementAnimation(settleIndex + 1);
+        int length = settleControllers.Length;
+        
+
+        if (settleIndex + 1 >= length)
+            onEndAction = () => { };
+
+        settleControllers[settleIndex].PlaySettle(onEndAction);
     }
 }

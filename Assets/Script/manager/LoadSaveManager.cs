@@ -74,7 +74,7 @@ namespace SaveData
         public int[] heros;
         public int[] floors = new int[5];
         public int nowFloorIndex;
-        public bool isAllClear;
+        public bool isClear;
 
         public InventoryStorage.Slot[] slots;
 
@@ -87,7 +87,7 @@ namespace SaveData
             heros = new int[1] { 0 };
             floors = new int[] { 0 };
             nowFloorIndex = 0;
-            isAllClear = false;
+            isClear = false;
         }
     }
     [Serializable]
