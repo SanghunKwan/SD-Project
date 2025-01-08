@@ -14,19 +14,27 @@
         {
             "name": "디스마스",
             "lv": 1,
-            "quirks": [
-                6,
-                2,
-                0,
-                0,
-                0
-            ],
-            "disease": [
-                0,
-                0,
-                0,
-                0
-            ],
+            "quirks": {
+                "quirks": [
+                    6,
+                    2,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 2,
+                "willChange": false,
+                "willChangeIndex": 0
+            },
+            "disease": {
+                "quirks": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 0
+            },
             "keycode": "=",
             "equipNum": [
                 1,
@@ -115,7 +123,7 @@
             0
         ],
         "nowFloorIndex": 0,
-        "isAllClear": false,
+        "isClear": false,
         "slots": [],
         "unitData": [],
         "monsterData": [],

@@ -34,12 +34,46 @@ namespace SaveData
         }
     }
     [Serializable]
+    public class QuirkDefaultData
+    {
+        public int[] quirks;
+        public int length;
+        public QuirkDefaultData()
+        {
+            quirks = new int[5] { 6, 2, 0, 0, 0 };
+            length = 2;
+        }
+        public QuirkDefaultData(int count)
+        {
+            quirks = new int[count];
+            length = 0;
+        }
+        public QuirkDefaultData(in int[] getQuirks, int getLength)
+        {
+            quirks = getQuirks;
+            length = getLength;
+        }
+    }
+    [Serializable]
+    public class QuirkSaveData : QuirkDefaultData
+    {
+        public bool willChange;
+        public int willChangeIndex;
+
+        public QuirkSaveData()
+        {
+            willChange = false;
+            willChangeIndex = 0;
+        }
+    }
+
+    [Serializable]
     public class HeroData
     {
         public string name;
         public int lv;
-        public int[] quirks;
-        public int[] disease;
+        public QuirkSaveData quirks;
+        public QuirkDefaultData disease;
         public string keycode;
         public int[] equipNum;
         public int[] skillNum;
@@ -52,8 +86,8 @@ namespace SaveData
         {
             name = "디스마스";
             lv = 1;
-            quirks = new int[5] { 6, 2, 0, 0, 0 };
-            disease = new int[4] { 0, 0, 0, 0 };
+            quirks = new QuirkSaveData();
+            disease = new QuirkDefaultData(4);
             keycode = "=";
             equipNum = new int[3] { 1, 1, 1 };
             skillNum = new int[4] { 1, 1, 1, 1 };

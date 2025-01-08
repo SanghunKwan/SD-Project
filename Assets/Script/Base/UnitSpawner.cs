@@ -57,8 +57,8 @@ public abstract class UnitSpawner : MonoBehaviour
     {
         newObject.TeamChange(data.keycode);
         newObject.SetLevel(data.lv);
-        newObject.SetQuirk(data.quirks);
-        newObject.SetDisease(data.disease);
+        newObject.SetQuirk(data.quirks.quirks);
+        newObject.SetDisease(data.disease.quirks);
         newObject.name = data.name;
         newObject.SetData(newObject.EquipsNum, data.equipNum);
         newObject.SetData(newObject.SkillsNum, data.skillNum);
@@ -79,7 +79,7 @@ public abstract class UnitSpawner : MonoBehaviour
         NewSpawnedObjectSet(newHero, data.unitData.objectData);
         NewSpawnedUnitSet(newHero, data.unitData);
         NewSpawnedHeroSet(newHero, data);
-        
+
         return newHero;
     }
 }

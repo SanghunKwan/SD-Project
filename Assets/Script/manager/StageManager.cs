@@ -95,7 +95,9 @@ public class StageManager : JsonLoad
         {
             SceneManager.LoadSceneAsync(3);
             GameManager.manager.ReadytoSceneLoad();
-            ObjectUIPool.pool.ReadytoSceneLoad();
+
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+                ObjectUIPool.pool.ReadytoSceneLoad();
         });
     }
     protected virtual void SceneReveal()
