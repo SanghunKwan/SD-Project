@@ -23,10 +23,14 @@ public class InventoryManager : JsonLoad
         info = LoadData<itemInfo>("Item_Data");
         StartCoroutine(DesReplace());
         resourceSprite = new Dictionary<string, Sprite[]>();
-
-
-        for (int i = 0; i < info.items.Length; i++)
+        int length = info.items.Length;
+        Sprite[] resourceSprites;
+        for (int i = 0; i < length; i++)
         {
+            resourceSprites = Resources.LoadAll<Sprite>("InventoryImage/2d" + info.items[i].name.Replace(" ", ""));
+            if (resourceSprites.Length < 1)
+                continue;
+
             resourceSprite.Add(info.items[i].name, Resources.LoadAll<Sprite>("InventoryImage/2d" + info.items[i].name.Replace(" ", "")));
         }
     }

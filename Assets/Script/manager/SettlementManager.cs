@@ -10,7 +10,14 @@ public class SettlementManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI titleText;
     [SerializeField] Color[] titleColor = new Color[2];
     [SerializeField] Animator hideAnimator;
-    [SerializeField]SettleController[] settleControllers;
+    [SerializeField] SettleController[] settleControllers;
+    [SerializeField] GameObject buttonCallNext;
+
+
+    [Header("slotPlaySpeed")]
+    [SerializeField] int startDelay = 2000;
+    public int interval = 250;
+
 
     public enum BattleResult
     {
@@ -21,8 +28,8 @@ public class SettlementManager : MonoBehaviour
     private void Start()
     {
         SetBlackFade(true);
-        DelayAction(2000, StartSettlementAnimation);
-        
+        DelayAction(startDelay, StartSettlementAnimation);
+
     }
 
     public void SetBattleResult(BattleResult result)
@@ -71,11 +78,22 @@ public class SettlementManager : MonoBehaviour
     {
         Action onEndAction = () => PlaySettlementAnimation(settleIndex + 1);
         int length = settleControllers.Length;
-        
+
 
         if (settleIndex + 1 >= length)
-            onEndAction = () => { };
+            onEndAction = CallButton;
 
-        settleControllers[settleIndex].PlaySettle(onEndAction);
+        settleControllers[settleIndex].PlaySettle(onEndAction, interval);
     }
+    void CallButton()
+    {
+        buttonCallNext.gameObject.SetActive(true);
+    }
+
+    #region SecondSettle
+    public void CallNextSettlement()
+    {
+
+    }
+    #endregion
 }

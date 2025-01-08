@@ -12,9 +12,9 @@ public class SettleFloorController : SettleController
 
     [SerializeField] string[] resultString = new string[2] { "클리어!", "패배" };
 
-    public override void PlaySettle(Action onPlayEnd)
+    public override void PlaySettle(Action onPlayEnd, int interval)
     {
-
+        m_interval = interval;
 
         ForRepeat(onPlayEnd);
     }
@@ -38,7 +38,7 @@ public class SettleFloorController : SettleController
             index = Convert.ToInt32(i > clearIndex);
             settleFloorSlots[i].SetContents(floorsData[i], resultColors[index], resultString[index]);
             settleFloorSlots[i].SlotAnimationActivate();
-            await Task.Delay(250);
+            await Task.Delay(m_interval);
         }
         action();
     }

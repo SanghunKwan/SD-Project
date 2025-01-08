@@ -5,5 +5,6 @@ using UnityEngine;
 
 public abstract class SettleController : MonoBehaviour
 {
-    public abstract void PlaySettle(Action onPlayEnd);
+    protected int m_interval;
+    public abstract void PlaySettle(Action onPlayEnd, int interval);
 }

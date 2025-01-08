@@ -80,7 +80,7 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.dragging)
+        if (eventData.dragging || pointerEventData == null)
             return;
 
         if (eventData.button == PointerEventData.InputButton.Left)

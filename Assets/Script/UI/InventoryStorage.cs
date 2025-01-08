@@ -43,7 +43,7 @@ public class InventoryStorage : StorageComponent
             brunchIndex = deepCopy.brunchIndex;
             beforeSlotIndex = deepCopy.beforeSlotIndex;
 
-            AddListener(deepCopy);
+            ChangeListener(deepCopy);
         }
         public void SetSlot(int code, int count)
         {
@@ -61,11 +61,11 @@ public class InventoryStorage : StorageComponent
             beforeSlotIndex = targetSlot.beforeSlotIndex;
 
         }
-        public void AddListener(Action<int> action)
+        public void ChangeListener(Action<int> action)
         {
             onChangeSlotIndex = action;
         }
-        public void AddListener(in Slot slot)
+        public void ChangeListener(in Slot slot)
         {
             onChangeSlotIndex = (Action<int>)slot.onChangeSlotIndex.Clone();
         }
@@ -292,11 +292,11 @@ public class InventoryStorage : StorageComponent
         addNum += slot.itemCount - count;
         //count는 최종 개수
         //addNum은 추가로 더해야할 수
-        ZeroSetEmpty(codeIndex, count);
 
         StorePaymentEvent(item.itemCode, slot.itemCount, count);
 
         ChangeCountByItem(slot, brunchArray, count);
+
 
         StoreEventCountFallUnderZero(codeIndex, count);
 
@@ -329,17 +329,29 @@ public class InventoryStorage : StorageComponent
         int itemCode = slot.itemCode;
         int itemCount = count - slot.itemCount;
         int needSlots = brunchArray.Length;
+        Debug.Log(itemCode.ToString() + "    " + count.ToString() + "    " + itemCount.ToString());
 
-        m_itemCounts[itemCode] += itemCount;
-        eventAlert(itemCode);
+        BaseChangeItemCount(itemCode, itemCount);
+
+        if (count == 0)
+        {
+            ZeroSetEmpty(brunchArray[0], count);
+            itemCode = 0;
+        }
 
         for (int i = 0; i < needSlots; i++)
         {
             temp = brunchArray[i];
+
             tempslot = slots[temp];
             tempslot.SetSlot(itemCode, count);
+
             onCountChanged(temp, i);
         }
+    }
+    public void BaseChangeItemCount(int itemCode, int itemCount)
+    {
+        base.ItemCountChange(itemCode, itemCount);
     }
     public void ItemCountChangeBySlot(int slotIndex, int addNum, in Item item)
     {
@@ -371,7 +383,7 @@ public class InventoryStorage : StorageComponent
     {
         if (beforeIndex >= 0)
         {
-            slots[beforeIndex].AddListener((newIndex) => slots[emptyIndex].beforeSlotIndex = newIndex);
+            slots[beforeIndex].ChangeListener((newIndex) => slots[emptyIndex].beforeSlotIndex = newIndex);
             slots[emptyIndex].beforeSlotIndex = beforeIndex;
         }
     }
@@ -465,7 +477,7 @@ public class InventoryStorage : StorageComponent
         int beforeNum = slot.beforeSlotIndex;
         int length = indexs.Length;
         if (beforeNum >= 0)
-            slots[beforeNum].AddListener(slot);
+            slots[beforeNum].ChangeListener(slot);
 
 
         for (int i = 0; i < length; i++)

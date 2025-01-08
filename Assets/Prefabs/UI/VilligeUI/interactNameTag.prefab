@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 1921710446484132449}
   - component: {fileID: 8854134887443163969}
   m_Layer: 0
-  m_Name: Image
+  m_Name: interactNameTag
   m_TagString: NameTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

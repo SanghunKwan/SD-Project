@@ -21,7 +21,7 @@ public class StorageComponent : InitObject
         public SkillData.ItemSkillEffect itemSkillEffect;
     }
 
-    protected int[] m_itemCounts;
+    [SerializeField]protected int[] m_itemCounts;
     public int[] ItemCounts { get { return m_itemCounts; } }
 
     public override void Init()

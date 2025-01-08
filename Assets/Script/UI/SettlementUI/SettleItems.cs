@@ -23,8 +23,9 @@ public class SettleItems : SettleController
         }
     }
 
-    public override void PlaySettle(Action onPlayEnd)
+    public override void PlaySettle(Action onPlayEnd, int interval)
     {
+        m_interval = interval;
         GetInventoryItems();
         ForRepeat(onPlayEnd);
     }
@@ -33,7 +34,7 @@ public class SettleItems : SettleController
     {
         int itemLineLength = itemLines.Length;
         linesIndexArray = new int[itemLineLength];
-        linesIndexArray.SetValue(linesIndexArray, 0);
+        Array.Fill(linesIndexArray, 0);
 
         int[] itemCounts = inventory.ItemCounts;
 
@@ -74,7 +75,7 @@ public class SettleItems : SettleController
 
         for (int i = 0; i < itemLineLength; i++)
         {
-            await itemLines[i].ActivateSlots(linesIndexArray[i]);
+            await itemLines[i].ActivateSlots(linesIndexArray[i], m_interval);
         }
         action();
     }
@@ -98,12 +99,12 @@ public class SettleItems : SettleController
                 itemSlots[i].gameObject.SetActive(true);
             }
         }
-        public async Task ActivateSlots(int count)
+        public async Task ActivateSlots(int count, int interval)
         {
             for (int i = 0; i < count; i++)
             {
                 itemSlots[i].SetSlotAnimationActivate();
-                await Task.Delay(250);
+                await Task.Delay(interval);
             }
         }
     }

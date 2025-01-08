@@ -196,6 +196,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     {
         int[] removeSlots = inventoryComponent.inventoryStorage.slots[slotIndex].brunchIndex.ToArray();
         int length = removeSlots.Length;
+
         for (int i = 0; i < length; i++)
         {
             inventoryComponent.inventoryStorage.CheckCodetoSlot(removeSlots[i]);
@@ -239,8 +240,9 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     {
         int length = brunchIndexList.Length;
         int brunchOffset;
+        int refItemCount = -itemCount;
         InventoryStorage.Slot memorySlot = new InventoryStorage.Slot();
-        InventoryStorage.Item item = InventoryManager.i.info.items[itemCode];
+        StorageComponent.Item item = InventoryManager.i.info.items[itemCode];
         Action callSavedItems = () => { };
 
         for (int i = 0; i < length; i++)
@@ -250,6 +252,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
                 ItemRemove(brunchOffset, nowInventoryComponent);
         }
         nowInventoryComponent.inventoryStorage.ItemCountChangeBySlot(nowSlotIndex, itemCount, item);
+        nowInventoryComponent.inventoryStorage.BaseChangeItemCount(itemCode, -itemCount);
         nowInventoryComponent.inventoryStorage.EmptySlotIndexRemove(nowSlotIndex, item.needSlots, item.figure);
         callSavedItems();
     }
@@ -263,7 +266,12 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         int code = slot.itemCode;
         int count = slot.itemCount;
         int[] brunchArray = slot.brunchIndex.ToArray();
-        itemCount += () => nowInventoryComponent.inventoryStorage.ItemCountChange(code, count);
+        itemCount += () =>
+        {
+            nowInventoryComponent.inventoryStorage.ItemCountChange(code, count);
+            nowInventoryComponent.inventoryStorage.BaseChangeItemCount(code, -count);
+        };
+
         imageSlot += () => nowInventoryComponent.OriginImagebySlotArray(brunchArray);
         return true;
     }
@@ -285,16 +293,19 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         {
             InventoryStorage.Slot slot = inventoryStorage.slots[slotIndex];
             StorageComponent.Item item = InventoryManager.i.info.items[slot.itemCode];
+            int addNum;
             UIEventSet(0, () =>
             {
+                addNum = -slot.itemCount;
                 GameManager.manager.storageManager.ThrowAwaySlotAll(eventPosition, slot);
-                ItemRemove(slotIndex, this);
+                inventoryStorage.SlotOperateWithCodeIndex(slotIndex, ref addNum, item);
+                //ItemRemove(slotIndex, this);
                 uICallChange[1].CheckUICall.CallCheckUIRemove();
             });
 
             UIEventSet(1, () =>
             {
-                int addNum = -1;
+                addNum = -1;
                 GameManager.manager.storageManager.ThrowAwaySlot(eventPosition, 1, slot.itemCode);
                 inventoryStorage.SlotOperateWithCodeIndex(slotIndex, ref addNum, item);
                 uICallChange[1].CheckUICall.CallCheckUIRemove();
