@@ -14,6 +14,7 @@ public enum ItemType
     EquipsArm,
     EquipsWeapon,
     Special,
+    Corpse,
     Max
 }
 public class ItemComponent : MonoBehaviour
@@ -27,41 +28,33 @@ public class ItemComponent : MonoBehaviour
 
 
     UICircle uiCircle;
-    [SerializeField] Material[] materials;
+    [SerializeField] protected Material[] materials;
 
-    [SerializeField] int CirclePad;
+    [SerializeField] protected int CirclePad;
 
-    [SerializeField] float getSpeed;
+    [SerializeField] protected float getSpeed;
     CapsuleCollider coll;
     bool isCorpse;
     UnitState unitState;
+    Hero hero;
 
     private void Awake()
     {
         CircleCanvas = GameObject.FindGameObjectWithTag("Canvas").transform;
         coll = GetComponent<CapsuleCollider>();
-        isCorpse = transform.TryGetComponent(out UnitState state);
-        unitState = state;
     }
     void OnEnable()
     {
         GameObject circleObjct = ObjectUIPool.pool.Call(ObjectUIPool.Folder.UIItemCircle);
         circleObjct.transform.SetParent(CircleCanvas, false);
         uiCircle = circleObjct.GetComponent<UICircle>();
-        if (isCorpse)
-        {
-            unitState.Death(false);
-            StartCoroutine(DelayAniEnd());
-        }
+
+        VirtualEnable();
+
         StartCoroutine(CircleRepeat());
     }
-
-    public void Init(int indexNum, Material[] _materials, int _circlePad, float Speed)
+    protected virtual void VirtualEnable()
     {
-        SetIndex(indexNum);
-        materials = _materials;
-        CirclePad = _circlePad;
-        getSpeed = Speed;
     }
 
     IEnumerator CircleRepeat()
@@ -86,11 +79,7 @@ public class ItemComponent : MonoBehaviour
     {
         coll.enabled = true;
     }
-    IEnumerator DelayAniEnd()
-    {
-        yield return new WaitForSeconds(1);
-        AnimationEnd();
-    }
+
     private void OnMouseEnter()
     {
         uiCircle.Arc = 1f;
@@ -134,7 +123,7 @@ public class ItemComponent : MonoBehaviour
     {
         index = indexNum;
     }
-    void InventoryAddItem(in GameObject itemFinder)
+    protected virtual void InventoryAddItem(in GameObject itemFinder)
     {
         GameManager.manager.storageManager.AddItem(index, 1, itemFinder);
     }

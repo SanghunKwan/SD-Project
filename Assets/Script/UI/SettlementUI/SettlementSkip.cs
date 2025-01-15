@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SettlementManager))]
+[RequireComponent(typeof(SettleCanSkip))]
 public class SettlementSkip : MonoBehaviour
 {
-    SettlementManager settlementManager;
+    SettleCanSkip settlementManager;
 
     [SerializeField] SettleInput settleInput;
 
     private void Awake()
     {
-        settlementManager = GetComponent<SettlementManager>();
+        settlementManager = GetComponent<SettleCanSkip>();
         settleInput.onClickEvent += SetIntervalZero;
     }
     public void SetIntervalZero()

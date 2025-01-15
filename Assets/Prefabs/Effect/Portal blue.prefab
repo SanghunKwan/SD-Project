@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5739618919291857254}
   - component: {fileID: 5898729871911122894}
   - component: {fileID: 726196870114761369}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: CircleSparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4852,7 +4852,7 @@ GameObject:
   - component: {fileID: 3339390747418099020}
   - component: {fileID: -471469877892139862}
   - component: {fileID: 7609778399990141815}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Portal blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14670,7 +14670,7 @@ GameObject:
   - component: {fileID: 9153479286804148983}
   - component: {fileID: 7149508684990454401}
   - component: {fileID: 6560384534278263821}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class StageChildManager : StageManager
 {
     [SerializeField] int editorIndex;
+    [SerializeField] GameObject settlementScene;
     protected override void VirtualAwake()
     {
 #if UNITY_EDITOR
@@ -16,7 +18,14 @@ public class StageChildManager : StageManager
     public void CallSettlementScene()
     {
         sceneFadeAnim.gameObject.SetActive(true);
-        //OnAnimationEnd();
-        //settlementWindowCall;
+        SettleCall();
     }
+    async void SettleCall()
+    {
+        Time.timeScale = 1;
+        await Task.Delay(1000);
+        settlementScene.SetActive(true);
+
+    }
+
 }

@@ -112,8 +112,8 @@
             "name": "Corpse",
             "itemCode": 12,
             "MaxCount": 1000,
-            "type": 4,
-            "description": "<align=center><u>동료의 시신</u></align>\\n<size=40>퀘스트. 영지에서 장비 회수.</size>",
+            "type": 7,
+            "description": "<align=center><u>동료의 시신</u></align>\\n",
             "needSlots": 2,
             "figure": 1
         },

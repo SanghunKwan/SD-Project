@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SaveData;
+using System.Threading.Tasks;
 
-public class SettlementCharacterParent : MonoBehaviour
+public class SettlementCharacterParent : SettleCanSkip
 {
     SettlementCharacter[] settlementCharacters;
     [SerializeField] float chanceToNewQuirk;
@@ -22,18 +23,22 @@ public class SettlementCharacterParent : MonoBehaviour
 
     private void Start()
     {
-        SaveDataInfo saveInfo = GameManager.manager.battleClearManager.SaveDataInfo;
+        SettleCharacters(GameManager.manager.battleClearManager.SaveDataInfo);
+
+    }
+    async void SettleCharacters(SaveDataInfo saveInfo)
+    {
+        int[] herosIndex = saveInfo.stageData.heros;
+        int heroCount = herosIndex.Length;
 
         HeroData[] heros = saveInfo.hero;
         HeroData heroData;
-        int[] herosIndex = saveInfo.stageData.heros;
-        int heroCount = herosIndex.Length;
 
         for (int i = 0; i < heroCount; i++)
         {
             heroData = heros[herosIndex[i]];
-            settlementCharacters[i].SetCharcterNameTag(heroData);
-
+            settlementCharacters[i].gameObject.SetActive(true);
+            settlementCharacters[i].SetCharcterNameTag(heroData, i);
 
             if (ChanceNewQuirk(chanceToNewQuirk))
                 settlementCharacters[i].CreateNewQuirk(heroData.quirks);
@@ -45,11 +50,8 @@ public class SettlementCharacterParent : MonoBehaviour
             else
                 Debug.Log("새 질병 생성하지 않는 확률");
 
-
+            await Task.Delay(interval);
         }
-
-
-
     }
 
 

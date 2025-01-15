@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unit;
 using UnityEngine;
 [RequireComponent(typeof(UnitSpawner))]
 public class StageEnterHero : MonoBehaviour
@@ -11,6 +10,7 @@ public class StageEnterHero : MonoBehaviour
     [SerializeField] int waitSeconds;
     [SerializeField] int spawnCoolTime;
     UnitSpawner unitSpawner;
+    [SerializeField] Vector3 gatePosition;
 
 
     private void Start()
@@ -28,23 +28,24 @@ public class StageEnterHero : MonoBehaviour
     }
     async void SpawnHeroswithDelay()
     {
-        InputEffect.e.PrintEffect(Vector3.up, 8);
+        InputEffect.e.PrintEffect(gatePosition, 8);
 
         await Task.Delay(500);
         Unit.Hero tempHero;
         int length = spawnManager.heroDatas.Length;
+        int moveTime = 500;
         Vector3 destination = new Vector3(-(length - 1) * 0.5f, 0, -2);
         for (int i = 0; i < length; i++)
         {
-            tempHero = unitSpawner.SpawnHeroData(spawnManager.heroDatas[i]);
+            tempHero = unitSpawner.SpawnHeroData(spawnManager.heroDatas[i], i);
             tempHero.unitMove.Navi_Destination(Vector3.back);
             SetAllLayer(tempHero.transform.GetChild(0).gameObject, 18);
-            await Task.Delay(400);
+            await Task.Delay(moveTime);
 
             tempHero.unitMove.MoveOrAttack(MoveType.Move, destination);
             destination += Vector3.right;
             SetAllLayer(tempHero.transform.GetChild(0).gameObject, 7);
-            await Task.Delay(spawnCoolTime - 400);
+            await Task.Delay(spawnCoolTime - moveTime);
         }
 
     }

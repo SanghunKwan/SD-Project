@@ -4,46 +4,84 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettlementCharacter : MonoBehaviour
 {
     [SerializeField] SettleNamePlate settleNamePlate;
-    [SerializeField] GameObject IsHeroDeadObject;
+    [SerializeField] GameObject isHeroDeadObject;
+    [SerializeField] GameObject isHeroCopseGetBackObject;
     [SerializeField] TextMeshProUGUI quirkText;
     [SerializeField] TextMeshProUGUI diseaseText;
+    [SerializeField] RectTransform rebuildRectTransform;
 
-    public void SetCharcterNameTag(HeroData heroData)
+    public void SetCharcterNameTag(HeroData heroData, int heroIndex)
     {
+        InventoryStorage storage = GameManager.manager.storageManager.inventoryComponents(InventoryComponent.InventoryType.Stage).inventoryStorage;
 
         settleNamePlate.SetTexts(heroData.keycode, heroData.lv, heroData.name);
         gameObject.SetActive(true);
 
-        IsHeroDeadObject.SetActive(heroData.isDead);
-
+        if (heroData.isDead)
+        {
+            isHeroDeadObject.SetActive(true);
+            isHeroCopseGetBackObject.SetActive(!storage.IsCorpseExist(heroIndex));
+        }
+        
     }
     public void CreateNewQuirk(QuirkSaveData quirkSaveData)
     {
         CreateNewQuirks(quirkSaveData, QuirkData.manager.quirkInfo, 5, quirkText, "기벽 최대 개수 도달");
     }
 
-    int GetRandomUnusedQuirkIndex(in int[] quirks, int quirksLength, int quirkDataLength)
+
+
+    public void CreateNewDisease(QuirkDefaultData diseaseData)
     {
-        int arrayLength = quirks.Length;
-        int length = quirkDataLength - quirks.Length;
+        CreateNewQuirks(diseaseData, QuirkData.manager.diseaseInfo, 4, diseaseText, "질병 최대 개수 도달");
+    }
+    void CreateNewQuirks(QuirkDefaultData quirkBeforeData, in QuirkData.QuirkS quirksInfo, int maxLength, TextMeshProUGUI textComponent, in string DebugLog)
+    {
+        QuirkData.Quirk[] quirks = quirksInfo.quirks;
 
-        int[] sortedQuirks = new int[arrayLength];
+        int quirkCount = GetQuirksData(maxLength, quirkBeforeData);
 
-        int[] noneUsedQuirks;
-        Array.Copy(quirks, sortedQuirks, quirksLength);
+        if (quirkCount <= maxLength)
+        {
+            textComponent.text = quirks[GetRandomUnusedQuirkIndex(quirkBeforeData.quirks, quirks.Length, quirkCount)].name;
+        }
+        else
+            Debug.Log(DebugLog);
+
+    }
+    int GetQuirksData(int maxLength, QuirkDefaultData heroQuirkData)
+    {
+        int quirkCount = 0;
+
+        for (int i = 0; i < maxLength; i++)
+        {
+            if (heroQuirkData.quirks[i] == 0)
+                continue;
+
+            quirkCount++;
+
+        }
+        return quirkCount;
+    }
+    int GetRandomUnusedQuirkIndex(in int[] beforeQuirks, int quirkInfoLength, int beforeQuirkCount)
+    {
+        int[] sortedQuirks = new int[beforeQuirkCount];
+
+        Array.Copy(beforeQuirks, sortedQuirks, beforeQuirkCount);
         Array.Sort(sortedQuirks);
 
-        noneUsedQuirks = GetNoneUnusedQuirkIndexArray(sortedQuirks, length);
+        int length = quirkInfoLength - beforeQuirkCount;
 
-        return noneUsedQuirks[UnityEngine.Random.Range(0, length)];
+        return GetNoneUnusedQuirkIndexArray(sortedQuirks, length)[UnityEngine.Random.Range(1, length)];
     }
-    int[] GetNoneUnusedQuirkIndexArray(int[] sortedArray, int length)
+    int[] GetNoneUnusedQuirkIndexArray(in int[] sortedArray, int length)
     {
-        int nowArrayIndex = 0;
+        int sortedArrayIndex = 0;
         int nowComponent = 0;
 
         int sortedArrayLength = sortedArray.Length;
@@ -51,9 +89,12 @@ public class SettlementCharacter : MonoBehaviour
 
         for (int i = 0; i < length; i++)
         {
-            while (nowArrayIndex < sortedArrayLength && sortedArray[nowArrayIndex] == nowComponent)
+
+            //sortedArray의 요소와 중첩되지 않을 것.
+
+            while (sortedArrayIndex < sortedArrayLength && sortedArray[sortedArrayIndex] == nowComponent)
             {
-                nowArrayIndex++;
+                sortedArrayIndex++;
                 nowComponent++;
             }
 
@@ -61,22 +102,5 @@ public class SettlementCharacter : MonoBehaviour
         }
 
         return indexArray;
-    }
-
-    public void CreateNewDisease(QuirkDefaultData diseaseData)
-    {
-        CreateNewQuirks(diseaseData, QuirkData.manager.diseaseInfo, 4, diseaseText, "질병 최대 개수 도달");
-    }
-    void CreateNewQuirks(QuirkDefaultData quirkDefaultData, in QuirkData.QuirkS quirksInfo, int maxLength, TextMeshProUGUI textComponent, in string DebugLog)
-    {
-        QuirkData.Quirk[] quirks = quirksInfo.quirks;
-
-        if (quirkDefaultData.length < maxLength)
-        {
-            textComponent.text = quirks[GetRandomUnusedQuirkIndex(quirkDefaultData.quirks, quirkDefaultData.length, quirks.Length)].name;
-        }
-        else
-            Debug.Log(DebugLog);
-
     }
 }

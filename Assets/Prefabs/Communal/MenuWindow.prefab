@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 6450161018452210427}
   - component: {fileID: 3762555272446706055}
   - component: {fileID: 1777013956718623875}
+  - component: {fileID: 2521746026204969102}
   m_Layer: 0
   m_Name: Button (1)
   m_TagString: Untagged
@@ -362,7 +363,77 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3762555272446706055}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2521746026204969102}
+        m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
+        m_MethodName: CallUIOnce
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &2521746026204969102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3218924186390897356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621215bf5815b73408edafb3de905096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI: {fileID: 5287346296941250698, guid: 54a071ad38714cc4998ddbd61a2ad97d, type: 3}
+  toUserQuestion: "\uC815\uB9D0\uB85C \uC885\uB8CC\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?
+    \uC800\uC7A5\uB418\uC9C0 \uC54A\uC740 \uC9C4\uD589 \uC0C1\uD669\uC740 \uC0AD\uC81C\uB429\uB2C8\uB2E4."
+  toUserAnswers:
+  - buttonIndex: 0
+    buttonAnswer: "\uC608"
+  - buttonIndex: 1
+    buttonAnswer: "\uC544\uB2C8\uC624"
+  buttonTypeChanges:
+  - buttonIndex: 0
+    buttonType: 1
+  transformUI: {fileID: 0}
+  UIEvents:
+  - buttonIndex: 0
+    UiEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2423759795685773479}
+          m_TargetAssemblyTypeName: menuWindow, Assembly-CSharp
+          m_MethodName: Quit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - buttonIndex: 1
+    UiEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2521746026204969102}
+          m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
+          m_MethodName: CallCheckUIRemove
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  hiddenButton: 
 --- !u!1 &3365444047139762869
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7401e6f4e7198bc41bb9d923e5319ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuCall: {fileID: 0}
+  setting: {fileID: 0}
 --- !u!1 &5815469159772843427
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,6 +699,7 @@ GameObject:
   - component: {fileID: 6615631360016813444}
   - component: {fileID: 6750106081176591186}
   - component: {fileID: 4350023448338110949}
+  - component: {fileID: 1176988415370821077}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -736,7 +808,89 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6750106081176591186}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1176988415370821077}
+        m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
+        m_MethodName: CallUIOnce
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &1176988415370821077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5815469159772843427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621215bf5815b73408edafb3de905096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI: {fileID: 5287346296941250698, guid: 54a071ad38714cc4998ddbd61a2ad97d, type: 3}
+  toUserQuestion: "\uC6D0\uC815\uC744 \uD3EC\uAE30\uD558\uACE0 \uC601\uC9C0\uB85C
+    \uB3CC\uC544\uAC11\uB2C8\uAE4C?"
+  toUserAnswers:
+  - buttonIndex: 0
+    buttonAnswer: "\uC608"
+  - buttonIndex: 1
+    buttonAnswer: "\uC544\uB2C8\uC624"
+  buttonTypeChanges:
+  - buttonIndex: 0
+    buttonType: 1
+  transformUI: {fileID: 0}
+  UIEvents:
+  - buttonIndex: 0
+    UiEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: StageChildManager, Assembly-CSharp
+          m_MethodName: CallSettlementScene
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1176988415370821077}
+          m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
+          m_MethodName: CallCheckUIRemove
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - buttonIndex: 1
+    UiEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1176988415370821077}
+          m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
+          m_MethodName: CallCheckUIRemove
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  hiddenButton: 
 --- !u!1 &6154682876545804782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,6 +1293,7 @@ GameObject:
   - component: {fileID: 169440698790119182}
   - component: {fileID: 4768268086716900086}
   - component: {fileID: 8307046635715444471}
+  - component: {fileID: 6187723041160948201}
   m_Layer: 0
   m_Name: Button (Legacy) (2)
   m_TagString: Untagged
@@ -1247,7 +1402,77 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4768268086716900086}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6187723041160948201}
+        m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
+        m_MethodName: CallUIOnce
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &6187723041160948201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7065301136852865294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621215bf5815b73408edafb3de905096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI: {fileID: 5287346296941250698, guid: 54a071ad38714cc4998ddbd61a2ad97d, type: 3}
+  toUserQuestion: "\uBA54\uC778 \uBA54\uB274\uB85C \uB098\uAC00\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?
+    \uC800\uC7A5\uB418\uC9C0 \uC54A\uC740 \uC9C4\uD589 \uC0C1\uD669\uC740 \uC0AD\uC81C\uB429\uB2C8\uB2E4."
+  toUserAnswers:
+  - buttonIndex: 0
+    buttonAnswer: "\uC608"
+  - buttonIndex: 1
+    buttonAnswer: "\uC544\uB2C8\uC624"
+  buttonTypeChanges:
+  - buttonIndex: 0
+    buttonType: 1
+  transformUI: {fileID: 0}
+  UIEvents:
+  - buttonIndex: 0
+    UiEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2423759795685773479}
+          m_TargetAssemblyTypeName: menuWindow, Assembly-CSharp
+          m_MethodName: GotoMain
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - buttonIndex: 1
+    UiEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6187723041160948201}
+          m_TargetAssemblyTypeName: CheckUICall, Assembly-CSharp
+          m_MethodName: CallCheckUIRemove
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  hiddenButton: 
 --- !u!1 &8358065563443993638
 GameObject:
   m_ObjectHideFlags: 0

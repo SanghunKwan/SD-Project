@@ -56,6 +56,7 @@ public class StageManager : JsonLoad
     #region ¾À
     public void CallLoadingScene(int nextScene)
     {
+        Time.timeScale = 1;
         SceneLoadActionAdd(() =>
         {
             DataSuccession();

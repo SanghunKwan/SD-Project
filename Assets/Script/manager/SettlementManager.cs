@@ -5,53 +5,33 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-public class SettlementManager : MonoBehaviour
+public class SettlementManager : SettleCanSkip
 {
-    [SerializeField] TextMeshProUGUI titleText;
-    [SerializeField] Color[] titleColor = new Color[2];
     [SerializeField] Animator hideAnimator;
     [SerializeField] SettleController[] settleControllers;
+    [SerializeField] SettleTitle settleTitle;
     [SerializeField] GameObject buttonCallNext;
+
+    [SerializeField] GameObject[] firstSettles;
+    [SerializeField] GameObject[] secondSettles;
 
 
     [Header("slotPlaySpeed")]
     [SerializeField] int startDelay = 2000;
-    public int interval = 250;
 
 
     public enum BattleResult
     {
+        Failed,
         Success,
         Retreat,
-        Failed
     }
     private void Start()
     {
         SetBlackFade(true);
+
+        DelayAction(startDelay / 2, StartSettleTitleAnimation);
         DelayAction(startDelay, StartSettlementAnimation);
-
-    }
-
-    public void SetBattleResult(BattleResult result)
-    {
-        VertexGradient vertexGradient = titleText.colorGradient;
-
-        if (result == BattleResult.Success)
-        {
-            titleText.text = "½Â¸®!";
-            titleText.color = titleColor[0];
-            vertexGradient.topLeft = titleColor[0];
-            vertexGradient.topRight = titleColor[0];
-            titleText.colorGradient = vertexGradient;
-        }
-        else
-        {
-            titleText.text = "ÆÐ¹è";
-            titleText.color = titleColor[1];
-            vertexGradient.bottomLeft = titleColor[1];
-            vertexGradient.bottomRight = titleColor[1];
-            titleText.colorGradient = vertexGradient;
-        }
 
     }
     public void SetBlackFade(bool onoff)
@@ -68,6 +48,10 @@ public class SettlementManager : MonoBehaviour
     {
         await Task.Delay(miliSec);
         action();
+    }
+    void StartSettleTitleAnimation()
+    {
+        settleTitle.SetTitle();
     }
     void StartSettlementAnimation()
     {
@@ -93,7 +77,16 @@ public class SettlementManager : MonoBehaviour
     #region SecondSettle
     public void CallNextSettlement()
     {
-
+        int secondLength = secondSettles.Length;
+        int firstLength = firstSettles.Length;
+        for (int i = 0; i < secondLength; i++)
+        {
+            secondSettles[i].SetActive(true);
+        }
+        for (int i = 0; i < firstLength; i++)
+        {
+            firstSettles[i].SetActive(false);
+        }
     }
     #endregion
 }

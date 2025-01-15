@@ -27,12 +27,23 @@ public class StorageManager : MonoBehaviour
     }
     public void AddItem(int itemCode, int itemCount, GameObject itemFinder)
     {
-        if (lastFinder != itemFinder)
-        {
-            lastFinder = itemFinder;
-            lastFinderCObject = null;
-        }
         m_inventoryComponents[(int)InventoryComponent.InventoryType.Stage].inventoryStorage.ItemCountChange(itemCode, itemCount);
+
+        SetLastFinder(itemFinder);
+    }
+    void SetLastFinder(GameObject itemFinder)
+    {
+        if (lastFinder == itemFinder)
+            return;
+
+        lastFinder = itemFinder;
+        lastFinderCObject = null;
+    }
+    public void AddCorpse(GameObject itemFinder, Hero deadHeroData)
+    {
+        m_inventoryComponents[(int)InventoryComponent.InventoryType.Stage].inventoryStorage.AddCorpse(deadHeroData);
+
+        SetLastFinder(itemFinder);
     }
     public void ThrowAwaySlotAll(in Vector3 clickPoint, InventoryStorage.Slot slot)
     {

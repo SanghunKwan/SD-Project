@@ -182,8 +182,8 @@ namespace SaveData
         public int[] dots;
         public ObjectData()
         {
-            position = Vector3.zero;
-            quaternion = Quaternion.Euler(0, 0, 0);
+            position = Vector3.forward;
+            quaternion = Quaternion.Euler(0, 180, 0);
             selected = false;
             id = 101;
             cur_status = new unit_status();

@@ -5293,7 +5293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e430a66b255fbdc48ab2f2f0a654d152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initInterfaces: []
+  camTuringWindow: []
   initObjects:
   - {fileID: 8896429827805354211}
   - {fileID: 7483863049727887162}
@@ -14737,7 +14737,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c961f5a2a0e50488f9dee0063636e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addressableManager: {fileID: 0}
   settingDescManager: {fileID: 7483863049727887162}
 --- !u!114 &7483863049727887162
 MonoBehaviour:
@@ -17094,29 +17093,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1176988415370821077, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
+      propertyPath: transformUI
+      value: 
+      objectReference: {fileID: 3185627494050060112}
     - target: {fileID: 1777013956718623875, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1777013956718623875, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1777013956718623875, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6577360407912824544}
-    - target: {fileID: 1777013956718623875, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1777013956718623875, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Quit
-      objectReference: {fileID: 0}
-    - target: {fileID: 1777013956718623875, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: menuWindow, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1777013956718623875, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -17131,24 +17118,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4350023448338110949, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4350023448338110949, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6577360407912824544}
-    - target: {fileID: 4350023448338110949, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4350023448338110949, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnOffWindow
-      objectReference: {fileID: 0}
-    - target: {fileID: 4350023448338110949, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: menuWindow, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4350023448338110949, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -17235,24 +17206,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8307046635715444471, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8307046635715444471, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6577360407912824544}
-    - target: {fileID: 8307046635715444471, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8307046635715444471, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GotoMain
-      objectReference: {fileID: 0}
-    - target: {fileID: 8307046635715444471, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: menuWindow, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8307046635715444471, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

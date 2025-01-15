@@ -5,14 +5,7 @@ using UnityEngine;
 
 public class CorpseComponent : MonoBehaviour
 {
-    CapsuleCollider coll;
     Dictionary<Collider, CUnit> onThisUnits = new Dictionary<Collider, CUnit>();
-
-    private void Start()
-    {
-        coll = GetComponent<CapsuleCollider>();
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {

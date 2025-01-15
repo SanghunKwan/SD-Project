@@ -109,7 +109,10 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     public void SetDescription(int slotIndex, in Vector2 vector)
     {
         ActiveDescription(true);
-        inventoryDescription.SetText(InventoryManager.i.info.items[itemSlots[slotIndex].slotdata.itemCode].description);
+        inventoryDescription.SetText(InventoryManager.i.info.items[itemSlots[slotIndex].slotdata.itemCode].description +
+            inventoryStorage.ChangeingText(Slot2Code(slotIndex)));
+
+
         inventoryDescription.SetPosition(vector);
     }
     void OriginImagebySlotArray(in int[] brunchList, int offset)

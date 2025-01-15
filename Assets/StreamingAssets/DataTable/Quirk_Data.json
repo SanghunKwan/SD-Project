@@ -115,22 +115,6 @@
             "Range": 0,
             "Mentality": 0,
             "Stress": 0
-        },
-        {
-            "index": 100,
-            "name": "탈진",
-            "HP": -10,
-            "ATK": -10,
-            "DEF": -10,
-            "DOG": 0,
-            "SPEED": -10,
-            "ViewAngle": -10,
-            "ViewRange": 0,
-            "Accuracy": -5,
-            "AtkSpeed": 0,
-            "Range": 0,
-            "Mentality": -10,
-            "Stress": 0
         }
     ]
 }

@@ -13,6 +13,7 @@ namespace Unit
         public string keycode { get; protected set; } = "=";
         Animator deathAlert;
         int[] triggerHashes = new int[(int)InputEffect.WARNINGANIMTYPE.MAX];
+        public int heroIndex { get; set; }
         [SerializeField] Material[] corpseMat;
         VilligeHero villigeHero;
 
@@ -92,8 +93,8 @@ namespace Unit
             base.Death(vec);
             PrintLowHP(InputEffect.WARNINGANIMTYPE.DIE);
             //아이템이 되어서 줍는 것도 가능.
-            ItemComponent itemComp = gameObject.AddComponent<ItemComponent>();
-            itemComp.Init(12, corpseMat, CirclePad, 0.1f);
+            ItemComp_corpse itemComp = gameObject.AddComponent<ItemComp_corpse>();
+            itemComp.Init(12, corpseMat, CirclePad, 0.1f, this);
         }
 
         public override void PrintDamage(int damage)
@@ -130,7 +131,7 @@ namespace Unit
             {
                 PrintLowHP(InputEffect.WARNINGANIMTYPE.CANCEL);
                 deathAlert = default;
-                
+
             }
         }
 

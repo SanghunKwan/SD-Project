@@ -28,7 +28,7 @@ public enum BitRole
 [RequireComponent(typeof(WeaponComponent))]
 public abstract class UnitMove : MonoBehaviour
 {
-    protected UnitState unit_State;
+    public UnitState unit_State { get; protected set; }
     public Vector3 depart { get; protected set; }
     public Vector3 destination { get; set; }
     protected int movestate;

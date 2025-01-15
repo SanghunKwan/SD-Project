@@ -17,7 +17,9 @@ public class menuWindow : tempMenuWindow
     }
     public void GotoMain()
     {
-        //저장 후 Main화면으로 이동
+        StageManager.instance.CallLoadingScene(0);
+
+
     }
     public void Quit()
     {
@@ -25,8 +27,6 @@ public class menuWindow : tempMenuWindow
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 # else
-
-        //저장하기
         Application.Quit();
 
 #endif

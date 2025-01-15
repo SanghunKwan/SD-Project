@@ -104,6 +104,9 @@ public class InventoryStorage : StorageComponent
 
     InventoryComponent.InventoryType m_type;
 
+    CorpseManager corpseManager = new CorpseManager();
+
+
     public override void Init()
     {
         base.Init();
@@ -541,5 +544,70 @@ public class InventoryStorage : StorageComponent
     {
         onCountChanged += callWhenCountChanged;
     }
+    #endregion
+
+    #region 시체 관련
+    class CorpseManager
+    {
+        Queue<Hero> corpseHero;
+        System.Text.StringBuilder text;
+        BitArray corpseExist;
+
+
+        public CorpseManager()
+        {
+            corpseHero = new Queue<Hero>(10);
+            text = new System.Text.StringBuilder(60);
+            corpseExist = new BitArray(10);
+        }
+
+        public void AddNewCorpse(Hero deadHeroData)
+        {
+            corpseHero.Enqueue(deadHeroData);
+            corpseExist[deadHeroData.heroIndex] = true;
+        }
+        public void LoseCorse()
+        {
+            corpseExist[corpseHero.Dequeue().heroIndex] = false;
+        }
+
+        public string Victims()
+        {
+            text.Clear();
+            text.Append("<size=40><color=#9A9191>희생자 : ");
+
+            foreach (var item in corpseHero.ToArray())
+            {
+                text.Append(item.curstat.NAME).Append(", ");
+            }
+
+            text.Length -= 2;
+
+            return text.ToString();
+        }
+        public bool CorpseExist(int index)
+        {
+            return corpseExist[index];
+        }
+
+    }
+    public void AddCorpse(Hero deadHeroData)
+    {
+        corpseManager.AddNewCorpse(deadHeroData);
+        ItemCountChange(12, 1);
+    }
+    public string ChangeingText(int itemCode)
+    {
+        if (itemCode == 12)
+        {
+            return corpseManager.Victims();
+        }
+        return null;
+    }
+    public bool IsCorpseExist(int heroIndex)
+    {
+        return corpseManager.CorpseExist(heroIndex);
+    }
+
     #endregion
 }
