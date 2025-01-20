@@ -177,7 +177,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2252260787883420025, guid: d0edf9bc8f219d64aae48ffecf04e06e, type: 3}
       propertyPath: m_Name
-      value: Item_Weapon 1
+      value: Item_WeaponLevel2
       objectReference: {fileID: 0}
     - target: {fileID: 2252260787883420025, guid: d0edf9bc8f219d64aae48ffecf04e06e, type: 3}
       propertyPath: m_IsActive

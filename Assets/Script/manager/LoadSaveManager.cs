@@ -22,6 +22,7 @@ namespace SaveData
 
         public StageData stageData;
         public QuestSaveData questSaveData;
+        public PlayInfo playInfo;
 
 
         public SaveDataInfo()
@@ -31,6 +32,18 @@ namespace SaveData
             hero = new HeroData[1] { new HeroData() };
             floorData = new FloorManager.FloorData();
             stageData = new StageData();
+        }
+        public SaveDataInfo(int getDay, int getNextScene, FloorManager.FloorData getFloorData, in HeroData[] geHero,
+            in BuildingData[] getBuilding, in int[] getItems, StageData getStageData, QuestSaveData getQuestSaveData)
+        {
+            day = getDay;
+            nextScene = getNextScene;
+            floorData = getFloorData;
+            hero = geHero;
+            building = getBuilding;
+            items = getItems;
+            stageData = getStageData;
+            questSaveData = getQuestSaveData;
         }
     }
     [Serializable]
@@ -52,6 +65,18 @@ namespace SaveData
         {
             quirks = getQuirks;
             length = getLength;
+        }
+        public void SetData(in QuirkData.Quirk[] quirksArray, int quirkCount)
+        {
+            int activeQuirkCount = 0;
+            for (int i = 0; i < quirkCount; i++)
+            {
+                quirks[i] = quirksArray[i].index;
+
+                if (quirks[i] != 0)
+                    activeQuirkCount++;
+            }
+            length = activeQuirkCount;
         }
     }
     [Serializable]
@@ -79,7 +104,6 @@ namespace SaveData
         public int[] skillNum;
         public int villigeAction;
         public int workBuilding;
-        public bool isDead;
         public UnitData unitData;
 
         public HeroData()
@@ -93,14 +117,64 @@ namespace SaveData
             skillNum = new int[4] { 1, 1, 1, 1 };
             villigeAction = 0;
             workBuilding = 0;
-            isDead = false;
             unitData = new UnitData();
         }
+
+        public HeroData(Hero hero)
+        {
+
+        }
+        public void SetHeroData(Hero hero)
+        {
+            unit_status stat = hero.curstat;
+
+            name = stat.NAME;
+            lv = hero.lv;
+            quirks.SetData(hero.quirks, 5);
+            disease.SetData(hero.disease, 4);
+            keycode = hero.keycode;
+            Array.Copy(hero.EquipsNum, equipNum, 3);
+            Array.Copy(hero.SkillsNum, skillNum, 4);
+            villigeAction = (int)hero.VilligeAction;
+            workBuilding = 0;
+            unitData.SetData(hero);
+        }
     }
+    [Serializable]
     public class BuildingData
     {
         public int[] workHero = new int[3];
         public ObjectData objectData;
+    }
+    [Serializable]
+    public class InventoryData
+    {
+        public ItemData[] itemDatas;
+        public int[] corpseIndex;
+        public InventoryData()
+        {
+        }
+        public void SetData(in ItemData[] itemdatas, in int[] corpseindex)
+        {
+            itemDatas = itemdatas;
+            corpseIndex = corpseindex;
+        }
+    }
+    [Serializable]
+    public class ItemData
+    {
+        public int itemIndex;
+        public int itemCount;
+        public int slotIndex;
+
+        public ItemData(int getSlotIndex, InventoryStorage.Slot slot)
+        {
+            slotIndex = getSlotIndex;
+
+            itemIndex = slot.itemCode;
+            itemCount = slot.itemCount;
+
+        }
     }
     [Serializable]
     public class StageData
@@ -109,8 +183,9 @@ namespace SaveData
         public int[] floors = new int[5];
         public int nowFloorIndex;
         public bool isClear;
+        public bool isEnter;
 
-        public InventoryStorage.Slot[] slots;
+        public InventoryData inventoryData;
 
         public UnitData[] unitData;
         public MonsterData[] monsterData;
@@ -121,6 +196,7 @@ namespace SaveData
             heros = new int[1] { 0 };
             floors = new int[] { 0 };
             nowFloorIndex = 0;
+            isEnter = true;
             isClear = false;
         }
     }
@@ -140,6 +216,16 @@ namespace SaveData
             originTransform = Vector3.zero;
             patrolDestination = Vector3.zero;
             unitData = new UnitData();
+        }
+        public MonsterData(Monster monster)
+        {
+            MonsterMove move = monster.monsterMove;
+
+            waitingTypeNum = move.waitType;
+            standType = move.standType;
+            originTransform = move.originTransform;
+            patrolDestination = move.patrolDestination;
+            unitData = new UnitData(monster);
         }
     }
     [Serializable]
@@ -169,6 +255,15 @@ namespace SaveData
             depart = unit.unitMove.depart;
             objectData = new ObjectData(unit);
         }
+        public void SetData(CUnit unit)
+        {
+            detected = unit.detected;
+            attackMove = unit.unitMove.attackMove;
+            ishold = unit.unitMove.isHold;
+            destination = unit.unitMove.destination;
+            depart = unit.unitMove.depart;
+            objectData.SetData(unit);
+        }
     }
     [Serializable]
     public class ObjectData
@@ -177,6 +272,7 @@ namespace SaveData
         public Vector3 dotsDirection;
         public Quaternion quaternion;
         public bool selected;
+        public bool isDead;
         public unit_status cur_status;
         public int id;
         public int[] dots;
@@ -185,6 +281,7 @@ namespace SaveData
             position = Vector3.forward;
             quaternion = Quaternion.Euler(0, 180, 0);
             selected = false;
+            isDead = false;
             id = 101;
             cur_status = new unit_status();
             dots = new int[(int)SkillData.EFFECTINDEX.MAX] { 0, 0, 0, 0 };
@@ -194,9 +291,22 @@ namespace SaveData
             position = cObject.transform.position;
             quaternion = cObject.transform.rotation;
             selected = cObject.selected;
-            cur_status = cObject.curstat;
+            cur_status = new unit_status();
+            cur_status.Clone(cObject.curstat);
+            isDead = cur_status.curHP <= 0;
             id = cObject.id;
-            dots = cObject.dots;
+            dots = new int[cObject.dots.Length];
+            Array.Copy(cObject.dots, dots, dots.Length);
+        }
+        public void SetData(CObject cObject)
+        {
+            position = cObject.transform.position;
+            quaternion = cObject.transform.rotation;
+            selected = cObject.selected;
+            cur_status.Clone(cObject.curstat);
+            isDead = cur_status.curHP <= 0;
+            id = cObject.id;
+            Array.Copy(cObject.dots, dots, dots.Length);
         }
 
     }
@@ -304,6 +414,19 @@ namespace SaveData
             data[(int)type].AddQuestState(questNum, bit);
         }
     }
+    [Serializable]
+    public class PlayInfo
+    {
+        public Vector3 camPosition;
+        public bool isEnterHeros;
+
+
+        public PlayInfo()
+        {
+            camPosition = new Vector3(0.25f, 10f, -9.38f);
+            isEnterHeros = true;
+        }
+    }
 }
 #endregion
 public class LoadSaveManager : JsonSaveLoad
@@ -324,13 +447,18 @@ public class LoadSaveManager : JsonSaveLoad
     {
         info = LoadSave<SaveDataInfo>(index);
     }
-    public void CreateSaveFile(int index)
-    {
-        SaveData(new SaveDataInfo(), "save" + (index + 1).ToString());
-    }
     public void DeleteSaveFile(int index)
     {
-        DeleteSave("save" + (index + 1).ToString());
+        DeleteSave(GetSaveFileName(index));
+    }
+    public void OverrideSaveFile(int index, SaveDataInfo info)
+    {
+        SaveData(info, GetSaveFileName(index));
+    }
+
+    string GetSaveFileName(int index)
+    {
+        return "save" + (index + 1).ToString();
     }
     #endregion
     [ContextMenu("json파일 생성")]

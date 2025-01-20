@@ -13,8 +13,6 @@ namespace Unit
         public string keycode { get; protected set; } = "=";
         Animator deathAlert;
         int[] triggerHashes = new int[(int)InputEffect.WARNINGANIMTYPE.MAX];
-        public int heroIndex { get; set; }
-        [SerializeField] Material[] corpseMat;
         VilligeHero villigeHero;
 
         public QuirkData.Quirk[] quirks { get; private set; } = new QuirkData.Quirk[5] { new QuirkData.Quirk(),
@@ -30,6 +28,7 @@ namespace Unit
         public int[] EquipsNum { get; private set; } = { 1, 1, 1 };
         public int[] SkillsNum { get; private set; } = { 1, 1, 1, 1 };
         public int lv { get; private set; } = 1;
+        public int heroInStageIndex { get; set; }
 
         public ActionAlert.ActionType VilligeAction { get; private set; } = ActionAlert.ActionType.walking;
         public AddressableManager.BuildingImage BuildingAction { get; private set; }
@@ -67,8 +66,8 @@ namespace Unit
             selected = asdf;
             copyUICircle.gameObject.SetActive(asdf);
 
-            if (stat.HP.Equals(curstat.HP))
-                copyBar.gameObject.SetActive(asdf);
+            if (curstat.HP.Equals(curstat.curHP))
+                copyBar.gameObject.SetActive(false);
 
             if (asdf)
                 GameManager.manager.onSelected.eventAction?.Invoke(gameObject.layer, transform.position);
@@ -76,6 +75,7 @@ namespace Unit
         protected override void GetSelecting()
         {
             GameManager.manager.HereComesNewChallenger(this, keycode);
+            GameManager.manager.battleClearManager.NewHero(this);
         }
         public override void Hit(int skill)
         {
@@ -87,14 +87,14 @@ namespace Unit
                 PrintLowHP();
             }
         }
-        public override void Death(Vector3 vec)
+        protected override void LoadDead(in Vector3 vec)
         {
             GameManager.manager.ChallengerOut(this, keycode, detected);
-            base.Death(vec);
+            base.LoadDead(vec);
             PrintLowHP(InputEffect.WARNINGANIMTYPE.DIE);
             //아이템이 되어서 줍는 것도 가능.
             ItemComp_corpse itemComp = gameObject.AddComponent<ItemComp_corpse>();
-            itemComp.Init(12, corpseMat, CirclePad, 0.1f, this);
+            itemComp.Init(12, CirclePad, 0.1f, this);
         }
 
         public override void PrintDamage(int damage)

@@ -317,7 +317,6 @@ public class QuestSpawner : MonoBehaviour
     {
         BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
         //collider를 통해 퀘스트 시작 포인트 가져오기
-        Debug.Log(GameManager.manager.battleClearManager.nowFloorIndex);
         questPool.PlaceQuest(act.spot + battleClearManager.GetStageComponent(0).transform.position,
             act.layer, (vec) => MakeQuest(type, questNum, vec), act.radius);
 

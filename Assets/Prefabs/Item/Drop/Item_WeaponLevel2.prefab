@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8814278893227415377}
   - component: {fileID: 2812633579468969471}
   m_Layer: 15
-  m_Name: Item_Weapon
+  m_Name: Item_WeaponLevel2
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a8aacb9ad982e44a9184ec65c88b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 14
+  index: 5
   materials:
   - {fileID: 2100000, guid: 8a7f5ee90f5561a4189c523803c31052, type: 2}
   - {fileID: 2100000, guid: 27f2cffc6b6083a4b92afbe84e3b368a, type: 2}

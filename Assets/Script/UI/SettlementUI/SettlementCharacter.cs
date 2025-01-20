@@ -15,17 +15,17 @@ public class SettlementCharacter : MonoBehaviour
     [SerializeField] TextMeshProUGUI diseaseText;
     [SerializeField] RectTransform rebuildRectTransform;
 
-    public void SetCharcterNameTag(HeroData heroData, int heroIndex)
+    public void SetCharcterNameTag(HeroData heroData, int heroInStageIndex)
     {
         InventoryStorage storage = GameManager.manager.storageManager.inventoryComponents(InventoryComponent.InventoryType.Stage).inventoryStorage;
 
         settleNamePlate.SetTexts(heroData.keycode, heroData.lv, heroData.name);
         gameObject.SetActive(true);
 
-        if (heroData.isDead)
+        if (heroData.unitData.objectData.isDead)
         {
             isHeroDeadObject.SetActive(true);
-            isHeroCopseGetBackObject.SetActive(!storage.IsCorpseExist(heroIndex));
+            isHeroCopseGetBackObject.SetActive(!storage.IsCorpseExist(heroInStageIndex));
         }
         
     }

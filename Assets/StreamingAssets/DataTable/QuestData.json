@@ -262,7 +262,7 @@
                 "radius": 1.0,
                 "itemDatas": [
                     {
-                        "itemCode": 14,
+                        "itemCode": 5,
                         "itemCount": 1
                     }
                 ],
@@ -314,7 +314,7 @@
             "trigger": 0,
             "require": {
                 "type": 2,
-                "layer": 14,
+                "layer": 5,
                 "spot": {
                     "x": 0.0,
                     "y": 0.0,

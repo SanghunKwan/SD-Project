@@ -15,7 +15,7 @@ public class StageEnterHero : MonoBehaviour
 
     private void Start()
     {
-        if (spawnManager.nowFloorIndex > 0)
+        if (!spawnManager.isEnter)
             return;
 
         unitSpawner = GetComponent<UnitSpawner>();

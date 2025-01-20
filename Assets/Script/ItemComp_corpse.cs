@@ -11,13 +11,12 @@ public class ItemComp_corpse : ItemComponent
     bool isInitComplete;
     Action delayEnable;
 
-    public void Init(int indexNum, in Material[] _materials, int _circlePad, float Speed, Hero heroComponent)
+    public void Init(int indexNum, int _circlePad, float Speed, Hero heroComponent)
     {
         hero = heroComponent;
         unitState = hero.unitMove.unit_State;
 
         SetIndex(indexNum);
-        materials = _materials;
         CirclePad = _circlePad;
         getSpeed = Speed;
 
@@ -47,5 +46,8 @@ public class ItemComp_corpse : ItemComponent
     protected override void InventoryAddItem(in GameObject itemFinder)
     {
         GameManager.manager.storageManager.AddCorpse(itemFinder, hero);
+    }
+    protected override void StageOutItem()
+    {
     }
 }

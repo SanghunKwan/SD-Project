@@ -13,11 +13,12 @@ public abstract class UnitSpawner : MonoBehaviour
     [SerializeField] CObject[] cobjects;
 
     protected Action<int>[] spawnActions;
+    public Transform objectTransform;
 
 
     private void Start()
     {
-        if (SpawnManager.nowFloorIndex <= 0)
+        if (SpawnManager.isEnter)
             return;
 
         int heroIndex = 0;
@@ -37,14 +38,19 @@ public abstract class UnitSpawner : MonoBehaviour
     protected abstract void VirtualStart();
     void SpawnObjectData(ObjectData data)
     {
-        CObject newOjb = Instantiate(cobjects[(data.id - 1) % 100], data.position, data.quaternion);
+        CObject newOjb = Instantiate(cobjects[(data.id - 1) % 100], data.position, data.quaternion, objectTransform);
         NewSpawnedObjectSet(newOjb, data);
     }
     protected void NewSpawnedObjectSet(CObject newObject, ObjectData data)
     {
         newObject.GetStatusEffect(data.dots, data.dotsDirection);
-        newObject.LoadCurStat(data.cur_status.Clone(data.cur_status));
-        newObject.Selected(data.selected);
+        newObject.OnUICompleteAction += (ref unit_status stat) =>
+        {
+            stat.Clone(data.cur_status);
+            newObject.Selected(data.selected);
+            newObject.DelayAfterResigter();
+        };
+
     }
     protected void NewSpawnedUnitSet(CUnit newObject, UnitData data)
     {
@@ -77,11 +83,13 @@ public abstract class UnitSpawner : MonoBehaviour
     public Hero SpawnHeroData(HeroData data, int heroIndex)
     {
         Hero newHero = Instantiate(heroes[(data.unitData.objectData.id - 1) % 100],
-                                           data.unitData.objectData.position, data.unitData.objectData.quaternion, PlayerNavi.nav.transform);
+                                           data.unitData.objectData.position, data.unitData.objectData.quaternion,
+                                           PlayerNavi.nav.transform);
         NewSpawnedObjectSet(newHero, data.unitData.objectData);
         NewSpawnedUnitSet(newHero, data.unitData);
         NewSpawnedHeroSet(newHero, data);
-        newHero.heroIndex = heroIndex;
+        newHero.heroInStageIndex = heroIndex;
+
 
         return newHero;
     }

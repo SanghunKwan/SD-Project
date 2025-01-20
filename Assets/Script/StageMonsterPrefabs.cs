@@ -12,7 +12,7 @@ public class StageMonsterPrefabs : StagePrefabsCaller
         {
             PlacePrefab(GameManager.manager.battleClearManager.stageFloorComponents[i], stagePoolManager.stageFloors[i]);
         }
-        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(GameManager.manager.battleClearManager.SaveDataInfo.stageData.isEnter);
     }
     public override GameObject PlacePrefab(StageFloorComponent floor, int floorNum)
     {

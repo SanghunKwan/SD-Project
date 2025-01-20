@@ -1,3 +1,4 @@
+using SaveData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +22,6 @@ public class InventoryStorage : StorageComponent
         Vertic,
         Max
     }
-    [Serializable]
     public class Slot
     {
         public int itemCode;
@@ -174,15 +174,11 @@ public class InventoryStorage : StorageComponent
             return;
 
         CheckNeedMore(item, codeIndex);
-        if (addNum >= 0)
-        {
 
+        if (addNum >= 0)
             IncreaseItemCount(item, addNum);
-        }
         else
-        {
             DecreaseItemCount(item.itemCode, addNum);
-        }
     }
     public void IncreaseItemCount(in Item item, int addNum)
     {
@@ -391,6 +387,14 @@ public class InventoryStorage : StorageComponent
         }
     }
     #endregion
+    #region 아이템 로드
+    public void LoadItem(int slotIndex, int itemIndex, int itemCount)
+    {
+        Item item = InventoryManager.i.info.items[itemIndex];
+        ItemCountChangeBySlot(slotIndex, itemCount, item);
+
+    }
+    #endregion
     #region Slot empty 확인
     bool IsInventoryEmpty(in Slot slot)
     {
@@ -544,31 +548,55 @@ public class InventoryStorage : StorageComponent
     {
         onCountChanged += callWhenCountChanged;
     }
+    public ItemData[] Inventory2ItemDatas()
+    {
+        Queue<ItemData> datas = new Queue<ItemData>(10);
+        int length = slots.Length;
+        for (int i = 0; i < length; i++)
+        {
+            if (slots[i].itemCode == 0 || slots[i].brunchIndex[0] - i != 0)
+                continue;
+
+            datas.Enqueue(new ItemData(i, slots[i]));
+        }
+
+        return datas.ToArray();
+    }
     #endregion
 
     #region 시체 관련
     class CorpseManager
     {
-        Queue<Hero> corpseHero;
+        Queue<CorpseData> corpseDataQueue;
         System.Text.StringBuilder text;
         BitArray corpseExist;
+        class CorpseData
+        {
+            public HeroData corpseHero;
+            public int corpseIndex;
+            public CorpseData(HeroData hero, int index)
+            {
+                corpseHero = hero;
+                corpseIndex = index;
+            }
+        }
 
 
         public CorpseManager()
         {
-            corpseHero = new Queue<Hero>(10);
+            corpseDataQueue = new Queue<CorpseData>(10);
             text = new System.Text.StringBuilder(60);
             corpseExist = new BitArray(10);
         }
 
-        public void AddNewCorpse(Hero deadHeroData)
+        public void AddNewCorpse(HeroData deadHeroData, int heroInStageIndex)
         {
-            corpseHero.Enqueue(deadHeroData);
-            corpseExist[deadHeroData.heroIndex] = true;
+            corpseDataQueue.Enqueue(new CorpseData(deadHeroData, heroInStageIndex));
+            corpseExist[heroInStageIndex] = true;
         }
-        public void LoseCorse()
+        public void LoseCorpse()
         {
-            corpseExist[corpseHero.Dequeue().heroIndex] = false;
+            corpseExist[corpseDataQueue.Dequeue().corpseIndex] = false;
         }
 
         public string Victims()
@@ -576,25 +604,32 @@ public class InventoryStorage : StorageComponent
             text.Clear();
             text.Append("<size=40><color=#9A9191>희생자 : ");
 
-            foreach (var item in corpseHero.ToArray())
+            foreach (var item in corpseDataQueue.ToArray())
             {
-                text.Append(item.curstat.NAME).Append(", ");
+                text.Append(item.corpseHero.name).Append(", ");
             }
 
             text.Length -= 2;
 
             return text.ToString();
         }
-        public bool CorpseExist(int index)
+        public bool CorpseExist(int heroInStageIndex)
         {
-            return corpseExist[index];
+            return corpseExist[heroInStageIndex];
         }
-
+        public int CorpseCount()
+        {
+            return corpseDataQueue.Count;
+        }
     }
-    public void AddCorpse(Hero deadHeroData)
+    public void AddCorpse(HeroData deadHeroData, int heroInStageIndex)
     {
-        corpseManager.AddNewCorpse(deadHeroData);
+        LoadCorpseDataOnly(deadHeroData, heroInStageIndex);
         ItemCountChange(12, 1);
+    }
+    public void LoadCorpseDataOnly(HeroData deadHeroData, int heroInStageIndex)
+    {
+        corpseManager.AddNewCorpse(deadHeroData, heroInStageIndex);
     }
     public string ChangeingText(int itemCode)
     {
@@ -604,10 +639,26 @@ public class InventoryStorage : StorageComponent
         }
         return null;
     }
-    public bool IsCorpseExist(int heroIndex)
+    public bool IsCorpseExist(int heroInStageIndex)
     {
-        return corpseManager.CorpseExist(heroIndex);
+        return corpseManager.CorpseExist(heroInStageIndex);
     }
+    public void LoseCorpse()
+    {
+        corpseManager.LoseCorpse();
+    }
+    public int[] GetHeroCorpseIndexs()
+    {
+        int length = corpseManager.CorpseCount();
+        int arrayIndex = 0;
 
+        int[] corpseIndex = new int[length];
+        for (int i = 0; i < length; i++)
+        {
+            if (corpseManager.CorpseExist(i))
+                corpseIndex[arrayIndex++] = i;
+        }
+        return corpseIndex;
+    }
     #endregion
 }

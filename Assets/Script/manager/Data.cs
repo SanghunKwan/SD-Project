@@ -63,7 +63,6 @@ namespace Unit
             NAME = "디스마스";
             SPECIES = Species.player;
             HP = 27;
-            curHP = 27;
             ATK = 7;
             DEF = 0;
             DOG = 10;
@@ -77,6 +76,9 @@ namespace Unit
             Range = 1;
             Mentality = 30;
             Stress = 5;
+
+            curHP = 27;
+            curMORALE = 0;
         }
         public unit_status(int key, in string[] csvDatas)
         {
@@ -103,28 +105,28 @@ namespace Unit
             Mentality = int.Parse(csvDatas[15]);
             Stress = int.Parse(csvDatas[16]);
         }
-        public unit_status Clone(unit_status status)
+        public void Clone(unit_status status)
         {
-            unit_status newStatus = new();
-            newStatus.ID = status.ID;
-            newStatus.NAME = status.NAME;
-            newStatus.SPECIES = status.SPECIES;
-            newStatus.HP = status.HP;
-            newStatus.ATK = status.ATK;
-            newStatus.DEF = status.DEF;
-            newStatus.DOG = status.DOG;
-            newStatus.MORALE = status.MORALE;
-            newStatus.SPEED = status.SPEED;
-            newStatus.ViewAngle = status.ViewAngle;
-            newStatus.ViewRange = status.ViewRange;
-            newStatus.type = status.type;
-            newStatus.Accuracy = status.Accuracy;
-            newStatus.AtkSpeed = status.AtkSpeed;
-            newStatus.Range = status.Range;
-            newStatus.Mentality = status.Mentality;
-            newStatus.Stress = status.Stress;
+            ID = status.ID;
+            NAME = status.NAME;
+            SPECIES = status.SPECIES;
+            HP = status.HP;
+            ATK = status.ATK;
+            DEF = status.DEF;
+            DOG = status.DOG;
+            MORALE = status.MORALE;
+            SPEED = status.SPEED;
+            ViewAngle = status.ViewAngle;
+            ViewRange = status.ViewRange;
+            type = status.type;
+            Accuracy = status.Accuracy;
+            AtkSpeed = status.AtkSpeed;
+            Range = status.Range;
+            Mentality = status.Mentality;
+            Stress = status.Stress;
 
-            return newStatus;
+            curHP = status.curHP;
+            curMORALE = status.curMORALE;
         }
 
         public void Read(Dictionary<string, string> CSVReader)

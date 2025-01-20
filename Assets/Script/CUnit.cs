@@ -69,7 +69,7 @@ namespace Unit
         {
             detected = asdf;
         }
-        public override void Death(Vector3 vec)
+        protected override void LoadDead(in Vector3 vec)
         {
             enabled = false;
             SetDetected(false);
@@ -78,13 +78,13 @@ namespace Unit
             gameObject.layer = 16;
             ReturnUIAfterDeath();
             StopCoroutine(LateRepeat);
-            ItemDrop();
             view.enabled = false;
             gameObject.AddComponent<CorpseComponent>();
             if (overlappedCorpse >= 2)
             {
                 GameManager.manager.battleClearManager.CallObject(BattleClearManager.OBJECTNUM.BONEWALL, transform).gameObject.SetActive(true);
             }
+
         }
         public void FindAll()
         {

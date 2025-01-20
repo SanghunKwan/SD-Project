@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unit;
 using UnityEngine;
 using UnityEngine.UI.Extensions;
 
@@ -28,15 +27,10 @@ public class ItemComponent : MonoBehaviour
 
 
     UICircle uiCircle;
-    [SerializeField] protected Material[] materials;
-
     [SerializeField] protected int CirclePad;
 
     [SerializeField] protected float getSpeed;
     CapsuleCollider coll;
-    bool isCorpse;
-    UnitState unitState;
-    Hero hero;
 
     private void Awake()
     {
@@ -55,13 +49,14 @@ public class ItemComponent : MonoBehaviour
     }
     protected virtual void VirtualEnable()
     {
+        GameManager.manager.battleClearManager.NewItem(this);
     }
 
     IEnumerator CircleRepeat()
     {
         yield return new WaitWhile(() => index == 0);
         uiCircle.gameObject.SetActive(true);
-        uiCircle.material = materials[(int)InventoryManager.i.info.items[index].type - 1];
+        uiCircle.material = DropManager.instance.Materials[(int)InventoryManager.i.info.items[index].type - 1];
         uiCircle.Arc = 0.1f;
         uiCircle.Padding = CirclePad;
 
@@ -118,6 +113,11 @@ public class ItemComponent : MonoBehaviour
             yield return null;
         }
         DropManager.instance.pool.ReturnItem(index, gameObject);
+        StageOutItem();
+    }
+    protected virtual void StageOutItem()
+    {
+        GameManager.manager.battleClearManager.StageOutItem(this);
     }
     public void SetIndex(int indexNum)
     {

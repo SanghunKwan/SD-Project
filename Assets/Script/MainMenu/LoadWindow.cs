@@ -71,7 +71,7 @@ public class LoadWindow : MonoBehaviour
     #region 저장하기
     public void CreateSaveFile(int index)
     {
-        loadSaveManager.CreateSaveFile(index);
+        loadSaveManager.OverrideSaveFile(index, new SaveData.SaveDataInfo());
         NeedFloorData(true, index);
         ButtonsSet(index, true);
     }

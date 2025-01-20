@@ -4,8 +4,6 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 
-
-
 public class DropInfo
 {
     public int ID;
@@ -46,6 +44,9 @@ public class DropManager : JsonSaveLoad
 
     public List<Dictionary<string, string>> Objectlist = new List<Dictionary<string, string>>();
     public ItemPool pool { get; private set; }
+
+    [SerializeField] Material[] materials;
+    public Material[] Materials { get { return materials; } }
 
     private void Awake()
     {

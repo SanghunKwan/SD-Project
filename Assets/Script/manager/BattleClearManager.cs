@@ -35,6 +35,10 @@ public class BattleClearManager : MonoBehaviour
     public Action<int> SetActiveNewStageObjects { get; set; }
     public Action onStageChanged { get; set; }
 
+    List<Hero> spawnedHero;
+    List<Monster> spawnedMonster;
+    List<ItemComponent> spawnedItem;
+
     public enum OBJECTNUM
     {
         BONEWALL,
@@ -43,7 +47,12 @@ public class BattleClearManager : MonoBehaviour
     {
         battleClearPool = GetComponent<BattleClearPool>();
 
+        spawnedHero = new List<Hero>();
+        spawnedMonster = new List<Monster>();
+        spawnedItem = new List<ItemComponent>();
+
         SetAction();
+
     }
     void SetAction()
     {
@@ -108,6 +117,51 @@ public class BattleClearManager : MonoBehaviour
             Debug.Log("마지막 스테이지 클리어!");
             StageEndButton.gameObject.SetActive(true);
         }
+
+        OverrideSaveFile(true);
+    }
+    void OverrideSaveFile(bool isClear)
+    {
+        RenewalSavedataInStage(isClear);
+        loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
+    }
+    void RenewalSavedataInStage(bool isClear)
+    {
+        StageData stageData = saveData.stageData;
+        stageData.isEnter = false;
+        stageData.isClear = isClear;
+        stageData.nowFloorIndex = nowFloorIndex;
+
+        //saveData.hero
+        foreach (var item in spawnedHero)
+        {
+            saveData.hero[stageData.heros[item.heroInStageIndex]].SetHeroData(item);
+        }
+        //saveData.questSaveData
+        saveData.questSaveData.isLoaded = true;
+        //퀘스트 내용은 실시간 동기화
+
+        //saveData.stageData
+        SetSaveData(spawnedItem.Count, (num) => new DropItemData(spawnedItem[num]), ref stageData.dropItemDatas);
+
+        SetSaveData(spawnedMonster.Count, (num) => new MonsterData(spawnedMonster[num]), ref stageData.monsterData);
+
+        SetSaveData(GameManager.manager.objects.Count, (num) => new ObjectData(GameManager.manager.objects[num]),
+                ref stageData.objectDatas);
+
+        InventoryStorage storage = GameManager.manager.storageManager.
+            inventoryComponents(InventoryComponent.InventoryType.Stage).inventoryStorage;
+        stageData.inventoryData.SetData(storage.Inventory2ItemDatas(), storage.GetHeroCorpseIndexs());
+    }
+    void SetSaveData<T1>(int arrayLength, Func<int, T1> newData, ref T1[] stagedata)
+    {
+        T1[] datas = new T1[arrayLength];
+        for (int i = 0; i < arrayLength; i++)
+        {
+            datas[i] = newData(i);
+        }
+
+        stagedata = datas;
     }
     public void ActiveStageObject()
     {
@@ -117,4 +171,31 @@ public class BattleClearManager : MonoBehaviour
     {
         return stageFloorComponents[nowFloorIndex + offsetIndex];
     }
+
+    #region 세이브 데이터 관리
+    public void NewHero(Hero newHero)
+    {
+        spawnedHero.Add(newHero);
+    }
+    public void StageOutHero(Hero fadeHero)
+    {
+        spawnedHero.Remove(fadeHero);
+    }
+    public void NewMonster(Monster newMonster)
+    {
+        spawnedMonster.Add(newMonster);
+    }
+    public void StageOutMonster(Monster fadeMonster)
+    {
+        spawnedMonster.Remove(fadeMonster);
+    }
+    public void NewItem(ItemComponent newItem)
+    {
+        spawnedItem.Add(newItem);
+    }
+    public void StageOutItem(ItemComponent usedItem)
+    {
+        spawnedItem.Remove(usedItem);
+    }
+    #endregion
 }

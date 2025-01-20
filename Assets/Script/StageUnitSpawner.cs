@@ -1,5 +1,4 @@
 using SaveData;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unit;
@@ -18,10 +17,14 @@ public class StageUnitSpawner : UnitSpawner
         {
             SpawnMonsterData(item);
         }
+        foreach (var item in SpawnManager.dropItemDatas)
+        {
+            SpawnItemData(item);
+        }
     }
     void SpawnMonsterData(MonsterData data)
     {
-        Monster newOjb = Instantiate(monsters[(data.unitData.objectData.id - 1) % 100],
+        Monster newOjb = Instantiate(monsters[data.unitData.objectData.id % 100],
                                                data.unitData.objectData.position,
                                                data.unitData.objectData.quaternion,
                                                monNavi.transform);
@@ -37,6 +40,13 @@ public class StageUnitSpawner : UnitSpawner
         move.patrolDestination = data.patrolDestination;
         move.waitType = data.waitingTypeNum;
         move.standType = data.standType;
-
     }
+
+    void SpawnItemData(DropItemData data)
+    {
+        GameObject item = DropManager.instance.pool.CallItem(data.index - 1);
+
+        item.transform.position = data.position;
+    }
+
 }

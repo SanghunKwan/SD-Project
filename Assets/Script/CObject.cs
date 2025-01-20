@@ -12,6 +12,8 @@ namespace Unit
         public int[] dots { get; protected set; } = new int[(int)SkillData.EFFECTINDEX.MAX];
         public Vector3 dotsDirection { get; protected set; }
         public int id { get { return ID; } }
+        protected int initCount;
+        protected int initMaxCount = 2;
         public unit_status stat { get; protected set; }
         public unit_status curstat { get; protected set; }
         public bool selected { get; protected set; } = false;
@@ -44,6 +46,10 @@ namespace Unit
         IEnumerator CorEndKnockBack;
 
         protected List<ILayoutElement> texts = new List<ILayoutElement>();
+
+        public delegate void refAction(ref unit_status stat);
+        public refAction OnUICompleteAction { get; set; }
+        public System.Action OnInitEnd { get; set; }
 
 
         protected virtual void Awake()
@@ -84,8 +90,7 @@ namespace Unit
             copyUICircle = circleObjct.GetComponent<UICircle>();
 
             copyUICircle.Padding = CirclePad;
-
-
+            CheckInitCount();
         }
         IEnumerator DelayRegist()
         {
@@ -94,31 +99,41 @@ namespace Unit
                 yield return null;
             }
             GetSelecting();
-
         }
 
         protected virtual void Start()
         {
-
+            //start가 delayUI보다 늦게 실행되서 버그가 생김.
             if (stat == null)
             {
                 stat = Data.Instance.GetInfo(ID);
-                curstat = stat.Clone(stat);
+            }
+            if (curstat == null)
+            {
+                curstat = new unit_status();
+                curstat.Clone(stat);
                 curstat.curHP = curstat.HP;
                 curstat.curMORALE = curstat.MORALE;
             }
+            unit_status tempStat = curstat;
+
+            OnUICompleteAction?.Invoke(ref tempStat);
+            OnUICompleteAction = null;
+
             DropInfo = DropManager.instance.GetDropInfo(ID);
             if (hpbarScript)
             {
                 hpbarScript.GetStatus(curstat, BarOffset);
             }
+            CheckInitCount();
         }
-        public void LoadCurStat(unit_status statData)
+        protected void CheckInitCount()
         {
-            stat = Data.Instance.GetInfo(ID);
-            curstat = statData;
-        }
+            initCount++;
 
+            if (initCount >= initMaxCount)
+                GameManager.manager.CheckObjectLoadComplete();
+        }
         protected IEnumerator CorLateUpdate()
         {
             yield return new WaitUntil(() => copyUICircle != null);
@@ -134,7 +149,6 @@ namespace Unit
         void OnDisable()
         {
             ObjectCollider.enabled = true;
-            curstat.Clone(stat);
             selected = false;
             drag = false;
             mouseOnCollider = false;
@@ -267,14 +281,22 @@ namespace Unit
             yield return new WaitForSeconds(0.5f);
             texts.RemoveAt(0);
         }
-        public virtual void Death(Vector3 vec)
+        public void Death(Vector3 vec)
+        {
+            ItemDrop();
+            LoadDead();
+        }
+        protected virtual void LoadDead(in Vector3 vec = new Vector3())
         {
             GameManager.manager.ObjectOut(this);
             GetComponent<Animator>().SetTrigger("Death");
-            ItemDrop();
             StartCoroutine(Delete());
             ReturnUIAfterDeath();
             StopCoroutine(LateRepeat);
+        }
+        public void DelayAfterResigter()
+        {
+            OnInitEnd += () => LoadDead();
         }
         protected void ReturnUIAfterDeath()
         {

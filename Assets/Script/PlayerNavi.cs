@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unit;
-using UnityEngine.InputSystem.Utilities;
 
 public class PlayerNavi : MonoBehaviour
 {

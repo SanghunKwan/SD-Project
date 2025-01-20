@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine.InputSystem;
 using System;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 
 public class GameManager : MonoBehaviour
@@ -15,14 +16,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerNavi playerNavi;
     [SerializeField] MonNavi monNavi;
 
-    Dictionary<CObject, float> dicDistance = new Dictionary<CObject, float>();
-    Dictionary<CObject, float> dicDistance2 = new Dictionary<CObject, float>();
-
     public List<CUnit> nPCharacter { get; private set; } = new();
     public List<CObject> objects { get; private set; } = new();
     public List<CUnit> playerCharacter { get; private set; } = new List<CUnit>();
     public int playerDetected;
     public int nPCDetected;
+    int objectCount;
     int keyDictionaryCount;
 
     public float[] rec { get; private set; } = new float[4];
@@ -39,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     Action[] inputSpace = new Action[3];
     Action[] inputSpaceUp = new Action[3];
+
     public Action callConstructionUI;
     public Action onBattleClearManagerRegistered { get; set; }
     #region actionEvent
@@ -130,6 +130,7 @@ public class GameManager : MonoBehaviour
     public void HereComesNewChallenger(CUnit unit, string keycode)
     {
         playerCharacter.Add(unit);
+
         playerNavi.SetTeam(unit.unitMove, keycode);
 
         foreach (CUnit item in nPCharacter)
@@ -741,5 +742,29 @@ public class GameManager : MonoBehaviour
         Quaternion dir = Quaternion.Euler(0, -obj.transform.eulerAngles.y, 0);
 
         return (dir * (vec - obj.transform.position)).x > 0;
+    }
+    public void CheckObjectLoadComplete(Hero hero)
+    {
+
+    }
+    public void CheckObjectLoadComplete()
+    {
+        objectCount++;
+        int allObjects = objects.Count + nPCharacter.Count + playerCharacter.Count;
+
+        if (objectCount != allObjects)
+            return;
+        ForInverse(objects);
+        ForInverse(nPCharacter);
+        ForInverse(playerCharacter);
+
+        void ForInverse<T>(in List<T> collections) where T : CObject
+        {
+            int length = collections.Count;
+            for (int i = length - 1; i >= 0; i--)
+            {
+                collections[i].OnInitEnd();
+            }
+        }
     }
 }

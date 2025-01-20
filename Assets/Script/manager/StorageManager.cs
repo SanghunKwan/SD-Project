@@ -41,7 +41,10 @@ public class StorageManager : MonoBehaviour
     }
     public void AddCorpse(GameObject itemFinder, Hero deadHeroData)
     {
-        m_inventoryComponents[(int)InventoryComponent.InventoryType.Stage].inventoryStorage.AddCorpse(deadHeroData);
+        int heroIndex = deadHeroData.heroInStageIndex;
+
+        m_inventoryComponents[(int)InventoryComponent.InventoryType.Stage].inventoryStorage.
+            AddCorpse(gameManager.battleClearManager.SaveDataInfo.hero[heroIndex], heroIndex);
 
         SetLastFinder(itemFinder);
     }
@@ -55,6 +58,7 @@ public class StorageManager : MonoBehaviour
     {
         int layerMask = 1 << LayerMask.NameToLayer("UI");
         int poolCode = ItemCode2ItemPoolCode(itemCode);
+        CheckCorpseThrowAway(itemCode, itemCount);
 
         Physics.Raycast(Camera.main.ScreenPointToRay(clickPoint), out RaycastHit hit, 30, ~layerMask);
 
@@ -65,11 +69,22 @@ public class StorageManager : MonoBehaviour
 
         ThrowAwaySave(itemCount, poolCode, target, gameManager.IsOnOneRight(target, hit.point), out _);
     }
+    void CheckCorpseThrowAway(int itemCode, int itemCount)
+    {
+        if (itemCode != 12)
+            return;
+
+        for (int i = 0; i < itemCount; i++)
+        {
+            inventoryComponents(InventoryComponent.InventoryType.Stage).inventoryStorage.LoseCorpse();
+        }
+    }
     public void ThrowAwayItem(in Vector3 clickPoint, int itemCode)
     {
         int itemCount = 1;
         int poolCode = ItemCode2ItemPoolCode(itemCode);
         int layerMask = 1 << LayerMask.NameToLayer("UI");
+        CheckCorpseThrowAway(itemCode, itemCount);
 
         Physics.Raycast(Camera.main.ScreenPointToRay(clickPoint), out RaycastHit hit, 30, ~layerMask);
 

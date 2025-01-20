@@ -14,6 +14,7 @@ public class SpawnManager : MonoBehaviour
 
     public int[] competeIndexs { get; private set; }
     public int nowFloorIndex { get; private set; }
+    public bool isEnter { get; private set; }
 
     private void Start()
     {
@@ -23,6 +24,8 @@ public class SpawnManager : MonoBehaviour
     {
         SaveDataInfo saveDataInfo = GameManager.manager.battleClearManager.SaveDataInfo;
 
+        isEnter = saveDataInfo.stageData.isEnter;
+
         monsterDatas = saveDataInfo.stageData.monsterData;
         objectDatas = saveDataInfo.stageData.objectDatas;
         buildingDatas = saveDataInfo.building;
@@ -30,6 +33,7 @@ public class SpawnManager : MonoBehaviour
 
         nowFloorIndex = saveDataInfo.stageData.nowFloorIndex;
         competeIndexs = saveDataInfo.stageData.heros;
+
         heroDatas = new HeroData[competeIndexs.Length];
 
         for (int i = 0; i < competeIndexs.Length; i++)

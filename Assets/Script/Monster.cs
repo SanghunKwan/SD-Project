@@ -10,9 +10,11 @@ namespace Unit
     {
         Image mentalBar;
         loadingbar mentalBarScript;
+        public MonsterMove monsterMove { get; private set; }
 
         protected override IEnumerator DelayGetUI()
         {
+            initMaxCount = 3;
             yield return StartCoroutine(base.DelayGetUI());
 
             GameObject MentalityBar = ObjectUIPool.pool.Call(ObjectUIPool.Folder.MentalBar);
@@ -21,20 +23,10 @@ namespace Unit
             mentalBar = MentalityBar.GetComponent<Image>();
             mentalBarScript = mentalBar.transform.GetChild(0).GetComponent<loadingbar>();
             if (stat is not null) mentalBarScript.GetStatus(curstat, BarOffset);
+            CheckInitCount();
         }
         protected override void CharUI()
         {
-            //lv
-            //stat.LV;
-
-            //hp
-            //stat.HP
-            //curstat.HP
-
-            //morale
-            //stat.morale
-            //curstat.morale
-
             if (detected)
             {
                 copyUICircle.material = materials[0];
@@ -85,12 +77,14 @@ namespace Unit
         protected override void GetSelecting()
         {
             GameManager.manager.HereComesNewEnermy(this);
+            GameManager.manager.battleClearManager.NewMonster(this);
+            monsterMove = unitMove as MonsterMove;
         }
 
-        public override void Death(Vector3 vec)
+        protected override void LoadDead(in Vector3 vec)
         {
             GameManager.manager.MonsterOut(this, detected);
-            base.Death(vec);
+            base.LoadDead(vec);
             mentalBar.transform.SetParent(ObjectUIPool.pool.transform.GetChild((int)ObjectUIPool.Folder.MentalBar).transform, false);
             mentalBar.gameObject.SetActive(false);
             mentalBar = null;
@@ -114,6 +108,13 @@ namespace Unit
                 StartCoroutine(RecoverMental());
             }
 
+            if (mentalBar != null)
+                BarSetRenew();
+            else
+                OnInitEnd += BarSetRenew;
+        }
+        void BarSetRenew()
+        {
             mentalBarScript.BarUpdate();
         }
         IEnumerator RecoverMental()
