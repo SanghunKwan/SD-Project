@@ -454,20 +454,20 @@ public abstract class UnitMove : MonoBehaviour
             SpeedCheck();
         }
     }
-    public virtual void Death(Vector3 attacker_position)
+    public virtual void Death(in Vector3 attacker_position, bool isLoaded)
     {
         Vector3 vector = attacker_position - transform.position;
         float angle = 90 - Mathf.Atan2(vector.z, vector.x) * Mathf.Rad2Deg;
 
-        unit_State.Hit(1);
+        unit_State.Hit(1, isLoaded);
         if (Mathf.Abs(angle - transform.eulerAngles.y) % 360 < 90)
         {
-            unit_State.Death(false);
+            unit_State.Death(false, isLoaded);
 
         }
         else
         {
-            unit_State.Death(true);
+            unit_State.Death(true, isLoaded);
         }
         enabled = false;
         Stop();
@@ -652,7 +652,7 @@ public abstract class UnitMove : MonoBehaviour
     }
     public void MoveOrAttack(MoveType moveType, Vector3 vec)
     {
-        if (destination == vec)
+        if (!enabled || destination == vec)
             return;
         arrive = true;
         SpeedCheck();

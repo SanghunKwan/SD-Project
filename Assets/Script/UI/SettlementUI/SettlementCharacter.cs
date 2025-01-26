@@ -27,7 +27,7 @@ public class SettlementCharacter : MonoBehaviour
             isHeroDeadObject.SetActive(true);
             isHeroCopseGetBackObject.SetActive(!storage.IsCorpseExist(heroInStageIndex));
         }
-        
+
     }
     public void CreateNewQuirk(QuirkSaveData quirkSaveData)
     {
@@ -43,12 +43,13 @@ public class SettlementCharacter : MonoBehaviour
     void CreateNewQuirks(QuirkDefaultData quirkBeforeData, in QuirkData.QuirkS quirksInfo, int maxLength, TextMeshProUGUI textComponent, in string DebugLog)
     {
         QuirkData.Quirk[] quirks = quirksInfo.quirks;
-
+        QuirkData.Quirk newQuirk;
         int quirkCount = GetQuirksData(maxLength, quirkBeforeData);
-
         if (quirkCount <= maxLength)
         {
-            textComponent.text = quirks[GetRandomUnusedQuirkIndex(quirkBeforeData.quirks, quirks.Length, quirkCount)].name;
+            newQuirk = quirks[GetRandomUnusedQuirkIndex(quirkBeforeData.quirks, quirks.Length, quirkCount)];
+            textComponent.text = newQuirk.name;
+            quirkBeforeData.quirks[quirkBeforeData.length++] = newQuirk.index;
         }
         else
             Debug.Log(DebugLog);

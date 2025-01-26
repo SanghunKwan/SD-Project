@@ -27,7 +27,7 @@ public class ItemComp_corpse : ItemComponent
     {
         Action action = () =>
         {
-            unitState.Death(false);
+            unitState.Death(false, true);
             StartCoroutine(DelayAniEnd());
         };
 

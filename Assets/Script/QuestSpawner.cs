@@ -74,6 +74,8 @@ public class QuestSpawner : MonoBehaviour
 
         MakeNewQuest();
         MakeExistingQuest();
+
+        GameManager.manager.battleClearManager.IsCleared(this);
     }
     void SetGameManagerActionArray()
     {
@@ -90,6 +92,7 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.CallGroup] = GameManager.manager.onCallgroup;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.LowHPRelease] = GameManager.manager.onLowHPRelease;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.EnterStage] = GameManager.manager.onPlayerEnterStage;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingScroll] = GameManager.manager.onVilligeBuildingScroll;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
@@ -232,6 +235,7 @@ public class QuestSpawner : MonoBehaviour
         QuestPool.QuestActionInstance instance = questPool.GetQuestActInstance(nowProgress, data, complete, actionEvent);
 
         doingActionQuestDictionary.Add(data, instance);
+        doingActionQuestDictionary[data].LateInit?.Invoke();
     }
     #endregion
     #region eventClearActions
@@ -327,6 +331,7 @@ public class QuestSpawner : MonoBehaviour
     }
     void DisposableAction(Action<Vector3> action, QuestManager.QuestData.QuestAct.UnitActType actType, int layer, int maxCount, int nowProgress = 0)
     {
+
         int num = nowProgress;
         void Wrapper(int layerNum, Vector3 vec)
         {

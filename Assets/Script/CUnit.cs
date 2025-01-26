@@ -53,6 +53,8 @@ namespace Unit
             base.Start();
             unitMove.GetStatus(curstat.Range, curstat.SPEED);
             view = GetComponent<View>();
+
+            CheckInitCount();
         }
 
         public async void EyeOpen()
@@ -63,17 +65,19 @@ namespace Unit
             view.enabled = true;
             view.ViewAngle = curstat.ViewAngle;
             view.ViewRange = curstat.ViewRange;
+
+            CheckInitCount();
         }
 
         public void SetDetected(bool asdf)
         {
             detected = asdf;
         }
-        protected override void LoadDead(in Vector3 vec)
+        protected override void LoadDead(bool isLoaded, in Vector3 vec)
         {
             enabled = false;
             SetDetected(false);
-            unitMove.Death(vec);
+            unitMove.Death(vec, isLoaded);
             ObjectCollider.isTrigger = true;
             gameObject.layer = 16;
             ReturnUIAfterDeath();

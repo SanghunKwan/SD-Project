@@ -41,12 +41,14 @@ public class QuestPool : MonoBehaviour
     void SetActions()
     {
         questActInstanceAddTypeActions
-            = new Action<QuestActionInstance>[(int)QuestManager.QuestData.QuestAct.ActCondition.PreviousQuest + 1];
+            = new Action<QuestActionInstance>[(int)QuestManager.QuestData.QuestAct.ActCondition.Max];
 
         questActInstanceAddTypeActions[(int)QuestManager.QuestData.QuestAct.ActCondition.Accumulated]
             = (instance) => instance.TypeAccumulate();
         questActInstanceAddTypeActions[(int)QuestManager.QuestData.QuestAct.ActCondition.LastUnit]
             = (instance) => instance.TypeLastUnit();
+        questActInstanceAddTypeActions[(int)QuestManager.QuestData.QuestAct.ActCondition.HasSuperQuest]
+            = (instance) => instance.TypeHasSuperQuest();
     }
     private void Start()
     {
@@ -75,6 +77,7 @@ public class QuestPool : MonoBehaviour
         int maxCount;
         Action completeAction;
         Action actionCalled;
+        public Action LateInit { get; set; }
         GameManager.ActionEvent savedEvent;
 
         public void Init(int nowProgress, QuestManager.QuestData data, in Action nowCompleteAction,
@@ -103,6 +106,11 @@ public class QuestPool : MonoBehaviour
         {
             TypeAccumulate();
             maxCount = GameManager.manager.nPCharacter.Count;
+        }
+        public void TypeHasSuperQuest()
+        {
+            //completeAction += 
+            //¿Ï·á ½Ã superQuest progressAdd();
         }
         #endregion
 

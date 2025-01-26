@@ -131,8 +131,11 @@ namespace Unit
         {
             initCount++;
 
-            if (initCount >= initMaxCount)
+            if (initCount == initMaxCount)
+            {
                 GameManager.manager.CheckObjectLoadComplete();
+                Debug.Log("name : " + name + "     count : " + initCount);
+            }
         }
         protected IEnumerator CorLateUpdate()
         {
@@ -286,7 +289,7 @@ namespace Unit
             ItemDrop();
             LoadDead();
         }
-        protected virtual void LoadDead(in Vector3 vec = new Vector3())
+        protected virtual void LoadDead(bool isLoaded = false, in Vector3 vec = new Vector3())
         {
             GameManager.manager.ObjectOut(this);
             GetComponent<Animator>().SetTrigger("Death");
@@ -296,7 +299,7 @@ namespace Unit
         }
         public void DelayAfterResigter()
         {
-            OnInitEnd += () => LoadDead();
+            OnInitEnd += () => LoadDead(true);
         }
         protected void ReturnUIAfterDeath()
         {

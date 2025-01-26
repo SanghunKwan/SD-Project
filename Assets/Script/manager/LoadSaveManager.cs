@@ -13,7 +13,7 @@ namespace SaveData
     {
         public int day;
         public int nextScene;
-        public FloorManager.FloorData floorData;
+        public FloorData floorData;
 
         public HeroData[] hero;
         public BuildingData[] building;
@@ -30,10 +30,10 @@ namespace SaveData
             day = 0;
             nextScene = 1;
             hero = new HeroData[1] { new HeroData() };
-            floorData = new FloorManager.FloorData();
+            floorData = new FloorData();
             stageData = new StageData();
         }
-        public SaveDataInfo(int getDay, int getNextScene, FloorManager.FloorData getFloorData, in HeroData[] geHero,
+        public SaveDataInfo(int getDay, int getNextScene, FloorData getFloorData, in HeroData[] geHero,
             in BuildingData[] getBuilding, in int[] getItems, StageData getStageData, QuestSaveData getQuestSaveData)
         {
             day = getDay;
@@ -199,6 +199,14 @@ namespace SaveData
             isEnter = true;
             isClear = false;
         }
+        public void CloneValue(StageData stageData)
+        {
+            heros = stageData.heros;
+            floors = (int[])stageData.floors.Clone();
+            nowFloorIndex = stageData.nowFloorIndex;
+            isClear = stageData.isClear;
+            isEnter = stageData.isEnter;
+        }
     }
     [Serializable]
     public class MonsterData
@@ -278,7 +286,7 @@ namespace SaveData
         public int[] dots;
         public ObjectData()
         {
-            position = Vector3.forward;
+            position = 2 * Vector3.forward;
             quaternion = Quaternion.Euler(0, 180, 0);
             selected = false;
             isDead = false;
@@ -398,6 +406,7 @@ namespace SaveData
             villigeQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.VilligeQuest));
 
             stagePerformOneData.bits[0] = 1;
+            villigePerformOneData.bits[0] = 1;
         }
         public void Init()
         {
@@ -425,6 +434,30 @@ namespace SaveData
         {
             camPosition = new Vector3(0.25f, 10f, -9.38f);
             isEnterHeros = true;
+        }
+    }
+    [Serializable]
+    public class FloorData
+    {
+        public int topFloor;
+        public int[] floorLooks;
+        public float[] floorAngles;
+
+        public FloorData()
+        {
+            topFloor = 1;
+
+            //floorLooks = new int[9] { 0, 1, 1, 1, 1, 1, 1, 1, 1 };
+            floorLooks = new int[1] { 0 };
+            //floorAngles = new float[9] { 27, 47, 180, -46, 27, 60, 90, -127, 50 };
+            floorAngles = new float[1] { 27 };
+        }
+        public void SetData(int floorLevel, int[] nowTowerLooks, float[] nowAngles)
+        {
+            topFloor = floorLevel;
+            floorLooks = nowTowerLooks;
+            floorAngles = nowAngles;
+
         }
     }
 }

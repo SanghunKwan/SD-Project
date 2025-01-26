@@ -30,8 +30,7 @@ public class StageButtonSet : InitObject, IPointerDownHandler
     float m_yMax;
     Vector2 lastVec = Vector2.zero;
     Camera camMain;
-    [SerializeField] FloorManager floorManager;
-    FloorManager.FloorData data;
+    SaveData.FloorData data;
     [SerializeField] ObjectAssembly objectAssembly;
     [SerializeField] HeroTeam heroTeam;
     public HeroTeam GetHeroTeam { get => heroTeam; }
@@ -64,7 +63,7 @@ public class StageButtonSet : InitObject, IPointerDownHandler
         for (int i = 0; i < participatingTeamViews.Length; i++)
             participatingTeamViews[i] = new ParticipatingTeamView(buttons[i].transform);
 
-        floorManager.GetData(out data);
+        data = GameManager.manager.battleClearManager.SaveDataInfo.floorData;
         saveStageView.nowFloor = data.topFloor;
 
         lastindex = buttons.Length - 1;

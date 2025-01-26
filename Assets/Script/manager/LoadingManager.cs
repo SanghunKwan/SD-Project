@@ -20,6 +20,7 @@ public class LoadingManager : StageChildManager
         SceneLoadActionAdd(SceneEventClear);
 
         loading = SceneManager.LoadSceneAsync(SceneIndex);
+        loading.priority = -1;
         loading.allowSceneActivation = false;
 
         WaitforSeconds(500);

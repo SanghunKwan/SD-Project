@@ -156,9 +156,9 @@ public class MonsterMove : UnitMove
         bitArray[0] = false;
         ActionEnd(Skill.Skill);
     }
-    public override void Death(Vector3 attacker_position)
+    public override void Death(in Vector3 attacker_position, bool isLoaded)
     {
-        base.Death(attacker_position);
+        base.Death(attacker_position, isLoaded);
         unitState_Monster.SetStandType(standType);
     }
 

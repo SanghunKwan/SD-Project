@@ -18,6 +18,7 @@ public abstract class UnitSpawner : MonoBehaviour
 
     private void Start()
     {
+        DefaultStart();
         if (SpawnManager.isEnter)
             return;
 
@@ -36,10 +37,12 @@ public abstract class UnitSpawner : MonoBehaviour
         VirtualStart();
     }
     protected abstract void VirtualStart();
+    protected abstract void DefaultStart();
     void SpawnObjectData(ObjectData data)
     {
         CObject newOjb = Instantiate(cobjects[(data.id - 1) % 100], data.position, data.quaternion, objectTransform);
         NewSpawnedObjectSet(newOjb, data);
+        newOjb.gameObject.SetActive(true);
     }
     protected void NewSpawnedObjectSet(CObject newObject, ObjectData data)
     {
@@ -48,7 +51,8 @@ public abstract class UnitSpawner : MonoBehaviour
         {
             stat.Clone(data.cur_status);
             newObject.Selected(data.selected);
-            newObject.DelayAfterResigter();
+            if (data.isDead)
+                newObject.DelayAfterResigter();
         };
 
     }

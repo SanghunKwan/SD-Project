@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static SettlementManager;
 
 public class SettleTitle : MonoBehaviour
 {
@@ -13,22 +12,17 @@ public class SettleTitle : MonoBehaviour
     [SerializeField] Color[] titleColor = new Color[2];
 
 
-    public void SetTitle()
+    public void SetTitle(bool isSucess)
     {
-        SaveData.StageData stageData = GameManager.manager.battleClearManager.SaveDataInfo.stageData;
-
-        bool isSucess = stageData.isClear && (stageData.floors.Length - stageData.nowFloorIndex) == 1;
-
-        SetBattleResult((BattleResult)Convert.ToInt32(isSucess));
-
+        SetBattleResult((SettlementManager.BattleResult)Convert.ToInt32(isSucess));
     }
 
-    void SetBattleResult(BattleResult result)
+    void SetBattleResult(SettlementManager.BattleResult result)
     {
         VertexGradient vertexGradient = titleText.colorGradient;
         gameObject.SetActive(true);
 
-        if (result == BattleResult.Success)
+        if (result == SettlementManager.BattleResult.Success)
         {
             titleText.text = "½Â¸®!";
             titleText.color = titleColor[0];

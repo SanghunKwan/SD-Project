@@ -34,6 +34,7 @@ public class BattleClearManager : MonoBehaviour
     Action[] setStageByNextScene;
     public Action<int> SetActiveNewStageObjects { get; set; }
     public Action onStageChanged { get; set; }
+    public Func<StageFloorComponent> onVilligeFloorComponentSet { get; set; }
 
     List<Hero> spawnedHero;
     List<Monster> spawnedMonster;
@@ -59,7 +60,7 @@ public class BattleClearManager : MonoBehaviour
         setStageByNextScene = new Action[3];
         setStageByNextScene[0] = () => { };
         setStageByNextScene[1] = () => CallStages(saveData.stageData.floors);
-        setStageByNextScene[2] = () => { /*건물 가져오기, tower 설정하기 */};
+        setStageByNextScene[2] = () => VilligeStageFloorComponetSet();
     }
     private void Start()
     {
@@ -104,7 +105,7 @@ public class BattleClearManager : MonoBehaviour
         return (nowFloor / 10) + (Convert.ToInt32(nowFloor % 10 == 0) * 10);
     }
 
-    public void ActivateNextFloor(in QuestSpawner questSpawner)
+    public void ActivateNextFloor(in QuestSpawner questSpawner, bool needSave = true)
     {
         if (nowFloorIndex + 1 < lastFloorIndex)
         {
@@ -118,11 +119,20 @@ public class BattleClearManager : MonoBehaviour
             StageEndButton.gameObject.SetActive(true);
         }
 
-        OverrideSaveFile(true);
+        if (needSave)
+            OverrideSaveFile(true);
     }
+
+    void VilligeStageFloorComponetSet()
+    {
+        stageFloorComponents = new StageFloorComponent[1];
+        stageFloorComponents[0] = onVilligeFloorComponentSet();
+    }
+    #region 데이터 갱신
     void OverrideSaveFile(bool isClear)
     {
         RenewalSavedataInStage(isClear);
+        OverrideSaveDataFileHeroInventory();
         loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
     }
     void RenewalSavedataInStage(bool isClear)
@@ -132,11 +142,6 @@ public class BattleClearManager : MonoBehaviour
         stageData.isClear = isClear;
         stageData.nowFloorIndex = nowFloorIndex;
 
-        //saveData.hero
-        foreach (var item in spawnedHero)
-        {
-            saveData.hero[stageData.heros[item.heroInStageIndex]].SetHeroData(item);
-        }
         //saveData.questSaveData
         saveData.questSaveData.isLoaded = true;
         //퀘스트 내용은 실시간 동기화
@@ -148,10 +153,6 @@ public class BattleClearManager : MonoBehaviour
 
         SetSaveData(GameManager.manager.objects.Count, (num) => new ObjectData(GameManager.manager.objects[num]),
                 ref stageData.objectDatas);
-
-        InventoryStorage storage = GameManager.manager.storageManager.
-            inventoryComponents(InventoryComponent.InventoryType.Stage).inventoryStorage;
-        stageData.inventoryData.SetData(storage.Inventory2ItemDatas(), storage.GetHeroCorpseIndexs());
     }
     void SetSaveData<T1>(int arrayLength, Func<int, T1> newData, ref T1[] stagedata)
     {
@@ -163,6 +164,48 @@ public class BattleClearManager : MonoBehaviour
 
         stagedata = datas;
     }
+    void OverrideSaveDataFileHeroInventory(bool needPositionReset = false, Vector3 newPosition = new Vector3())
+    {
+        StageData stageData = saveData.stageData;
+
+        foreach (var item in spawnedHero)
+        {
+            HeroData hero = saveData.hero[stageData.heros[item.heroInStageIndex]];
+            hero.SetHeroData(item);
+            if (needPositionReset)
+            {
+                hero.unitData.objectData.position = newPosition;
+                hero.unitData.objectData.quaternion = Quaternion.Euler(0, 180, 0);
+                hero.unitData.objectData.selected = false;
+            }
+        }
+
+        InventoryStorage storage = GameManager.manager.storageManager.
+            inventoryComponents(InventoryComponent.InventoryType.Stage).inventoryStorage;
+        stageData.inventoryData.SetData(storage.Inventory2ItemDatas(), storage.GetHeroCorpseIndexs());
+    }
+    public void OverrideSaveDataSettle()
+    {
+        OverrideSaveDataFileHeroInventory(true, new Vector3(5, 0, 2));
+        DeleteSaveDataFileStageUnitDropItems();
+        loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
+    }
+
+    void DeleteSaveDataFileStageUnitDropItems()
+    {
+        StageData stageData = saveData.stageData;
+        saveData.nextScene = 2;
+        saveData.day++;
+
+        stageData.nowFloorIndex = 0;
+        stageData.isClear = false;
+        stageData.isEnter = true;
+        stageData.unitData = null;
+        stageData.monsterData = null;
+        stageData.objectDatas = null;
+        stageData.dropItemDatas = null;
+    }
+    #endregion
     public void ActiveStageObject()
     {
         SetActiveNewStageObjects(nowFloorIndex);
@@ -171,7 +214,11 @@ public class BattleClearManager : MonoBehaviour
     {
         return stageFloorComponents[nowFloorIndex + offsetIndex];
     }
-
+    public void IsCleared(QuestSpawner questSpawner)
+    {
+        if (saveData.stageData.isClear)
+            ActivateNextFloor(questSpawner, false);
+    }
     #region 세이브 데이터 관리
     public void NewHero(Hero newHero)
     {

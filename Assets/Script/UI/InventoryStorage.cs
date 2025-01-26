@@ -164,6 +164,9 @@ public class InventoryStorage : StorageComponent
     #region 기본 개수 증가
     public override void ItemCountChange(int itemCode, int addNum)
     {
+        if (itemCode == 0)
+            return;
+
         Item item = InventoryManager.i.info.items[itemCode];
 
         int codeIndex = itemCode2slotData[itemCode].itemCode;

@@ -8,13 +8,13 @@ namespace Unit
 {
     public class Monster : CUnit
     {
-        Image mentalBar;
+        public Image mentalBar;
         loadingbar mentalBarScript;
         public MonsterMove monsterMove { get; private set; }
 
         protected override IEnumerator DelayGetUI()
         {
-            initMaxCount = 3;
+            initMaxCount = 5;
             yield return StartCoroutine(base.DelayGetUI());
 
             GameObject MentalityBar = ObjectUIPool.pool.Call(ObjectUIPool.Folder.MentalBar);
@@ -23,6 +23,7 @@ namespace Unit
             mentalBar = MentalityBar.GetComponent<Image>();
             mentalBarScript = mentalBar.transform.GetChild(0).GetComponent<loadingbar>();
             if (stat is not null) mentalBarScript.GetStatus(curstat, BarOffset);
+
             CheckInitCount();
         }
         protected override void CharUI()
@@ -81,15 +82,15 @@ namespace Unit
             monsterMove = unitMove as MonsterMove;
         }
 
-        protected override void LoadDead(in Vector3 vec)
+        protected override void LoadDead(bool isLoaded, in Vector3 vec)
         {
             GameManager.manager.MonsterOut(this, detected);
-            base.LoadDead(vec);
+            base.LoadDead(isLoaded, vec);
+
             mentalBar.transform.SetParent(ObjectUIPool.pool.transform.GetChild((int)ObjectUIPool.Folder.MentalBar).transform, false);
             mentalBar.gameObject.SetActive(false);
             mentalBar = null;
         }
-
         public override void Hit(int skill)
         {
             base.Hit(skill);
@@ -110,8 +111,6 @@ namespace Unit
 
             if (mentalBar != null)
                 BarSetRenew();
-            else
-                OnInitEnd += BarSetRenew;
         }
         void BarSetRenew()
         {

@@ -10,20 +10,20 @@ public class SettlementCharacterParent : SettleCanSkip
     [SerializeField] float chanceToNewQuirk;
     [SerializeField] float chanceToNewDisease;
 
-    private void Awake()
+    public void Init()
     {
         int length = transform.childCount;
+        SaveDataInfo info = GameManager.manager.battleClearManager.SaveDataInfo;
         settlementCharacters = new SettlementCharacter[length];
 
         for (int i = 0; i < length; i++)
         {
             settlementCharacters[i] = transform.GetChild(i).GetComponent<SettlementCharacter>();
         }
-    }
 
-    private void Start()
-    {
-        SettleCharacters(GameManager.manager.battleClearManager.SaveDataInfo);
+        SettleCharacters(info);
+
+        GameManager.manager.battleClearManager.OverrideSaveDataSettle();
 
     }
     async void SettleCharacters(SaveDataInfo saveInfo)
@@ -59,6 +59,4 @@ public class SettlementCharacterParent : SettleCanSkip
     {
         return chance > Random.Range(0, 100.0f);
     }
-
-
 }

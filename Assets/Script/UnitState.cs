@@ -47,7 +47,7 @@ public class UnitState : MonoBehaviour
         HitVoice,
         DieVoice
     }
-    bool isVoiceStop;
+    public bool isVoiceStop { get; set; }
 
     private void Awake()
     {
@@ -60,6 +60,10 @@ public class UnitState : MonoBehaviour
         };
         SetVoiceList();
 
+        hashHitType = Animator.StringToHash("HitType");
+        hashHit = Animator.StringToHash("hit");
+        battleSkill = Animator.StringToHash("BattleSkill");
+        ambushSkill = Animator.StringToHash("AmbushSkill");
     }
     void SetVoiceList()
     {
@@ -77,12 +81,6 @@ public class UnitState : MonoBehaviour
     {
         soundManager = GameManager.manager.soundManager;
         turningTime = 0;
-
-
-        hashHitType = Animator.StringToHash("HitType");
-        hashHit = Animator.StringToHash("hit");
-        battleSkill = Animator.StringToHash("BattleSkill");
-        ambushSkill = Animator.StringToHash("AmbushSkill");
     }
     public void SetState(MovingState movingState, bool enemySearch)
     {
@@ -179,7 +177,7 @@ public class UnitState : MonoBehaviour
     }
     public void VoicePlay(voiceType type, int index = -1)
     {
-        if (isVoiceStop && type == voiceType.HitVoice)
+        if (soundManager == null || (isVoiceStop && type == voiceType.HitVoice))
             return;
 
         int listIndex = VoiceTypeAction(type);
@@ -203,20 +201,22 @@ public class UnitState : MonoBehaviour
 
     }
 
-    public void Hit(int hit)
+    public void Hit(int hit, bool isLoaded = false)
     {
         basic_Ani.SetFloat(hashHitType, hit);               //0회피 1평타 3 스킬
         basic_Ani.SetTrigger(hashHit);
 
         int soundNum = hit % 2;
-        VoicePlay((voiceType)(soundNum * 4) + 1);
+        if (!isLoaded)
+            VoicePlay((voiceType)(soundNum * 4) + 1);
     }
-    public void Death(bool backAttack)
+    public void Death(bool backAttack, bool isLoadedDead)
     {
         basic_Ani.SetTrigger(hashHit);
         basic_Ani.SetTrigger("Death");
         StartCoroutine(AttackWeighDown());
-        VoicePlay(voiceType.DieVoice);
+        if (!isLoadedDead)
+            VoicePlay(voiceType.DieVoice);
         if (corHeadWeigh != null)
             StopCoroutine(corHeadWeigh);
 

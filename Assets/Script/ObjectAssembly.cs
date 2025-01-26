@@ -16,7 +16,6 @@ public class ObjectAssembly : MonoBehaviour
     public FloorsHeight[] floors;
     [SerializeField] FloorsHeight bottom;
 
-    [SerializeField] FloorManager floorManager;
     public Action init { get; set; } = () => { };
     public Action<TowerAssembleClick[]> init2 { get; set; } = (tower) => { };
 
@@ -29,7 +28,15 @@ public class ObjectAssembly : MonoBehaviour
 
     private void Start()
     {
+        if (GameManager.manager.battleClearManager != null)
+            LateStart();
+        else
+            GameManager.manager.onBattleClearManagerRegistered += LateStart;
+    }
+    void LateStart()
+    {
         AddFloor();
+
         floorsList.Add(top);
 
         CreateFloor();
@@ -39,15 +46,14 @@ public class ObjectAssembly : MonoBehaviour
     }
     void AddFloor()
     {
-        if (floorManager.GetData(out FloorManager.FloorData data))
-        {
-            int[] floorlooks = data.floorLooks;
-            floorAngles = data.floorAngles;
+        SaveData.FloorData data = GameManager.manager.battleClearManager.SaveDataInfo.floorData;
 
-            foreach (int type in floorlooks)
-            {
-                floorsList.Add(floors[type]);
-            }
+        int[] floorlooks = data.floorLooks;
+        floorAngles = data.floorAngles;
+
+        foreach (int type in floorlooks)
+        {
+            floorsList.Add(floors[type]);
         }
     }
     void CreateFloor()

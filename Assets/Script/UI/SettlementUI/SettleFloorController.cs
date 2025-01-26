@@ -11,6 +11,7 @@ public class SettleFloorController : SettleController
     [SerializeField] Color[] resultColors;
 
     [SerializeField] string[] resultString = new string[2] { "클리어!", "패배" };
+   
 
     public override void PlaySettle(Action onPlayEnd, int interval)
     {
@@ -20,7 +21,6 @@ public class SettleFloorController : SettleController
     }
     async void ForRepeat(Action action)
     {
-        SaveData.StageData stageData = GameManager.manager.battleClearManager.SaveDataInfo.stageData;
         int[] floorsData = stageData.floors;
         int length = floorsData.Length;
 

@@ -19,10 +19,10 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
     Vector3 move;
     Vector3 movey;
-    [SerializeField] GameObject inventoryDescription;
     Action pointerDown = () => { };
 
     Camera camMain;
+    [SerializeField] GameObject QuestBackGround;
     void Start()
     {
         copyRec = Instantiate(rectangle, transform.parent);
@@ -104,7 +104,7 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     void Update()
     {
-        if (pointerEventData == null)
+        if (pointerEventData == null || QuestBackGround.activeSelf)
             return;
 
         if (MiniMapClick)
@@ -112,6 +112,7 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
             suburbUpdate = false;
             return;
         }
+
         if (pointerEventData.position.x > Screen.width - suburb)
         {
             move = Vector3.right * Time.unscaledDeltaTime * speed;

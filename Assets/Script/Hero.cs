@@ -45,6 +45,7 @@ namespace Unit
             }
 
             GetDefaultName();
+            CheckInitCount();
         }
         void GetDefaultName()
         {
@@ -60,7 +61,11 @@ namespace Unit
             isDefaultName = false;
 
         }
-
+        protected override IEnumerator DelayGetUI()
+        {
+            initMaxCount = 5;
+            return base.DelayGetUI();
+        }
         public override void Selected(bool asdf)
         {
             selected = asdf;
@@ -70,7 +75,10 @@ namespace Unit
                 copyBar.gameObject.SetActive(false);
 
             if (asdf)
+            {
                 GameManager.manager.onSelected.eventAction?.Invoke(gameObject.layer, transform.position);
+                PlayerNavi.nav.HeroAdd(this);
+            }
         }
         protected override void GetSelecting()
         {
@@ -87,10 +95,10 @@ namespace Unit
                 PrintLowHP();
             }
         }
-        protected override void LoadDead(in Vector3 vec)
+        protected override void LoadDead(bool isLoaded, in Vector3 vec)
         {
             GameManager.manager.ChallengerOut(this, keycode, detected);
-            base.LoadDead(vec);
+            base.LoadDead(isLoaded, vec);
             PrintLowHP(InputEffect.WARNINGANIMTYPE.DIE);
             //아이템이 되어서 줍는 것도 가능.
             ItemComp_corpse itemComp = gameObject.AddComponent<ItemComp_corpse>();

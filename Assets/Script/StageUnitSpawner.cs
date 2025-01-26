@@ -49,4 +49,8 @@ public class StageUnitSpawner : UnitSpawner
         item.transform.position = data.position;
     }
 
+    protected override void DefaultStart()
+    {
+
+    }
 }

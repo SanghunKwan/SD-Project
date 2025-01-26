@@ -181,9 +181,9 @@ public class Character : UnitMove
         GameManager.manager.NewTargetting(GameManager.manager.nPCharacter, this, (CUnit) => CUnit.detected, cUnit.curstat.ViewRange);
     }
 
-    public override void Death(Vector3 attacker_position)
+    public override void Death(in Vector3 attacker_position, bool isLoaded)
     {
-        base.Death(attacker_position);
+        base.Death(attacker_position, isLoaded);
 
         lineRenderer_miniMap.enabled = lineRenderer.enabled = false;
         lineRenderer_miniMap.transform.SetParent(ObjectUIPool.pool.transform.GetChild((int)ObjectUIPool.Folder.UILineRendererMiniMap), false);

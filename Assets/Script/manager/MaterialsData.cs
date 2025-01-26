@@ -14,7 +14,7 @@ public class MaterialsData : JsonLoad
         public int money;
         public int turn;
         public int grayNum;
-        public int blackNum;    
+        public int blackNum;
         public int whiteNum;
         public int timberNum;
         public string desc;
@@ -25,7 +25,7 @@ public class MaterialsData : JsonLoad
         public NeedMaterials[] Needs;
     }
 
-    public NeedList data;
+    public NeedList data { get; private set; }
 
     private void Start()
     {

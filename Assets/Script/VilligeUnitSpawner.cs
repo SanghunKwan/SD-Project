@@ -1,19 +1,29 @@
 using SaveData;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class VilligeUnitSpawner : UnitSpawner
 {
-    [Header("StageOnly")]
+    [Header("VilligeOnly")]
     [SerializeField] BuildingComponent[] buildings;
+    SpawnVilligeManager spawnVilligeManager;
 
     protected override void VirtualStart()
     {
-        foreach (var building in SpawnManager.buildingDatas)
+    }
+    protected override void DefaultStart()
+    {
+        spawnVilligeManager = SpawnManager as SpawnVilligeManager;
+
+        foreach (var building in spawnVilligeManager.buildingDatas)
         {
             SpawnBuildingData(building);
+        }
+
+        foreach (var heros in spawnVilligeManager.heroBeforeDatas)
+        {
+            SpawnHeroData(heros.Item1, heros.Item2);
         }
     }
     void SpawnBuildingData(BuildingData data)
@@ -32,4 +42,6 @@ public class VilligeUnitSpawner : UnitSpawner
     {
         //newBuilding.SaveData(workHeroIndex 로 히어로를 가져올 것., buildingWorkPlaceIndex);
     }
+
+
 }

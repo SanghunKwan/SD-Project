@@ -12,7 +12,6 @@ public class TowerWindow : CamTuringWindow
     TextMeshProUGUI buildingName;
 
     [SerializeField] AddressableManager addressableManager;
-    [SerializeField] FloorManager floorManager;
 
     Button nextButton;
     Button stageButton;
@@ -188,7 +187,7 @@ public class TowerWindow : CamTuringWindow
         base.GetTurningComponent(getClickComponent);
         towerComponent = getClickComponent as TowerComponent;
 
-        floorManager.GetData(out FloorManager.FloorData data);
+        SaveData.FloorData data = GameManager.manager.battleClearManager.SaveDataInfo.floorData;
 
         int tempNum = data.topFloor - 1;
         int floorToIndex = tempNum / 10;
@@ -199,13 +198,13 @@ public class TowerWindow : CamTuringWindow
     }
     void PrintFloorData()
     {
-        floorManager.GetData(out FloorManager.FloorData data);
+        SaveData.FloorData data = GameManager.manager.battleClearManager.SaveDataInfo.floorData;
 
         nowFloortag.Init(data.topFloor);
     }
     public void NextStep()
     {
-        floorManager.GetData(out FloorManager.FloorData data);
+        SaveData.FloorData data = GameManager.manager.battleClearManager.SaveDataInfo.floorData;
         towerComponent.ChangeAngle(nowFloor, data.floorLooks[nowFloor], 10);
         Window1Active(false);
         Window2LoadingEffect();

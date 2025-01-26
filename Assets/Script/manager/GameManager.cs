@@ -7,7 +7,6 @@ using UnityEditor;
 using UnityEngine.InputSystem;
 using System;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 
 public class GameManager : MonoBehaviour
@@ -58,6 +57,7 @@ public class GameManager : MonoBehaviour
     public ActionEvent onCallgroup { get; private set; } = new ActionEvent();
     public ActionEvent onLowHPRelease { get; private set; } = new ActionEvent();
     public ActionEvent onPlayerEnterStage { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeBuildingScroll { get; private set; } = new ActionEvent();
     #endregion
     public PointerEventData pointerEventData { get; set; }
 
@@ -404,15 +404,15 @@ public class GameManager : MonoBehaviour
             foreach (CUnit item in group)
             {
                 item.Selected(true);
-                playerNavi.HeroAdd(item);
             }
 
         }
         else
         {
+            playerNavi.HeroClear();
             foreach (CUnit item in list)
             {
-                playerNavi.HeroAdd(item);
+                item.Selected(true);
             }
         }
 
@@ -598,7 +598,6 @@ public class GameManager : MonoBehaviour
         {
             CUnit cUnit = item.cUnit;
             cUnit.Selected(true);
-            playerNavi.HeroAdd(cUnit);
         }
 
         if (playerNavi.lists.Count > 0)
@@ -679,7 +678,6 @@ public class GameManager : MonoBehaviour
 
         foreach (var item in list)
         {
-            playerNavi.HeroAdd(item);
             item.Selected(true);
         }
     }
@@ -743,10 +741,6 @@ public class GameManager : MonoBehaviour
 
         return (dir * (vec - obj.transform.position)).x > 0;
     }
-    public void CheckObjectLoadComplete(Hero hero)
-    {
-
-    }
     public void CheckObjectLoadComplete()
     {
         objectCount++;
@@ -754,17 +748,30 @@ public class GameManager : MonoBehaviour
 
         if (objectCount != allObjects)
             return;
+
+        Debug.Log("½ÇÇà");
+
         ForInverse(objects);
         ForInverse(nPCharacter);
         ForInverse(playerCharacter);
 
-        void ForInverse<T>(in List<T> collections) where T : CObject
+        CheckCloseEye();
+    }
+    void ForInverse<T>(in List<T> collections) where T : CObject
+    {
+        int length = collections.Count;
+        for (int i = length - 1; i >= 0; i--)
         {
-            int length = collections.Count;
-            for (int i = length - 1; i >= 0; i--)
-            {
-                collections[i].OnInitEnd();
-            }
+            collections[i].OnInitEnd?.Invoke();
         }
+    }
+
+    void CheckCloseEye()
+    {
+        if (playerCharacter.Count == playerDetected)
+            CloseEyes(nPCharacter);
+
+        if (nPCharacter.Count == nPCDetected)
+            CloseEyes(playerCharacter);
     }
 }

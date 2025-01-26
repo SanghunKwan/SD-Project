@@ -91,13 +91,16 @@ public class QuestManager : JsonLoad
                 CallGroup,
                 LowHPRelease,
                 EnterStage,
+                VilligeBuildingScroll,
                 Max
             }
             public enum ActCondition
             {
                 Accumulated,
                 LastUnit,
-                PreviousQuest,
+                HasSubQuest,
+                HasSuperQuest,
+                Max
             }
 
             public Vector3 spot;

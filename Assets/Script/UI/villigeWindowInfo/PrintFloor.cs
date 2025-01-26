@@ -9,7 +9,6 @@ public class PrintFloor : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     Image image;
     Animator animator;
     Text text;
-    FloorManager floorManager;
 
     int m_nowFloor = 1;
     int[] hash = new int[2];
@@ -25,8 +24,6 @@ public class PrintFloor : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         animator = GetComponent<Animator>();
         text = transform.GetChild(0).GetComponent<Text>();
 
-        floorManager = GetComponent<FloorManager>();
-
         HashSave();
     }
     void HashSave()
@@ -34,19 +31,23 @@ public class PrintFloor : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         hash[0] = Animator.StringToHash("fadeOut");
         hash[1] = Animator.StringToHash("fadeIn");
     }
-
-    private void Start()
-    {
-        if (floorManager.GetData(out FloorManager.FloorData data))
-        {
-            m_nowFloor = data.topFloor;
-        }
-        PrintText();
-    }
     private void OnEnable()
     {
         CheckTime();
     }
+    private void Start()
+    {
+        if (GameManager.manager.battleClearManager != null)
+            SetData();
+        else
+            GameManager.manager.onBattleClearManagerRegistered += SetData;
+    }
+    void SetData()
+    {
+        m_nowFloor = GameManager.manager.battleClearManager.SaveDataInfo.floorData.topFloor;
+        PrintText();
+    }
+
     void PrintText()
     {
         text.text = m_nowFloor.ToString() + " Ãþ";

@@ -616,6 +616,9 @@ public class PlayerNavi : MonoBehaviour
     #endregion
     public void GetItem(Vector3 pos, OrderType order)
     {
+        if (lists.Count <= 0)
+            return;
+
         int i = Random.Range(0, lists.Count - 1);
         lists[i].NowActorReserve(MoveType.Move, pos, order);
     }

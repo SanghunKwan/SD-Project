@@ -10,6 +10,7 @@ public class SettlementManager : SettleCanSkip
     [SerializeField] Animator hideAnimator;
     [SerializeField] SettleController[] settleControllers;
     [SerializeField] SettleTitle settleTitle;
+    [SerializeField] SettlementCharacterParent settleCharacterParent;
     [SerializeField] GameObject buttonCallNext;
 
     [SerializeField] GameObject[] firstSettles;
@@ -30,9 +31,12 @@ public class SettlementManager : SettleCanSkip
     {
         SetBlackFade(true);
 
-        DelayAction(startDelay / 2, StartSettleTitleAnimation);
+        SaveStageClearData(out bool stageSucess);
+
+        DelayAction(startDelay / 2, () => StartSettleTitleAnimation(stageSucess));
         DelayAction(startDelay, StartSettlementAnimation);
 
+        settleCharacterParent.Init();
     }
     public void SetBlackFade(bool onoff)
     {
@@ -43,15 +47,29 @@ public class SettlementManager : SettleCanSkip
         else
             hideAnimator.SetTrigger("StopFadeOut");
     }
+    void SaveStageClearData(out bool stageSucess)
+    {
+        SaveData.StageData stageData = GameManager.manager.battleClearManager.SaveDataInfo.stageData;
+
+        stageSucess = stageData.isClear && (stageData.floors.Length - stageData.nowFloorIndex) == 1;
+        SaveData.StageData tempData = new();
+        tempData.CloneValue(stageData);
+        foreach (var item in settleControllers)
+        {
+            item.Init(tempData);
+        }
+
+    }
 
     async void DelayAction(int miliSec, Action action)
     {
         await Task.Delay(miliSec);
         action();
     }
-    void StartSettleTitleAnimation()
+    void StartSettleTitleAnimation(bool isSucess)
     {
-        settleTitle.SetTitle();
+
+        settleTitle.SetTitle(isSucess);
     }
     void StartSettlementAnimation()
     {
