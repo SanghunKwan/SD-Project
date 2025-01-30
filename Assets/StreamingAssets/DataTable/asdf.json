@@ -2,6 +2,7 @@
     "stagePerformOnedata": [
         {
             "num": 1,
+            "questType": 2,
             "name": "바보들의 대잔치",
             "detail": "모든 몬스터 죽이기",
             "reward": {
@@ -63,6 +64,7 @@
     "villigePerformOnedata": [
         {
             "num": 1,
+            "questType": 2,
             "name": "바보들의 대잔치",
             "detail": "모든 몬스터 죽이기",
             "reward": {
@@ -124,6 +126,7 @@
     "floorQuestdata": [
         {
             "num": 1,
+            "questType": 2,
             "name": "바보들의 대잔치",
             "detail": "모든 몬스터 죽이기",
             "reward": {
@@ -185,6 +188,7 @@
     "villigeQuestdata": [
         {
             "num": 1,
+            "questType": 2,
             "name": "바보들의 대잔치",
             "detail": "모든 몬스터 죽이기",
             "reward": {

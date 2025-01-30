@@ -93,6 +93,8 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.LowHPRelease] = GameManager.manager.onLowHPRelease;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.EnterStage] = GameManager.manager.onPlayerEnterStage;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingScroll] = GameManager.manager.onVilligeBuildingScroll;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.EffectedOtherQuest] = GameManager.manager.onEffectedOtherEvent;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.TargettingNonDetected] = GameManager.manager.onTargettingNonDetected;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
@@ -172,6 +174,8 @@ public class QuestSpawner : MonoBehaviour
 
         //퀘스트 클리어 조건 형성
         CreateQuestRequirements(data, completeAction, nowProgress);
+
+        GameManager.manager.onEffectedOtherEvent.eventAction?.Invoke(questNum, Vector3.zero);
     }
     void SetBitSave(QuestManager.QuestType type, int questNum, QuestSaveData.SaveDataBit nowState)
     {
@@ -235,7 +239,8 @@ public class QuestSpawner : MonoBehaviour
         QuestPool.QuestActionInstance instance = questPool.GetQuestActInstance(nowProgress, data, complete, actionEvent);
 
         doingActionQuestDictionary.Add(data, instance);
-        doingActionQuestDictionary[data].LateInit?.Invoke();
+        doingActionQuestDictionary[data].LateInit?.Invoke(() => doingActionQuestDictionary[questManager.GetQuestData(data.questType, data.require.stageOffsetIndex)].CompleteCheck(0, Vector3.zero));
+
     }
     #endregion
     #region eventClearActions

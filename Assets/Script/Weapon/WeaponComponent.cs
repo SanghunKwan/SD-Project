@@ -45,12 +45,7 @@ public abstract class WeaponComponent : MonoBehaviour
     protected void PlayerSurpriseReact()
     {
         GameManager.manager.InputSpace();
-        //시간 느려짐.
-
-        //attacker 가 detected이면 회피.
-
-        //이후 회피함.
-
+        GameManager.manager.onBackAttack.eventAction?.Invoke(10, transform.position);
     }
     private void OnDisable()
     {

@@ -92,13 +92,14 @@ public class QuestManager : JsonLoad
                 LowHPRelease,
                 EnterStage,
                 VilligeBuildingScroll,
+                EffectedOtherQuest,
+                TargettingNonDetected,
                 Max
             }
             public enum ActCondition
             {
                 Accumulated,
                 LastUnit,
-                HasSubQuest,
                 HasSuperQuest,
                 Max
             }
@@ -163,6 +164,7 @@ public class QuestManager : JsonLoad
         }
 
         public int num;
+        public QuestType questType;
         public string name;
         public string detail;
         public QuestReward reward;
@@ -176,6 +178,7 @@ public class QuestManager : JsonLoad
         public QuestData()
         {
             num = 1;
+            questType = QuestType.FloorQuest;
             name = "바보들의 대잔치";
             detail = "모든 몬스터 죽이기";
             reward = new QuestReward();

@@ -356,6 +356,10 @@ public abstract class UnitMove : MonoBehaviour
             orderQueue.Enqueue(() => NewTarget(target));
             AddQueue(target);
         }
+
+        CUnit targetUnit = target as CUnit;
+        if (targetUnit != null && !targetUnit.detected)
+            GameManager.manager.onTargettingNonDetected.eventAction?.Invoke(target.gameObject.layer, target.transform.position);
     }
     protected virtual void AddQueue(CObject target)
     {

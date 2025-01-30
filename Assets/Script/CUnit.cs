@@ -72,6 +72,7 @@ namespace Unit
         public void SetDetected(bool asdf)
         {
             detected = asdf;
+
         }
         protected override void LoadDead(bool isLoaded, in Vector3 vec)
         {

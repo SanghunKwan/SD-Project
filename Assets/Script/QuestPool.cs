@@ -77,7 +77,7 @@ public class QuestPool : MonoBehaviour
         int maxCount;
         Action completeAction;
         Action actionCalled;
-        public Action LateInit { get; set; }
+        public Action<Action> LateInit { get; set; }
         GameManager.ActionEvent savedEvent;
 
         public void Init(int nowProgress, QuestManager.QuestData data, in Action nowCompleteAction,
@@ -109,12 +109,20 @@ public class QuestPool : MonoBehaviour
         }
         public void TypeHasSuperQuest()
         {
-            //completeAction += 
-            //¿Ï·á ½Ã superQuest progressAdd();
+            TypeAccumulate();
+            LateInit += SuperQuestProgressAdd;
+        }
+        void SuperQuestProgressAdd(Action action)
+        {
+            completeAction += () =>
+            {
+                action();
+                LateInit = null;
+            };
         }
         #endregion
 
-        void CompleteCheck(int objectLayerNum, Vector3 vec)
+        public void CompleteCheck(int objectLayerNum, Vector3 vec)
         {
             if (layerNum != objectLayerNum)
                 return;

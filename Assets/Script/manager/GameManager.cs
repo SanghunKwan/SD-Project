@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
     public ActionEvent onLowHPRelease { get; private set; } = new ActionEvent();
     public ActionEvent onPlayerEnterStage { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeBuildingScroll { get; private set; } = new ActionEvent();
+    public ActionEvent onEffectedOtherEvent { get; private set; } = new ActionEvent();
+    public ActionEvent onTargettingNonDetected { get; private set; } = new ActionEvent();
     #endregion
     public PointerEventData pointerEventData { get; set; }
 
@@ -531,12 +533,10 @@ public class GameManager : MonoBehaviour
         {
             hitweigh = skillData.hitWeigh;
             atkMultiply = skillData.atkMultiply;
-            ambush = skillData.Equals(SkillData.SkillType.Ambush);
+            ambush = skillData.type.Equals(SkillData.SkillType.Ambush);
         }
 
-        if (ambush)
-            onBackAttack.eventAction?.Invoke(Attacker.gameObject.layer, Attacker.transform.position);
-        else if (skillData != null)
+        if (skillData != null)
             onSkill.eventAction?.Invoke(Attacker.gameObject.layer, Attacker.transform.position);
         else
             onAttack.eventAction?.Invoke(Attacker.gameObject.layer, Attacker.transform.position);
@@ -546,7 +546,7 @@ public class GameManager : MonoBehaviour
         {
             Target.PrintMiss();
         }
-        else if (hit - Target.curstat.DOG < 100 || (ambush && detected))
+        else if ((hit - Target.curstat.DOG < 100) || (ambush && detected))
         {
             Target.Dodge();
             Target.PrintDodge();
