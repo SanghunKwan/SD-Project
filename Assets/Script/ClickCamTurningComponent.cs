@@ -36,7 +36,8 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        if (GameManager.manager.pointerEventData.pointerCurrentRaycast.gameObject.name == "InputUI")
+        if (GameManager.manager.pointerEventData != null &&
+            GameManager.manager.pointerEventData.pointerCurrentRaycast.gameObject.name == "InputUI")
         {
             ToggleWindow();
         }

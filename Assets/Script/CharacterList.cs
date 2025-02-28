@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ public class CharacterList : MonoBehaviour
     RectTransform viewPortTransform;
     RectTransform scrollTransform;
     [SerializeField] villigeViewPort TeamBackBoard;
-    Image newCharacterTempBelong;
+    Image newCharacterTempBelong { get; set; }
     [SerializeField] villigeInteract CharacterBackBoard;
 
     public Dictionary<string, Transform> keyToTeamsNum = new Dictionary<string, Transform>();
@@ -70,14 +71,61 @@ public class CharacterList : MonoBehaviour
             return;
 
 
-        int viewPortLength = viewPortTransform.childCount * 100 + 100 * (GameManager.manager.playerCharacter.Count + add);
+        int viewPortLength = viewPortTransform.childCount * 100 + 100 * (GetHeroCount() + add);
         viewPortTransform.sizeDelta = new Vector2(viewPortTransform.sizeDelta.x, viewPortLength);
 
 
         scrollTransform.sizeDelta = new Vector2(scrollTransform.sizeDelta.x,
             Mathf.Min(viewPortTransform.sizeDelta.y, 650));
     }
+    int GetHeroCount()
+    {
+        int count = 0;
+        foreach (var item in trViewPort.Values)
+        {
+            count += item.characters.Count;
+        }
+        return count;
+    }
     public void NewCharacterCall(Unit.TypeNum type, Vector3 vec)
+    {
+        SpawnVilligeInteract("=");
+
+        villigeInteract nameTag = trViewPort[keyToTeamsNum["="]].characters[^1];
+        nameTag.HeroIniit((int)type);
+        VilligeHero vh = nameTag.hero.gameObject.AddComponent<VilligeHero>();
+        nameTag.hero.isDefaultName = true;
+        vh.Init(nameTag);
+        ReArrage();
+
+    }
+    public void SpawnVilligeInteract(in string teamKeycode, SaveData.HeroData heroData = null)
+    {
+        if (!keyToTeamsNum.TryGetValue(teamKeycode, out Transform portTransform))
+        {
+            Image tempImage = BackBoard(out _, teamKeycode);
+            tempImage.rectTransform.anchoredPosition = new Vector2(0, GetViewPortTransform());
+            keyToTeamsNum.Add(teamKeycode, tempImage.transform);
+            timeArray.Add(tempImage.transform);
+            portTransform = tempImage.transform;
+        }
+
+        villigeInteract nameTag = Instantiate(CharacterBackBoard, portTransform);
+        trViewPort[portTransform].characters.Add(nameTag);
+
+        if (heroData != null)
+            nameTag.SetText(heroData);
+    }
+    public void MatchingHeroWithInteract(int heroIndex, Unit.Hero hero)
+    {
+        villigeInteract nametag = trViewPort[keyToTeamsNum[hero.keycode]].characters[heroIndex];
+        nametag.MatchHero(hero);
+        nametag.hero.ResetFieldEquip();
+        VilligeHero vh = nametag.hero.gameObject.AddComponent<VilligeHero>();
+        vh.Init(nametag);
+    }
+
+    int GetViewPortTransform()
     {
         int offset = 0;
         for (int i = 0; i < viewPortTransform.childCount; i++)
@@ -86,25 +134,9 @@ public class CharacterList : MonoBehaviour
             offset -= viewPortTransform.GetChild(i).childCount * 100;
         }
 
-
-        if (newCharacterTempBelong == null)
-        {
-            newCharacterTempBelong = BackBoard(out _);
-            newCharacterTempBelong.rectTransform.anchoredPosition = new Vector2(0, offset);
-            keyToTeamsNum.Add("=", newCharacterTempBelong.transform);
-            timeArray.Add(newCharacterTempBelong.transform);
-        }
-
-        villigeInteract nameTag = Instantiate(CharacterBackBoard, newCharacterTempBelong.transform);
-        nameTag.HeroIniit((int)type);
-        VilligeHero vh = nameTag.hero.gameObject.AddComponent<VilligeHero>();
-        nameTag.hero.isDefaultName = true;
-
-        trViewPort[keyToTeamsNum["="]].characters.Add(nameTag);
-        vh.Init(nameTag);
-
-        ReArrage();
+        return offset;
     }
+
     public Image BackBoard(out villigeViewPort port, in string teamCode = "=")
     {
         villigeViewPort backboard = Instantiate(TeamBackBoard, viewPortTransform.transform);

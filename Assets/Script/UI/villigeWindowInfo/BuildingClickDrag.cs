@@ -62,6 +62,7 @@ public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerUpHand
         pool.PoolObject(buildType).transform.position = lastPoint;
         obj.gameObject.SetActive(false);
         gameObject.SetActive(false);
+        GameManager.manager.onVilligeBuildingStartConstruction.eventAction?.Invoke((int)buildType, lastPoint);
     }
     void RightButton()
     {

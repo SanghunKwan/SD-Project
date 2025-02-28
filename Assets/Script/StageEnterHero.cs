@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unit;
 using UnityEngine;
 [RequireComponent(typeof(UnitSpawner))]
 public class StageEnterHero : MonoBehaviour
@@ -11,6 +12,7 @@ public class StageEnterHero : MonoBehaviour
     [SerializeField] int spawnCoolTime;
     UnitSpawner unitSpawner;
     [SerializeField] Vector3 gatePosition;
+    public Action<int, Hero> villigeHeroSpawnAction { get; set; }
 
 
     private void Start()
@@ -31,7 +33,7 @@ public class StageEnterHero : MonoBehaviour
         InputEffect.e.PrintEffect(gatePosition, 8);
 
         await Task.Delay(500);
-        Unit.Hero tempHero;
+        Hero tempHero;
         int length = spawnManager.heroDatas.Length;
         int moveTime = 500;
 
@@ -45,6 +47,7 @@ public class StageEnterHero : MonoBehaviour
             tempHero = unitSpawner.SpawnHeroData(spawnManager.heroDatas[i], i);
             tempHero.unitMove.Navi_Destination(gatePosition + Vector3.back);
             SetAllLayer(tempHero.transform.GetChild(0).gameObject, 18);
+            villigeHeroSpawnAction?.Invoke(spawnManager.competeIndexs[i], tempHero);
             await Task.Delay(moveTime);
 
             tempHero.unitMove.MoveOrAttack(MoveType.Move, destination);

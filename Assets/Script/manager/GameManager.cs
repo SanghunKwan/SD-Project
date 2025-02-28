@@ -60,6 +60,9 @@ public class GameManager : MonoBehaviour
     public ActionEvent onVilligeBuildingScroll { get; private set; } = new ActionEvent();
     public ActionEvent onEffectedOtherEvent { get; private set; } = new ActionEvent();
     public ActionEvent onTargettingNonDetected { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeBuildingChoosed{ get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeBuildingStartConstruction { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeBuildingCompleteConstruction { get; private set; } = new ActionEvent();
     #endregion
     public PointerEventData pointerEventData { get; set; }
 

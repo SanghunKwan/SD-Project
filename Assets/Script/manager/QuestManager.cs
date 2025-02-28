@@ -94,6 +94,9 @@ public class QuestManager : JsonLoad
                 VilligeBuildingScroll,
                 EffectedOtherQuest,
                 TargettingNonDetected,
+                VilligeBuildingChoosed,
+                VilligeBuildingStartConstruction,
+                VilligeBuildingCompleteConstruction,
                 Max
             }
             public enum ActCondition

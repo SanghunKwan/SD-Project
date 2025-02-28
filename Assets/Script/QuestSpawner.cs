@@ -95,6 +95,9 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingScroll] = GameManager.manager.onVilligeBuildingScroll;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.EffectedOtherQuest] = GameManager.manager.onEffectedOtherEvent;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.TargettingNonDetected] = GameManager.manager.onTargettingNonDetected;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingChoosed] = GameManager.manager.onVilligeBuildingChoosed;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingStartConstruction] = GameManager.manager.onVilligeBuildingStartConstruction;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingCompleteConstruction] = GameManager.manager.onVilligeBuildingCompleteConstruction;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {

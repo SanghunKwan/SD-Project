@@ -544,6 +544,7 @@ public class InventoryStorage : StorageComponent
         int itemLevel = Convert.ToInt32(item.itemCode > 16) + 2;
         cUnit.EquipUpgrade(itemType, itemLevel);
         cUnit.EquipOne(itemType);
+        cUnit.FieldEquipUpgrade(itemType, itemLevel);
         InputEffect.e.PrintEffect3(7, cUnit.transform);
 
     }

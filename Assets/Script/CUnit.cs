@@ -143,5 +143,6 @@ namespace Unit
 
         public abstract void EquipOne(int equipNum);
         public abstract void EquipUpgrade(int equipNum, int level);
+        public abstract void FieldEquipUpgrade(int equipNum, int level);
     }
 }

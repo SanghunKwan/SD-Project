@@ -101,6 +101,7 @@ namespace SaveData
         public QuirkDefaultData disease;
         public string keycode;
         public int[] equipNum;
+        public int[] fieldEquipNum;
         public int[] skillNum;
         public int villigeAction;
         public int workBuilding;
@@ -114,6 +115,7 @@ namespace SaveData
             disease = new QuirkDefaultData(4);
             keycode = "=";
             equipNum = new int[3] { 1, 1, 1 };
+            fieldEquipNum = new int[3] { 0, 0, 0 };
             skillNum = new int[4] { 1, 1, 1, 1 };
             villigeAction = 0;
             workBuilding = 0;
@@ -134,6 +136,7 @@ namespace SaveData
             disease.SetData(hero.disease, 4);
             keycode = hero.keycode;
             Array.Copy(hero.EquipsNum, equipNum, 3);
+            Array.Copy(hero.FieldEquipsNum, fieldEquipNum, 3);
             Array.Copy(hero.SkillsNum, skillNum, 4);
             villigeAction = (int)hero.VilligeAction;
             workBuilding = 0;

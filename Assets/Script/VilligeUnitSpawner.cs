@@ -8,6 +8,7 @@ public class VilligeUnitSpawner : UnitSpawner
     [Header("VilligeOnly")]
     [SerializeField] BuildingComponent[] buildings;
     SpawnVilligeManager spawnVilligeManager;
+    [SerializeField] CharacterList characterList;
 
     protected override void VirtualStart()
     {
@@ -21,10 +22,18 @@ public class VilligeUnitSpawner : UnitSpawner
             SpawnBuildingData(building);
         }
 
-        foreach (var heros in spawnVilligeManager.heroBeforeDatas)
+        foreach (var allHeros in GameManager.manager.battleClearManager.SaveDataInfo.hero)
         {
-            SpawnHeroData(heros.Item1, heros.Item2);
+            characterList.SpawnVilligeInteract(allHeros.keycode, allHeros);
         }
+
+        Unit.Hero tempHero;
+        foreach (var villigeHeros in spawnVilligeManager.heroBeforeDatas)
+        {
+            tempHero = SpawnHeroData(villigeHeros.Item1, villigeHeros.Item2);
+            characterList.MatchingHeroWithInteract(villigeHeros.Item2, tempHero);
+        }
+        characterList.ReArrage();
     }
     void SpawnBuildingData(BuildingData data)
     {

@@ -26,6 +26,7 @@ namespace Unit
                                                                                          new QuirkData.Quirk(),
                                                                                          new QuirkData.Quirk()};
         public int[] EquipsNum { get; private set; } = { 1, 1, 1 };
+        public int[] FieldEquipsNum { get; private set; } = { 0, 0, 0 };
         public int[] SkillsNum { get; private set; } = { 1, 1, 1, 1 };
         public int lv { get; private set; } = 1;
         public int heroInStageIndex { get; set; }
@@ -227,6 +228,20 @@ namespace Unit
         public override void EquipUpgrade(int equipNum, int level)
         {
             EquipsNum[equipNum] = level;
+        }
+        public override void FieldEquipUpgrade(int equipNum, int level)
+        {
+            FieldEquipsNum[equipNum] = level - 1;
+        }
+        public void ResetFieldEquip()
+        {
+            EquipsNum[0] -= FieldEquipsNum[0];
+            EquipsNum[1] -= FieldEquipsNum[1];
+            EquipsNum[2] -= FieldEquipsNum[2];
+
+            FieldEquipsNum[0] = 0;
+            FieldEquipsNum[1] = 0;
+            FieldEquipsNum[2] = 0;
         }
     }
 }

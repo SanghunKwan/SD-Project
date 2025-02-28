@@ -74,6 +74,7 @@ public abstract class UnitSpawner : MonoBehaviour
         newObject.name = data.name;
         newObject.SetData(newObject.EquipsNum, data.equipNum);
         newObject.SetData(newObject.SkillsNum, data.skillNum);
+        newObject.SetData(newObject.FieldEquipsNum, data.fieldEquipNum);
 
         if ((ActionAlert.ActionType)data.villigeAction == ActionAlert.ActionType.buildingWork)
             newObject.alloBuilding((AddressableManager.BuildingImage)data.workBuilding);

@@ -83,7 +83,7 @@ public class BuildingImg : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
     {
         scrollRect.gameObject.SetActive(false);
         onoffButton.ButtonColorReset();
-
+        GameManager.manager.onVilligeBuildingChoosed.eventAction?.Invoke((int)type, Vector3.zero);
     }
 
 

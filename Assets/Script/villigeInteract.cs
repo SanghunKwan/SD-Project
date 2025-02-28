@@ -37,11 +37,18 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public NowTeamUI teamUIData { get; private set; } = new NowTeamUI();
     Image jobImage;
 
-
+    #region temp
     public void HeroIniit(int index)
     {
         hero = Instantiate(Heros[index], Vector3.zero, Quaternion.identity, PlayerNavi.nav.transform);
         hero.MakeQuirk();
+    }
+    #endregion
+    public void MatchHero(Hero getHero)
+    {
+        hero = getHero;
+        ChangeTeamKey(hero.keycode);
+        CheckText();
     }
 
     public void ChangeTeamKey(in string newCode)
@@ -54,18 +61,30 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public void CheckText()
     {
         textPro.text = HeroInfoText();
-        if (workingBuilding == characterList.buildingSetWindow.buildingComponent)
+        if (workingBuilding != null && workingBuilding == characterList.buildingSetWindow.buildingComponent)
             characterList.buildingSetWindow.BuildSetCharactersCheck(workIndex, this);
     }
     public string HeroInfoText()
     {
-        return "<mark=#00000055><size=60>" + hero.keycode + " </size></mark> " + hero.lv + " " + hero.stat.NAME;
+        return HeroInfoText(hero.keycode, hero.lv, hero.name);
+    }
+    public void SetText(SaveData.HeroData heroData)
+    {
+        if (textPro == null)
+            textPro = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        textPro.text = HeroInfoText(heroData.keycode, heroData.lv, heroData.name);
+    }
+    string HeroInfoText(in string keycode, int lvText, in string nameText)
+    {
+        return "<mark=#00000055><size=60>" + keycode + " </size></mark> " + lvText + " " + nameText;
     }
     protected override void Start()
     {
         base.Start();
 
-        textPro = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        if (textPro == null)
+            textPro = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         anim = GetComponent<Animator>();
         animOnMouse = Animator.StringToHash("onMouse");
         jobImage = transform.Find("Image").GetComponent<Image>();
@@ -110,7 +129,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!eventData.dragging)
+        if (!eventData.dragging && hero != null)
             clicks[(int)eventData.button](eventData);
     }
 

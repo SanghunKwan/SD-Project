@@ -151,5 +151,10 @@ namespace Unit
         {
             throw new System.NotImplementedException();
         }
+
+        public override void FieldEquipUpgrade(int equipNum, int level)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

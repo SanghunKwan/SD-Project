@@ -1,6 +1,6 @@
 {
-    "day": 0,
-    "nextScene": 1,
+    "day": 1,
+    "nextScene": 2,
     "floorData": {
         "topFloor": 1,
         "floorLooks": [
@@ -39,6 +39,11 @@
             "equipNum": [
                 1,
                 1,
+                2
+            ],
+            "fieldEquipNum": [
+                0,
+                0,
                 1
             ],
             "skillNum": [
@@ -54,18 +59,18 @@
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
+                    "x": -9.418935775756836,
+                    "y": 0.49999910593032839,
+                    "z": 1.7116508483886719
                 },
                 "depart": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
+                    "x": -8.312067031860352,
+                    "y": 0.06666666269302368,
+                    "z": -4.617475509643555
                 },
                 "objectData": {
                     "position": {
-                        "x": 0.0,
+                        "x": 5.0,
                         "y": 0.0,
                         "z": 2.0
                     },
@@ -87,7 +92,7 @@
                         "NAME": "디스마스",
                         "SPECIES": 1,
                         "HP": 27,
-                        "ATK": 7,
+                        "ATK": 10,
                         "DEF": 0,
                         "DOG": 10,
                         "MORALE": 0,
@@ -95,15 +100,15 @@
                         "ViewAngle": 90,
                         "ViewRange": 6,
                         "type": 0,
-                        "Accuracy": 85,
-                        "AtkSpeed": 1.5,
+                        "Accuracy": 90,
+                        "AtkSpeed": 1.399999976158142,
                         "Range": 1,
                         "Mentality": 30,
-                        "Stress": 5,
-                        "curHP": 27,
+                        "Stress": 8,
+                        "curHP": 21,
                         "curMORALE": 0
                     },
-                    "id": 101,
+                    "id": 301,
                     "dots": [
                         0,
                         0,
@@ -127,7 +132,18 @@
         "isClear": false,
         "isEnter": true,
         "inventoryData": {
-            "itemDatas": [],
+            "itemDatas": [
+                {
+                    "itemIndex": 4,
+                    "itemCount": 3,
+                    "slotIndex": 0
+                },
+                {
+                    "itemIndex": 10,
+                    "itemCount": 1,
+                    "slotIndex": 1
+                }
+            ],
             "corpseIndex": []
         },
         "unitData": [],
@@ -137,22 +153,30 @@
     },
     "questSaveData": {
         "stagePerformOneData": {
-            "bits": [],
+            "bits": [
+                5636095
+            ],
             "nowQuestList": []
         },
         "villigePerformOneData": {
-            "bits": [],
+            "bits": [
+                1
+            ],
             "nowQuestList": []
         },
         "floorQuestData": {
-            "bits": [],
+            "bits": [
+                3
+            ],
             "nowQuestList": []
         },
         "villigeQuestData": {
-            "bits": [],
+            "bits": [
+                0
+            ],
             "nowQuestList": []
         },
-        "isLoaded": false
+        "isLoaded": true
     },
     "playInfo": {
         "camPosition": {

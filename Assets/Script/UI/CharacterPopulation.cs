@@ -10,6 +10,7 @@ public class CharacterPopulation : MonoBehaviour
     int heroNum;
     int heroMaxPopulation;
     StringBuilder stringBuilder;
+    [SerializeField] int[] populationChange;
 
 
     private void Start()
@@ -27,7 +28,9 @@ public class CharacterPopulation : MonoBehaviour
         heroNum = GameManager.manager.battleClearManager.SaveDataInfo.hero.Length;
         heroMaxPopulation = 0;
 
-        PrintText();
+        GameManager.manager.onVilligeBuildingCompleteConstruction.eventAction += AddNewBuildingEvent;
+
+        ResetText();
     }
     void PrintText()
     {
@@ -43,10 +46,17 @@ public class CharacterPopulation : MonoBehaviour
 
         text.text = stringBuilder.ToString();
     }
+    void AddNewBuildingEvent(int buildingType, Vector3 vec)
+    {
+        AddMaxPopulation(populationChange[buildingType]);
+    }
     public void ResetText()
     {
-
-
         PrintText();
+    }
+    public void AddMaxPopulation(int addNum)
+    {
+        heroMaxPopulation += addNum;
+        ResetText();
     }
 }
