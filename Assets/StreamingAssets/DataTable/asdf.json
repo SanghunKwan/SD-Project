@@ -28,6 +28,7 @@
             "require": {
                 "type": 0,
                 "layer": 7,
+                "id": 0,
                 "spot": {
                     "x": 0.0,
                     "y": 0.0,
@@ -48,6 +49,7 @@
                 },
                 "radius": 1.0,
                 "layer": 7,
+                "id": 0,
                 "whatCause": 4
             },
             "follow": {
@@ -90,6 +92,7 @@
             "require": {
                 "type": 0,
                 "layer": 7,
+                "id": 0,
                 "spot": {
                     "x": 0.0,
                     "y": 0.0,
@@ -110,6 +113,7 @@
                 },
                 "radius": 1.0,
                 "layer": 7,
+                "id": 0,
                 "whatCause": 4
             },
             "follow": {
@@ -152,6 +156,7 @@
             "require": {
                 "type": 0,
                 "layer": 7,
+                "id": 0,
                 "spot": {
                     "x": 0.0,
                     "y": 0.0,
@@ -172,6 +177,7 @@
                 },
                 "radius": 1.0,
                 "layer": 7,
+                "id": 0,
                 "whatCause": 4
             },
             "follow": {
@@ -214,6 +220,7 @@
             "require": {
                 "type": 0,
                 "layer": 7,
+                "id": 0,
                 "spot": {
                     "x": 0.0,
                     "y": 0.0,
@@ -234,6 +241,7 @@
                 },
                 "radius": 1.0,
                 "layer": 7,
+                "id": 0,
                 "whatCause": 4
             },
             "follow": {

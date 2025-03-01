@@ -55,13 +55,13 @@ public class QuestPool : MonoBehaviour
         GameManager.manager.questManager.questPool = this;
     }
 
-    public void PlaceQuest(in Vector3 vec, int triggerLayer, in Action<Vector3> triggerAction, float radius, int nowProgress = 0)
+    public void PlaceQuest(in Vector3 vec, int triggerLayer, in Action<Vector3> triggerAction, float radius, int nowId, int nowProgress = 0)
     {
         if (questTriggers.Count <= 0)
             questTriggers.Push(Instantiate(questPrefabs, questPrefabFolder));
 
         QuestTrigger popTrigger = questTriggers.Pop();
-        popTrigger.TriggerAllSet(triggerLayer, triggerAction, vec, radius, nowProgress);
+        popTrigger.TriggerAllSet(triggerLayer, triggerAction, vec, radius, nowProgress, nowId);
     }
 
     public void ReturnQuest(QuestTrigger usedTrigger)
@@ -105,7 +105,7 @@ public class QuestPool : MonoBehaviour
         public void TypeLastUnit()
         {
             TypeAccumulate();
-            maxCount = GameManager.manager.nPCharacter.Count;
+            maxCount = GameManager.manager.dicNpcCharacter.Count;
         }
         public void TypeHasSuperQuest()
         {

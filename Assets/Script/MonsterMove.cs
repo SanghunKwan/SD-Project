@@ -135,7 +135,7 @@ public class MonsterMove : UnitMove
 
     protected override void CallTargetting(CUnit gameObject)
     {
-        GameManager.manager.NewTargetting(GameManager.manager.playerCharacter, this, (cUnit) => cUnit.detected);
+        GameManager.manager.NewTargetting(GameManager.manager.dicPlayerCharacter, this, (cUnit) => cUnit.detected);
         SpeedCheck();
     }
 
@@ -149,7 +149,7 @@ public class MonsterMove : UnitMove
         Navi_Destination(transform.position);
 
         yield return new WaitForSeconds(2f);
-        GameManager.manager.SetOtheronBattle(GameManager.manager.nPCharacter);
+        GameManager.manager.SetOtheronBattle(GameManager.manager.dicNpcCharacter);
         GameManager.manager.onCry.eventAction?.Invoke(gameObject.layer, transform.position);
 
         yield return new WaitForSeconds(1f);
@@ -175,7 +175,8 @@ public class MonsterMove : UnitMove
     {
         if (loadWait != null)
             return;
-        SetTarget(GameManager.manager.GetNearest(GameManager.manager.objects, transform.position, (asdf) => true, 1000));
+
+        SetTarget(GameManager.manager.GetNearest(GameManager.manager.dicObjects, transform.position, (asdf) => true, 1000));
         isCounter = true;
         loadWait = WaitforLoad();
         StartCoroutine(loadWait);
@@ -184,7 +185,7 @@ public class MonsterMove : UnitMove
     {
         if (nav.path.status == NavMeshPathStatus.PathPartial)
         {
-            foreach (CUnit item in GameManager.manager.nPCharacter)
+            foreach (CUnit item in GameManager.manager.dicNpcCharacter.Values)
             {
                 MonsterMove monMove = item.unitMove as MonsterMove;
                 monMove.MakeWay();
@@ -195,7 +196,7 @@ public class MonsterMove : UnitMove
     IEnumerator WaitforLoad()
     {
         yield return new WaitUntil(() => nav.path.status == NavMeshPathStatus.PathComplete);
-        SetTarget(GameManager.manager.GetNearest(GameManager.manager.playerCharacter, transform.position, (asdf) => true, 1000));
+        SetTarget(GameManager.manager.GetNearest(GameManager.manager.dicPlayerCharacter, transform.position, (asdf) => true, 1000));
         loadWait = null;
     }
     public override void CounterAttack(CObject gameObject)

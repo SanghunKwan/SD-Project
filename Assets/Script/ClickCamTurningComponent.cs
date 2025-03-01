@@ -19,6 +19,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     [SerializeField] float camSize;
 
     [SerializeField] protected AddressableManager.BuildingImage type;
+    public AddressableManager.BuildingImage Type { get { return type; } }
     [SerializeField] float camAngle;
     [SerializeField] protected int[] cullingLayers;
 
@@ -26,12 +27,16 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     public Action tickCamMove { get; set; } = () => { };
     public CObject CObject { get; private set; }
 
-    protected virtual void Awake()
+    private void Awake()
     {
         camMain = Camera.main;
         camTurningWindow = GameObject.FindWithTag("UI").transform.Find(windowName).GetComponent<CamTuringWindow>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         CObject = GetComponent<CObject>();
+        VirtualAwake();
+    }
+    protected virtual void VirtualAwake()
+    {
     }
 
     private void OnMouseUpAsButton()
@@ -61,7 +66,10 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     void WindowOpenCheck(bool wasWindowOpen)
     {
         if (wasWindowOpen != isWindowOpen)
+        {
             SetCam();
+            GameManager.manager.onVilligeBuildingWindowOpen.eventAction?.Invoke((int)type, transform.position);
+        }
         else
             StartInterpolation(RotateIenum(camAngle, camSize, fX, fZ, 3));
 

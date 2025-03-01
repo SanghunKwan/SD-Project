@@ -39,6 +39,7 @@ public class BattleClearManager : MonoBehaviour
     List<Hero> spawnedHero;
     List<Monster> spawnedMonster;
     List<ItemComponent> spawnedItem;
+    List<CObject> spawnedObject;
 
     public enum OBJECTNUM
     {
@@ -51,6 +52,7 @@ public class BattleClearManager : MonoBehaviour
         spawnedHero = new List<Hero>();
         spawnedMonster = new List<Monster>();
         spawnedItem = new List<ItemComponent>();
+        spawnedObject = new List<CObject>();
 
         SetAction();
 
@@ -151,8 +153,7 @@ public class BattleClearManager : MonoBehaviour
 
         SetSaveData(spawnedMonster.Count, (num) => new MonsterData(spawnedMonster[num]), ref stageData.monsterData);
 
-        SetSaveData(GameManager.manager.objects.Count, (num) => new ObjectData(GameManager.manager.objects[num]),
-                ref stageData.objectDatas);
+        SetSaveData(spawnedObject.Count, (num) => new ObjectData(spawnedObject[num]), ref stageData.objectDatas);
     }
     void SetSaveData<T1>(int arrayLength, Func<int, T1> newData, ref T1[] stagedata)
     {
@@ -243,6 +244,14 @@ public class BattleClearManager : MonoBehaviour
     public void StageOutItem(ItemComponent usedItem)
     {
         spawnedItem.Remove(usedItem);
+    }
+    public void NewObject(CObject newObject)
+    {
+        spawnedObject.Add(newObject);
+    }
+    public void StageOutObject(CObject fadeObject)
+    {
+        spawnedObject.Remove(fadeObject);
     }
     #endregion
 }

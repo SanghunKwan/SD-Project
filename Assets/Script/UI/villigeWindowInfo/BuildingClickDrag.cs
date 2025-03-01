@@ -17,6 +17,7 @@ public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerUpHand
 
     public void Activate(BuildingArrange preview, in AddressableManager.BuildingImage type)
     {
+        GameManager.manager.onVilligeBuildingChoosed.eventAction?.Invoke((int)type, Vector3.zero);
         gameObject.SetActive(true);
         obj = preview;
         obj.gameObject.SetActive(true);
@@ -59,12 +60,12 @@ public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerUpHand
             return;
 
         //생성
-        pool.PoolObject(buildType).transform.position = lastPoint;
+        GameManager.manager.onVilligeBuildingStartConstruction.eventAction?.Invoke((int)buildType, lastPoint);
+        pool.PoolObject(buildType, lastPoint);
         obj.gameObject.SetActive(false);
         gameObject.SetActive(false);
-        GameManager.manager.onVilligeBuildingStartConstruction.eventAction?.Invoke((int)buildType, lastPoint);
     }
-    void RightButton()
+    public void RightButton()
     {
         //취소
         if (obj == null) return;

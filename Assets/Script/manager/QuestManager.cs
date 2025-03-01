@@ -47,6 +47,7 @@ public class QuestManager : JsonLoad
 
             public RequirementsType type;
             public int layer;
+            public int id;
             public Vector3 spot;
             public float radius;
 
@@ -62,6 +63,7 @@ public class QuestManager : JsonLoad
             {
                 type = RequirementsType.spot;
                 layer = 7;
+                id = 0;
                 spot = Vector3.zero;
                 radius = 1;
                 actCondition = QuestAct.ActCondition.Accumulated;
@@ -97,6 +99,10 @@ public class QuestManager : JsonLoad
                 VilligeBuildingChoosed,
                 VilligeBuildingStartConstruction,
                 VilligeBuildingCompleteConstruction,
+                VilligeBuildingHeroAllocation,
+                VilligeBuildingHeroCancellation,
+                VilligeBuildingWindowOpen,
+                VilligeHeroInteractDrag,
                 Max
             }
             public enum ActCondition
@@ -110,6 +116,7 @@ public class QuestManager : JsonLoad
             public Vector3 spot;
             public float radius;
             public int layer;
+            public int id;
             public UnitActType whatCause;
 
 
@@ -118,6 +125,7 @@ public class QuestManager : JsonLoad
                 spot = Vector3.zero;
                 radius = 1;
                 layer = 7;
+                id = 0;
                 whatCause = UnitActType.LowHP;
             }
         }

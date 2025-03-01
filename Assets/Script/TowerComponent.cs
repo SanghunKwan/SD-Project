@@ -11,9 +11,8 @@ public class TowerComponent : ClickCamTurningComponent
 
     public Action windowEnd { get; set; } = () => { };
 
-    protected override void Awake()
+    protected override void VirtualAwake()
     {
-        base.Awake();
         towerWindow = camTurningWindow as TowerWindow;
         skyScraperComponent = GetComponent<SkyScraperComponent>();
         objectAssembly = GetComponent<ObjectAssembly>();

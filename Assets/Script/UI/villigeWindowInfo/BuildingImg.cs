@@ -33,6 +33,7 @@ public class BuildingImg : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
         actions.Add(InScrollDrag);
         actions.Add(OutScrollDrag);
         actions.Add((eventData) => { });
+        actions.Add(ReturnScrollDrag);
         scrollViewPort.AddAction(() => actionNum = 1);
 
         previewObject = preivewParent.Find(type.ToString()).GetComponent<BuildingArrange>();
@@ -62,6 +63,11 @@ public class BuildingImg : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
         actionNum++;
         clickdrag.Activate(previewObject, type);
     }
+    void ReturnScrollDrag(PointerEventData eventData)
+    {
+        clickdrag.RightButton();
+        OnBeginDrag(eventData);
+    }
 
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -83,7 +89,7 @@ public class BuildingImg : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
     {
         scrollRect.gameObject.SetActive(false);
         onoffButton.ButtonColorReset();
-        GameManager.manager.onVilligeBuildingChoosed.eventAction?.Invoke((int)type, Vector3.zero);
+        
     }
 
 

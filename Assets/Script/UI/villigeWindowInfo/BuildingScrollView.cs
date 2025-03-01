@@ -7,12 +7,17 @@ using UnityEngine.EventSystems;
 public class BuildingScrollView : MonoBehaviour, IPointerExitHandler
 {
     Action action;
+    bool isExit = false;
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (isExit)
+            return;
+
         action();
+        isExit = true;
     }
-    public void AddAction(Action add)
+    public void AddAction(in Action enter)
     {
-        action += add;
+        action += enter;
     }
 }

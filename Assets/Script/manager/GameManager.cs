@@ -15,9 +15,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerNavi playerNavi;
     [SerializeField] MonNavi monNavi;
 
-    public List<CUnit> nPCharacter { get; private set; } = new();
-    public List<CObject> objects { get; private set; } = new();
-    public List<CUnit> playerCharacter { get; private set; } = new List<CUnit>();
+    public Dictionary<Transform, CUnit> dicNpcCharacter { get; private set; } = new();
+    public Dictionary<Transform, CObject> dicObjects { get; private set; } = new();
+    public Dictionary<Transform, CUnit> dicPlayerCharacter { get; private set; } = new();
+
     public int playerDetected;
     public int nPCDetected;
     int objectCount;
@@ -60,9 +61,13 @@ public class GameManager : MonoBehaviour
     public ActionEvent onVilligeBuildingScroll { get; private set; } = new ActionEvent();
     public ActionEvent onEffectedOtherEvent { get; private set; } = new ActionEvent();
     public ActionEvent onTargettingNonDetected { get; private set; } = new ActionEvent();
-    public ActionEvent onVilligeBuildingChoosed{ get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeBuildingChoosed { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeBuildingStartConstruction { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeBuildingCompleteConstruction { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeBuildingHeroAllocation { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeBuildingHeroCancellation { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeBuildingWindowOpen { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeHeroInteractDrag{ get; private set; } = new ActionEvent();
     #endregion
     public PointerEventData pointerEventData { get; set; }
 
@@ -134,36 +139,36 @@ public class GameManager : MonoBehaviour
     #region 오브젝트 활성화/비활성화 체크
     public void HereComesNewChallenger(CUnit unit, string keycode)
     {
-        playerCharacter.Add(unit);
+        dicPlayerCharacter.Add(unit.transform, unit);
 
         playerNavi.SetTeam(unit.unitMove, keycode);
 
-        foreach (CUnit item in nPCharacter)
+        foreach (CUnit item in dicNpcCharacter.Values)
         {
             item.EyeOpen();
         }
 
-        if (nPCharacter.Count > nPCDetected)
+        if (dicNpcCharacter.Count > nPCDetected)
             unit.EyeOpen();
 
 
     }
     public void HereComesNewEnermy(CUnit gameObject)
     {
-        nPCharacter.Add(gameObject);
+        dicNpcCharacter.Add(gameObject.transform, gameObject);
         monNavi.MonsterAdd(gameObject);
 
-        foreach (CUnit unit in playerCharacter)
+        foreach (CUnit unit in dicPlayerCharacter.Values)
         {
             unit.EyeOpen();
         }
 
-        if (playerCharacter.Count > playerDetected)
+        if (dicPlayerCharacter.Count > playerDetected)
             gameObject.EyeOpen();
     }
     public void ChallengerOut(CUnit gameObject, string keycode, bool detected)
     {
-        playerCharacter.Remove(gameObject);
+        dicPlayerCharacter.Remove(gameObject.transform);
         playerNavi.HeroClear(gameObject, keycode);
         TargetOutMonster(gameObject);
 
@@ -172,7 +177,7 @@ public class GameManager : MonoBehaviour
 
         MonsteronBattleoff();
 
-        foreach (Monster item in nPCharacter)
+        foreach (Monster item in dicNpcCharacter.Values)
         {
             item.curstat.Mentality = item.stat.Mentality;
             item.MentalBarRenew();
@@ -181,7 +186,7 @@ public class GameManager : MonoBehaviour
     }
     public void MonsterOut(CUnit gameObject, bool detected)
     {
-        nPCharacter.Remove(gameObject);
+        dicNpcCharacter.Remove(gameObject.transform);
         monNavi.MonsterRemove(gameObject);
         TargetOutCharacter(gameObject);
 
@@ -190,7 +195,7 @@ public class GameManager : MonoBehaviour
 
         PlayeronBattleoff();
 
-        IEnumerable<Monster> monster = from unit in nPCharacter
+        IEnumerable<Monster> monster = from unit in dicNpcCharacter.Values
                                        where !((Monster)unit).unitMove.isFear
                                        select (Monster)unit;
 
@@ -202,7 +207,7 @@ public class GameManager : MonoBehaviour
 
         if (monster.Count() <= 0)
         {
-            foreach (var item in playerCharacter)
+            foreach (var item in dicPlayerCharacter.Values)
             {
                 item.SetDetected(false);
             }
@@ -211,18 +216,19 @@ public class GameManager : MonoBehaviour
 
     public void HereComesNewObject(CObject gameObject)
     {
-        objects.Add(gameObject);
+        dicObjects.Add(gameObject.transform, gameObject);
     }
     public void ObjectOut(CObject gameObject)
     {
-        objects.Remove(gameObject);
+        dicObjects.Remove(gameObject.transform);
         TargetOutMonster(gameObject);
     }
     void TargetOutCharacter(CObject gameObject)
     {
-        var character = from one in playerCharacter
+        var character = from one in dicPlayerCharacter.Values
                         where one.unitMove.targetEnermy == gameObject
                         select one;
+
         foreach (CUnit item in character)
         {
             item.unitMove.BattleContinue();
@@ -230,7 +236,7 @@ public class GameManager : MonoBehaviour
     }
     void TargetOutMonster(CObject gameObject)
     {
-        var monster = from one in nPCharacter
+        var monster = from one in dicNpcCharacter.Values
                       where one.unitMove.targetEnermy == gameObject
                       select one;
 
@@ -242,9 +248,9 @@ public class GameManager : MonoBehaviour
     }
     void PlayeronBattleoff()
     {
-        if (nPCharacter.Count == 0)
+        if (dicNpcCharacter.Count == 0)
         {
-            foreach (CUnit item in playerCharacter)
+            foreach (CUnit item in dicPlayerCharacter.Values)
             {
                 item.SetDetected(false);
                 item.unitMove.OnBattle(false);
@@ -256,7 +262,7 @@ public class GameManager : MonoBehaviour
     {
         if (playerDetected == 0)
         {
-            foreach (CUnit mon in nPCharacter)
+            foreach (CUnit mon in dicNpcCharacter.Values)
             {
                 mon.unitMove.OnBattle(false);
             }
@@ -282,26 +288,26 @@ public class GameManager : MonoBehaviour
         if (founder is MonsterMove)
         {
             playerDetected++;
-            if (playerDetected == playerCharacter.Count)
+            if (playerDetected == dicPlayerCharacter.Count)
             {
-                CloseEyes(nPCharacter);
+                CloseEyes(dicNpcCharacter);
                 //모두 발각되었다는 알림.
             }
         }
         else
         {
             nPCDetected++;
-            if (nPCDetected == nPCharacter.Count)
+            if (nPCDetected == dicNpcCharacter.Count)
             {
                 Debug.Log(nPCDetected);
-                CloseEyes(playerCharacter);
+                CloseEyes(dicPlayerCharacter);
                 //모든 적 발견 알림.
             }
         }
     }
-    void CloseEyes(List<CUnit> cUnits)
+    void CloseEyes(Dictionary<Transform, CUnit> cUnits)
     {
-        foreach (var item in cUnits)
+        foreach (var item in cUnits.Values)
         {
             item.FindAll();
         }
@@ -372,13 +378,13 @@ public class GameManager : MonoBehaviour
         rec[2] = vector3.y;
         rec[3] = vector3.y + vector2.y;
 
-        DragEffect(objects);
-        DragEffect(nPCharacter);
-        DragEffect(playerCharacter);
+        DragEffect(dicObjects);
+        DragEffect(dicNpcCharacter);
+        DragEffect(dicPlayerCharacter);
 
-        void DragEffect<T>(List<T> values) where T : CObject
+        void DragEffect<T>(Dictionary<Transform, T> values) where T : CObject
         {
-            foreach (var item in values)
+            foreach (var item in values.Values)
             {
                 item.DragBoxCollide(rec, dragging);
             }
@@ -388,11 +394,11 @@ public class GameManager : MonoBehaviour
     {
         playerNavi.HeroClear();
 
-        DragEffect(objects);
-        DragEffect(nPCharacter);
-        DragEffect(playerCharacter);
+        DragEffect(dicObjects);
+        DragEffect(dicNpcCharacter);
+        DragEffect(dicPlayerCharacter);
 
-        var list = from item in playerCharacter
+        var list = from item in dicPlayerCharacter.Values
                    where item.selected
                    select item;
         if (list.Count() < 1)
@@ -420,15 +426,14 @@ public class GameManager : MonoBehaviour
                 item.Selected(true);
             }
         }
-
-
-        void DragEffect<T>(List<T> values) where T : CObject
+        void DragEffect<T>(Dictionary<Transform, T> values) where T : CObject
         {
-            foreach (var item in values)
+            foreach (var item in values.Values)
             {
                 item.DragEnd(ModifierCtrl(item), ModifierShift(item));
             }
         }
+
         bool ModifierShift<T>(T item) where T : CObject
         {
             return Keyboard.current.shiftKey.isPressed && item.selected;
@@ -480,12 +485,12 @@ public class GameManager : MonoBehaviour
         (values[index1], values[index2]) = (values[index2], values[index1]);
     }
 
-    public CObject GetNearest<T>(in List<T> units, Vector3 targetPos, Predicate<T> predicate, float range) where T : CObject
+    public CObject GetNearest<T>(in Dictionary<Transform, T> units, Vector3 targetPos, Predicate<T> predicate, float range) where T : CObject
     {
         List<UnitDistance> heap = new List<UnitDistance>();
         heap.Add(new UnitDistance());
 
-        var list = from unit in units
+        var list = from unit in units.Values
                    where predicate(unit)
                    select unit;
 
@@ -501,14 +506,14 @@ public class GameManager : MonoBehaviour
     }
     #endregion
     #region 전투
-    public void SetOtheronBattle(List<CUnit> list)
+    public void SetOtheronBattle(Dictionary<Transform, CUnit> dicUnits)
     {
-        foreach (CUnit unit in list)
+        foreach (CUnit unit in dicUnits.Values)
         {
             unit.unitMove.OnBattle(true);
         }
     }
-    public void NewTargetting<T>(List<T> values, UnitMove finder, Predicate<T> del, float range = 1000) where T : CObject
+    public void NewTargetting<T>(Dictionary<Transform, T> values, UnitMove finder, Predicate<T> del, float range = 1000) where T : CObject
     {
         if (values.Count <= 0)
             return;
@@ -593,9 +598,9 @@ public class GameManager : MonoBehaviour
     {
         playerNavi.HeroClear();
 
-        Unselect(playerCharacter);
-        Unselect(objects);
-        Unselect(nPCharacter);
+        Unselect(dicPlayerCharacter);
+        Unselect(dicObjects);
+        Unselect(dicNpcCharacter);
 
         foreach (Character item in playerNavi.PlayerCharacter[GetConvert(numbering)])
         {
@@ -610,9 +615,9 @@ public class GameManager : MonoBehaviour
     {
         return keyboardConverter[key];
     }
-    public void Unselect<T>(List<T> values) where T : CObject
+    public void Unselect<T>(Dictionary<Transform, T> values) where T : CObject
     {
-        foreach (var item in values)
+        foreach (var item in values.Values)
         {
             item.Selected(false);
         }
@@ -639,7 +644,7 @@ public class GameManager : MonoBehaviour
     }
     void TimeTurningAccel(bool isTimeDelay)
     {
-        foreach (CUnit item in playerCharacter)
+        foreach (CUnit item in dicPlayerCharacter.Values)
         {
             item.unitMove.SetTurnSpeed(isTimeDelay);
         }
@@ -674,7 +679,7 @@ public class GameManager : MonoBehaviour
         string str = GetConvert(key);
         playerNavi.HeroClear();
 
-        var list = from item in playerCharacter
+        var list = from item in dicPlayerCharacter.Values
                    where item.selected || playerNavi.PlayerCharacter[str].Contains(item.unitMove as Character)
                    select item;
 
@@ -747,34 +752,69 @@ public class GameManager : MonoBehaviour
     public void CheckObjectLoadComplete()
     {
         objectCount++;
-        int allObjects = objects.Count + nPCharacter.Count + playerCharacter.Count;
+        int allObjects = dicObjects.Count + dicNpcCharacter.Count + dicPlayerCharacter.Count;
 
         if (objectCount != allObjects)
             return;
 
         Debug.Log("실행");
 
-        ForInverse(objects);
-        ForInverse(nPCharacter);
-        ForInverse(playerCharacter);
+        ForInverse(dicObjects);
+        ForInverse(dicNpcCharacter);
+        ForInverse(dicPlayerCharacter);
 
         CheckCloseEye();
     }
-    void ForInverse<T>(in List<T> collections) where T : CObject
+    void ForInverse<T>(in Dictionary<Transform, T> collections) where T : CObject
     {
         int length = collections.Count;
-        for (int i = length - 1; i >= 0; i--)
-        {
-            collections[i].OnInitEnd?.Invoke();
-        }
-    }
 
+        foreach (var item in collections.Values)
+        {
+            item.OnInitEnd?.Invoke();
+        }
+
+    }
     void CheckCloseEye()
     {
-        if (playerCharacter.Count == playerDetected)
-            CloseEyes(nPCharacter);
+        if (dicPlayerCharacter.Count == playerDetected)
+            CloseEyes(dicNpcCharacter);
 
-        if (nPCharacter.Count == nPCDetected)
-            CloseEyes(playerCharacter);
+        if (dicNpcCharacter.Count == nPCDetected)
+            CloseEyes(dicPlayerCharacter);
+    }
+    public void ApproachDictionary(GameObject unknownObject, out CObject dicCobject)
+    {
+        CObject tempObject;
+        switch (unknownObject.layer)
+        {
+            case 7:
+                {
+                    dicPlayerCharacter.TryGetValue(unknownObject.transform, out CUnit tempUnit);
+                    tempObject = tempUnit;
+                    break;
+
+                }
+
+            case 9:
+                {
+                    dicObjects.TryGetValue(unknownObject.transform, out tempObject);
+                    break;
+                }
+
+            case 10:
+                {
+                    dicPlayerCharacter.TryGetValue(unknownObject.transform, out CUnit tempUnit);
+                    tempObject = tempUnit;
+                    break;
+                }
+
+            default:
+                Debug.Log("dictionary에 접근 실패");
+                tempObject = new CObject();
+                break;
+        }
+
+        dicCobject = tempObject;
     }
 }

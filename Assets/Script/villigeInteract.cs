@@ -106,8 +106,8 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         {
             PlayerNavi.nav.HeroClear();
 
-            GameManager.manager.Unselect(GameManager.manager.playerCharacter);
-            GameManager.manager.Unselect(GameManager.manager.objects);
+            GameManager.manager.Unselect(GameManager.manager.dicPlayerCharacter);
+            GameManager.manager.Unselect(GameManager.manager.dicObjects);
 
             GameManager.manager.ScreenToPoint(hero.transform.position);
 
@@ -206,6 +206,12 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         workingBuilding = place;
         workIndex = index;
     }
+    public void DeleteWorkPlace()
+    {
+        GameManager.manager.onVilligeBuildingHeroCancellation.eventAction?.Invoke((int)workingBuilding.Type, workingBuilding.transform.position);
+        SaveWorkPlace(null, 0);
+        ChangeImage(AddressableManager.BuildingImage.Tomb, false);
+    }
     public bool isCanLoad(out BuildingComponent workingbuilding, out int workindex)
     {
         workingbuilding = workingBuilding;
@@ -226,6 +232,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         if (eventData.button == PointerEventData.InputButton.Left)
             return;
 
+        GameManager.manager.onVilligeHeroInteractDrag.eventAction?.Invoke(hero.lv,hero.transform.position);
         float subtractHeight = (eventData.pressPosition.y - rectImage.rectTransform.position.y)
                                 / rectImage.rectTransform.sizeDelta.y * image.rectTransform.sizeDelta.y;
         offset = new Vector2(eventData.pressPosition.x - rectImage.rectTransform.position.x, subtractHeight);

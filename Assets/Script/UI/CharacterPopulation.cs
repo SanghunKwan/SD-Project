@@ -28,7 +28,8 @@ public class CharacterPopulation : MonoBehaviour
         heroNum = GameManager.manager.battleClearManager.SaveDataInfo.hero.Length;
         heroMaxPopulation = 0;
 
-        GameManager.manager.onVilligeBuildingCompleteConstruction.eventAction += AddNewBuildingEvent;
+        GameManager.manager.onVilligeBuildingHeroAllocation.eventAction += AddNewBuildingEvent;
+        GameManager.manager.onVilligeBuildingHeroCancellation.eventAction += CancelHeroAllocation;
 
         ResetText();
     }
@@ -49,6 +50,10 @@ public class CharacterPopulation : MonoBehaviour
     void AddNewBuildingEvent(int buildingType, Vector3 vec)
     {
         AddMaxPopulation(populationChange[buildingType]);
+    }
+    void CancelHeroAllocation(int buildingType, Vector3 vec)
+    {
+        AddMaxPopulation(-populationChange[buildingType]);
     }
     public void ResetText()
     {

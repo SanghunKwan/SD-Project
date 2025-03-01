@@ -98,6 +98,10 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingChoosed] = GameManager.manager.onVilligeBuildingChoosed;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingStartConstruction] = GameManager.manager.onVilligeBuildingStartConstruction;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingCompleteConstruction] = GameManager.manager.onVilligeBuildingCompleteConstruction;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingHeroAllocation] = GameManager.manager.onVilligeBuildingHeroAllocation;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingHeroCancellation] = GameManager.manager.onVilligeBuildingHeroCancellation;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingWindowOpen] = GameManager.manager.onVilligeBuildingWindowOpen;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeHeroInteractDrag] = GameManager.manager.onVilligeHeroInteractDrag;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
@@ -200,7 +204,7 @@ public class QuestSpawner : MonoBehaviour
         {
             EventClear(data.reward);
             completeAction();
-        }, require.radius, nowProgress);
+        }, require.radius, nowProgress, require.id);
     }
     void CreateQuestForItem(QuestManager.QuestData data, Action completeAction, int nowProgress)
     {
@@ -302,7 +306,7 @@ public class QuestSpawner : MonoBehaviour
     {
         //카메라 object 주변으로 이동.
         GameManager.manager.ScreenToPoint(callPosition);
-        questBackGround.SetHighLight(callPosition, highLightSize);
+        questBackGround.SetHighLight(callPosition + highLightPosition, highLightSize);
     }
     void HighLightNoFocus(Vector3 highLightPosition, Vector3 callPosition, float highLightSize)
     {
@@ -330,7 +334,7 @@ public class QuestSpawner : MonoBehaviour
         BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
         //collider를 통해 퀘스트 시작 포인트 가져오기
         questPool.PlaceQuest(act.spot + battleClearManager.GetStageComponent(0).transform.position,
-            act.layer, (vec) => MakeQuest(type, questNum, vec), act.radius);
+            act.layer, (vec) => MakeQuest(type, questNum, vec), act.radius, act.id);
 
     }
     void PrepareQuestbySpecificAction(QuestManager.QuestData.QuestAct act, QuestManager.QuestType type, int questNum)
@@ -345,7 +349,6 @@ public class QuestSpawner : MonoBehaviour
         {
             if (!layer.Equals(layerNum))
                 return;
-
 
             if (num < maxCount)
                 return;

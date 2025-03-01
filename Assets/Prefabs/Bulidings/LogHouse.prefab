@@ -107,7 +107,7 @@ Animator:
   m_GameObject: {fileID: 514720611352689410}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 35fb457aa85018345987c44bb8375cda, type: 2}
+  m_Controller: {fileID: 9100000, guid: cd49a565811730f4fa78396d1a51bafd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -163,6 +163,7 @@ MonoBehaviour:
   camSize: 3
   type: 3
   camAngle: 20
+  cullingLayers: 
   upgradeType: 7
   infoText: "\uC601\uC6C5 \uC778\uAD6C \uC218 \uC81C\uD55C +12"
 --- !u!1 &8434686844703830699

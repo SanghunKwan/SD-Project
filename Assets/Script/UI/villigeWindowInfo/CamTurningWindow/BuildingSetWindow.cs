@@ -131,11 +131,11 @@ public class BuildingSetWindow : CamTuringWindow
         if (data == null)
             buildset.ResetTeam();
         else
-            buildset.ChangeTeam(data.hero.stat.NAME, data.hero.keycode);
+            buildset.ChangeTeam(data.hero.curstat.NAME, data.hero.keycode);
     }
     public void SetHeroInDic(GameObject key)
     {
-        buildSetDic[key].ChangeTeam(vill_Interact.hero.stat.NAME, vill_Interact.hero.keycode);
+        buildSetDic[key].ChangeTeam(vill_Interact.hero.curstat.NAME, vill_Interact.hero.keycode);
         vill_Interact.NoMove();
 
     }
@@ -144,7 +144,7 @@ public class BuildingSetWindow : CamTuringWindow
         if (buildingComponent.IsDataNull(key.transform.GetSiblingIndex(), out villigeInteract saveVillige))
             buildSetDic[key].ResetTeam();
         else
-            buildSetDic[key].ChangeTeam(saveVillige.hero.stat.NAME, saveVillige.hero.keycode);
+            buildSetDic[key].ChangeTeam(saveVillige.hero.curstat.NAME, saveVillige.hero.keycode);
     }
 
     public void SetisDragFalse()
@@ -163,17 +163,18 @@ public class BuildingSetWindow : CamTuringWindow
 
         if (vill_Interact.isCanLoad(out BuildingComponent beforeWork, out int beforeIndex) && siblingIndex != 0)
         {
+            //siblingIndex == 0일 때는 시설 이용자
             if (beforeWork == buildingComponent)
             {
                 buildSetCharacters[beforeIndex].ResetTeam();
                 buildSetDic[transform.GetChild(beforeIndex).gameObject].ResetTeam();
             }
-
             beforeWork.ResetData(beforeIndex);
-
         }
 
         buildingComponent.SaveData(vill_Interact, siblingIndex);
+
+
         if (siblingIndex != 0)
         {
             vill_Interact.SaveWorkPlace(buildingComponent, siblingIndex);
@@ -183,6 +184,6 @@ public class BuildingSetWindow : CamTuringWindow
     }
     public void BuildSetCharactersCheck(int index, villigeInteract vill)
     {
-        buildSetCharacters[index].ChangeTeam(vill.hero.stat.NAME, vill.hero.keycode);
+        buildSetCharacters[index].ChangeTeam(vill.hero.curstat.NAME, vill.hero.keycode);
     }
 }

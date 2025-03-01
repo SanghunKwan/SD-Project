@@ -893,6 +893,178 @@
       "follow": {
         "datas": [
           {
+            "type": 1,
+            "questNum": 3
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 3,
+      "questType": 1,
+      "name": "건물 활성화하기",
+      "detail": "건물 클릭해서 관리창 열기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 2,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": -0.5,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 1,
+      "require": {
+        "type": 2,
+        "layer": 2,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 20,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "id":0,
+        "layer": 2,
+        "whatCause": 17
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 4
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 4,
+      "questType": 1,
+      "name": "건물 활성화하기",
+      "detail": "목록의 영웅을 마우스 오른쪽 드래그하기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1770.0,
+          "y": 600.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 1,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 21,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 50.0,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+              "type": 1,
+            "questNum": 5
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 5,
+      "questType": 1,
+      "name": "건물 활성화하기",
+      "detail": "목록의 영웅을 건물 관리자로 배치해서 활성화하기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 910.0,
+          "y": 450.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 2,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 18,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 50.0,
+        "layer": 7,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
           }
         ],
         "needCallNextQuest": false

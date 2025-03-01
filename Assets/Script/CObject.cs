@@ -107,6 +107,7 @@ namespace Unit
             if (stat == null)
             {
                 stat = Data.Instance.GetInfo(ID);
+                stat.NAME = name;
             }
             if (curstat == null)
             {
@@ -169,6 +170,7 @@ namespace Unit
         protected virtual void GetSelecting()
         {
             GameManager.manager.HereComesNewObject(this);
+            GameManager.manager.battleClearManager.NewObject(this);
         }
         protected void SetNowPosition()
         {

@@ -9,7 +9,7 @@ public class BuildingPool : MonoBehaviour
     [SerializeField] GameObject[] buildingPrefabs;
     [SerializeField] int repeatNum = 3;
 
-    Dictionary<bool, Func<int, GameObject>> actions = new Dictionary<bool, Func<int, GameObject>>();
+    Dictionary<bool, Func<int, Vector3, GameObject>> actions = new Dictionary<bool, Func<int, Vector3, GameObject>>();
 
     void Start()
     {
@@ -31,23 +31,24 @@ public class BuildingPool : MonoBehaviour
         actions.Add(true, GetObject);
         actions.Add(false, NewObject);
     }
-    public GameObject PoolObject(AddressableManager.BuildingImage building)
+    public GameObject PoolObject(AddressableManager.BuildingImage building, in Vector3 createPosition)
     {
         int index = (int)building;
         bool boolConvert = Convert.ToBoolean(transform.GetChild(index).childCount);
 
-        return actions[boolConvert](index);
+        return actions[boolConvert](index, createPosition);
     }
 
-    GameObject GetObject(int index)
+    GameObject GetObject(int index, Vector3 vec)
     {
         GameObject obj = transform.GetChild(index).GetChild(0).gameObject;
+        obj.transform.position = vec;
         obj.transform.SetParent(transform);
 
         return obj;
     }
-    GameObject NewObject(int index)
+    GameObject NewObject(int index, Vector3 vec)
     {
-        return Instantiate(buildingPrefabs[index], Vector3.zero, Quaternion.identity, transform);
+        return Instantiate(buildingPrefabs[index], vec, Quaternion.identity, transform);
     }
 }

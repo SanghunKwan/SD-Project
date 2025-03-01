@@ -174,11 +174,11 @@ public class Character : UnitMove
     }
     protected override void SearchAct2()
     {
-        GameManager.manager.SetOtheronBattle(GameManager.manager.playerCharacter);
+        GameManager.manager.SetOtheronBattle(GameManager.manager.dicPlayerCharacter);
     }
     protected override void CallTargetting(CUnit gameObject)
     {
-        GameManager.manager.NewTargetting(GameManager.manager.nPCharacter, this, (CUnit) => CUnit.detected, cUnit.curstat.ViewRange);
+        GameManager.manager.NewTargetting(GameManager.manager.dicNpcCharacter, this, (CUnit) => CUnit.detected, cUnit.curstat.ViewRange);
     }
 
     public override void Death(in Vector3 attacker_position, bool isLoaded)
