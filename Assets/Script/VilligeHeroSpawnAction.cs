@@ -17,5 +17,6 @@ public class VilligeHeroSpawnAction : MonoBehaviour
     void SpawnAction(int nametagIndex, Hero hero)
     {
         characterList.MatchingHeroWithInteract(nametagIndex, hero);
+        GameManager.manager.battleClearManager.ComebacktoVillige();
     }
 }

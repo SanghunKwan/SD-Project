@@ -21,7 +21,12 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     [SerializeField] protected AddressableManager.BuildingImage type;
     public AddressableManager.BuildingImage Type { get { return type; } }
     [SerializeField] float camAngle;
+    [Tooltip("Tower 등 Layer 추가 가리기")]
     [SerializeField] protected int[] cullingLayers;
+    //Tower의 경우 바닥도 투명하게 함.
+    
+
+    protected bool isUsable;
 
     Action delaySetCam = () => { };
     public Action tickCamMove { get; set; } = () => { };
@@ -35,13 +40,11 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         CObject = GetComponent<CObject>();
         VirtualAwake();
     }
-    protected virtual void VirtualAwake()
-    {
-    }
+    protected abstract void VirtualAwake();
 
     private void OnMouseUpAsButton()
     {
-        if (GameManager.manager.pointerEventData != null &&
+        if (isUsable && GameManager.manager.pointerEventData != null &&
             GameManager.manager.pointerEventData.pointerCurrentRaycast.gameObject.name == "InputUI")
         {
             ToggleWindow();
@@ -229,5 +232,9 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     public void SetColliderActive(bool onoff)
     {
         capsuleCollider.enabled = onoff;
+    }
+    public void ReadytoUse()
+    {
+        isUsable = true;
     }
 }

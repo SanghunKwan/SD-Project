@@ -64,7 +64,7 @@ public class BuildingSetWindow : CamTuringWindow
     }
 
     public void SetOpen(BuildingComponent buildingComp, bool onoff, AddressableManager.BuildingImage buildType,
-        AddressableManager.BuildingImage upgradeType, in string str, villigeInteract[] saveData)
+        AddressableManager.BuildingImage upgradeType, in string str, in villigeInteract[] saveData)
     {
         gameObject.SetActive(onoff);
 
@@ -85,9 +85,8 @@ public class BuildingSetWindow : CamTuringWindow
             upgradeImage.sprite = sprite;
 
             LoadNeed(saveData);
+            CheckBuildingActive();
         }
-
-
     }
     void SetBuildingNameImg(in AddressableManager.BuildingImage buildType)
     {
@@ -105,7 +104,6 @@ public class BuildingSetWindow : CamTuringWindow
         NeedSubManager(children[type].isSubManagerNeed);
         NeedUpgrade(children[type].isUpgradeNeed);
     }
-
     void NeedHero(bool need)
     {
         infoText.gameObject.SetActive(!need);
@@ -119,12 +117,12 @@ public class BuildingSetWindow : CamTuringWindow
     {
         upgradeImage.transform.parent.gameObject.SetActive(need);
     }
-    void LoadNeed(villigeInteract[] saveData)
+
+    void LoadNeed(in villigeInteract[] saveData)
     {
         LoadRepeat(selectHero, saveData[0]);
         LoadRepeat(manager, saveData[1]);
         LoadRepeat(subManager, saveData[2]);
-
     }
     void LoadRepeat(BuildSetCharacter buildset, villigeInteract data)
     {
@@ -133,18 +131,43 @@ public class BuildingSetWindow : CamTuringWindow
         else
             buildset.ChangeTeam(data.hero.curstat.NAME, data.hero.keycode);
     }
+    void CheckBuildingActive()
+    {
+        int length = buildSetCharacters.Length;
+        bool isActive = true;
+
+        for (int i = 0; i < length; i++)
+        {
+            isActive &= (!buildSetCharacters[i].gameObject.activeSelf || buildSetCharacters[i].isAllocated);
+        }
+
+        SetInfoTextColor(isActive);
+    }
+    void SetInfoTextColor(bool isActive)
+    {
+        Color textColor = Color.white;
+        if (!isActive)
+            textColor *= 0.6f;
+
+        infoText.color = textColor;
+    }
+
+
     public void SetHeroInDic(GameObject key)
     {
         buildSetDic[key].ChangeTeam(vill_Interact.hero.curstat.NAME, vill_Interact.hero.keycode);
         vill_Interact.NoMove();
 
     }
+
     public void SetBackHeroText(GameObject key)
     {
         if (buildingComponent.IsDataNull(key.transform.GetSiblingIndex(), out villigeInteract saveVillige))
             buildSetDic[key].ResetTeam();
         else
             buildSetDic[key].ChangeTeam(saveVillige.hero.curstat.NAME, saveVillige.hero.keycode);
+
+        CheckBuildingActive();
     }
 
     public void SetisDragFalse()
@@ -173,6 +196,7 @@ public class BuildingSetWindow : CamTuringWindow
         }
 
         buildingComponent.SaveData(vill_Interact, siblingIndex);
+        CheckBuildingActive();
 
 
         if (siblingIndex != 0)
@@ -181,6 +205,7 @@ public class BuildingSetWindow : CamTuringWindow
             vill_Interact.ChangeImage(ImageIndex);
             vill_Interact.hero.alloBuilding(ImageIndex);
         }
+
     }
     public void BuildSetCharactersCheck(int index, villigeInteract vill)
     {

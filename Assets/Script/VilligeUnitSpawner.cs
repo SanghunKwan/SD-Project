@@ -6,20 +6,28 @@ using UnityEngine;
 public class VilligeUnitSpawner : UnitSpawner
 {
     [Header("VilligeOnly")]
-    [SerializeField] BuildingComponent[] buildings;
     SpawnVilligeManager spawnVilligeManager;
+    BuildingPool buildingPool;
     [SerializeField] CharacterList characterList;
 
     protected override void VirtualStart()
     {
+
     }
     protected override void DefaultStart()
     {
         spawnVilligeManager = SpawnManager as SpawnVilligeManager;
+        buildingPool = objectTransform.GetComponent<BuildingPool>();
+        int length = spawnVilligeManager.buildingDatas.Length;
+        for (int i = 0; i < length; i++)
+        {
+            SpawnBuildingData(spawnVilligeManager.buildingDatas[i]);
+        }
+
 
         foreach (var building in spawnVilligeManager.buildingDatas)
         {
-            SpawnBuildingData(building);
+
         }
 
         foreach (var allHeros in GameManager.manager.battleClearManager.SaveDataInfo.hero)
@@ -37,20 +45,24 @@ public class VilligeUnitSpawner : UnitSpawner
     }
     void SpawnBuildingData(BuildingData data)
     {
-        BuildingComponent newBuilding
-            = Instantiate(buildings[(data.objectData.id - 1) % 100], data.objectData.position, data.objectData.quaternion);
-        NewSpawnedObjectSet(newBuilding.CObject, data.objectData);
+        BuildingConstructDelay newBuilding = buildingPool
+                        .PoolBuilding((AddressableManager.BuildingImage)(data.objectData.id - 201), data.objectData.position);
+        NewSpawnedBuildingSet(newBuilding, data);
+        NewSpawnedObjectSet(newBuilding.buildingComponent.CObject, data.objectData);
 
         int length = data.workHero.Length;
         for (int i = 0; i < length; i++)
         {
-            BuildingWorkHeroLoad(newBuilding, data.workHero[i], i);
+            BuildingWorkHeroLoad(newBuilding.buildingComponent, data.workHero[i], i);
         }
     }
     void BuildingWorkHeroLoad(BuildingComponent newBuilding, int workHeroIndex, int buildingWorkPlaceIndex)
     {
         //newBuilding.SaveData(workHeroIndex 로 히어로를 가져올 것., buildingWorkPlaceIndex);
     }
-
+    void NewSpawnedBuildingSet(BuildingConstructDelay building, BuildingData buildingData)
+    {
+        building.LoadConstructionData(buildingData);
+    }
 
 }

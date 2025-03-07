@@ -21,11 +21,6 @@ public class ItemComponent : MonoBehaviour
     [SerializeField] int index;
     public int Index { get { return index; } }
 
-
-    Transform CircleCanvas;
-
-
-
     UICircle uiCircle;
     [SerializeField] protected int CirclePad;
 
@@ -34,13 +29,12 @@ public class ItemComponent : MonoBehaviour
 
     private void Awake()
     {
-        CircleCanvas = GameObject.FindGameObjectWithTag("Canvas").transform;
         coll = GetComponent<CapsuleCollider>();
     }
     void OnEnable()
     {
-        GameObject circleObjct = ObjectUIPool.pool.Call(ObjectUIPool.Folder.UIItemCircle);
-        circleObjct.transform.SetParent(CircleCanvas, false);
+        GameObject circleObjct = ObjectUIPool.pool.Call(ObjectUIPool.Folder.UIItemCircle,
+                                                        ObjectUIPool.UICanvasType.GroundCanvas);
         uiCircle = circleObjct.GetComponent<UICircle>();
 
         VirtualEnable();

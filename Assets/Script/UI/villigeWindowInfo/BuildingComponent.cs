@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,10 @@ public class BuildingComponent : ClickCamTurningComponent
     [SerializeField] AddressableManager.BuildingImage upgradeType;
     [SerializeField] string infoText;
 
+    /// <summary>
+    /// parameter : dayRemaining
+    /// </summary>
+    public Action<int> constructionAction { get; set; }
 
     public villigeInteract[] saveVilligeInteract { get; private set; } = new villigeInteract[3];
 
@@ -16,10 +21,8 @@ public class BuildingComponent : ClickCamTurningComponent
     protected override void VirtualAwake()
     {
         buildingWindow = camTurningWindow as BuildingSetWindow;
-        //건설 완료 수정 필요.
-        //건설 시 일정 시간 / 일정 day 필요
-        //이미 건설된 building 로딩 시 즉시 완료.
-        GameManager.manager.onVilligeBuildingCompleteConstruction.eventAction?.Invoke((int)type, transform.position);
+        isUsable = true;
+        constructionAction += (day) => isUsable = false;
     }
 
     protected override void SetWindowOpen()

@@ -9,17 +9,20 @@ public class SpawnVilligeManager : SpawnManager
     protected override void VirtualStart()
     {
         SaveDataInfo saveDataInfo = GameManager.manager.battleClearManager.SaveDataInfo;
+        int length = saveDataInfo.hero.Length;
 
-        Array.Sort(competeIndexs);
-
-        int length = saveDataInfo.hero.Length - competeIndexs.Length;
+        if (competeIndexs.Length > 0)
+        {
+            Array.Sort(competeIndexs);
+            length -= competeIndexs.Length;
+        }
 
         heroBeforeDatas = new (HeroData, int)[length];
         int nowCompeteIndex = 0;
         int heroIndex = 0;
         for (int i = 0; i < length; i++)
         {
-            while (heroIndex == competeIndexs[nowCompeteIndex])
+            while (competeIndexs.Length > 0 && heroIndex == competeIndexs[nowCompeteIndex])
             {
                 heroIndex++;
                 nowCompeteIndex++;

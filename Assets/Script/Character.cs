@@ -29,9 +29,6 @@ public class Character : UnitMove
     UILineRenderer lineRenderer;
     UILineRenderer lineRenderer_miniMap;
 
-    Transform circleCanvas;
-    Transform MiniMapCanvas;
-
     public string Formation;
     bool isDeQueue = false;
     bool isDeQueue2 = false;
@@ -55,8 +52,6 @@ public class Character : UnitMove
     protected override void Awake()
     {
         base.Awake();
-        circleCanvas = GameObject.FindGameObjectWithTag("Canvas").transform;
-        MiniMapCanvas = Camera.main.transform.GetChild(0);
         unit_State.SelectSet(0);
     }
     private void OnEnable()
@@ -73,10 +68,10 @@ public class Character : UnitMove
     }
     void GetLineRenderer()
     {
-        GameObject lineObjct1 = ObjectUIPool.pool.Call(ObjectUIPool.Folder.UILineRenderer);
-        lineObjct1.transform.SetParent(circleCanvas, false);
-        GameObject lineObjct2 = ObjectUIPool.pool.Call(ObjectUIPool.Folder.UILineRendererMiniMap);
-        lineObjct2.transform.SetParent(MiniMapCanvas, false);
+        GameObject lineObjct1 = ObjectUIPool.pool.Call(ObjectUIPool.Folder.UILineRenderer,
+                                                       ObjectUIPool.UICanvasType.GroundCanvas);
+        GameObject lineObjct2 = ObjectUIPool.pool.Call(ObjectUIPool.Folder.UILineRendererMiniMap,
+                                                       ObjectUIPool.UICanvasType.MinimapCanvas);
 
         lineRenderer = lineObjct1.GetComponent<UILineRenderer>();
         lineRenderer_miniMap = lineObjct2.GetComponent<UILineRenderer>();

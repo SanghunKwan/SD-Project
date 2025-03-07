@@ -1583,6 +1583,7 @@ MonoBehaviour:
   - {fileID: 5332606016128409477, guid: 9cfccc73593fc1f46a5272e644046004, type: 3}
   - {fileID: 1784621020824449140, guid: 0fea4e85391e69746aa5e3d479312b52, type: 3}
   - {fileID: 5020115076198567939, guid: f757ce15fe6d3994f8ff2b145a35f800, type: 3}
+  - {fileID: 5020115076198567939, guid: 35378cc5b7196f94d94de94d3ac71c73, type: 3}
   - {fileID: 4711506474602217707, guid: a7ad3aa314792a44f9b58b3c4ab09ea1, type: 3}
   init: 10
 --- !u!224 &297873107
@@ -2647,7 +2648,9 @@ MonoBehaviour:
   - 25.5
   - 25.5
   loadSaveManager: {fileID: 554296110}
+  ManagerType: 0
   StageEndButton: {fileID: 8337161477225245666}
+  characterList: {fileID: 0}
 --- !u!1 &412396038
 GameObject:
   m_ObjectHideFlags: 0

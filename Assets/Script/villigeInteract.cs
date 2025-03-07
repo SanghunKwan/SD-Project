@@ -47,7 +47,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public void MatchHero(Hero getHero)
     {
         hero = getHero;
-        ChangeTeamKey(hero.keycode);
+        hero.TeamChange(hero.keycode);
         CheckText();
     }
 

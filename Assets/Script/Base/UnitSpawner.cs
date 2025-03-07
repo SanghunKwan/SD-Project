@@ -80,11 +80,8 @@ public abstract class UnitSpawner : MonoBehaviour
             newObject.alloBuilding((AddressableManager.BuildingImage)data.workBuilding);
         else
             newObject.alloBuilding((ActionAlert.ActionType)data.villigeAction);
-
-
-        Debug.Log("isDead 기능 추가 예정");
-
     }
+    
     public Hero SpawnHeroData(HeroData data, int heroIndex)
     {
         Hero newHero = Instantiate(heroes[(data.unitData.objectData.id - 1) % 100],

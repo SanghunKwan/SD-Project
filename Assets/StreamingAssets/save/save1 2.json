@@ -1,0 +1,189 @@
+{
+    "day": 1,
+    "nextScene": 2,
+    "floorData": {
+        "topFloor": 1,
+        "floorLooks": [
+            0
+        ],
+        "floorAngles": [
+            27.0
+        ]
+    },
+    "hero": [
+        {
+            "name": "디스마스",
+            "lv": 1,
+            "quirks": {
+                "quirks": [
+                    6,
+                    2,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 2,
+                "willChange": false,
+                "willChangeIndex": 0
+            },
+            "disease": {
+                "quirks": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 0
+            },
+            "keycode": "=",
+            "equipNum": [
+                1,
+                1,
+                2
+            ],
+            "fieldEquipNum": [
+                0,
+                0,
+                1
+            ],
+            "skillNum": [
+                1,
+                1,
+                1,
+                1
+            ],
+            "villigeAction": 0,
+            "workBuilding": 0,
+            "unitData": {
+                "detected": false,
+                "attackMove": false,
+                "ishold": false,
+                "destination": {
+                    "x": -4.5458221435546879,
+                    "y": 0.5000000596046448,
+                    "z": 4.038225173950195
+                },
+                "depart": {
+                    "x": -5.348773956298828,
+                    "y": 0.06666666269302368,
+                    "z": 5.884481906890869
+                },
+                "objectData": {
+                    "position": {
+                        "x": 5.0,
+                        "y": 0.0,
+                        "z": 2.0
+                    },
+                    "dotsDirection": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "quaternion": {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0,
+                        "w": -4.371138828673793e-8
+                    },
+                    "selected": false,
+                    "isDead": false,
+                    "cur_status": {
+                        "ID": 301,
+                        "NAME": "디스마스",
+                        "SPECIES": 1,
+                        "HP": 27,
+                        "ATK": 10,
+                        "DEF": 0,
+                        "DOG": 10,
+                        "MORALE": 0,
+                        "SPEED": 5,
+                        "ViewAngle": 90,
+                        "ViewRange": 6,
+                        "type": 0,
+                        "Accuracy": 90,
+                        "AtkSpeed": 1.399999976158142,
+                        "Range": 1,
+                        "Mentality": 30,
+                        "Stress": 8,
+                        "curHP": 15,
+                        "curMORALE": 0
+                    },
+                    "id": 301,
+                    "dots": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        }
+    ],
+    "building": [],
+    "items": [],
+    "stageData": {
+        "heros": [
+            0
+        ],
+        "floors": [
+            0
+        ],
+        "nowFloorIndex": 0,
+        "isClear": false,
+        "isEnter": true,
+        "inventoryData": {
+            "itemDatas": [
+                {
+                    "itemIndex": 4,
+                    "itemCount": 1,
+                    "slotIndex": 0
+                },
+                {
+                    "itemIndex": 7,
+                    "itemCount": 1,
+                    "slotIndex": 1
+                }
+            ],
+            "corpseIndex": []
+        },
+        "unitData": [],
+        "monsterData": [],
+        "objectDatas": [],
+        "dropItemDatas": []
+    },
+    "questSaveData": {
+        "stagePerformOneData": {
+            "bits": [
+                8388607
+            ],
+            "nowQuestList": []
+        },
+        "villigePerformOneData": {
+            "bits": [
+                1
+            ],
+            "nowQuestList": []
+        },
+        "floorQuestData": {
+            "bits": [
+                3
+            ],
+            "nowQuestList": []
+        },
+        "villigeQuestData": {
+            "bits": [
+                0
+            ],
+            "nowQuestList": []
+        },
+        "isLoaded": true
+    },
+    "playInfo": {
+        "camPosition": {
+            "x": 0.25,
+            "y": 10.0,
+            "z": -9.380000114440918
+        },
+        "isEnterHeros": true
+    }
+}

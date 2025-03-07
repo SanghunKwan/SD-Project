@@ -62,8 +62,8 @@ public class StorageManager : MonoBehaviour
 
         Physics.Raycast(Camera.main.ScreenPointToRay(clickPoint), out RaycastHit hit, 30, ~layerMask);
 
-        Dictionary<Transform, CUnit> clist = (from character in PlayerNavi.nav.lists
-                                              select character.cUnit).ToDictionary((unit) => unit.transform, (unit) => unit);
+        Dictionary<GameObject, CUnit> clist = (from character in PlayerNavi.nav.lists
+                                              select character.cUnit).ToDictionary((unit) => unit.gameObject, (unit) => unit);
 
         CObject target = gameManager.GetNearest(clist, hit.point, (character) => true, 35);
 

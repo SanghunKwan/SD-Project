@@ -38,8 +38,6 @@ namespace Unit
 
         protected float charactertoUImultiply = 100;
         private float maxX, maxY, minX, minY;
-        protected Transform HPCanvas;
-        Transform CircleCanvas;
         protected loadingbar hpbarScript;
 
         protected IEnumerator LateRepeat;
@@ -54,8 +52,6 @@ namespace Unit
 
         protected virtual void Awake()
         {
-            HPCanvas = GameObject.FindGameObjectWithTag("CanvasWorld").transform;
-            CircleCanvas = GameObject.FindGameObjectWithTag("Canvas").transform;
             ObjectCollider = GetComponent<CapsuleCollider>();
             GetColliderSize(ObjectCollider);
         }
@@ -75,19 +71,15 @@ namespace Unit
             {
                 yield return null;
             }
-            GameObject barObjct = ObjectUIPool.pool.Call(ObjectUIPool.Folder.HPBar);
-            barObjct.transform.SetParent(HPCanvas, false);
-
-            GameObject circleObjct = ObjectUIPool.pool.Call(ObjectUIPool.Folder.UICircle);
-            circleObjct.transform.SetParent(CircleCanvas, false);
-
-            copyBar = barObjct.GetComponent<Image>();
+            copyBar = ObjectUIPool.pool.Call(ObjectUIPool.Folder.HPBar, ObjectUIPool.UICanvasType.UpperCanvas)
+                      .GetComponent<Image>();
             hpbarScript = copyBar.transform.GetChild(0).GetComponent<loadingbar>();
 
             if (stat is not null)
                 hpbarScript.GetStatus(curstat, BarOffset);
 
-            copyUICircle = circleObjct.GetComponent<UICircle>();
+            copyUICircle = ObjectUIPool.pool.Call(ObjectUIPool.Folder.UICircle, ObjectUIPool.UICanvasType.GroundCanvas)
+                           .GetComponent<UICircle>();
 
             copyUICircle.Padding = CirclePad;
             CheckInitCount();

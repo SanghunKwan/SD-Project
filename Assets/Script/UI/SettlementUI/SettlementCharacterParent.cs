@@ -23,7 +23,7 @@ public class SettlementCharacterParent : SettleCanSkip
 
         SettleCharacters(info);
 
-        GameManager.manager.battleClearManager.OverrideSaveDataSettle();
+        GameManager.manager.battleClearManager.OverrideSaveDataBeforeSettle();
 
     }
     async void SettleCharacters(SaveDataInfo saveInfo)

@@ -28,7 +28,9 @@ public class BattleClearManager : MonoBehaviour
     [SerializeField] LoadSaveManager loadSaveManager;
     BattleClearPool battleClearPool;
 
-    [SerializeField] UnityEngine.UI.Button StageEndButton;
+    public InventoryComponent.InventoryType ManagerType;
+    [HideInInspector] public UnityEngine.UI.Button StageEndButton;
+    [HideInInspector] public CharacterList characterList;
 
 
     Action[] setStageByNextScene;
@@ -40,6 +42,9 @@ public class BattleClearManager : MonoBehaviour
     List<Monster> spawnedMonster;
     List<ItemComponent> spawnedItem;
     List<CObject> spawnedObject;
+    List<BuildingConstructDelay> spawnedBuilding;
+
+    List<int> stageHeroDeleting;
 
     public enum OBJECTNUM
     {
@@ -53,6 +58,7 @@ public class BattleClearManager : MonoBehaviour
         spawnedMonster = new List<Monster>();
         spawnedItem = new List<ItemComponent>();
         spawnedObject = new List<CObject>();
+        spawnedBuilding = new();
 
         SetAction();
 
@@ -168,10 +174,11 @@ public class BattleClearManager : MonoBehaviour
     void OverrideSaveDataFileHeroInventory(bool needPositionReset = false, Vector3 newPosition = new Vector3())
     {
         StageData stageData = saveData.stageData;
+        HeroData hero;
 
         foreach (var item in spawnedHero)
         {
-            HeroData hero = saveData.hero[stageData.heros[item.heroInStageIndex]];
+            hero = saveData.hero[stageData.heros[item.heroInStageIndex]];
             hero.SetHeroData(item);
             if (needPositionReset)
             {
@@ -181,13 +188,15 @@ public class BattleClearManager : MonoBehaviour
             }
         }
 
-        InventoryStorage storage = GameManager.manager.storageManager.
-            inventoryComponents(InventoryComponent.InventoryType.Stage).inventoryStorage;
+        InventoryStorage storage = GameManager.manager.storageManager
+            .inventoryComponents(InventoryComponent.InventoryType.Stage).inventoryStorage;
         stageData.inventoryData.SetData(storage.Inventory2ItemDatas(), storage.GetHeroCorpseIndexs());
     }
-    public void OverrideSaveDataSettle()
+
+    public void OverrideSaveDataBeforeSettle()
     {
         OverrideSaveDataFileHeroInventory(true, new Vector3(5, 0, 2));
+
         DeleteSaveDataFileStageUnitDropItems();
         loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
     }
@@ -206,6 +215,48 @@ public class BattleClearManager : MonoBehaviour
         stageData.objectDatas = null;
         stageData.dropItemDatas = null;
     }
+    public void OverrideSaveDataInSettle()
+    {
+        OverrideSaveDataVilligeHero();
+        OverrideSaveDataFileBuilding();
+        loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
+    }
+    void OverrideSaveDataVilligeHero()
+    {
+        //CharacterList 위에서 아래로 순회하며 저장.
+        int viewportLength = characterList.trViewPort.Count;
+        int heroLenth;
+        List<villigeInteract> tempInteract = new List<villigeInteract>();
+        for (int i = 0; i < viewportLength; i++)
+        {
+            tempInteract.AddRange(characterList.GetViewPortByIndex(i).characters);
+        }
+        heroLenth = tempInteract.Count;
+        saveData.hero = new HeroData[heroLenth];
+
+        for (int i = 0; i < heroLenth; i++)
+        {
+            saveData.hero[i] = new HeroData(tempInteract[i].hero);
+        }
+    }
+    void OverrideSaveDataFileBuilding()
+    {
+        saveData.building = new BuildingData[spawnedBuilding.Count];
+
+        for (int i = 0; i < spawnedBuilding.Count; i++)
+        {
+            saveData.building[i] = new BuildingData(spawnedBuilding[i]);
+        }
+    }
+    public void ComebacktoVillige()
+    {
+        if (stageHeroDeleting == null)
+            stageHeroDeleting = new List<int>(saveData.stageData.heros);
+
+        stageHeroDeleting.RemoveAt(0);
+        saveData.stageData.heros = stageHeroDeleting.ToArray();
+    }
+
     #endregion
     public void ActiveStageObject()
     {
@@ -252,6 +303,14 @@ public class BattleClearManager : MonoBehaviour
     public void StageOutObject(CObject fadeObject)
     {
         spawnedObject.Remove(fadeObject);
+    }
+    public void NewBuilding(BuildingConstructDelay newBuilding)
+    {
+        spawnedBuilding.Add(newBuilding);
+    }
+    public void StageOutBuilding(BuildingConstructDelay fadeBuilding)
+    {
+        spawnedBuilding.Remove(fadeBuilding);
     }
     #endregion
 }

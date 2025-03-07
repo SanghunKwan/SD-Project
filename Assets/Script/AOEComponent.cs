@@ -8,16 +8,13 @@ public class AOEComponent : MonoBehaviour
     Collider aoeCollider;
     UIPrimitiveBase uiBase;
 
-    Transform UICanvas;
     int numDef;
 
     System.Action<Collider, Vector3> action;
     // Start is called before the first frame update
     void Awake()
     {
-
         aoeCollider = GetComponent<Collider>();
-        UICanvas = AOEManager.manager.UICanvas;
         numDef = AOEManager.manager.numDef;
     }
 
@@ -31,8 +28,7 @@ public class AOEComponent : MonoBehaviour
         aoeCollider.transform.rotation = Quaternion.Euler(0, degree, 0);
         action = Hit;
 
-        GameObject obj = ObjectUIPool.pool.Call((ObjectUIPool.Folder)((int)skill.type + numDef));
-        obj.transform.SetParent(UICanvas, false);
+        GameObject obj = ObjectUIPool.pool.Call((ObjectUIPool.Folder)((int)skill.type + numDef), ObjectUIPool.UICanvasType.GroundCanvas);
         obj.transform.localScale = Vector3.one * skill.rangeMultiply * 2.14f;
 
         uiBase = obj.GetComponent<UIPrimitiveBase>();

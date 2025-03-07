@@ -6,49 +6,60 @@ using UnityEngine;
 public class BuildingPool : MonoBehaviour
 {
     [SerializeField] Transform buildingList;
-    [SerializeField] GameObject[] buildingPrefabs;
+    [SerializeField] BuildingConstructDelay[] buildingPrefabs;
     [SerializeField] int repeatNum = 3;
 
-    Dictionary<bool, Func<int, Vector3, GameObject>> actions = new Dictionary<bool, Func<int, Vector3, GameObject>>();
+    Dictionary<GameObject, BuildingConstructDelay> dicBuilding = new();
+    Dictionary<bool, Func<int, Vector3, BuildingConstructDelay>> actions = new();
 
     void Start()
     {
+        GameObject folder;
+        AddressableManager.BuildingImage build;
+
         for (int i = 0; i < buildingList.childCount; i++)
         {
-            GameObject folder = new GameObject(buildingList.GetChild(i).name);
+            folder = new GameObject(buildingList.GetChild(i).name);
             folder.transform.SetParent(transform);
             folder.SetActive(false);
+            build = Enum.Parse<AddressableManager.BuildingImage>(buildingList.GetChild(i).name);
+
             for (int j = 0; j < repeatNum; j++)
             {
-
-                AddressableManager.BuildingImage build = Enum.Parse<AddressableManager.BuildingImage>(buildingList.GetChild(i).name);
-
-                Instantiate(buildingPrefabs[(int)build], Vector3.zero, Quaternion.identity, folder.transform);
+                NewBuilding((int)build, Vector3.zero, folder.transform);
             }
-
         }
 
-        actions.Add(true, GetObject);
-        actions.Add(false, NewObject);
+        actions.Add(true, GetBuilding);
+        actions.Add(false, NewBuilding);
     }
-    public GameObject PoolObject(AddressableManager.BuildingImage building, in Vector3 createPosition)
+
+    public BuildingConstructDelay PoolBuilding(AddressableManager.BuildingImage building, in Vector3 createPosition)
     {
         int index = (int)building;
         bool boolConvert = Convert.ToBoolean(transform.GetChild(index).childCount);
 
         return actions[boolConvert](index, createPosition);
     }
-
-    GameObject GetObject(int index, Vector3 vec)
+    BuildingConstructDelay GetBuilding(int index, Vector3 vec)
     {
-        GameObject obj = transform.GetChild(index).GetChild(0).gameObject;
+        BuildingConstructDelay obj = dicBuilding[transform.GetChild(index).GetChild(0).gameObject];
         obj.transform.position = vec;
         obj.transform.SetParent(transform);
 
         return obj;
     }
-    GameObject NewObject(int index, Vector3 vec)
+
+    BuildingConstructDelay NewBuilding(int index, Vector3 vec)
     {
-        return Instantiate(buildingPrefabs[index], vec, Quaternion.identity, transform);
+        return NewBuilding(index, vec, transform);
+    }
+    BuildingConstructDelay NewBuilding(int index, Vector3 vec, Transform parentTransform)
+    {
+        BuildingConstructDelay tempBuildingComponent
+            = Instantiate(buildingPrefabs[index], vec, Quaternion.identity, parentTransform);
+        dicBuilding.Add(tempBuildingComponent.gameObject, tempBuildingComponent);
+
+        return tempBuildingComponent;
     }
 }

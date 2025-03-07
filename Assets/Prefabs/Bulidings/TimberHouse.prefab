@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 615831702197498374}
   - component: {fileID: 2359952186090989375}
   - component: {fileID: 1179049915675264257}
+  - component: {fileID: 7564563583280401605}
   m_Layer: 9
   m_Name: TimberHouse
   m_TagString: Untagged
@@ -184,7 +185,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9142596387874196099}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afefeb5a468c6df4387fce6be19fd502, type: 3}
   m_Name: 
@@ -198,6 +199,18 @@ MonoBehaviour:
   cullingLayers: 
   upgradeType: 8
   infoText: "\uC601\uC6C5 \uC778\uAD6C \uC218 \uC81C\uD55C +5"
+--- !u!114 &7564563583280401605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9142596387874196099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed96ac82460e3b49ade6ee8ec9242ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6437161094289922998
 PrefabInstance:
   m_ObjectHideFlags: 0

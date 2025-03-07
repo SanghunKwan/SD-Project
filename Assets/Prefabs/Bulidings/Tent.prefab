@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 2563937753194583317}
   - component: {fileID: 3329759476058222639}
   - component: {fileID: -5181974578662694938}
+  - component: {fileID: 6636471513765552855}
   m_Layer: 9
   m_Name: Tent
   m_TagString: Untagged
@@ -184,7 +185,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5627421869739064224}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afefeb5a468c6df4387fce6be19fd502, type: 3}
   m_Name: 
@@ -198,6 +199,18 @@ MonoBehaviour:
   cullingLayers: 
   upgradeType: 5
   infoText: "\uC601\uC6C5 \uC778\uAD6C \uC218 \uC81C\uD55C +3"
+--- !u!114 &6636471513765552855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5627421869739064224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed96ac82460e3b49ade6ee8ec9242ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &934088227847488148
 PrefabInstance:
   m_ObjectHideFlags: 0

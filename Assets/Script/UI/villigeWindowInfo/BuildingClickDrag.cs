@@ -11,6 +11,7 @@ public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerUpHand
 
     Action[] actions = new Action[3];
     [SerializeField] BuildingPool pool;
+    [SerializeField] MaterialsData materialsData;
     Vector3 lastPoint;
 
     AddressableManager.BuildingImage buildType;
@@ -61,7 +62,9 @@ public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerUpHand
 
         //»ý¼º
         GameManager.manager.onVilligeBuildingStartConstruction.eventAction?.Invoke((int)buildType, lastPoint);
-        pool.PoolObject(buildType, lastPoint);
+        pool.PoolBuilding(buildType, lastPoint).buildingComponent
+            .constructionAction?.Invoke(materialsData.data.Needs[(int)buildType + 1].turn);
+
         obj.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }

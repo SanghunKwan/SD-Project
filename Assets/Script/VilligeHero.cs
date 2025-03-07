@@ -15,6 +15,6 @@ public class VilligeHero : MonoBehaviour
     public void Init(villigeInteract interactBoard)
     {
         villigeInteract = interactBoard;
-        (VilligeNavi.nav as VilligeNavi).dicVh.Add(transform, this);
+        (VilligeNavi.nav as VilligeNavi).dicVh.Add(gameObject, this);
     }
 }

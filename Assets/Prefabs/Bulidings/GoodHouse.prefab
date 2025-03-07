@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3251725101246555249}
   - component: {fileID: 1260651476401541197}
   - component: {fileID: -8805823062771442351}
+  - component: {fileID: 6251081985746081133}
   m_Layer: 9
   m_Name: GoodHouse
   m_TagString: Untagged
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5013454839843962290}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afefeb5a468c6df4387fce6be19fd502, type: 3}
   m_Name: 
@@ -161,11 +162,23 @@ MonoBehaviour:
   fX: 3.75
   fZ: 2
   camSize: 3.5
-  type: 7
+  type: 0
   camAngle: 20
   cullingLayers: 
   upgradeType: 0
   infoText: "\uC601\uC6C5 \uC778\uAD6C \uC218 \uC81C\uD55C +18"
+--- !u!114 &6251081985746081133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5013454839843962290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed96ac82460e3b49ade6ee8ec9242ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9188993020519275501
 GameObject:
   m_ObjectHideFlags: 0

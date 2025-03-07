@@ -9,6 +9,7 @@ namespace SDUI
         public TextMeshProUGUI heroName;
         string defaultName;
         public GameObject gameObject { get; private set; }
+        public bool isAllocated;
 
 
         public BuildSetCharacter(Transform tr)
@@ -22,12 +23,14 @@ namespace SDUI
         {
             team.text = "";
             heroName.text = defaultName;
+            isAllocated = false;
         }
         public void ChangeTeam(in string nameText, in string teamText)
         {
 
             team.text = teamText;
             heroName.text = nameText;
+            isAllocated = true;
         }
     }
 

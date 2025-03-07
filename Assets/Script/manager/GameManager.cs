@@ -15,9 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerNavi playerNavi;
     [SerializeField] MonNavi monNavi;
 
-    public Dictionary<Transform, CUnit> dicNpcCharacter { get; private set; } = new();
-    public Dictionary<Transform, CObject> dicObjects { get; private set; } = new();
-    public Dictionary<Transform, CUnit> dicPlayerCharacter { get; private set; } = new();
+    public Dictionary<GameObject, CUnit> dicNpcCharacter { get; private set; } = new();
+    public Dictionary<GameObject, CObject> dicObjects { get; private set; } = new();
+    public Dictionary<GameObject, CUnit> dicPlayerCharacter { get; private set; } = new();
 
     public int playerDetected;
     public int nPCDetected;
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
     #region 오브젝트 활성화/비활성화 체크
     public void HereComesNewChallenger(CUnit unit, string keycode)
     {
-        dicPlayerCharacter.Add(unit.transform, unit);
+        dicPlayerCharacter.Add(unit.gameObject, unit);
 
         playerNavi.SetTeam(unit.unitMove, keycode);
 
@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
     }
     public void HereComesNewEnermy(CUnit gameObject)
     {
-        dicNpcCharacter.Add(gameObject.transform, gameObject);
+        dicNpcCharacter.Add(gameObject.gameObject, gameObject);
         monNavi.MonsterAdd(gameObject);
 
         foreach (CUnit unit in dicPlayerCharacter.Values)
@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
     }
     public void ChallengerOut(CUnit gameObject, string keycode, bool detected)
     {
-        dicPlayerCharacter.Remove(gameObject.transform);
+        dicPlayerCharacter.Remove(gameObject.gameObject);
         playerNavi.HeroClear(gameObject, keycode);
         TargetOutMonster(gameObject);
 
@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
     }
     public void MonsterOut(CUnit gameObject, bool detected)
     {
-        dicNpcCharacter.Remove(gameObject.transform);
+        dicNpcCharacter.Remove(gameObject.gameObject);
         monNavi.MonsterRemove(gameObject);
         TargetOutCharacter(gameObject);
 
@@ -216,11 +216,11 @@ public class GameManager : MonoBehaviour
 
     public void HereComesNewObject(CObject gameObject)
     {
-        dicObjects.Add(gameObject.transform, gameObject);
+        dicObjects.Add(gameObject.gameObject, gameObject);
     }
     public void ObjectOut(CObject gameObject)
     {
-        dicObjects.Remove(gameObject.transform);
+        dicObjects.Remove(gameObject.gameObject);
         TargetOutMonster(gameObject);
     }
     void TargetOutCharacter(CObject gameObject)
@@ -305,7 +305,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    void CloseEyes(Dictionary<Transform, CUnit> cUnits)
+    void CloseEyes(Dictionary<GameObject, CUnit> cUnits)
     {
         foreach (var item in cUnits.Values)
         {
@@ -382,7 +382,7 @@ public class GameManager : MonoBehaviour
         DragEffect(dicNpcCharacter);
         DragEffect(dicPlayerCharacter);
 
-        void DragEffect<T>(Dictionary<Transform, T> values) where T : CObject
+        void DragEffect<T>(Dictionary<GameObject, T> values) where T : CObject
         {
             foreach (var item in values.Values)
             {
@@ -426,7 +426,7 @@ public class GameManager : MonoBehaviour
                 item.Selected(true);
             }
         }
-        void DragEffect<T>(Dictionary<Transform, T> values) where T : CObject
+        void DragEffect<T>(Dictionary<GameObject, T> values) where T : CObject
         {
             foreach (var item in values.Values)
             {
@@ -485,7 +485,7 @@ public class GameManager : MonoBehaviour
         (values[index1], values[index2]) = (values[index2], values[index1]);
     }
 
-    public CObject GetNearest<T>(in Dictionary<Transform, T> units, Vector3 targetPos, Predicate<T> predicate, float range) where T : CObject
+    public CObject GetNearest<T>(in Dictionary<GameObject, T> units, Vector3 targetPos, Predicate<T> predicate, float range) where T : CObject
     {
         List<UnitDistance> heap = new List<UnitDistance>();
         heap.Add(new UnitDistance());
@@ -506,14 +506,14 @@ public class GameManager : MonoBehaviour
     }
     #endregion
     #region 전투
-    public void SetOtheronBattle(Dictionary<Transform, CUnit> dicUnits)
+    public void SetOtheronBattle(Dictionary<GameObject, CUnit> dicUnits)
     {
         foreach (CUnit unit in dicUnits.Values)
         {
             unit.unitMove.OnBattle(true);
         }
     }
-    public void NewTargetting<T>(Dictionary<Transform, T> values, UnitMove finder, Predicate<T> del, float range = 1000) where T : CObject
+    public void NewTargetting<T>(Dictionary<GameObject, T> values, UnitMove finder, Predicate<T> del, float range = 1000) where T : CObject
     {
         if (values.Count <= 0)
             return;
@@ -615,7 +615,7 @@ public class GameManager : MonoBehaviour
     {
         return keyboardConverter[key];
     }
-    public void Unselect<T>(Dictionary<Transform, T> values) where T : CObject
+    public void Unselect<T>(Dictionary<GameObject, T> values) where T : CObject
     {
         foreach (var item in values.Values)
         {
@@ -765,7 +765,7 @@ public class GameManager : MonoBehaviour
 
         CheckCloseEye();
     }
-    void ForInverse<T>(in Dictionary<Transform, T> collections) where T : CObject
+    void ForInverse<T>(in Dictionary<GameObject, T> collections) where T : CObject
     {
         int length = collections.Count;
 
@@ -790,7 +790,7 @@ public class GameManager : MonoBehaviour
         {
             case 7:
                 {
-                    dicPlayerCharacter.TryGetValue(unknownObject.transform, out CUnit tempUnit);
+                    dicPlayerCharacter.TryGetValue(unknownObject, out CUnit tempUnit);
                     tempObject = tempUnit;
                     break;
 
@@ -798,13 +798,13 @@ public class GameManager : MonoBehaviour
 
             case 9:
                 {
-                    dicObjects.TryGetValue(unknownObject.transform, out tempObject);
+                    dicObjects.TryGetValue(unknownObject, out tempObject);
                     break;
                 }
 
             case 10:
                 {
-                    dicPlayerCharacter.TryGetValue(unknownObject.transform, out CUnit tempUnit);
+                    dicPlayerCharacter.TryGetValue(unknownObject, out CUnit tempUnit);
                     tempObject = tempUnit;
                     break;
                 }

@@ -17,9 +17,7 @@ namespace Unit
             initMaxCount = 5;
             yield return StartCoroutine(base.DelayGetUI());
 
-            GameObject MentalityBar = ObjectUIPool.pool.Call(ObjectUIPool.Folder.MentalBar);
-            MentalityBar.transform.SetParent(copyBar.transform, false);
-
+            GameObject MentalityBar = ObjectUIPool.pool.Call(ObjectUIPool.Folder.MentalBar, copyBar.transform);
             mentalBar = MentalityBar.GetComponent<Image>();
             mentalBarScript = mentalBar.transform.GetChild(0).GetComponent<loadingbar>();
             if (stat is not null) mentalBarScript.GetStatus(curstat, BarOffset);

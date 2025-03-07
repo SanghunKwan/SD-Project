@@ -39,12 +39,12 @@
             "equipNum": [
                 1,
                 1,
-                2
+                1
             ],
             "fieldEquipNum": [
                 0,
                 0,
-                1
+                0
             ],
             "skillNum": [
                 1,
@@ -59,20 +59,20 @@
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": -9.418935775756836,
-                    "y": 0.49999910593032839,
-                    "z": 1.7116508483886719
+                    "x": 5.0,
+                    "y": 1.0,
+                    "z": -2.0
                 },
                 "depart": {
-                    "x": -8.312067031860352,
+                    "x": 3.7750914096832277,
                     "y": 0.06666666269302368,
-                    "z": -4.617475509643555
+                    "z": 0.9841724634170532
                 },
                 "objectData": {
                     "position": {
                         "x": 5.0,
-                        "y": 0.0,
-                        "z": 2.0
+                        "y": 0.06666666269302368,
+                        "z": -2.0
                     },
                     "dotsDirection": {
                         "x": 0.0,
@@ -81,9 +81,9 @@
                     },
                     "quaternion": {
                         "x": 0.0,
-                        "y": 1.0,
+                        "y": 0.9405278563499451,
                         "z": 0.0,
-                        "w": -4.371138828673793e-8
+                        "w": 0.33971652388572695
                     },
                     "selected": false,
                     "isDead": false,
@@ -105,7 +105,7 @@
                         "Range": 1,
                         "Mentality": 30,
                         "Stress": 8,
-                        "curHP": 21,
+                        "curHP": 15,
                         "curMORALE": 0
                     },
                     "id": 301,
@@ -119,12 +119,68 @@
             }
         }
     ],
-    "building": [],
+    "building": [
+        {
+            "workHero": [
+                0,
+                0,
+                0
+            ],
+            "dayRemaining": 0,
+            "timeNormalized": 0.3788056969642639,
+            "objectData": {
+                "position": {
+                    "x": -4.03001070022583,
+                    "y": 2.1712324754853278e-17,
+                    "z": -2.8843352794647219
+                },
+                "dotsDirection": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "quaternion": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0,
+                    "w": 1.0
+                },
+                "selected": false,
+                "isDead": false,
+                "cur_status": {
+                    "ID": 203,
+                    "NAME": "Tent(Clone)",
+                    "SPECIES": 200,
+                    "HP": 20,
+                    "ATK": 0,
+                    "DEF": 0,
+                    "DOG": -90,
+                    "MORALE": 0,
+                    "SPEED": 0,
+                    "ViewAngle": 0,
+                    "ViewRange": 0,
+                    "type": 200,
+                    "Accuracy": 0,
+                    "AtkSpeed": 0.0,
+                    "Range": 0,
+                    "Mentality": 1,
+                    "Stress": 0,
+                    "curHP": 20,
+                    "curMORALE": 0
+                },
+                "id": 203,
+                "dots": [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            }
+        }
+    ],
     "items": [],
     "stageData": {
-        "heros": [
-            0
-        ],
+        "heros": [],
         "floors": [
             0
         ],
@@ -135,11 +191,11 @@
             "itemDatas": [
                 {
                     "itemIndex": 4,
-                    "itemCount": 3,
+                    "itemCount": 1,
                     "slotIndex": 0
                 },
                 {
-                    "itemIndex": 10,
+                    "itemIndex": 7,
                     "itemCount": 1,
                     "slotIndex": 1
                 }
@@ -154,13 +210,13 @@
     "questSaveData": {
         "stagePerformOneData": {
             "bits": [
-                5636095
+                8388607
             ],
             "nowQuestList": []
         },
         "villigePerformOneData": {
             "bits": [
-                1
+                127
             ],
             "nowQuestList": []
         },

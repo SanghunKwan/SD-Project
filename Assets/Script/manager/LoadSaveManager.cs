@@ -121,12 +121,21 @@ namespace SaveData
             workBuilding = 0;
             unitData = new UnitData();
         }
-
         public HeroData(Hero hero)
         {
-
+            quirks = new QuirkSaveData();
+            disease = new QuirkDefaultData(4);
+            equipNum = new int[3];
+            fieldEquipNum = new int[3];
+            skillNum = new int[4];
+            unitData = new UnitData();
+            InitData(hero);
         }
         public void SetHeroData(Hero hero)
+        {
+            InitData(hero);
+        }
+        void InitData(Hero hero)
         {
             unit_status stat = hero.curstat;
 
@@ -147,8 +156,25 @@ namespace SaveData
     public class BuildingData
     {
         public int[] workHero = new int[3];
+        public int dayRemaining;
+        public float timeNormalized;
         public ObjectData objectData;
+
+
+        public BuildingData(BuildingConstructDelay buildingComponent)
+        {
+            //workHero = buildingConstructDelay.buildingComponent.saveVilligeInteract;
+            dayRemaining = buildingComponent.dayRemaining;
+
+            timeNormalized = 1;
+            if (buildingComponent.constructingUI != null)
+                timeNormalized = buildingComponent.constructingUI.timeNormalized;
+
+            objectData = new ObjectData(buildingComponent.buildingComponent.CObject);
+        }
+
     }
+
     [Serializable]
     public class InventoryData
     {
