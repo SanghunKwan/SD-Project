@@ -9,7 +9,7 @@ public class AddressableManagerAlert : MonoBehaviour
 
     private void Start()
     {
-        AddressableManager.manager.onDataLoadComplete += InitAllNeedAddressables;
+        AddressableManager.manager.DelayUntilLoadingComplete(InitAllNeedAddressables);
     }
 
     void InitAllNeedAddressables()

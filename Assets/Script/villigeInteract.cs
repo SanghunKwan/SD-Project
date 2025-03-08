@@ -16,7 +16,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public Hero hero { get; private set; }
 
     Animator anim;
-    int animOnMouse;
+    static int animOnMouse = Animator.StringToHash("onMouse");
     int workIndex;
 
     WindowInfo infoWindow;
@@ -44,6 +44,16 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         hero.MakeQuirk();
     }
     #endregion
+    protected override void VirtualAwake()
+    {
+        textPro = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        infoWindow = transform.parent.parent.parent.parent.parent.parent.Find("CharacterInfo").gameObject.GetComponent<WindowInfo>();
+        characterList = transform.parent.parent.parent.parent.parent.GetComponent<CharacterList>();
+
+        anim = GetComponent<Animator>();
+        jobImage = transform.Find("Image").GetComponent<Image>();
+
+    }
     public void MatchHero(Hero getHero)
     {
         hero = getHero;
@@ -70,9 +80,6 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     }
     public void SetText(SaveData.HeroData heroData)
     {
-        if (textPro == null)
-            textPro = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-
         textPro.text = HeroInfoText(heroData.keycode, heroData.lv, heroData.name);
     }
     string HeroInfoText(in string keycode, int lvText, in string nameText)
@@ -82,16 +89,6 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     protected override void Start()
     {
         base.Start();
-
-        if (textPro == null)
-            textPro = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        anim = GetComponent<Animator>();
-        animOnMouse = Animator.StringToHash("onMouse");
-        jobImage = transform.Find("Image").GetComponent<Image>();
-
-        infoWindow = transform.parent.parent.parent.parent.parent.parent.Find("CharacterInfo").gameObject.GetComponent<WindowInfo>();
-        characterList = transform.parent.parent.parent.parent.parent.GetComponent<CharacterList>();
-
 
         clicks[(int)PointerEventData.InputButton.Left] = (eventdata) =>
         {
@@ -200,7 +197,12 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         dragEndEvent();
         dragEndEvent = () => { };
     }
-
+    public void LoadWorkPlace(BuildingComponent place, int index)
+    {
+        SaveWorkPlace(place, index);
+        ChangeImage(place.Type);
+        hero.alloBuilding(place.Type);
+    }
     public void SaveWorkPlace(BuildingComponent place, int index)
     {
         workingBuilding = place;
@@ -232,7 +234,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         if (eventData.button == PointerEventData.InputButton.Left)
             return;
 
-        GameManager.manager.onVilligeHeroInteractDrag.eventAction?.Invoke(hero.lv,hero.transform.position);
+        GameManager.manager.onVilligeHeroInteractDrag.eventAction?.Invoke(hero.lv, hero.transform.position);
         float subtractHeight = (eventData.pressPosition.y - rectImage.rectTransform.position.y)
                                 / rectImage.rectTransform.sizeDelta.y * image.rectTransform.sizeDelta.y;
         offset = new Vector2(eventData.pressPosition.x - rectImage.rectTransform.position.x, subtractHeight);
@@ -255,6 +257,10 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         image.enabled = onoff;
 
         jobImage.color = Color.white * Convert.ToInt32(onoff);
+    }
 
+    public int GetCharacterListIndex()
+    {
+        return characterList.GetInteractIndex(this);
     }
 }

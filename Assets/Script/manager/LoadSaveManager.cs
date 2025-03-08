@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SaveData;
 using Unit;
+using UnityEditor;
 
 namespace SaveData
 {
@@ -155,7 +156,7 @@ namespace SaveData
     [Serializable]
     public class BuildingData
     {
-        public int[] workHero = new int[3];
+        public int[] workHero = new int[3] { -1, -1, -1 };
         public int dayRemaining;
         public float timeNormalized;
         public ObjectData objectData;
@@ -163,7 +164,8 @@ namespace SaveData
 
         public BuildingData(BuildingConstructDelay buildingComponent)
         {
-            //workHero = buildingConstructDelay.buildingComponent.saveVilligeInteract;
+            workHero = buildingComponent.buildingComponent.GetWorkHeroArray();
+
             dayRemaining = buildingComponent.dayRemaining;
 
             timeNormalized = 1;
@@ -172,7 +174,6 @@ namespace SaveData
 
             objectData = new ObjectData(buildingComponent.buildingComponent.CObject);
         }
-
     }
 
     [Serializable]
@@ -377,6 +378,19 @@ namespace SaveData
                 public int questIndex;
                 public int nowProgress;
                 public Vector3 callPosition;
+
+                public QuestProgress(QuestTrigger triggerObject)
+                {
+                    questIndex = triggerObject.questIndex;
+                    nowProgress = 0;
+                    callPosition = triggerObject.transform.position;
+                }
+                public QuestProgress(QuestPool.QuestActionInstance instance)
+                {
+                    questIndex = instance.questIndex;
+                    nowProgress = instance.progress;
+                    callPosition = Vector3.zero;
+                }
             }
 
             //bit 2개에 퀘스트 하나의 정보 저장.

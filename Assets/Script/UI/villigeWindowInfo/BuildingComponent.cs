@@ -57,4 +57,17 @@ public class BuildingComponent : ClickCamTurningComponent
         saveVillige = saveVilligeInteract[index];
         return saveVillige == null;
     }
+    public int[] GetWorkHeroArray()
+    {
+        int length = saveVilligeInteract.Length;
+        int[] tempHeroArray = new int[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            tempHeroArray[i] = saveVilligeInteract[i]?.GetCharacterListIndex() ?? -1;
+        }
+
+        return tempHeroArray;
+    }
+
 }

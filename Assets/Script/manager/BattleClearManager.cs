@@ -46,6 +46,9 @@ public class BattleClearManager : MonoBehaviour
 
     List<int> stageHeroDeleting;
 
+    public HashSet<QuestTrigger> doingQuestTrigger { get; private set; }
+    public HashSet<QuestPool.QuestActionInstance> doingQuestActionInstance { get; private set; }
+
     public enum OBJECTNUM
     {
         BONEWALL,
@@ -59,6 +62,9 @@ public class BattleClearManager : MonoBehaviour
         spawnedItem = new List<ItemComponent>();
         spawnedObject = new List<CObject>();
         spawnedBuilding = new();
+
+        doingQuestTrigger = new();
+        doingQuestActionInstance = new();
 
         SetAction();
 
@@ -246,6 +252,23 @@ public class BattleClearManager : MonoBehaviour
         for (int i = 0; i < spawnedBuilding.Count; i++)
         {
             saveData.building[i] = new BuildingData(spawnedBuilding[i]);
+        }
+    }
+    void OverrideInProgressQuest()
+    {
+        saveData.questSaveData.floorQuestData.nowQuestList.Clear();
+        saveData.questSaveData.villigeQuestData.nowQuestList.Clear();
+        saveData.questSaveData.stagePerformOneData.nowQuestList.Clear();
+        saveData.questSaveData.villigePerformOneData.nowQuestList.Clear();
+
+        foreach (var item in doingQuestActionInstance)
+        {
+            saveData.questSaveData[item.type].nowQuestList.Add(new QuestSaveData.BitSaveData.QuestProgress(item));
+        }
+
+        foreach (var item in doingQuestTrigger)
+        {
+            saveData.questSaveData[item.type].nowQuestList.Add(new QuestSaveData.BitSaveData.QuestProgress(item));
         }
     }
     public void ComebacktoVillige()

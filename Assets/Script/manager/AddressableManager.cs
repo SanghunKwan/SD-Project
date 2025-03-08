@@ -16,7 +16,9 @@ public class AddressableManager : MonoBehaviour
 
     public static AddressableManager manager;
     int loadedDataNum;
-    public Action onDataLoadComplete { get; set; }
+    Action onDataLoadComplete;
+    bool isCompleted;
+    #region AddressableEnum
     public enum PreviewImage
     {
         WeaponType,
@@ -88,11 +90,11 @@ public class AddressableManager : MonoBehaviour
         ClearImage,
         TitleImage
     }
-
-
+    #endregion
 
     private void Awake()
     {
+        isCompleted = false;
         InheritOldManager();
 
         manager = this;
@@ -157,7 +159,11 @@ public class AddressableManager : MonoBehaviour
         loadedDataNum++;
         Debug.Log(loadedDataNum);
         if (loadedDataNum == count)
+        {
             onDataLoadComplete?.Invoke();
+            onDataLoadComplete = null;
+            isCompleted = true;
+        }
     }
     public void LoadVideo(in string LabelName, Action<VideoClip> action)
     {
@@ -208,5 +214,12 @@ public class AddressableManager : MonoBehaviour
     {
         Addressables.Release(loadedData[key]);
         loadedData.Remove(key);
+    }
+    public void DelayUntilLoadingComplete(in Action action)
+    {
+        if (isCompleted)
+            action();
+        else
+            onDataLoadComplete += action;
     }
 }

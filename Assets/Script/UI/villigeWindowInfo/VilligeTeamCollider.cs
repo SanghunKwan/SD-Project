@@ -24,14 +24,17 @@ public class VilligeTeamCollider : villigeBase, IPointerEnterHandler, IPointerEx
     Vector2 MouseImageOffset;
     [SerializeField] Button button;
     #region 기본설정
+    protected override void VirtualAwake()
+    {
+        viewPort = transform.parent.GetComponent<villigeViewPort>();
+        characterList = viewPort.transform.parent.parent.parent.parent.GetComponent<CharacterList>();
+    }
     protected override void Start()
     {
         base.Start();
 
         ActNone();
         ButtonRightAct();
-        viewPort = transform.parent.GetComponent<villigeViewPort>();
-        characterList = viewPort.transform.parent.parent.parent.parent.GetComponent<CharacterList>();
         ChangeButtonAct(viewPort.teamName);
         DictionaryAddAction();
     }

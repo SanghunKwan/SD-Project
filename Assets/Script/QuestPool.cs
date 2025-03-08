@@ -16,8 +16,8 @@ public class QuestPool : MonoBehaviour
     private void Awake()
     {
         questActInstancePool = new Stack<QuestActionInstance>(5);
-
         questTriggers = new Stack<QuestTrigger>(5);
+
         questPrefabFolder = new GameObject("questPrefabsFolder").transform;
         questPrefabFolder.SetParent(transform);
 
@@ -55,13 +55,27 @@ public class QuestPool : MonoBehaviour
         GameManager.manager.questManager.questPool = this;
     }
 
-    public void PlaceQuest(in Vector3 vec, int triggerLayer, in Action<Vector3> triggerAction, float radius, int nowId, int nowProgress = 0)
+    public void PlacePrepare(in Vector3 vec, int triggerLayer, in Action<Vector3> triggerAction, float radius, int nowId, bool isMakeQuest = false)
     {
         if (questTriggers.Count <= 0)
             questTriggers.Push(Instantiate(questPrefabs, questPrefabFolder));
 
         QuestTrigger popTrigger = questTriggers.Pop();
-        popTrigger.TriggerAllSet(triggerLayer, triggerAction, vec, radius, nowProgress, nowId);
+        popTrigger.TriggerAllSet(triggerLayer, triggerAction, vec, radius, nowId);
+    }
+    public void PlaceQuest(QuestManager.QuestData data, in Vector3 vec, in Action<Vector3> triggerAction)
+    {
+        if (questTriggers.Count <= 0)
+            questTriggers.Push(Instantiate(questPrefabs, questPrefabFolder));
+
+        QuestManager.QuestData.QuestRequirements require = data.require;
+
+        QuestTrigger popTrigger = questTriggers.Pop();
+        popTrigger.TriggerAllSet(require.layer, triggerAction, vec, require.radius, require.id);
+
+        GameManager.manager.battleClearManager.doingQuestTrigger.Add(popTrigger);
+        popTrigger.AddMakeQuestData((vec) =>
+            GameManager.manager.battleClearManager.doingQuestTrigger.Remove(popTrigger), data.questType, data.num);
     }
 
     public void ReturnQuest(QuestTrigger usedTrigger)
@@ -72,7 +86,9 @@ public class QuestPool : MonoBehaviour
     #region QuestActionInstance 관련 함수
     public class QuestActionInstance
     {
-        int progress;
+        public int progress { get; private set; }
+        public int questIndex { get; private set; }
+        public QuestManager.QuestType type { get; private set; }
         int layerNum;
         int maxCount;
         Action completeAction;
@@ -89,9 +105,14 @@ public class QuestPool : MonoBehaviour
             layerNum = require.layer;
             maxCount = require.accumulatedTime;
             completeAction = nowCompleteAction;
+            type = data.questType;
+            questIndex = data.num;
 
             savedEvent = eventAction[(int)require.actionType];
             savedEvent.eventAction += CompleteCheck;
+
+            GameManager.manager.battleClearManager.doingQuestActionInstance.Add(this);
+            completeAction += () => GameManager.manager.battleClearManager.doingQuestActionInstance.Remove(this);
         }
         #region progress증가방식설정
         public void ProgressAdd()

@@ -198,13 +198,13 @@ public class QuestSpawner : MonoBehaviour
     {
         QuestManager.QuestData.QuestRequirements require = data.require;
 
-        questPool.PlaceQuest(require.spot
+        questPool.PlaceQuest(data, require.spot
             + GameManager.manager.battleClearManager.GetStageComponent(require.stageOffsetIndex).transform.position,
-            require.layer, (vec) =>
+            (vec) =>
         {
             EventClear(data.reward);
             completeAction();
-        }, require.radius, nowProgress, require.id);
+        });
     }
     void CreateQuestForItem(QuestManager.QuestData data, Action completeAction, int nowProgress)
     {
@@ -319,7 +319,6 @@ public class QuestSpawner : MonoBehaviour
     }
     #endregion
 
-
     #region 외부 이벤트 요청
     public void PrepareQuest(QuestManager.QuestType type, int questNum)
     {
@@ -333,9 +332,8 @@ public class QuestSpawner : MonoBehaviour
     {
         BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
         //collider를 통해 퀘스트 시작 포인트 가져오기
-        questPool.PlaceQuest(act.spot + battleClearManager.GetStageComponent(0).transform.position,
+        questPool.PlacePrepare(act.spot + battleClearManager.GetStageComponent(0).transform.position,
             act.layer, (vec) => MakeQuest(type, questNum, vec), act.radius, act.id);
-
     }
     void PrepareQuestbySpecificAction(QuestManager.QuestData.QuestAct act, QuestManager.QuestType type, int questNum)
     {

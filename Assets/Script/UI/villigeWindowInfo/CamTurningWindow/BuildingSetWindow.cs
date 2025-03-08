@@ -200,11 +200,7 @@ public class BuildingSetWindow : CamTuringWindow
 
 
         if (siblingIndex != 0)
-        {
-            vill_Interact.SaveWorkPlace(buildingComponent, siblingIndex);
-            vill_Interact.ChangeImage(ImageIndex);
-            vill_Interact.hero.alloBuilding(ImageIndex);
-        }
+            vill_Interact.LoadWorkPlace(buildingComponent, siblingIndex);
 
     }
     public void BuildSetCharactersCheck(int index, villigeInteract vill)

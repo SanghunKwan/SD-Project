@@ -18,24 +18,20 @@ public class VilligeUnitSpawner : UnitSpawner
     {
         spawnVilligeManager = SpawnManager as SpawnVilligeManager;
         buildingPool = objectTransform.GetComponent<BuildingPool>();
+        Unit.Hero tempHero;
+
         int length = spawnVilligeManager.buildingDatas.Length;
-        for (int i = 0; i < length; i++)
-        {
-            SpawnBuildingData(spawnVilligeManager.buildingDatas[i]);
-        }
-
-
-        foreach (var building in spawnVilligeManager.buildingDatas)
-        {
-
-        }
 
         foreach (var allHeros in GameManager.manager.battleClearManager.SaveDataInfo.hero)
         {
             characterList.SpawnVilligeInteract(allHeros.keycode, allHeros);
         }
 
-        Unit.Hero tempHero;
+        for (int i = 0; i < length; i++)
+        {
+            SpawnBuildingData(spawnVilligeManager.buildingDatas[i]);
+        }
+
         foreach (var villigeHeros in spawnVilligeManager.heroBeforeDatas)
         {
             tempHero = SpawnHeroData(villigeHeros.Item1, villigeHeros.Item2);
@@ -56,13 +52,20 @@ public class VilligeUnitSpawner : UnitSpawner
             BuildingWorkHeroLoad(newBuilding.buildingComponent, data.workHero[i], i);
         }
     }
-    void BuildingWorkHeroLoad(BuildingComponent newBuilding, int workHeroIndex, int buildingWorkPlaceIndex)
-    {
-        //newBuilding.SaveData(workHeroIndex 로 히어로를 가져올 것., buildingWorkPlaceIndex);
-    }
     void NewSpawnedBuildingSet(BuildingConstructDelay building, BuildingData buildingData)
     {
         building.LoadConstructionData(buildingData);
     }
+    void BuildingWorkHeroLoad(BuildingComponent newBuilding, int workHeroIndex, int buildingWorkPlaceIndex)
+    {
+        villigeInteract tempInteract = characterList.GetInteractByIndex(workHeroIndex);
 
+        if (tempInteract != null)
+            newBuilding.saveVilligeInteract[buildingWorkPlaceIndex] = tempInteract;
+        else
+            return;
+
+        AddressableManager.manager.DelayUntilLoadingComplete(() =>
+        newBuilding.saveVilligeInteract[buildingWorkPlaceIndex].LoadWorkPlace(newBuilding, buildingWorkPlaceIndex));
+    }
 }

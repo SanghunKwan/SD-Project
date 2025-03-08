@@ -7,7 +7,8 @@ public class QuestTrigger : MonoBehaviour
 {
     int findLayer;
     int id;
-    int count;
+    public QuestManager.QuestType type { get; private set; }
+    public int questIndex { get; private set; }
     CapsuleCollider capsuleCollider;
 
     Action<Vector3> triggerAction;
@@ -33,15 +34,20 @@ public class QuestTrigger : MonoBehaviour
     }
 
     #region 외부 이벤트
-    public void TriggerAllSet(int layer, in Action<Vector3> action, in Vector3 vec, float radius, int nowCount, int nowId)
+    public void TriggerAllSet(int layer, in Action<Vector3> action, in Vector3 vec, float radius, int nowId)
     {
         gameObject.SetActive(true);
         triggerAction = action;
         findLayer = layer;
         transform.position = vec;
-        count = nowCount;
         capsuleCollider.radius = radius;
         id = nowId;
+    }
+    public void AddMakeQuestData(in Action<Vector3> addAction, QuestManager.QuestType questType, int questNum)
+    {
+        triggerAction += addAction;
+        type = questType;
+        questIndex = questNum;
     }
     #endregion
     bool CheckObjectType(GameObject other)

@@ -16,6 +16,7 @@ public class QuestBackGround : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         maskImage = GetComponent<Image>();
         mainCam = Camera.main;
+        gameObject.SetActive(false);
     }
 
     #region ±â´É

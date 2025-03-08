@@ -25,11 +25,13 @@ public class VilligeBuildingConstructing : MonoBehaviour
     public void SetTargetBuilding(BuildingConstructDelay buildingTarget, int dayRemaining, float timeNormalized = 0)
     {
         building = buildingTarget;
-        SetQuota(Mathf.Ceil(timeNormalized * (dayRemaining + 1)), timeNormalized);
+        SetQuota(Mathf.Floor(timeNormalized * (dayRemaining + 1)) + 1, timeNormalized);
         anim = building.anim;
         anim.Update(0);
         timeAccumulate = timeNormalized * anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
         enabled = true;
+        rectTransform.localPosition = Unit.Data.Instance.CameratoCanvas(building.transform.position) + (Vector3.down * 0.5f);
+        GameManager.manager.screenMove += ScreenMove;
     }
     void SetQuota(float dayQuota, float currentQuota)
     {
@@ -38,14 +40,11 @@ public class VilligeBuildingConstructing : MonoBehaviour
     }
     private void Update()
     {
-        rectTransform.localPosition = Unit.Data.Instance.CameratoCanvas(building.transform.position) + (Vector3.down * 0.5f);
-
         if (anim.speed == 0)
             return;
-        Debug.Log("시간 누적: " + timeAccumulate);
+
         timeAccumulate += Time.deltaTime;
         timeNormalized = timeAccumulate / anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-        Debug.Log(anim.GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
         if (quotaToday.fillAmount < 1 && timeNormalized >= quotaToday.fillAmount)
             anim.speed = 0;
@@ -55,11 +54,16 @@ public class VilligeBuildingConstructing : MonoBehaviour
         if (timeNormalized >= 1)
             enabled = false;
     }
+    void ScreenMove(Vector3 vector3)
+    {
+        rectTransform.localPosition -= vector3;
+    }
     private void OnDisable()
     {
         building = null;
         anim.speed = 1;
         anim = null;
         ObjectUIPool.pool.BackPooling(gameObject, ObjectUIPool.Folder.VilligeConstructingUI);
+        GameManager.manager.screenMove -= ScreenMove;
     }
 }

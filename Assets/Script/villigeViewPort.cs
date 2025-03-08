@@ -12,6 +12,10 @@ public class villigeViewPort : villigeBase
     public string teamName { get { return teamCode.text; } }
     [SerializeField] VilligeTeamCollider teamCollider;
 
+    protected override void VirtualAwake()
+    {
+        
+    }
     public void ImagePaddingMove(float nDown)
     {
         transform.position += Vector3.down * (image.raycastPadding.w + nDown);

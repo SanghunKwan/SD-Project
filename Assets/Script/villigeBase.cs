@@ -13,7 +13,9 @@ public abstract class villigeBase : MonoBehaviour, IDragHandler, IBeginDragHandl
     private void Awake()
     {
         image = GetComponent<Image>();
+        VirtualAwake();
     }
+    protected abstract void VirtualAwake();
     protected virtual void Start()
     {
         scrollRect = transform.parent.parent.parent.GetComponentInParent<ScrollRect>();

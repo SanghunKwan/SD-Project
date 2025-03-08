@@ -427,5 +427,39 @@ public class CharacterList : MonoBehaviour
     {
         return trViewPort[viewPortTransform.GetChild(index).gameObject];
     }
+    public int GetInteractIndex(villigeInteract interact)
+    {
+        GameObject villigeInteractObject = keyToTeamsNum[interact.hero.keycode];
+
+        int portSiblingIndex = villigeInteractObject.transform.GetSiblingIndex();
+        int beforePortCharacterCount = 0;
+
+        for (int i = 0; i < portSiblingIndex; i++)
+        {
+            beforePortCharacterCount += GetViewPortByIndex(i).characters.Count;
+        }
+
+        return beforePortCharacterCount + trViewPort[villigeInteractObject].characters.BinarySearch(interact);
+    }
+    public villigeInteract GetInteractByIndex(int index)
+    {
+        if (index < 0)
+            return null;
+
+        int interactCount = 0;
+        int viewPortLength = trViewPort.Count;
+        int i = 0;
+
+        do
+        {
+            interactCount += GetViewPortByIndex(i).characters.Count;
+            i++;
+            Debug.Log("index ¹øÈ£" + i);
+        } while (interactCount < index && i < viewPortLength);
+        i--;
+
+        return GetViewPortByIndex(i).characters[^(interactCount - index)];
+
+    }
     #endregion
 }
