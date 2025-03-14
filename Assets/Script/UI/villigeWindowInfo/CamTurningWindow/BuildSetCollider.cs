@@ -61,7 +61,7 @@ public class BuildSetCollider : MonoBehaviour, IPointerEnterHandler, IPointerExi
         buildingSetWindow.buildingComponent.saveVilligeInteract[transform.parent.GetSiblingIndex()].BeginDragOffset(eventData, image);
         OnPointerEnter(eventData);
         buildingSetWindow.buildingComponent.ResetData(transform.parent.GetSiblingIndex());
-
+        buildingSetWindow.UpgradeButtonEvent?.Invoke(false);
     }
 
     public void OnDrag(PointerEventData eventData)

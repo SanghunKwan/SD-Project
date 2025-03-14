@@ -25,6 +25,12 @@ public class MouseOnImage : MonoBehaviour
         box.transform.position = vec;
         box.SetTextMessage(mhero, image);
     }
+    public void OnPointerEnter<T>(Vector3 vec, T image, int heroNumArrayValue) where T : struct, Enum
+    {
+        box.transform.GetChild(0).gameObject.SetActive(true);
+        box.transform.position = vec;
+        box.SetTextMessage(mhero.Getnum, image, heroNumArrayValue);
+    }
     public void OnPointerExit()
     {
         SetBox(Vector3.zero, false);

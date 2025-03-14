@@ -8,7 +8,7 @@ public class NeedAddressable : InitObject
 {
 
 
-    [SerializeField] AddressableManager.LabelName label;
+    [HideInInspector] public AddressableManager.LabelName label;
 
     public enum EnumType
     {
@@ -18,22 +18,23 @@ public class NeedAddressable : InitObject
         ItemQuality,
         Video,
         MainMenuImage,
-        StageSettlementImage
+        StageSettlementImage,
+        VilligeWindowImage
     }
 
-    public EnumType Type;
+    [HideInInspector] public EnumType Type;
 
-    public AddressableManager.PreviewImage previewImage;
-    public AddressableManager.EquipsImage equipsImage;
-    public AddressableManager.BuildingImage buildingImage;
-    public AddressableManager.ItemQuality itemQuality;
-    public AddressableManager.Video video;
-    public AddressableManager.MainMenuImage mainMenuImage;
-    public AddressableManager.StageSettlementImage stageSettlementImage;
+    [HideInInspector] public AddressableManager.PreviewImage previewImage;
+    [HideInInspector] public AddressableManager.EquipsImage equipsImage;
+    [HideInInspector] public AddressableManager.BuildingImage buildingImage;
+    [HideInInspector] public AddressableManager.ItemQuality itemQuality;
+    [HideInInspector] public AddressableManager.Video video;
+    [HideInInspector] public AddressableManager.MainMenuImage mainMenuImage;
+    [HideInInspector] public AddressableManager.StageSettlementImage stageSettlementImage;
+    [HideInInspector] public AddressableManager.VilligeWindowImage villigeWindowImage;
 
 
-
-    [SerializeField] Image m_image;
+    [HideInInspector] public Image m_image;
     public Image image { get { return m_image; } set { m_image = value; } }
     List<Func<Sprite>> actions = new List<Func<Sprite>>();
 
@@ -51,6 +52,7 @@ public class NeedAddressable : InitObject
         actions.Add(() => FuncAction(video));
         actions.Add(() => FuncAction(mainMenuImage));
         actions.Add(() => FuncAction(stageSettlementImage));
+        actions.Add(() => FuncAction(villigeWindowImage));
     }
     protected void GetData<T>(T type, out Sprite sprite) where T : struct, Enum
     {

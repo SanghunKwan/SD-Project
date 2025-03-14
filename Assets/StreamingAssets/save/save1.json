@@ -59,14 +59,14 @@
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": 2.788081407546997,
+                    "x": -2.724275588989258,
                     "y": 0.5000000596046448,
-                    "z": -7.933907508850098
+                    "z": -0.38809335231781008
                 },
                 "depart": {
-                    "x": -6.833173751831055,
+                    "x": -3.867541790008545,
                     "y": 0.06666666269302368,
-                    "z": -0.05724954605102539
+                    "z": -3.018939256668091
                 },
                 "objectData": {
                     "position": {
@@ -105,7 +105,7 @@
                         "Range": 1,
                         "Mentality": 30,
                         "Stress": 8,
-                        "curHP": 15,
+                        "curHP": 16,
                         "curMORALE": 0
                     },
                     "id": 301,
@@ -135,28 +135,33 @@
             "itemDatas": [
                 {
                     "itemIndex": 4,
-                    "itemCount": 6,
+                    "itemCount": 2,
                     "slotIndex": 0
                 },
                 {
-                    "itemIndex": 8,
-                    "itemCount": 4,
+                    "itemIndex": 6,
+                    "itemCount": 1,
                     "slotIndex": 1
                 },
                 {
                     "itemIndex": 1,
-                    "itemCount": 2,
+                    "itemCount": 3,
                     "slotIndex": 2
                 },
                 {
-                    "itemIndex": 7,
-                    "itemCount": 2,
+                    "itemIndex": 9,
+                    "itemCount": 1,
                     "slotIndex": 3
                 },
                 {
-                    "itemIndex": 11,
+                    "itemIndex": 10,
                     "itemCount": 1,
                     "slotIndex": 4
+                },
+                {
+                    "itemIndex": 8,
+                    "itemCount": 1,
+                    "slotIndex": 5
                 }
             ],
             "corpseIndex": []

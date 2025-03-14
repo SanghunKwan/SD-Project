@@ -39,9 +39,11 @@ public class BuildingSetWindow : CamTuringWindow
     public bool isDrag { get; set; }
     public villigeInteract vill_Interact { get; set; }
     public Action DragEnd = () => { };
+    public Action<bool> UpgradeButtonEvent { get; set; }
 
     AddressableManager.BuildingImage ImageIndex;
     public AddressableManager AddressableManager { get { return addressableManager; } }
+    [SerializeField] HeroUpgradeWindow heroUpgradeWindow;
 
     public override void Init()
     {
@@ -86,6 +88,8 @@ public class BuildingSetWindow : CamTuringWindow
 
             LoadNeed(saveData);
             CheckBuildingActive();
+
+            heroUpgradeWindow.SetWindowType(ImageIndex);
         }
     }
     void SetBuildingNameImg(in AddressableManager.BuildingImage buildType)
@@ -183,6 +187,7 @@ public class BuildingSetWindow : CamTuringWindow
     public void SaveHeroData(GameObject key)
     {
         int siblingIndex = key.transform.GetSiblingIndex();
+        int length = buildSetCharacters.Length;
 
         if (vill_Interact.isCanLoad(out BuildingComponent beforeWork, out int beforeIndex) && siblingIndex != 0)
         {
@@ -198,10 +203,17 @@ public class BuildingSetWindow : CamTuringWindow
         buildingComponent.SaveData(vill_Interact, siblingIndex);
         CheckBuildingActive();
 
+        bool isAllValid = true;
+        for (int i = 0; i < length; i++)
+        {
+            isAllValid &= buildSetCharacters[i].isValid;
+        }
+        UpgradeButtonEvent?.Invoke(isAllValid);
 
         if (siblingIndex != 0)
             vill_Interact.LoadWorkPlace(buildingComponent, siblingIndex);
-
+        else
+            heroUpgradeWindow.SetHero(vill_Interact.hero);
     }
     public void BuildSetCharactersCheck(int index, villigeInteract vill)
     {

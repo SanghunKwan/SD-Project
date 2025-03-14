@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Unit;
+using System;
 
 public class SkillPreview : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class SkillPreview : MonoBehaviour
     [SerializeField] AddressableManager addrMgr;
     MouseOnImage interact;
 
-    private void Awake()
+    public Action<int>[] upgradeViewerUpdate { get; set; } = new Action<int>[4];
+
+    public void Awake()
     {
         for (int i = 0; i < images.Length; i++)
         {
@@ -25,6 +28,7 @@ public class SkillPreview : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             SetImage(hero.Getnum, (AddressableManager.PreviewImage)i);
+            upgradeViewerUpdate[i]?.Invoke(hero.SkillsNum[i]);
         }
         Debug.Log("specialMove 이미지 수정 예정");
     }

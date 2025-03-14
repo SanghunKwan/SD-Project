@@ -38,7 +38,7 @@ public class BuildingComponent : ClickCamTurningComponent
 
     public void SaveData(villigeInteract vil_interact, int index)
     {
-        if (!IsDataNull(index, out villigeInteract saveVillige))
+        if (index != 0 && !IsDataNull(index, out villigeInteract saveVillige))
         {
             //기존 영웅 할당 취소
             saveVillige.DeleteWorkPlace();
@@ -49,7 +49,8 @@ public class BuildingComponent : ClickCamTurningComponent
     }
     public void ResetData(int index)
     {
-        saveVilligeInteract[index].DeleteWorkPlace();
+        if (index != 0)
+            saveVilligeInteract[index].DeleteWorkPlace();
         saveVilligeInteract[index] = null;
     }
     public bool IsDataNull(int index, out villigeInteract saveVillige)

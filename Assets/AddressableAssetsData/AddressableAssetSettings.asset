@@ -57,6 +57,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fadd807ed17815c4ab8c75ab428cc093, type: 2}
   - {fileID: 11400000, guid: e0c3d093392ceac458d4878ff33de11f, type: 2}
   - {fileID: 11400000, guid: 8fde2d317153b534f9d4c27058252da6, type: 2}
+  - {fileID: 11400000, guid: 5cf8427e4e405c6468a004a628668c0c, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -111,6 +112,7 @@ MonoBehaviour:
     - Building
     - MainMenu
     - StageSettlement
+    - VilligeWindowImage
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: e7ec4e844004b8545b1b0dfb9f60c482, type: 2}

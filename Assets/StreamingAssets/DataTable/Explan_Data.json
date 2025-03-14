@@ -44,6 +44,12 @@
             "Cons": "이동정지\n",
             "Descrip": "3연격 <color=#AD8BAE>(100 x 3)</color>\n쿨타임 : 7초",
             "ExplainLength": 5
+        },
+        {
+            "name": "궁극기",
+            "type": 2,
+            "Descrip": "미정",
+            "ExplainLength": 0
         }
     ]
 }

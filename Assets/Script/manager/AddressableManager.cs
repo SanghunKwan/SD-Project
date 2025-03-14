@@ -83,12 +83,19 @@ public class AddressableManager : MonoBehaviour
         MeleeBase,
         RangeSkill,
         MeleeSkill,
-        StageSettlement
+        StageSettlement,
+        VilligeWindowImage
     }
     public enum StageSettlementImage
     {
         ClearImage,
         TitleImage
+    }
+    public enum VilligeWindowImage
+    {
+        Hammer,
+        Upgrade,
+        Lock
     }
     #endregion
 

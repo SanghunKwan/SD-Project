@@ -162,7 +162,7 @@ MonoBehaviour:
   fX: 3.75
   fZ: 2
   camSize: 3.5
-  type: 0
+  type: 7
   camAngle: 20
   cullingLayers: 
   upgradeType: 0

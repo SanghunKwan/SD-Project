@@ -28,8 +28,8 @@ public class EnumsViewer : Editor
     }
     public override void OnInspectorGUI()
     {
+        base.OnInspectorGUI();
         serializedObject.Update();
-        EditorGUILayout.ObjectField("Script", needAddressable, typeof(NeedAddressable), false);
         needAddressable.image = EditorGUILayout.ObjectField("Image", needAddressable.image, typeof(UnityEngine.UI.Image), true) as UnityEngine.UI.Image;
         EditorGUILayout.PropertyField(propertyLabel);
         needAddressable.Type = (NeedAddressable.EnumType)EditorGUILayout.EnumPopup("EnumType", needAddressable.Type);
@@ -47,6 +47,7 @@ public class EnumsViewer : Editor
         EnumsActions.Add(() => EnumPopSubstitute(ref needAddressable.video));
         EnumsActions.Add(() => EnumPopSubstitute(ref needAddressable.mainMenuImage));
         EnumsActions.Add(() => EnumPopSubstitute(ref needAddressable.stageSettlementImage));
+        EnumsActions.Add(() => EnumPopSubstitute(ref needAddressable.villigeWindowImage));
     }
     void EnumPopSubstitute<T>(ref T imageTag) where T : struct, Enum
     {

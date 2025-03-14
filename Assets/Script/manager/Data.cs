@@ -26,6 +26,7 @@ namespace Unit
         Tank,
         Object = 100,
         Building = 200,
+        PlayerTypeLength = 2
     }
     public enum WaitingTypeNum
     {

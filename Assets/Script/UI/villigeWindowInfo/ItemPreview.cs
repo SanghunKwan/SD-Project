@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unit;
@@ -8,12 +9,13 @@ public class ItemPreview : MonoBehaviour
 {
     Image[] images = new Image[3];
     [SerializeField] AddressableManager addrMgr;
-    
+
     float[] floats = new float[(int)AddressableManager.ItemQuality.MAX];
     MouseOnImage interact;
+    public Action<int>[] upgradeViewerUpdate { get; set; } = new Action<int>[3];
 
 
-    private void Awake()
+    public void Awake()
     {
         for (int i = 0; i < images.Length; i++)
         {
@@ -34,6 +36,7 @@ public class ItemPreview : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             SetImage(hero.Getnum, (AddressableManager.ItemQuality)hero.EquipsNum[i], (AddressableManager.EquipsImage)i);
+            upgradeViewerUpdate[i]?.Invoke(hero.EquipsNum[i]);
         }
     }
     public void SetImage(TypeNum type, AddressableManager.ItemQuality itemQuality, AddressableManager.EquipsImage equipsImage)

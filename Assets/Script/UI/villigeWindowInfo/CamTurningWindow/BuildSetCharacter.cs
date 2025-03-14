@@ -10,6 +10,7 @@ namespace SDUI
         string defaultName;
         public GameObject gameObject { get; private set; }
         public bool isAllocated;
+        public bool isValid { get { return isAllocated || !gameObject.activeSelf; } }
 
 
         public BuildSetCharacter(Transform tr)

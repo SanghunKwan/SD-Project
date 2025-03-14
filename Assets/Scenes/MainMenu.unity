@@ -272,6 +272,7 @@ MonoBehaviour:
   itemQuality: 0
   video: 0
   mainMenuImage: 3
+  stageSettlementImage: 0
   m_image: {fileID: 49833741}
 --- !u!1 &62187565
 GameObject:
@@ -2355,6 +2356,7 @@ MonoBehaviour:
   itemQuality: 0
   video: 0
   mainMenuImage: 3
+  stageSettlementImage: 0
   m_image: {fileID: 946518602}
 --- !u!114 &948305726 stripped
 MonoBehaviour:
@@ -2543,6 +2545,7 @@ MonoBehaviour:
   itemQuality: 0
   video: 0
   mainMenuImage: 2
+  stageSettlementImage: 0
   m_image: {fileID: 980114227}
 --- !u!1 &1021768557
 GameObject:
@@ -2642,6 +2645,10 @@ PrefabInstance:
     - target: {fileID: 3049258707446268900, guid: bf2152f0fa267c64a9ff6ed7e28f9a05, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141127100211119391, guid: bf2152f0fa267c64a9ff6ed7e28f9a05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3185627494050060112, guid: bf2152f0fa267c64a9ff6ed7e28f9a05, type: 3}
       propertyPath: m_Pivot.x
@@ -3061,6 +3068,7 @@ MonoBehaviour:
   itemQuality: 0
   video: 0
   mainMenuImage: 2
+  stageSettlementImage: 0
   m_image: {fileID: 1210046966}
 --- !u!1 &1239784781
 GameObject:
@@ -3859,6 +3867,7 @@ MonoBehaviour:
   itemQuality: 1
   video: 0
   mainMenuImage: 2
+  stageSettlementImage: 0
   m_image: {fileID: 1593364781}
 --- !u!1 &1653163979
 GameObject:
@@ -4182,6 +4191,7 @@ MonoBehaviour:
   itemQuality: 0
   video: 0
   mainMenuImage: 1
+  stageSettlementImage: 0
   m_image: {fileID: 1697625587}
 --- !u!1 &1778811429
 GameObject:
@@ -4876,6 +4886,7 @@ MonoBehaviour:
   itemQuality: 0
   video: 0
   mainMenuImage: 3
+  stageSettlementImage: 0
   m_image: {fileID: 2078978890}
 --- !u!1 &2142519884
 GameObject:
