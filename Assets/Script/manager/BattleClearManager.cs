@@ -225,6 +225,7 @@ public class BattleClearManager : MonoBehaviour
     {
         OverrideSaveDataVilligeHero();
         OverrideSaveDataFileBuilding();
+        OverrideInProgressQuest();
         loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
     }
     void OverrideSaveDataVilligeHero()
@@ -256,6 +257,7 @@ public class BattleClearManager : MonoBehaviour
     }
     void OverrideInProgressQuest()
     {
+        //씬 전환 시 이전에 가지고 있던 퀘스트 목록도 사라지는지 체크
         saveData.questSaveData.floorQuestData.nowQuestList.Clear();
         saveData.questSaveData.villigeQuestData.nowQuestList.Clear();
         saveData.questSaveData.stagePerformOneData.nowQuestList.Clear();

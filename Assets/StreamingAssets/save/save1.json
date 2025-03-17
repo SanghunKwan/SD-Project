@@ -120,7 +120,21 @@
         }
     ],
     "building": [],
-    "items": [],
+    "items": [
+         0,
+                        0,
+                        0,
+                        0,
+                         0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+    ],
     "stageData": {
         "heros": [
             0
@@ -204,6 +218,15 @@
             "y": 10.0,
             "z": -9.380000114440918
         },
-        "isEnterHeros": true
+        "isEnterHeros": true,
+        "enableUpgrades":[
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ]
     }
 }

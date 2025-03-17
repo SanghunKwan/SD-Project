@@ -48,7 +48,7 @@ public class AddressableManager : MonoBehaviour
     public enum ItemQuality
     {
         Base = 1,
-        Noraml,
+        Normal,
         Upgraded,
         MAX,
 
@@ -93,7 +93,7 @@ public class AddressableManager : MonoBehaviour
     }
     public enum VilligeWindowImage
     {
-        Hammer,
+        OK,
         Upgrade,
         Lock
     }

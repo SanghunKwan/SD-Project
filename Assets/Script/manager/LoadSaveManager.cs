@@ -33,6 +33,7 @@ namespace SaveData
             hero = new HeroData[1] { new HeroData() };
             floorData = new FloorData();
             stageData = new StageData();
+            items = new int[(int)Materials.Max];
         }
         public SaveDataInfo(int getDay, int getNextScene, FloorData getFloorData, in HeroData[] geHero,
             in BuildingData[] getBuilding, in int[] getItems, StageData getStageData, QuestSaveData getQuestSaveData)
@@ -471,12 +472,14 @@ namespace SaveData
     {
         public Vector3 camPosition;
         public bool isEnterHeros;
+        public int[] enableUpgrades;
 
 
         public PlayInfo()
         {
             camPosition = new Vector3(0.25f, 10f, -9.38f);
             isEnterHeros = true;
+            enableUpgrades = new int[] { 1, 1, 1, 1, 1, 1, 1 };
         }
     }
     [Serializable]

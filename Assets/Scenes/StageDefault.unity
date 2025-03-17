@@ -6326,6 +6326,7 @@ MonoBehaviour:
   video: 0
   mainMenuImage: 0
   stageSettlementImage: 1
+  villigeWindowImage: 0
   m_image: {fileID: 1088654949}
 --- !u!114 &1088654952
 MonoBehaviour:

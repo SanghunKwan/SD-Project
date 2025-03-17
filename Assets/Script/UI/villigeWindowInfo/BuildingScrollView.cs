@@ -14,6 +14,5 @@ public class BuildingScrollView : MonoBehaviour, IPointerExitHandler
     public void AddAction(in Action enter)
     {
         action += enter;
-        Debug.Log("³ª°¨");
     }
 }

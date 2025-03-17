@@ -9,7 +9,7 @@ public class SkillPreview : MonoBehaviour
 {
     Image[] images = new Image[4];
     [SerializeField] AddressableManager addrMgr;
-    MouseOnImage interact;
+    public MouseOnImage interact { get; private set; }
 
     public Action<int>[] upgradeViewerUpdate { get; set; } = new Action<int>[4];
 

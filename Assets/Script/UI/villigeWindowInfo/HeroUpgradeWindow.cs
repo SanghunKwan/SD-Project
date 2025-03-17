@@ -17,8 +17,7 @@ public class HeroUpgradeWindow : InitObject
     [SerializeField] ItemPreview itemPreview;
     [SerializeField] SkillPreview skillPreview;
     [Space]
-    [SerializeField] UpgradeType[] build2heroUpgrade;
-
+    [SerializeField] UpgradeType[] buildIndex2heroUpgrade;
 
     public override void Init()
     {
@@ -37,6 +36,12 @@ public class HeroUpgradeWindow : InitObject
     public void OnHeroAllocated(bool onoff)
     {
         gameObject.SetActive(onoff);
+
+        if (onoff)
+        {
+            AddressableLoadData();
+        }
+
     }
     public void OnHeroDeallocated(bool onoff)
     {
@@ -58,11 +63,19 @@ public class HeroUpgradeWindow : InitObject
 
     public void SetWindowType(AddressableManager.BuildingImage type)
     {
-        SetHeroUpradeWindow(build2heroUpgrade[(int)type]);
+        SetHeroUpradeWindow(buildIndex2heroUpgrade[(int)type]);
     }
     public void SetHero(Unit.Hero hero)
     {
         itemPreview.ActiveItemPreview(hero);
         skillPreview.ActivateSkillPreview(hero);
+    }
+
+    void AddressableLoadData()
+    {
+        //if(AddressableManager.manager.)
+
+        AddressableManager.manager.LoadData("RangeNormal");
+        AddressableManager.manager.LoadData("MeleeNormal");
     }
 }

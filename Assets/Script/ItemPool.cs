@@ -27,12 +27,6 @@ public class ItemPool : MonoBehaviour
                 folders[i].SetParent(transform);
                 continue;
             }
-            else if (i == 13)
-            {
-                folders[i] = new GameObject("Item_WeaponLevel2").transform;
-                folders[i].SetParent(transform);
-                continue;
-            }
 
             folders[i] = new GameObject(itemPrefabs[i].name).transform;
             folders[i].SetParent(transform);

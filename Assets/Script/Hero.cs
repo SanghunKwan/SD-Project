@@ -45,7 +45,12 @@ namespace Unit
                 triggerHashes[i] = Animator.StringToHash(((InputEffect.WARNINGANIMTYPE)i).ToString());
             }
 
-            GetDefaultName();
+            if (GameManager.manager.battleClearManager.ManagerType == InventoryComponent.InventoryType.Villige)
+            {
+                villigeHero = GetComponent<VilligeHero>();
+                GetDefaultName();
+
+            }
             CheckInitCount();
         }
         void GetDefaultName()
@@ -56,10 +61,9 @@ namespace Unit
                 stat.NAME = heroName;
                 curstat.NAME = heroName;
 
-                villigeHero = GetComponent<VilligeHero>();
                 Villige_CheckText();
+                isDefaultName = false;
             }
-            isDefaultName = false;
 
         }
         protected override IEnumerator DelayGetUI()

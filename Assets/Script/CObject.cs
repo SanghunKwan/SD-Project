@@ -359,7 +359,7 @@ namespace Unit
             if (Random.Range(0, 100) > 100 - DropInfo.PercentageEquips)
             {
                 //무기 드랍 코드 수정 필요
-                GameObject item = DropManager.instance.pool.CallItem((int)Materials.Weapon);
+                GameObject item = DropManager.instance.pool.CallItem((int)Materials.WeaponLevel2);
                 item.SetActive(true);
 
                 item.transform.position = transform.position;

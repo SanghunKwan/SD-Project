@@ -9,28 +9,36 @@ using System.Text;
 
 public class InfoBox : MonoBehaviour
 {
-    Image image;
-    TextMeshProUGUI textMeshProUGUI;
+    Image[] images;
+    TextMeshProUGUI[] textMeshProUGUIs;
     [SerializeField] ExplainData explainData;
 
     Dictionary<Type, Action<Hero, Enum>> actions = new Dictionary<Type, Action<Hero, Enum>>();
-    Dictionary<Type, Action<TypeNum, Enum, int>> buttonActions = new();
+    Dictionary<Type, Action<Hero, Enum, int>> buttonActions = new();
     StringBuilder builder;
+
+
+    enum TextBoxType
+    {
+        DefaultRight,
+        Left
+    }
 
     private void Awake()
     {
-        image = transform.GetChild(0).GetComponent<Image>();
-        textMeshProUGUI = image.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        images = GetComponentsInChildren<Image>(true);
+        textMeshProUGUIs = GetComponentsInChildren<TextMeshProUGUI>(true);
+        Debug.Log(textMeshProUGUIs.Length + "자식 개수");
 
         actions.Add(typeof(AddressableManager.PreviewImage), (qwer, uiop) =>
         { PreviewImage(qwer, (AddressableManager.PreviewImage)uiop); });
         actions.Add(typeof(AddressableManager.EquipsImage), (qwer, uiop) =>
         { EquipsImage(qwer, (AddressableManager.EquipsImage)uiop); });
 
-        buttonActions.Add(typeof(AddressableManager.PreviewImage), (heroType, enumValue, heroSkillArrayNum) =>
-        PreviewImage(heroType, (AddressableManager.PreviewImage)enumValue, heroSkillArrayNum));
-        buttonActions.Add(typeof(AddressableManager.EquipsImage), (heroType, enumValue, heroEquipArrayNum) =>
-        EquipsImage(heroType, (AddressableManager.EquipsImage)enumValue, heroEquipArrayNum));
+        buttonActions.Add(typeof(AddressableManager.PreviewImage), (hero, enumValue, heroSkillArrayNum) =>
+        PreviewImageCompare(hero, (AddressableManager.PreviewImage)enumValue, heroSkillArrayNum));
+        buttonActions.Add(typeof(AddressableManager.EquipsImage), (hero, enumValue, heroEquipArrayNum) =>
+        EquipsImageCompare(hero, (AddressableManager.EquipsImage)enumValue, heroEquipArrayNum));
 
         builder = new StringBuilder();
     }
@@ -40,7 +48,7 @@ public class InfoBox : MonoBehaviour
     {
         PreviewImage(hero.Getnum, skillImage, hero.SkillsNum[(int)skillImage]);
     }
-    void PreviewImage(TypeNum heroType, AddressableManager.PreviewImage skillImage, int skillNum)
+    void PreviewImage(TypeNum heroType, AddressableManager.PreviewImage skillImage, int skillNum, TextBoxType textBoxType = TextBoxType.DefaultRight)
     {
         builder.Clear();
         int num = (int)skillImage + ((int)heroType * 4) + ((int)TypeNum.PlayerTypeLength * (skillNum - 1) * 4);
@@ -58,16 +66,22 @@ public class InfoBox : MonoBehaviour
         builder.Append("</color>");
         builder.Append(explainData.GetSkillExplain(num).Descrip);
 
-        textMeshProUGUI.text = builder.ToString();
+        textMeshProUGUIs[(int)textBoxType].text = builder.ToString();
 
-        SetExplanationLength(explainData.GetSkillExplain(num).ExplainLength);
+        SetExplanationLength(explainData.GetSkillExplain(num).ExplainLength, 0, textBoxType);
     }
+    void PreviewImageCompare(Hero hero, AddressableManager.PreviewImage skillImage, int skillNum)
+    {
+        PreviewImage(hero.Getnum, skillImage, hero.SkillsNum[(int)skillImage], TextBoxType.Left);
+        PreviewImage(hero.Getnum, skillImage, skillNum, TextBoxType.DefaultRight);
+    }
+
 
     void EquipsImage(Hero hero, AddressableManager.EquipsImage equipsImage)
     {
         EquipsImage(hero.Getnum, equipsImage, hero.EquipsNum[(int)equipsImage]);
     }
-    void EquipsImage(TypeNum heroType, AddressableManager.EquipsImage equipsImage, int equipNum)
+    void EquipsImage(TypeNum heroType, AddressableManager.EquipsImage equipsImage, int equipNum, TextBoxType textBoxType = TextBoxType.DefaultRight)
     {
         builder.Clear();
         int num = (int)equipsImage + (((int)heroType) * 3)
@@ -90,10 +104,17 @@ public class InfoBox : MonoBehaviour
         builder.Append(explainData.GetItemExplain(num).Range);
         builder.Append(explainData.GetItemExplain(num).Stress);
 
-        textMeshProUGUI.text = builder.ToString();
+        textMeshProUGUIs[(int)textBoxType].text = builder.ToString();
 
-        SetExplanationLength(explainData.GetItemExplain(num).ExplainLength, 5);
+        SetExplanationLength(explainData.GetItemExplain(num).ExplainLength, 5, textBoxType);
     }
+    void EquipsImageCompare(Hero hero, AddressableManager.EquipsImage equipsImage, int equipNum)
+    {
+        EquipsImage(hero.Getnum, equipsImage, hero.EquipsNum[(int)equipsImage], TextBoxType.Left);
+        EquipsImage(hero.Getnum, equipsImage, equipNum, TextBoxType.DefaultRight);
+    }
+
+
     string TypetoHex<T>(in T type) where T : struct, Enum
     {
         return GetColorHex(explainData.arrColor[Convert.ToInt32(type)]);
@@ -120,17 +141,17 @@ public class InfoBox : MonoBehaviour
         return GetColorHex(explainData.arrColor[explainData.quality2Color[num]]);
     }
 
-    void SetExplanationLength(int nLineCount, float add = 0)
+    void SetExplanationLength(int nLineCount, float add = 0, TextBoxType textBoxType = TextBoxType.DefaultRight)
     {
-        image.rectTransform.sizeDelta = new Vector2(image.rectTransform.sizeDelta.x, nLineCount * 24 + 16 + add);
+        images[(int)textBoxType].rectTransform.sizeDelta = new Vector2(images[(int)textBoxType].rectTransform.sizeDelta.x, nLineCount * 24 + 16 + add);
     }
     public void SetTextMessage<T>(Hero hero, T equipsImage) where T : struct, Enum
     {
         actions[typeof(T)](hero, equipsImage);
         //   textMeshProUGUI.text = TypetoHex((ExplainData.TypeName)(Convert.ToInt32(equipsImage) + 5));
     }
-    public void SetTextMessage<T>(TypeNum heroType, T equipsImage, int heroNumArrayValue) where T : struct, Enum
+    public void SetTextMessage<T>(Hero hero, T equipsImage, int heroNumArrayValue) where T : struct, Enum
     {
-        buttonActions[typeof(T)](heroType, equipsImage, heroNumArrayValue);
+        buttonActions[typeof(T)](hero, equipsImage, heroNumArrayValue);
     }
 }

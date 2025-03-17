@@ -11,7 +11,7 @@ public class ItemPreview : MonoBehaviour
     [SerializeField] AddressableManager addrMgr;
 
     float[] floats = new float[(int)AddressableManager.ItemQuality.MAX];
-    MouseOnImage interact;
+    public MouseOnImage interact { get; private set; }
     public Action<int>[] upgradeViewerUpdate { get; set; } = new Action<int>[3];
 
 

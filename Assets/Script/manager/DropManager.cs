@@ -30,13 +30,17 @@ public enum Materials
     Black,
     White,
     Timber,
-    Weapon,
+    WeaponLevel2,
     Berry,
     Olive,
     Apple,
     Banana,
     Tomato,
-    GreenFruit
+    GreenFruit,
+    Coprse,
+    Coin,
+    Max
+    
 }
 public class DropManager : JsonSaveLoad
 {

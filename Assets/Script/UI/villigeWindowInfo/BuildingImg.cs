@@ -85,7 +85,6 @@ public class BuildingImg : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
         
     }
 
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         infoWindow.OpenOnMouse(eventData);

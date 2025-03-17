@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1874343999548590656}
   - component: {fileID: 1205116591268537}
   - component: {fileID: 1214728788004349364}
-  - component: {fileID: 3573285240689112927}
+  - component: {fileID: 85928981972841484}
   m_Layer: 0
   m_Name: ItemUI
   m_TagString: Untagged
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_itemCounts: 
---- !u!114 &3573285240689112927
+--- !u!114 &85928981972841484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,10 +100,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5901458288722195651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cf221bb9c986314f9f9d02e2d071b9a, type: 3}
+  m_Script: {fileID: 11500000, guid: 00b8fce41bcb26a43844d5ed9e2aaf43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  storage: {fileID: 1214728788004349364}
 --- !u!1001 &952193962533024875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -298,6 +297,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 1a0f6837f46d3784589988cca09dc66f, type: 3}
+    - target: {fileID: 5045672165270727253, guid: c3ec0603fa274dd42a5bab62948d6b23, type: 3}
+      propertyPath: m_itemType
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6082573090524458586, guid: c3ec0603fa274dd42a5bab62948d6b23, type: 3}
       propertyPath: m_Name
       value: white
@@ -404,6 +407,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: bcbe4ed29f79f2b4eaf09aa0cb2353ad, type: 3}
+    - target: {fileID: 5045672165270727253, guid: c3ec0603fa274dd42a5bab62948d6b23, type: 3}
+      propertyPath: m_itemType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6082573090524458586, guid: c3ec0603fa274dd42a5bab62948d6b23, type: 3}
       propertyPath: m_Name
       value: wood
@@ -518,6 +525,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1692031049, guid: 4aa5d86e313eb9c468cbdc02ddb0c57d, type: 3}
+    - target: {fileID: 5045672165270727253, guid: c3ec0603fa274dd42a5bab62948d6b23, type: 3}
+      propertyPath: m_itemType
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 6082573090524458586, guid: c3ec0603fa274dd42a5bab62948d6b23, type: 3}
       propertyPath: m_Name
       value: gold
@@ -628,6 +639,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 898d5fbe5d8845941a85ec8b4fddd82b, type: 3}
+    - target: {fileID: 5045672165270727253, guid: c3ec0603fa274dd42a5bab62948d6b23, type: 3}
+      propertyPath: m_itemType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6082573090524458586, guid: c3ec0603fa274dd42a5bab62948d6b23, type: 3}
       propertyPath: m_Name
       value: black

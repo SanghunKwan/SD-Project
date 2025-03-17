@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: c805a5e950c78004d97abb0257301342
   m_SerializeEntries:
-  - m_GUID: 7dfd68325eeac354d866d207e4d2744c
-    m_Address: Assets/Package/Clean Vector Icons/1hammer_.png
+  - m_GUID: de50d1f4106f65545921a17c92cf0250
+    m_Address: Assets/Package/Clean Vector Icons/1ok_.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - VilligeWindowImage
