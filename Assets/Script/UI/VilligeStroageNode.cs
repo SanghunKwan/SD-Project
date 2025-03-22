@@ -8,11 +8,14 @@ public class VilligeStroageNode : InitObject
     VilligeStorage storage;
     TextMeshProUGUI text;
     [SerializeField] int m_itemType;
+    Animator anim;
+    static int animHighLight = Animator.StringToHash("HighLight");
     public int ItemType { get { return m_itemType; } }
 
     public override void Init()
     {
         storage = transform.parent.GetComponent<VilligeStorage>();
+        anim = GetComponent<Animator>();
         text = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         storage.OnItemCountChanged[m_itemType] += CountChanged;
     }
@@ -20,6 +23,9 @@ public class VilligeStroageNode : InitObject
     {
         text.text = count.ToString("N0");
     }
-
+    public void PlayHighLight()
+    {
+        anim.SetTrigger(animHighLight);
+    }
 
 }

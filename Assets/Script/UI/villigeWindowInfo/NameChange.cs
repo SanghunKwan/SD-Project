@@ -10,7 +10,9 @@ public class NameChange : MonoBehaviour
 {
     TextMeshProUGUI unitTypeText;
     TMP_InputField nameInputField;
+
     Hero hero;
+    SummonHeroNameTag heroNameTag;
 
     private void Awake()
     {
@@ -26,18 +28,38 @@ public class NameChange : MonoBehaviour
 
     public void GetName(Hero getHero)
     {
+        heroNameTag = null;
         hero = getHero;
-        nameInputField.text = hero.curstat.NAME;
+        nameInputField.text = hero.name;
         unitTypeText.text = hero.stat.type.ToString();
+    }
+    public void GetName(SummonHeroNameTag getHeroNameTag)
+    {
+        hero = null;
+        heroNameTag = getHeroNameTag;
+        nameInputField.text = getHeroNameTag.heroData.name;
+        unitTypeText.text = getHeroNameTag.heroData.unitData.objectData.cur_status.type.ToString();
     }
 
     #region on¿Ã∫•∆Æ
     public void EndEdit()
     {
-        hero.stat.NAME = nameInputField.text;
-        hero.Villige_CheckText();
+        if (hero != null)
+        {
+            hero.name = nameInputField.text;
+            hero.Villige_CheckText();
+        }
+        else
+        {
+            heroNameTag.heroData.name = nameInputField.text;
+            heroNameTag.CheckNameTag();
+        }
     }
 
     #endregion
-
+    private void OnDisable()
+    {
+        hero = null;
+        heroNameTag = null;
+    }
 }

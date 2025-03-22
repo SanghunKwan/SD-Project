@@ -37,4 +37,14 @@ public class SkillPreview : MonoBehaviour
         addrMgr.GetData(type.ToString() + "Skill", previewImage, out Sprite sprite);
         images[(int)previewImage].sprite = sprite;
     }
+    public void ActivateSkillPreview(SaveData.HeroData hero)
+    {
+        interact.SetHero(hero);
+        for (int i = 0; i < 4; i++)
+        {
+            SetImage(hero.unitData.objectData.cur_status.type, (AddressableManager.PreviewImage)i);
+            upgradeViewerUpdate[i]?.Invoke(hero.skillNum[i]);
+        }
+        Debug.Log("specialMove 이미지 수정 예정");
+    }
 }

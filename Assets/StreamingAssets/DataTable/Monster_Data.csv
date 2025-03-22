@@ -23,6 +23,7 @@ ID,NAME,Species,HP,ATK,DEF,DOG,MORALE,SPEED,ViewAngle,ViewRange,type,Accuracy,At
 208,GoodHouse,200,20,0,0,-90,0,0,0,0,200,0,0,0,1,0
 209,StoneHouse,200,20,0,0,-90,0,0,0,0,200,0,0,0,1,0
 210,Tower,200,20,0,0,-90,0,0,0,0,200,0,0,0,1,0
+211,SummonMagicCircle,200,20,0,0,-90,0,0,0,0,200,0,0,0,1,0
 301,playerMelee,1,27,7,0,10,0,5,90,6,0,85,1.5,1,30,5
 302,playerRange,1,21,5,0,15,0,6,70,10,1,80,1.5,6,30,7
 303,playerMagic,1,18,0,0,5,0,5,90,6,2,60,1.5,1,30,15

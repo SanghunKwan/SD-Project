@@ -8,10 +8,17 @@ public class MouseOnImage : MonoBehaviour
 {
     [SerializeField] InfoBox box;
     public Hero mhero { get; private set; }
+    public SaveData.HeroData mheroData { get; private set; }
 
     public void SetHero(Hero hero)
     {
         mhero = hero;
+        mheroData = null;
+    }
+    public void SetHero(SaveData.HeroData heroData)
+    {
+        mheroData = heroData;
+        mhero = null;
     }
 
     void SetBox(in Vector3 vec, bool onOff)
@@ -24,7 +31,10 @@ public class MouseOnImage : MonoBehaviour
     {
         SetBox(vec, true);
 
-        box.SetTextMessage(mhero, image);
+        if (mhero != null)
+            box.SetTextMessage(mhero, image);
+        else
+            box.SetTextMessage(mheroData, image);
     }
     public void OnPointerEnter<T>(Vector3 vec, T image, int heroNumArrayValue) where T : struct, Enum
     {
@@ -35,6 +45,6 @@ public class MouseOnImage : MonoBehaviour
     public void OnPointerExit()
     {
         SetBox(Vector3.zero, false);
-        box.transform.GetChild(1).gameObject.SetActive(false);
+        box.CompareBoxTurnOff();
     }
 }

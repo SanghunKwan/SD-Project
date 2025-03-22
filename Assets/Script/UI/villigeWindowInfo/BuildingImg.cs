@@ -60,35 +60,46 @@ public class BuildingImg : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
     {
         scrollRect.OnEndDrag(eventData);
         actionNum++;
-        clickdrag.Activate(previewObject, type);
+
+        InputBuildingConstruct();
+        SelectBuilding();
     }
     public void OnEndDrag(PointerEventData eventData)
     {
         scrollRect.OnEndDrag(eventData);
         clickdrag.OnPointerUp(eventData);
     }
-
+    
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!eventData.dragging)
+        if (eventData.dragging)
+            return;
+
+        InputBuildingConstruct();
+    }
+    void InputBuildingConstruct()
+    {
+        infoWindow.Close();
+
+        if (buildingMatView.isBuildable)
         {
-            SelectBuilding();
             clickdrag.Activate(previewObject, type);
-            infoWindow.Close();
+            SelectBuilding();
         }
+        else
+            buildingMatView.HighLightNotEnoughMaterials((int)type + 1);
     }
 
     void SelectBuilding()
     {
         scrollRect.gameObject.SetActive(false);
         onoffButton.ButtonColorReset();
-        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         infoWindow.OpenOnMouse(eventData);
-        buildingMatView.GetDate((int)type + 1);
+        buildingMatView.GetData((int)type + 1, SetBuildingMat.MaterialsType.BuildingNeed);
     }
     public void OnPointerExit(PointerEventData eventData)
     {

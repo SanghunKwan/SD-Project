@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +33,7 @@ public class CharacterList : MonoBehaviour
     }
 
     public BuildingSetWindow buildingSetWindow { get; private set; }
+    [SerializeField] HandImage handImage;
 
     // Start is called before the first frame update
     void Start()
@@ -108,10 +108,11 @@ public class CharacterList : MonoBehaviour
         }
 
         villigeInteract nameTag = Instantiate(CharacterBackBoard, portObject.transform);
+        nameTag.Init(handImage);
         trViewPort[portObject].characters.Add(nameTag);
 
         if (heroData != null)
-            nameTag.SetText(heroData);
+            nameTag.SetNameTag(heroData);
     }
     public void MatchingHeroWithInteract(int heroIndex, Unit.Hero hero)
     {

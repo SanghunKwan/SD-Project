@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerUpHandler, IPointerDownHandler
+public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerDownHandler, IPointerUpHandler
 {
     BuildingArrange obj;
     Camera mainCam;
@@ -15,6 +15,7 @@ public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerUpHand
     Vector3 lastPoint;
 
     AddressableManager.BuildingImage buildType;
+    [SerializeField] StorageComponent storageComponent;
 
     public void Activate(BuildingArrange preview, in AddressableManager.BuildingImage type)
     {
@@ -49,8 +50,8 @@ public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerUpHand
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-
     }
+
     public void OnPointerUp(PointerEventData eventData)
     {
         actions[(int)eventData.button]();
@@ -62,9 +63,11 @@ public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerUpHand
 
         //»ý¼º
         GameManager.manager.onVilligeBuildingStartConstruction.eventAction?.Invoke((int)buildType, lastPoint);
+        MaterialsData.NeedMaterials needMaterial = materialsData.data.Needs[(int)buildType + 1];
         pool.PoolBuilding(buildType, lastPoint).buildingComponent
-            .constructionAction?.Invoke(materialsData.data.Needs[(int)buildType + 1].turn);
+            .constructionAction?.Invoke(needMaterial.turn);
 
+        storageComponent.CalculateMaterials(needMaterial);
         obj.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
@@ -86,4 +89,6 @@ public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerUpHand
         actions[2] = () => { };
         gameObject.SetActive(false);
     }
+
+
 }

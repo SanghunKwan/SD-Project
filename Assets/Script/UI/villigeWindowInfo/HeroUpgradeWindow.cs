@@ -17,6 +17,11 @@ public class HeroUpgradeWindow : InitObject
     [SerializeField] ItemPreview itemPreview;
     [SerializeField] SkillPreview skillPreview;
     [Space]
+    [SerializeField] SetBuildingMat setBuildingMat;
+    public SetBuildingMat SetBuildingMat { get { return setBuildingMat; } }
+    [SerializeField] StorageComponent storageComponent;
+    public StorageComponent StorageComponent { get { return storageComponent; } }
+    [Space]
     [SerializeField] UpgradeType[] buildIndex2heroUpgrade;
 
     public override void Init()

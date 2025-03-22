@@ -58,10 +58,19 @@ namespace SaveData
             quirks = new int[5] { 6, 2, 0, 0, 0 };
             length = 2;
         }
-        public QuirkDefaultData(int count)
+        public QuirkDefaultData(int length)
         {
-            quirks = new int[count];
+            quirks = new int[length];
             length = 0;
+        }
+        public QuirkDefaultData(int nowQuirkCount, int quirkMaxCount, QuirkData.QuirkS quirksInfo)
+        {
+            length = nowQuirkCount;
+            quirks = new int[quirkMaxCount];
+            ReservoirSampling(1, quirksInfo.quirks.Length - 1, nowQuirkCount, out int[] selected);
+            Array.Copy(selected, quirks, nowQuirkCount);
+
+
         }
         public QuirkDefaultData(in int[] getQuirks, int getLength)
         {
@@ -80,6 +89,31 @@ namespace SaveData
             }
             length = activeQuirkCount;
         }
+        public void ReservoirSampling(int minInclusive, int maxInclusive, int selectCount, out int[] randomSelectedArray)
+        {
+            int count = maxInclusive - minInclusive + 1;
+
+            randomSelectedArray = new int[selectCount];
+
+            for (int i = 0; i < selectCount; i++)
+                randomSelectedArray[i] = minInclusive + i;
+
+            for (int i = selectCount; i < count; i++)
+            {
+                //가 기존것과 교체될 확률
+                if (IsSelected(selectCount, i))
+                {
+                    int randomIndex = UnityEngine.Random.Range(0, selectCount);
+                    randomSelectedArray[randomIndex] = minInclusive + i;
+                }
+
+            }
+
+            bool IsSelected(int selectCount, int arrayIndex)
+            {
+                return UnityEngine.Random.Range(0, 1) < (float)selectCount / (arrayIndex + 1);
+            }
+        }
     }
     [Serializable]
     public class QuirkSaveData : QuirkDefaultData
@@ -88,6 +122,18 @@ namespace SaveData
         public int willChangeIndex;
 
         public QuirkSaveData()
+        {
+            Init();
+        }
+        public QuirkSaveData(int count) : base(count)
+        {
+            Init();
+        }
+        public QuirkSaveData(int nowCount, int maxCount) : base(nowCount, maxCount, QuirkData.manager.quirkInfo)
+        {
+            Init();
+        }
+        void Init()
         {
             willChange = false;
             willChangeIndex = 0;
@@ -114,7 +160,7 @@ namespace SaveData
             name = "디스마스";
             lv = 1;
             quirks = new QuirkSaveData();
-            disease = new QuirkDefaultData(4);
+            disease = new QuirkDefaultData(new int[4], 0);
             keycode = "=";
             equipNum = new int[3] { 1, 1, 1 };
             fieldEquipNum = new int[3] { 0, 0, 0 };
@@ -125,13 +171,27 @@ namespace SaveData
         }
         public HeroData(Hero hero)
         {
-            quirks = new QuirkSaveData();
+            quirks = new QuirkSaveData(5);
             disease = new QuirkDefaultData(4);
             equipNum = new int[3];
             fieldEquipNum = new int[3];
             skillNum = new int[4];
             unitData = new UnitData();
             InitData(hero);
+        }
+        public HeroData(in string getName, int getLevel, unit_status statData, QuirkSaveData quirkData, QuirkDefaultData diseaseData)
+        {
+            name = getName;
+            lv = getLevel;
+            quirks = quirkData;
+            disease = diseaseData;
+            keycode = "=";
+            equipNum = new int[3] { 1, 1, 1 };
+            fieldEquipNum = new int[3] { 0, 0, 0 };
+            skillNum = new int[4] { 1, 1, 1, 1 };
+            villigeAction = 0;
+            workBuilding = 0;
+            unitData = new UnitData(statData);
         }
         public void SetHeroData(Hero hero)
         {
@@ -150,7 +210,7 @@ namespace SaveData
             Array.Copy(hero.FieldEquipsNum, fieldEquipNum, 3);
             Array.Copy(hero.SkillsNum, skillNum, 4);
             villigeAction = (int)hero.VilligeAction;
-            workBuilding = 0;
+            workBuilding = (int)hero.BuildingAction;
             unitData.SetData(hero);
         }
     }
@@ -294,6 +354,16 @@ namespace SaveData
             depart = unit.unitMove.depart;
             objectData = new ObjectData(unit);
         }
+        public UnitData(unit_status stat)
+        {
+            detected = false;
+            attackMove = false;
+            ishold = false;
+            destination = Vector3.zero;
+            depart = Vector3.zero;
+            objectData = new ObjectData(stat);
+        }
+
         public void SetData(CUnit unit)
         {
             detected = unit.detected;
@@ -313,7 +383,6 @@ namespace SaveData
         public bool selected;
         public bool isDead;
         public unit_status cur_status;
-        public int id;
         public int[] dots;
         public ObjectData()
         {
@@ -321,7 +390,6 @@ namespace SaveData
             quaternion = Quaternion.Euler(0, 180, 0);
             selected = false;
             isDead = false;
-            id = 101;
             cur_status = new unit_status();
             dots = new int[(int)SkillData.EFFECTINDEX.MAX] { 0, 0, 0, 0 };
         }
@@ -333,9 +401,17 @@ namespace SaveData
             cur_status = new unit_status();
             cur_status.Clone(cObject.curstat);
             isDead = cur_status.curHP <= 0;
-            id = cObject.id;
             dots = new int[cObject.dots.Length];
             Array.Copy(cObject.dots, dots, dots.Length);
+        }
+        public ObjectData(unit_status stat)
+        {
+            position = 2 * Vector3.forward;
+            quaternion = Quaternion.Euler(0, 180, 0);
+            selected = false;
+            isDead = false;
+            cur_status = stat;
+            dots = new int[(int)SkillData.EFFECTINDEX.MAX] { 0, 0, 0, 0 };
         }
         public void SetData(CObject cObject)
         {
@@ -344,7 +420,6 @@ namespace SaveData
             selected = cObject.selected;
             cur_status.Clone(cObject.curstat);
             isDead = cur_status.curHP <= 0;
-            id = cObject.id;
             Array.Copy(cObject.dots, dots, dots.Length);
         }
 
@@ -471,15 +546,17 @@ namespace SaveData
     public class PlayInfo
     {
         public Vector3 camPosition;
-        public bool isEnterHeros;
         public int[] enableUpgrades;
+        public HeroData[] canSummonHero;
+        public int canSummonHeroCount;
 
 
         public PlayInfo()
         {
             camPosition = new Vector3(0.25f, 10f, -9.38f);
-            isEnterHeros = true;
             enableUpgrades = new int[] { 1, 1, 1, 1, 1, 1, 1 };
+            canSummonHero = null;
+            canSummonHeroCount = 2;
         }
     }
     [Serializable]

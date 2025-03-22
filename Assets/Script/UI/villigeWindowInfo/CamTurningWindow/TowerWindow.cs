@@ -9,7 +9,6 @@ public class TowerWindow : CamTuringWindow
 {
     TowerComponent towerComponent;
     Image buildingIcon;
-    TextMeshProUGUI buildingName;
 
     [SerializeField] AddressableManager addressableManager;
 
@@ -126,7 +125,6 @@ public class TowerWindow : CamTuringWindow
     {
 
         buildingIcon = transform.Find("BuildingName").GetChild(0).GetComponent<Image>();
-        buildingName = buildingIcon.transform.parent.GetChild(1).GetComponent<TextMeshProUGUI>();
         floortagImage.Init(this);
         nextButton = window1Object[0].transform.Find("NextButton").GetComponent<Button>();
         stageButton = window2Object.transform.Find("stageButton").GetComponent<Button>();

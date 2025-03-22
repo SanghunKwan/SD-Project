@@ -61,7 +61,7 @@ namespace Unit
         public unit_status()
         {
             ID = 301;
-            NAME = "디스마스";
+            NAME = "playerMelee";
             SPECIES = Species.player;
             HP = 27;
             ATK = 7;

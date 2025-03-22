@@ -42,7 +42,7 @@ public class VilligeUnitSpawner : UnitSpawner
     void SpawnBuildingData(BuildingData data)
     {
         BuildingConstructDelay newBuilding = buildingPool
-                        .PoolBuilding((AddressableManager.BuildingImage)(data.objectData.id - 201), data.objectData.position);
+                        .PoolBuilding((AddressableManager.BuildingImage)(data.objectData.cur_status.ID - 201), data.objectData.position);
         NewSpawnedBuildingSet(newBuilding, data);
         NewSpawnedObjectSet(newBuilding.buildingComponent.CObject, data.objectData);
 

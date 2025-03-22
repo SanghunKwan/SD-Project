@@ -261,6 +261,8 @@ MonoBehaviour:
   type: 0
   itemPreview: {fileID: 0}
   skillPreview: {fileID: 0}
+  equipImage: 0
+  previewImage: 0
   slotViewers:
   - {fileID: 4231894387058963892}
   - {fileID: 8945472078779768240}

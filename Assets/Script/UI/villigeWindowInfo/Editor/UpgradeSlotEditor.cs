@@ -7,14 +7,20 @@ using UnityEditor;
 public class UpgradeSlotEditor : Editor
 {
     UpgradeSlot upgradeSlot;
-    SerializedProperty itemProperty;
-    SerializedProperty skillProperty;
+    SerializedProperty[] itemPropertys;
+    SerializedProperty[] skillPropertys;
     SerializedProperty typeProperty;
+    int propertyLength = 2;
     private void OnEnable()
     {
         upgradeSlot = (UpgradeSlot)target;
-        itemProperty = serializedObject.FindProperty("itemPreview");
-        skillProperty = serializedObject.FindProperty("skillPreview");
+        itemPropertys = new SerializedProperty[propertyLength];
+        skillPropertys = new SerializedProperty[propertyLength];
+
+        itemPropertys[0] = serializedObject.FindProperty("itemPreview");
+        itemPropertys[1] = serializedObject.FindProperty("equipImage");
+        skillPropertys[0] = serializedObject.FindProperty("skillPreview");
+        skillPropertys[1] = serializedObject.FindProperty("previewImage");
         typeProperty = serializedObject.FindProperty("type");
     }
 
@@ -24,10 +30,17 @@ public class UpgradeSlotEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.PropertyField(typeProperty);
 
+
         if (upgradeSlot.type == UpgradeSlot.SlotType.Item)
-            EditorGUILayout.PropertyField(itemProperty);
+        {
+            for (int i = 0; i < propertyLength; i++)
+                EditorGUILayout.PropertyField(itemPropertys[i]);
+        }
         else
-            EditorGUILayout.PropertyField(skillProperty);
+        {
+            for (int i = 0; i < propertyLength; i++)
+                EditorGUILayout.PropertyField(skillPropertys[i]);
+        }
 
         serializedObject.ApplyModifiedProperties();
     }

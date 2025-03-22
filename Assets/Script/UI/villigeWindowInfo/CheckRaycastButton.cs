@@ -5,10 +5,18 @@ using UnityEngine.EventSystems;
 
 public class CheckRaycastButton : CheckRaycast
 {
-    [HideInInspector] public UpgradeSlot.SlotType type;
-    [HideInInspector] public AddressableManager.EquipsImage equipImage;
-    [HideInInspector] public AddressableManager.PreviewImage previewImage;
+    UpgradeSlot upgradeSlot;
+    UpgradeSlot.SlotType type;
+    AddressableManager.EquipsImage equipImage;
+    AddressableManager.PreviewImage previewImage;
     [SerializeField] int upgradedNum;
+    private void Awake()
+    {
+        upgradeSlot = transform.parent.parent.GetComponent<UpgradeSlot>();
+        type = upgradeSlot.type;
+        equipImage = upgradeSlot.equipImage;
+        previewImage = upgradeSlot.previewImage;
+    }
     public override void OnPointerEnter(PointerEventData eventData)
     {
         if (type == UpgradeSlot.SlotType.Item)

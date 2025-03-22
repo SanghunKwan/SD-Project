@@ -49,5 +49,14 @@ public class ItemPreview : MonoBehaviour
 
         images[ImageIndex].color = Color.white * floats[(int)itemQuality];
     }
+    public void ActiveItemPreview(SaveData.HeroData hero)
+    {
+        interact.SetHero(hero);
+        for (int i = 0; i < 3; i++)
+        {
+            SetImage(hero.unitData.objectData.cur_status.type, (AddressableManager.ItemQuality)hero.equipNum[i], (AddressableManager.EquipsImage)i);
+            upgradeViewerUpdate[i]?.Invoke(hero.equipNum[i]);
+        }
+    }
 
 }

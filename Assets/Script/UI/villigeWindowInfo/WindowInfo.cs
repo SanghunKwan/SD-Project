@@ -63,27 +63,8 @@ public class WindowInfo : tempMenuWindow
 
     public void SetCam(bool active, Hero hero)
     {
-        characterCam.gameObject.SetActive(active);
-        Transform prevTransform = characterCam.transform.parent;
-        characterCam.transform.SetParent(hero.transform, false);
-        characterCam.transform.localPosition = new Vector3(0, 1, 2);
-        characterCam.transform.localEulerAngles = new Vector3(10, 180, 0);
-
-
-        if (active)
-        {
-            if (turning != null)
-            {
-                SetLayerQueue(prevTransform, 7);
-                StopCoroutine(turning);
-            }
-            SetLayerQueue(hero.transform, 17);
-
-            turning = SemiAnim();
-            StartCoroutine(turning);
-        }
+        SetCam(active, hero.transform);
     }
-
     IEnumerator SemiAnim()
     {
         float angle = 25f * Time.deltaTime;
@@ -99,10 +80,10 @@ public class WindowInfo : tempMenuWindow
     {
         Queue<Transform> queue = new Queue<Transform>();
         queue.Enqueue(trParent.GetChild(0));
-
+        Transform current;
         while (queue.Count > 0)
         {
-            Transform current = queue.Dequeue();
+            current = queue.Dequeue();
             current.gameObject.layer = layerNum;
 
             for (int i = 0; i < current.childCount; i++)
@@ -112,5 +93,47 @@ public class WindowInfo : tempMenuWindow
         }
 
 
+    }
+    public void VilligeWindowOpen(SummonHeroNameTag nameTag)
+    {
+        SaveData.HeroData hero = nameTag.heroData;
+        wStatus.AlloStatus(hero.unitData.objectData.cur_status);
+
+        TypeNum type = hero.unitData.objectData.cur_status.type;
+        profileImg.sprite = profileSprites[(int)type];
+        profileImg.rectTransform.anchoredPosition = profileVec[(int)type];
+        profileImg.rectTransform.sizeDelta = profileSizeDelta[(int)type];
+
+
+        nameChange.GetName(nameTag);
+        level.GetLevel(nameTag.heroData.lv);
+        quirk.SetQuirk(hero.quirks);
+        disease.SetQuirk(hero.disease);
+        action.ChangeAction((ActionAlert.ActionType)hero.villigeAction,
+                            (AddressableManager.BuildingImage)hero.workBuilding);
+        skill.ActivateSkillPreview(hero);
+        item.ActiveItemPreview(hero);
+    }
+    public void SetCam(bool active, Transform heroTransform)
+    {
+        characterCam.gameObject.SetActive(active);
+        Transform prevTransform = characterCam.transform.parent;
+        characterCam.transform.SetParent(heroTransform, false);
+        characterCam.transform.localPosition = new Vector3(0, 1, 2);
+        characterCam.transform.localEulerAngles = new Vector3(10, 180, 0);
+
+
+        if (active)
+        {
+            if (turning != null)
+            {
+                SetLayerQueue(prevTransform, 7);
+                StopCoroutine(turning);
+            }
+            SetLayerQueue(heroTransform, 17);
+
+            turning = SemiAnim();
+            StartCoroutine(turning);
+        }
     }
 }

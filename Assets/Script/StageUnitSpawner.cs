@@ -24,7 +24,7 @@ public class StageUnitSpawner : UnitSpawner
     }
     void SpawnMonsterData(MonsterData data)
     {
-        Monster newOjb = Instantiate(monsters[data.unitData.objectData.id % 100],
+        Monster newOjb = Instantiate(monsters[data.unitData.objectData.cur_status.ID % 100],
                                                data.unitData.objectData.position,
                                                data.unitData.objectData.quaternion,
                                                monNavi.transform);

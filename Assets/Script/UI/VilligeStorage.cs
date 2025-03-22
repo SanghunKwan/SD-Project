@@ -7,7 +7,7 @@ using UnityEngine;
 public class VilligeStorage : MonoBehaviour, IStorageVisible
 {
     VilligeStroageNode[] nodes;
-    StorageComponent storageComponent;
+    public StorageComponent storageComponent { get; private set; }
     [SerializeField] InventoryStorage storeInventory;
 
     public Action<int>[] OnItemCountChanged { get; set; }
@@ -42,6 +42,21 @@ public class VilligeStorage : MonoBehaviour, IStorageVisible
         {
             storeInventory.ItemCountChange(i, storageComponent.ItemCounts[i]);
         }
+    }
+    #endregion
+    #region NodeHighLight
+    public void NotEnoughNodeHighLight(MaterialsData.NeedMaterials needMaterials)
+    {
+        NotEnoughNodeHighLight(needMaterials.grayNum, storageComponent.ItemCounts[1], 0);
+        NotEnoughNodeHighLight(needMaterials.blackNum, storageComponent.ItemCounts[2], 1);
+        NotEnoughNodeHighLight(needMaterials.whiteNum, storageComponent.ItemCounts[3], 2);
+        NotEnoughNodeHighLight(needMaterials.timberNum, storageComponent.ItemCounts[4], 3);
+        NotEnoughNodeHighLight(needMaterials.money, storageComponent.ItemCounts[12], 4);
+    }
+    void NotEnoughNodeHighLight(int needItem, int itemCount, int nodeIndex)
+    {
+        if (needItem > itemCount)
+            nodes[nodeIndex].PlayHighLight();
     }
     #endregion
 }

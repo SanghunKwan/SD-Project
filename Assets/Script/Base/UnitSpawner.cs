@@ -40,7 +40,7 @@ public abstract class UnitSpawner : MonoBehaviour
     protected abstract void DefaultStart();
     void SpawnObjectData(ObjectData data)
     {
-        CObject newOjb = Instantiate(cobjects[(data.id - 1) % 100], data.position, data.quaternion, objectTransform);
+        CObject newOjb = Instantiate(cobjects[(data.cur_status.ID - 1) % 100], data.position, data.quaternion, objectTransform);
         NewSpawnedObjectSet(newOjb, data);
         newOjb.gameObject.SetActive(true);
     }
@@ -81,10 +81,10 @@ public abstract class UnitSpawner : MonoBehaviour
         else
             newObject.alloBuilding((ActionAlert.ActionType)data.villigeAction);
     }
-    
+
     public Hero SpawnHeroData(HeroData data, int heroIndex)
     {
-        Hero newHero = Instantiate(heroes[(data.unitData.objectData.id - 1) % 100],
+        Hero newHero = Instantiate(heroes[(data.unitData.objectData.cur_status.ID - 1) % 100],
                                            data.unitData.objectData.position, data.unitData.objectData.quaternion,
                                            PlayerNavi.nav.transform);
         NewSpawnedObjectSet(newHero, data.unitData.objectData);

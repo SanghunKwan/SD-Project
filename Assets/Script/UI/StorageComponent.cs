@@ -21,7 +21,7 @@ public class StorageComponent : InitObject
         public SkillData.ItemSkillEffect itemSkillEffect;
     }
 
-    [SerializeField]protected int[] m_itemCounts;
+    [SerializeField] protected int[] m_itemCounts;
     public int[] ItemCounts { get { return m_itemCounts; } }
 
     public override void Init()
@@ -40,5 +40,13 @@ public class StorageComponent : InitObject
     public void SubtractListener(Action<int> callWhenCountChanged)
     {
         eventAlert -= callWhenCountChanged;
+    }
+    public void CalculateMaterials(MaterialsData.NeedMaterials needMaterial)
+    {
+        ItemCountChange(1, -needMaterial.grayNum);
+        ItemCountChange(2, -needMaterial.blackNum);
+        ItemCountChange(3, -needMaterial.whiteNum);
+        ItemCountChange(4, -needMaterial.timberNum);
+        ItemCountChange(12, -needMaterial.money);
     }
 }

@@ -198,7 +198,6 @@
             "y": 10.0,
             "z": -9.380000114440918
         },
-        "isEnterHeros": true,
         "enableUpgrades":[
             1,
             1,
@@ -207,6 +206,7 @@
             1,
             1,
             1
-        ]
+        ],
+        "canSummonHeroCount":2
     }
 }

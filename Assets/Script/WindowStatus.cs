@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unit;
 using TMPro;
+using Unit;
 
 public class WindowStatus
 {
     public CObject targetObject { get; private set; }
-
-
-
 
     TextMeshProUGUI[] textMeshProUGUIs = new TextMeshProUGUI[11];
 
@@ -35,16 +32,20 @@ public class WindowStatus
 
     public void AlloStatus()
     {
-        textMeshProUGUIs[0].text = targetObject.stat.HP.ToString();
-        textMeshProUGUIs[1].text = targetObject.stat.ATK.ToString();
-        textMeshProUGUIs[2].text = targetObject.stat.Accuracy.ToString();
-        textMeshProUGUIs[3].text = targetObject.stat.Range.ToString();
-        textMeshProUGUIs[4].text = targetObject.stat.AtkSpeed.ToString();
-        textMeshProUGUIs[5].text = targetObject.stat.Stress.ToString();
-        textMeshProUGUIs[6].text = targetObject.stat.DEF.ToString();
-        textMeshProUGUIs[7].text = targetObject.stat.DOG.ToString();
-        textMeshProUGUIs[8].text = targetObject.stat.SPEED.ToString();
-        textMeshProUGUIs[9].text = targetObject.stat.ViewAngle.ToString();
-        textMeshProUGUIs[10].text = targetObject.stat.ViewRange.ToString();
+        AlloStatus(targetObject.curstat);
+    }
+    public void AlloStatus(unit_status stat)
+    {
+        textMeshProUGUIs[0].text = stat.HP.ToString();
+        textMeshProUGUIs[1].text = stat.ATK.ToString();
+        textMeshProUGUIs[2].text = stat.Accuracy.ToString();
+        textMeshProUGUIs[3].text = stat.Range.ToString();
+        textMeshProUGUIs[4].text = stat.AtkSpeed.ToString();
+        textMeshProUGUIs[5].text = stat.Stress.ToString();
+        textMeshProUGUIs[6].text = stat.DEF.ToString();
+        textMeshProUGUIs[7].text = stat.DOG.ToString();
+        textMeshProUGUIs[8].text = stat.SPEED.ToString();
+        textMeshProUGUIs[9].text = stat.ViewAngle.ToString();
+        textMeshProUGUIs[10].text = stat.ViewRange.ToString();
     }
 }

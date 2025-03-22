@@ -31,6 +31,13 @@ public class QuirkChange : MonoBehaviour
             quirkRemems[i].QuirkRemember(quirks[i].index);
         }
     }
+    public void SetQuirk(in SaveData.QuirkDefaultData quirks)
+    {
+        for (int i = 0; i < quirkRemems.Length; i++)
+        {
+            quirkRemems[i].QuirkRemember(quirks.quirks[i]);
+        }
+    }
 
 
 }

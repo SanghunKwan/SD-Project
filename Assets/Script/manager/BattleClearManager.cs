@@ -273,6 +273,10 @@ public class BattleClearManager : MonoBehaviour
             saveData.questSaveData[item.type].nowQuestList.Add(new QuestSaveData.BitSaveData.QuestProgress(item));
         }
     }
+    public void OverrideSummonHeroList()
+    {
+        loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
+    }
     public void ComebacktoVillige()
     {
         if (stageHeroDeleting == null)

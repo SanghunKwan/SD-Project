@@ -13,14 +13,23 @@ public class UpgradeSlot : InitObject
     [HideInInspector] public SlotType type;
     [HideInInspector] public ItemPreview itemPreview;
     [HideInInspector] public SkillPreview skillPreview;
+    [HideInInspector] public AddressableManager.EquipsImage equipImage;
+    [HideInInspector] public AddressableManager.PreviewImage previewImage;
 
 
     bool isInitialized;
     [SerializeField] Button[] slotViewers;
     int siblingIndex;
 
+    HeroUpgradeWindow upgradeWindow;
+    SetBuildingMat materialBox;
+    StorageComponent storageComponent;
     public override void Init()
     {
+        upgradeWindow = transform.parent.parent.GetComponent<HeroUpgradeWindow>();
+        materialBox = upgradeWindow.SetBuildingMat;
+        storageComponent = upgradeWindow.StorageComponent;
+
         if (type == SlotType.Item)
             itemPreview.upgradeViewerUpdate[transform.GetSiblingIndex()] += UpgradeViewerUpdate;
         else
@@ -40,7 +49,7 @@ public class UpgradeSlot : InitObject
             tempLevel = Mathf.Clamp(i - itemLevel, -1, 1) + 1;
 
             if (tempLevel == 1)
-                tempLevel += System.Convert.ToInt32(itemLevel == 
+                tempLevel += System.Convert.ToInt32(itemLevel ==
                     GameManager.manager.battleClearManager.SaveDataInfo.playInfo.enableUpgrades[(int)type * 3 + siblingIndex]);
 
             imageType = (AddressableManager.VilligeWindowImage)tempLevel;
@@ -52,6 +61,11 @@ public class UpgradeSlot : InitObject
     }
     public void OnUpgradeButtonClick(int buttonSiblingIndex)
     {
+
+        CalculateMaterial(buttonSiblingIndex, out bool isBuildable);
+        if (!isBuildable)
+            return;
+
         Unit.Hero hero;
         int newLv = buttonSiblingIndex + 1;
 
@@ -68,6 +82,25 @@ public class UpgradeSlot : InitObject
             hero.SkillsNum[transform.GetSiblingIndex()] = newLv;
             skillPreview.upgradeViewerUpdate[siblingIndex].Invoke(newLv);
         }
+    }
+    void CalculateMaterial(int buttonSiblingIndex, out bool isBuildable)
+    {
+        int materialIndex;
+        SetBuildingMat.MaterialsType materialType = (SetBuildingMat.MaterialsType)type + 1;
+
+        if (type == SlotType.Item)
+            materialIndex = (int)equipImage + (buttonSiblingIndex * 3) + 1;
+        else
+            materialIndex = (int)previewImage + (buttonSiblingIndex * 4) + 1;
+
+        MaterialsData.NeedMaterials materialData = materialBox.GetData(materialIndex, materialType);
+
+        if (!materialBox.isBuildable)
+            materialBox.HighLightNotEnoughMaterials(materialIndex, materialType);
+        else
+            storageComponent.CalculateMaterials(materialData);
+
+        isBuildable = materialBox.isBuildable;
     }
     private void OnValidate()
     {

@@ -85,5 +85,55 @@
             "timberNum": 1,
             "desc": "영웅들이 사용하는 거주지입니다."
         }
+    ],
+    "NeedsInUpgrade": [
+        {
+            "index": 0,
+            "name": "Fail"
+        },
+        {
+            "index": 1,
+            "desc": "기본 머리 방어구입니다."
+        },
+        {
+            "index": 2,
+            "desc": "기본 몸통 방어구입니다."
+        },
+        {
+            "index": 3,
+            "desc": "기본 무기입니다."
+        },
+        {
+            "index": 4,
+            "money": 100,
+            "needTime": 1,
+            "grayNum": 3,
+            "blackNum": 1,
+            "whiteNum": 0,
+            "timberNum": 2,
+            "desc": "1차 머리 방어구 강화입니다."
+        },
+        {
+            "index": 5,
+            "money": 150,
+            "needTime": 1,
+            "grayNum": 5,
+            "blackNum": 1,
+            "whiteNum": 0,
+            "timberNum": 3,
+            "desc": "1차 몸통 방어구 강화입니다."
+        },
+        {
+            "index": 6,
+            "money": 200,
+            "needTime": 1,
+            "grayNum": 3,
+            "blackNum": 2,
+            "whiteNum": 0,
+            "timberNum": 2,
+            "desc": "1차 무기 강화입니다."
+        }
+
+        
     ]
 }

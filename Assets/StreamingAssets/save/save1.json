@@ -108,7 +108,6 @@
                         "curHP": 16,
                         "curMORALE": 0
                     },
-                    "id": 301,
                     "dots": [
                         0,
                         0,
@@ -121,19 +120,19 @@
     ],
     "building": [],
     "items": [
-         0,
-                        0,
-                        0,
-                        0,
-                         0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
     ],
     "stageData": {
         "heros": [
@@ -149,33 +148,43 @@
             "itemDatas": [
                 {
                     "itemIndex": 4,
-                    "itemCount": 2,
+                    "itemCount": 20,
                     "slotIndex": 0
                 },
                 {
                     "itemIndex": 6,
-                    "itemCount": 1,
+                    "itemCount": 10,
                     "slotIndex": 1
                 },
                 {
                     "itemIndex": 1,
-                    "itemCount": 3,
+                    "itemCount": 30,
                     "slotIndex": 2
                 },
                 {
                     "itemIndex": 9,
-                    "itemCount": 1,
+                    "itemCount": 10,
                     "slotIndex": 3
                 },
                 {
                     "itemIndex": 10,
-                    "itemCount": 1,
+                    "itemCount": 10,
                     "slotIndex": 4
                 },
                 {
                     "itemIndex": 8,
-                    "itemCount": 1,
+                    "itemCount": 10,
                     "slotIndex": 5
+                },
+                {
+                    "itemIndex": 12,
+                    "itemCount": 300000,
+                    "slotIndex": 6
+                },
+                {
+                    "itemIndex": 2,
+                    "itemCount": 3,
+                    "slotIndex": 7
                 }
             ],
             "corpseIndex": []
@@ -218,8 +227,7 @@
             "y": 10.0,
             "z": -9.380000114440918
         },
-        "isEnterHeros": true,
-        "enableUpgrades":[
+        "enableUpgrades": [
             2,
             1,
             1,
@@ -227,6 +235,221 @@
             1,
             1,
             1
-        ]
+        ],
+        "canSummonHero": [
+            {
+                "name": "베이커",
+                "lv": 1,
+                "quirks": {
+                    "quirks": [
+                        7,
+                        6,
+                        0,
+                        0,
+                        0
+                    ],
+                    "length": 2,
+                    "willChange": false,
+                    "willChangeIndex": 0
+                },
+                "disease": {
+                    "quirks": [
+                        2,
+                        0,
+                        0,
+                        0
+                    ],
+                    "length": 1
+                },
+                "keycode": "=",
+                "equipNum": [
+                    1,
+                    1,
+                    1
+                ],
+                "fieldEquipNum": [
+                    0,
+                    0,
+                    0
+                ],
+                "skillNum": [
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "villigeAction": 0,
+                "workBuilding": 0,
+                "unitData": {
+                    "detected": false,
+                    "attackMove": false,
+                    "ishold": false,
+                    "destination": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "depart": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "objectData": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 2.0
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 1.0,
+                            "z": 0.0,
+                            "w": -4.371138828673793e-8
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 301,
+                            "NAME": "playerMelee",
+                            "SPECIES": 1,
+                            "HP": 27,
+                            "ATK": 7,
+                            "DEF": 0,
+                            "DOG": 10,
+                            "MORALE": 0,
+                            "SPEED": 5,
+                            "ViewAngle": 90,
+                            "ViewRange": 6,
+                            "type": 0,
+                            "Accuracy": 85,
+                            "AtkSpeed": 1.5,
+                            "Range": 1,
+                            "Mentality": 30,
+                            "Stress": 5,
+                            "curHP": 0,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "플러머",
+                "lv": 1,
+                "quirks": {
+                    "quirks": [
+                        7,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "length": 1,
+                    "willChange": false,
+                    "willChangeIndex": 0
+                },
+                "disease": {
+                    "quirks": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "length": 0
+                },
+                "keycode": "=",
+                "equipNum": [
+                    1,
+                    1,
+                    1
+                ],
+                "fieldEquipNum": [
+                    0,
+                    0,
+                    0
+                ],
+                "skillNum": [
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "villigeAction": 0,
+                "workBuilding": 0,
+                "unitData": {
+                    "detected": false,
+                    "attackMove": false,
+                    "ishold": false,
+                    "destination": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "depart": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "objectData": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 2.0
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 1.0,
+                            "z": 0.0,
+                            "w": -4.371138828673793e-8
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 301,
+                            "NAME": "playerMelee",
+                            "SPECIES": 1,
+                            "HP": 27,
+                            "ATK": 7,
+                            "DEF": 0,
+                            "DOG": 10,
+                            "MORALE": 0,
+                            "SPEED": 5,
+                            "ViewAngle": 90,
+                            "ViewRange": 6,
+                            "type": 0,
+                            "Accuracy": 85,
+                            "AtkSpeed": 1.5,
+                            "Range": 1,
+                            "Mentality": 30,
+                            "Stress": 5,
+                            "curHP": 0,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                }
+            }
+        ],
+        "canSummonHeroCount": 2
     }
 }

@@ -14,9 +14,11 @@ public class InfoBox : MonoBehaviour
     [SerializeField] ExplainData explainData;
 
     Dictionary<Type, Action<Hero, Enum>> actions = new Dictionary<Type, Action<Hero, Enum>>();
+    Dictionary<Type, Action<SaveData.HeroData, Enum>> actionsHeroData = new();
     Dictionary<Type, Action<Hero, Enum, int>> buttonActions = new();
     StringBuilder builder;
 
+    SetBuildingMat materialPriceBox;
 
     enum TextBoxType
     {
@@ -26,13 +28,23 @@ public class InfoBox : MonoBehaviour
 
     private void Awake()
     {
-        images = GetComponentsInChildren<Image>(true);
-        textMeshProUGUIs = GetComponentsInChildren<TextMeshProUGUI>(true);
-        Debug.Log(textMeshProUGUIs.Length + "자식 개수");
+        images = new Image[2];
+        textMeshProUGUIs = new TextMeshProUGUI[2];
+        for (int i = 0; i < 2; i++)
+        {
+            images[i] = transform.GetChild(i).GetComponent<Image>();
+            textMeshProUGUIs[i] = images[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        }
+        materialPriceBox = images[0].transform.Find("PricenfoBox").GetComponent<SetBuildingMat>();
 
         actions.Add(typeof(AddressableManager.PreviewImage), (qwer, uiop) =>
         { PreviewImage(qwer, (AddressableManager.PreviewImage)uiop); });
         actions.Add(typeof(AddressableManager.EquipsImage), (qwer, uiop) =>
+        { EquipsImage(qwer, (AddressableManager.EquipsImage)uiop); });
+
+        actionsHeroData.Add(typeof(AddressableManager.PreviewImage), (qwer, uiop) =>
+        { PreviewImage(qwer, (AddressableManager.PreviewImage)uiop); });
+        actionsHeroData.Add(typeof(AddressableManager.EquipsImage), (qwer, uiop) =>
         { EquipsImage(qwer, (AddressableManager.EquipsImage)uiop); });
 
         buttonActions.Add(typeof(AddressableManager.PreviewImage), (hero, enumValue, heroSkillArrayNum) =>
@@ -74,6 +86,12 @@ public class InfoBox : MonoBehaviour
     {
         PreviewImage(hero.Getnum, skillImage, hero.SkillsNum[(int)skillImage], TextBoxType.Left);
         PreviewImage(hero.Getnum, skillImage, skillNum, TextBoxType.DefaultRight);
+        materialPriceBox.transform.GetChild(0).gameObject.SetActive(true);
+        materialPriceBox.GetData((int)skillImage + ((skillNum - 1) * 4) + 1, SetBuildingMat.MaterialsType.SkillUpgradeNeed);
+    }
+    void PreviewImage(SaveData.HeroData hero, AddressableManager.PreviewImage skillImage)
+    {
+        PreviewImage(hero.unitData.objectData.cur_status.type, skillImage, hero.skillNum[(int)skillImage]);
     }
 
 
@@ -112,6 +130,12 @@ public class InfoBox : MonoBehaviour
     {
         EquipsImage(hero.Getnum, equipsImage, hero.EquipsNum[(int)equipsImage], TextBoxType.Left);
         EquipsImage(hero.Getnum, equipsImage, equipNum, TextBoxType.DefaultRight);
+        materialPriceBox.transform.GetChild(0).gameObject.SetActive(true);
+        materialPriceBox.GetData((int)equipsImage + ((equipNum - 1) * 3) + 1, SetBuildingMat.MaterialsType.UpgradeNeed);
+    }
+    void EquipsImage(SaveData.HeroData hero, AddressableManager.EquipsImage equipsImage)
+    {
+        EquipsImage(hero.unitData.objectData.cur_status.type, equipsImage, hero.skillNum[(int)equipsImage]);
     }
 
 
@@ -150,8 +174,18 @@ public class InfoBox : MonoBehaviour
         actions[typeof(T)](hero, equipsImage);
         //   textMeshProUGUI.text = TypetoHex((ExplainData.TypeName)(Convert.ToInt32(equipsImage) + 5));
     }
+    public void SetTextMessage<T>(SaveData.HeroData hero, T equipsImage) where T : struct, Enum
+    {
+        actionsHeroData[typeof(T)](hero, equipsImage);
+        //   textMeshProUGUI.text = TypetoHex((ExplainData.TypeName)(Convert.ToInt32(equipsImage) + 5));
+    }
     public void SetTextMessage<T>(Hero hero, T equipsImage, int heroNumArrayValue) where T : struct, Enum
     {
         buttonActions[typeof(T)](hero, equipsImage, heroNumArrayValue);
+    }
+    public void CompareBoxTurnOff()
+    {
+        transform.GetChild(1).gameObject.SetActive(false);
+        materialPriceBox.transform.GetChild(0).gameObject.SetActive(false);
     }
 }

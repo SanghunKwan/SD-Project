@@ -21,12 +21,12 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
 
     WindowInfo infoWindow;
 
-    [SerializeField] HandImage onHand;
-    Image copyHand;
+    HandImage onHand;
     Vector2 offset;
     CharacterList characterList;
 
-    TextMeshProUGUI textPro;
+    TextMeshProUGUI lvText;
+    TextMeshProUGUI nameText;
 
     BuildingComponent workingBuilding;
 
@@ -36,6 +36,11 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
 
     public NowTeamUI teamUIData { get; private set; } = new NowTeamUI();
     Image jobImage;
+    Image weaponImage;
+
+    Image copyHand;
+    GameObject childComponent;
+
 
     #region temp
     public void HeroIniit(int index)
@@ -43,15 +48,23 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         hero = Instantiate(Heros[index], Vector3.zero, Quaternion.identity, PlayerNavi.nav.transform);
         hero.MakeQuirk();
     }
+    public void Init(HandImage handImage)
+    {
+        onHand = handImage;
+    }
     #endregion
     protected override void VirtualAwake()
     {
-        textPro = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        childComponent = transform.GetChild(0).gameObject;
+
+        lvText = childComponent.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        nameText = childComponent.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         infoWindow = transform.parent.parent.parent.parent.parent.parent.Find("CharacterInfo").gameObject.GetComponent<WindowInfo>();
         characterList = transform.parent.parent.parent.parent.parent.GetComponent<CharacterList>();
 
         anim = GetComponent<Animator>();
-        jobImage = transform.Find("Image").GetComponent<Image>();
+        weaponImage = childComponent.transform.Find("weapon").GetComponent<Image>();
+        jobImage = weaponImage.transform.GetChild(0).GetComponent<Image>();
 
     }
     public void MatchHero(Hero getHero)
@@ -70,22 +83,33 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     }
     public void CheckText()
     {
-        textPro.text = HeroInfoText();
+        lvText.text = hero.lv.ToString();
+        nameText.text = hero.name;
+
         if (workingBuilding != null && workingBuilding == characterList.buildingSetWindow.buildingComponent)
             characterList.buildingSetWindow.BuildSetCharactersCheck(workIndex, this);
     }
-    public string HeroInfoText()
+    public void SetNameTag(SaveData.HeroData heroData)
     {
-        return HeroInfoText(hero.keycode, hero.lv, hero.name);
+        lvText.text = heroData.lv.ToString();
+        nameText.text = heroData.name;
+
+        AddressableManager.manager.DelayUntilLoadingComplete(() =>
+        {
+            AddressableManager.manager.GetData(WeaponLabelName(heroData), AddressableManager.EquipsImage.Weapon, out Sprite weaponSprite);
+            weaponImage.sprite = weaponSprite;
+        });
+
     }
-    public void SetText(SaveData.HeroData heroData)
+    string WeaponLabelName(SaveData.HeroData heroData)
     {
-        textPro.text = HeroInfoText(heroData.keycode, heroData.lv, heroData.name);
+        TypeNum getType = heroData.unitData.objectData.cur_status.type;
+        AddressableManager.ItemQuality quality = (AddressableManager.ItemQuality)heroData.equipNum[0];
+
+        return getType.ToString() + quality.ToString();
     }
-    string HeroInfoText(in string keycode, int lvText, in string nameText)
-    {
-        return "<mark=#00000055><size=60>" + keycode + " </size></mark> " + lvText + " " + nameText;
-    }
+
+
     protected override void Start()
     {
         base.Start();
@@ -136,22 +160,22 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     }
     public void DragEvent(PointerEventData eventData)
     {
-        copyHand = CreateHandImage();
+        copyHand = GetHandImage();
         image.color = Color.clear;
-        transform.GetChild(0).gameObject.SetActive(false);
+        childComponent.gameObject.SetActive(false);
         //글자 복사 추가.
         NoMove();
         isDrag = true;
         now_villigeInteract = this;
     }
-    Image CreateHandImage()
+    Image GetHandImage()
     {
-        HandImage temphand = Instantiate(onHand, characterList.transform.parent);
-        temphand.SetText(HeroInfoText());
+        onHand.SetText(hero);
+        onHand.gameObject.SetActive(true);
 
         characterList.buildingSetWindow.isDrag = true;
         characterList.buildingSetWindow.vill_Interact = this;
-        return temphand.image;
+        return onHand.image;
     }
     public override void OnDrag(PointerEventData eventData)
     {
@@ -185,11 +209,11 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         if (eventData.button == PointerEventData.InputButton.Left)
             return;
 
-        Destroy(copyHand.gameObject);
+        onHand.gameObject.SetActive(false);
         characterList.buildingSetWindow.SetisDragFalse();
         characterList.buildingSetWindow.vill_Interact = null;
         image.color = Color.white;
-        transform.GetChild(0).gameObject.SetActive(true);
+        childComponent.SetActive(true);
 
         characterList.EndDrag(this);
         isDrag = false;
@@ -253,8 +277,10 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     }
     public void DragInvisible(bool onoff)
     {
-        textPro.enabled = onoff;
+        lvText.enabled = onoff;
+        nameText.enabled = onoff;
         image.enabled = onoff;
+        weaponImage.enabled = onoff;
 
         jobImage.color = Color.white * Convert.ToInt32(onoff);
     }

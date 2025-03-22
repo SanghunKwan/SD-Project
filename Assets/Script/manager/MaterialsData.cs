@@ -22,6 +22,15 @@ public class MaterialsData : JsonLoad
     public class NeedList
     {
         public NeedMaterials[] Needs;
+        public NeedMaterials[] NeedsInUpgrade;
+        public NeedMaterials[] NeedsInSkillUpgrade;
+
+        public NeedMaterials[][] needsArray;
+
+        public void Init()
+        {
+            needsArray = new NeedMaterials[][] { Needs, NeedsInUpgrade, NeedsInSkillUpgrade };
+        }
     }
 
     public NeedList data { get; private set; }
@@ -29,6 +38,7 @@ public class MaterialsData : JsonLoad
     private void Start()
     {
         data = LoadData<NeedList>("Materials_Data");
+        data.Init();
     }
 
     [ContextMenu("json¸¸µé±â")]

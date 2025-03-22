@@ -22,7 +22,7 @@ public class HandTeam : MonoBehaviour
         {
             handImages[i] = Instantiate(handImage, transform);
             SetPosition(i);
-            handImages[i].SetText(viewport.characters[i].HeroInfoText());
+            handImages[i].SetText(viewport.characters[i].hero);
         }
         SetTeamCode(viewport.characters[0].hero.keycode);
     }
