@@ -59,15 +59,18 @@ public abstract class UnitSpawner : MonoBehaviour
     protected void NewSpawnedUnitSet(CUnit newObject, UnitData data)
     {
         newObject.SetDetected(data.detected);
-        newObject.unitMove.Navi_Destination(data.destination);
-        newObject.unitMove.attackMove = data.attackMove;
+        newObject.unitMove.destination = data.destination;
+        if (data.attackMove)
+            newObject.unitMove.AttackPosition(data.destination);
+        else
+            newObject.unitMove.Navi_Destination(data.destination);
+
         newObject.unitMove.ChangeHold(data.ishold);
         newObject.unitMove.LoadDepart(data.depart);
-
     }
     void NewSpawnedHeroSet(Hero newObject, HeroData data)
     {
-        newObject.TeamChange(data.keycode);
+        newObject.LoadTeamString(data.keycode);
         newObject.SetLevel(data.lv);
         newObject.SetQuirk(data.quirks.quirks);
         newObject.SetDisease(data.disease.quirks);

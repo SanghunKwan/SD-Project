@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using SaveData;
 using Unit;
-using UnityEditor;
 
 namespace SaveData
 {
@@ -359,7 +358,7 @@ namespace SaveData
             detected = false;
             attackMove = false;
             ishold = false;
-            destination = Vector3.zero;
+            destination = Vector3.left * 7.8f;
             depart = Vector3.zero;
             objectData = new ObjectData(stat);
         }
@@ -406,7 +405,7 @@ namespace SaveData
         }
         public ObjectData(unit_status stat)
         {
-            position = 2 * Vector3.forward;
+            position = new Vector3(-7.8f, 0, 0);
             quaternion = Quaternion.Euler(0, 180, 0);
             selected = false;
             isDead = false;
@@ -547,9 +546,8 @@ namespace SaveData
     {
         public Vector3 camPosition;
         public int[] enableUpgrades;
-        public HeroData[] canSummonHero;
         public int canSummonHeroCount;
-
+        public SummonHeroData[] canSummonHero;
 
         public PlayInfo()
         {
@@ -557,6 +555,21 @@ namespace SaveData
             enableUpgrades = new int[] { 1, 1, 1, 1, 1, 1, 1 };
             canSummonHero = null;
             canSummonHeroCount = 2;
+        }
+        public void SaveData()
+        {
+            camPosition.Set(Camera.main.transform.position.x, 10, Camera.main.transform.position.z);
+        }
+    }
+    [Serializable]
+    public class SummonHeroData
+    {
+        public HeroData heroData;
+        public bool isSummoned;
+        public SummonHeroData(HeroData getData)
+        {
+            heroData = getData;
+            isSummoned = false;
         }
     }
     [Serializable]

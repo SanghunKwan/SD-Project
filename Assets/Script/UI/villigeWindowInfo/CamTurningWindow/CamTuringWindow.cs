@@ -17,7 +17,7 @@ public abstract class CamTuringWindow : tempMenuWindow, InitInterface
     [SerializeField] ClickDrag UIClickDragToggle;
 
     [Space(20)]
-    [SerializeField] CharacterList characterList;
+    [SerializeField] protected CharacterList characterList;
     public void ToggleWindow()
     {
         clickCamturningComponent.ToggleWindow();

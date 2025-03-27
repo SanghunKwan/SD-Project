@@ -224,31 +224,29 @@ public class CharacterList : MonoBehaviour
             GetViewPortByIndex(i).ImagePaddingMove(distance);
         }
     }
-    public void SetTeamMove(villigeInteract moveObject, Transform trParent)
+    public void EndDrag()
     {
-        string tempStr = trViewPort[trParent.gameObject].characters[0].hero.keycode;
-
-
+        defObject.SetActive(false);
+        ReArrage();
     }
     public void EndDrag(villigeInteract moveObjectTransform)
     {
         moveObjectTransform.transform.position = defObject.transform.position;
-        defObject.SetActive(false);
-
 
         string tempStr = moveObjectTransform.hero.keycode;
+        string newString;
         GameObject parentObject = moveObjectTransform.transform.parent.gameObject;
 
         if (defSaveTr.parent == viewPortTransform)
         {
             trViewPort[parentObject].characters.RemoveAt(moveObjectTransform.transform.GetSiblingIndex() - 1);
-            string newString = PlayerNavi.nav.GetEmptyTeamString();
+            newString = PlayerNavi.nav.GetEmptyTeamString();
 
             Image image = BackBoard(out villigeViewPort trParent, newString);
             image.transform.position = defObject.transform.position + new Vector3(100, 10);
             image.transform.SetSiblingIndex(defSaveInt);
 
-            PlayerNavi.nav.PlayerCharacter[tempStr].Remove(moveObjectTransform.hero.unitMove as Character);
+            
             //null값 반환 시 옮김 실패 추가
             moveObjectTransform.ChangeTeamKey(newString);
 
@@ -262,12 +260,12 @@ public class CharacterList : MonoBehaviour
             int add = -Convert.ToInt32(parentObject.transform == moveObjectTransform.transform.parent
                                     && defSaveInt > moveObjectTransform.transform.GetSiblingIndex() - 1);
 
+            newString = trViewPort[defSaveTr.parent.gameObject].characters[0].hero.keycode;
             VilligeInteractMove(moveObjectTransform, trViewPort[defSaveTr.parent.gameObject], defSaveInt + add);
         }
-
+        PlayerNavi.nav.PlayerCharacter[tempStr].Remove(moveObjectTransform.hero.unitMove as Character);
         CheckCount(tempStr);
-
-        ReArrage();
+        EndDrag();
     }
     void VilligeInteractMove(villigeInteract moveObject, villigeViewPort targetViewPort, int index)
     {

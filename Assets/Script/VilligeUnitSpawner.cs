@@ -18,7 +18,6 @@ public class VilligeUnitSpawner : UnitSpawner
     {
         spawnVilligeManager = SpawnManager as SpawnVilligeManager;
         buildingPool = objectTransform.GetComponent<BuildingPool>();
-        Unit.Hero tempHero;
 
         int length = spawnVilligeManager.buildingDatas.Length;
 
@@ -34,8 +33,7 @@ public class VilligeUnitSpawner : UnitSpawner
 
         foreach (var villigeHeros in spawnVilligeManager.heroBeforeDatas)
         {
-            tempHero = SpawnHeroData(villigeHeros.Item1, villigeHeros.Item2);
-            characterList.MatchingHeroWithInteract(villigeHeros.Item2, tempHero);
+            SpawnFromHeroData(villigeHeros.Item1, villigeHeros.Item2);
         }
         characterList.ReArrage();
     }
@@ -67,5 +65,19 @@ public class VilligeUnitSpawner : UnitSpawner
 
         AddressableManager.manager.DelayUntilLoadingComplete(() =>
         newBuilding.saveVilligeInteract[buildingWorkPlaceIndex].LoadWorkPlace(newBuilding, buildingWorkPlaceIndex));
+    }
+    void SpawnFromHeroData(HeroData heroData, int heroIndex)
+    {
+        Unit.Hero tempHero;
+        tempHero = SpawnHeroData(heroData, heroIndex);
+        characterList.MatchingHeroWithInteract(heroIndex, tempHero);
+    }
+    public villigeInteract SummonHeroFromHeroData(HeroData heroData)
+    {
+        //spawnfromherodata 에서 index도 확인 필요.
+        characterList.SpawnVilligeInteract(heroData.keycode, heroData);
+        villigeInteract newNametag = characterList.trViewPort[characterList.keyToTeamsNum[heroData.keycode]].characters[^1];
+        SpawnFromHeroData(heroData, newNametag.transform.GetSiblingIndex() - 1);
+        return newNametag;
     }
 }

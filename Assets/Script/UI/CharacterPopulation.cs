@@ -7,8 +7,10 @@ using UnityEngine;
 public class CharacterPopulation : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI text;
+    Animator anim;
     int heroNum;
     int heroMaxPopulation;
+    int hashKey = Animator.StringToHash("HighLight");
     StringBuilder stringBuilder;
     [SerializeField] int[] populationChange;
 
@@ -16,12 +18,12 @@ public class CharacterPopulation : MonoBehaviour
     private void Start()
     {
         stringBuilder = new StringBuilder();
+        anim = text.GetComponent<Animator>();
 
         if (GameManager.manager.battleClearManager != null)
             LateStart();
         else
             GameManager.manager.onBattleClearManagerRegistered += LateStart;
-
     }
     void LateStart()
     {
@@ -63,5 +65,16 @@ public class CharacterPopulation : MonoBehaviour
     {
         heroMaxPopulation += addNum;
         ResetText();
+    }
+    public bool CanAddHero(int populationNum)
+    {
+        bool canAdd = heroNum + populationNum <= heroMaxPopulation;
+
+        if (!canAdd)
+            anim.SetTrigger(hashKey);
+
+        return canAdd;
+
+
     }
 }

@@ -70,7 +70,6 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public void MatchHero(Hero getHero)
     {
         hero = getHero;
-        hero.TeamChange(hero.keycode);
         CheckText();
     }
 
@@ -183,7 +182,6 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         if (eventData.button == PointerEventData.InputButton.Left
             || eventData.pointerCurrentRaycast.gameObject is null)
             return;
-
 
         copyHand.rectTransform.position = eventData.position - offset;
         //두 backboard 사이에 닿으면 새로 teamboard 생성.

@@ -44,7 +44,7 @@ public class BattleClearManager : MonoBehaviour
     List<CObject> spawnedObject;
     List<BuildingConstructDelay> spawnedBuilding;
 
-    List<int> stageHeroDeleting;
+    Queue<int> stageHeroDeleting;
 
     public HashSet<QuestTrigger> doingQuestTrigger { get; private set; }
     public HashSet<QuestPool.QuestActionInstance> doingQuestActionInstance { get; private set; }
@@ -221,13 +221,6 @@ public class BattleClearManager : MonoBehaviour
         stageData.objectDatas = null;
         stageData.dropItemDatas = null;
     }
-    public void OverrideSaveDataInSettle()
-    {
-        OverrideSaveDataVilligeHero();
-        OverrideSaveDataFileBuilding();
-        OverrideInProgressQuest();
-        loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
-    }
     void OverrideSaveDataVilligeHero()
     {
         //CharacterList 위에서 아래로 순회하며 저장.
@@ -280,12 +273,23 @@ public class BattleClearManager : MonoBehaviour
     public void ComebacktoVillige()
     {
         if (stageHeroDeleting == null)
-            stageHeroDeleting = new List<int>(saveData.stageData.heros);
+            stageHeroDeleting = new Queue<int>(saveData.stageData.heros);
 
-        stageHeroDeleting.RemoveAt(0);
+        stageHeroDeleting.Dequeue();
         saveData.stageData.heros = stageHeroDeleting.ToArray();
     }
-
+    public void OverrideSaveDataInVillige()
+    {
+        OverrideSaveDataVilligeHero();
+        OverrideSaveDataFileBuilding();
+        OverrideInProgressQuest();
+        OverrideSaveDataPlayInfo();
+        loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
+    }
+    void OverrideSaveDataPlayInfo()
+    {
+        saveData.playInfo.SaveData();
+    }
     #endregion
     public void ActiveStageObject()
     {

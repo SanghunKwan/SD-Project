@@ -66,5 +66,4 @@ public class HandImage : MonoBehaviour
     {
         return heroData.unitData.objectData.cur_status.type.ToString() + ((AddressableManager.ItemQuality)heroData.equipNum[0]).ToString();
     }
-
 }

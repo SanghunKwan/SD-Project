@@ -6,16 +6,26 @@ using UnityEngine.UI;
 public class SummonHeroWindow : CamTuringWindow
 {
     Transform contentsTransform;
+    ScrollRect scrollRect;
+    SaveData.PlayInfo playInfo;
+    CharacterPopulation characterPopulation;
     [Header("SummonWindow 오브젝트")]
     [SerializeField] Transform heroExample;
     [Space]
     [SerializeField] SummonHeroNameTag summonHeroNameTag;
     [SerializeField] HandImage handImage;
+    [Space]
+    bool isDragtoSummon;
     [SerializeField] WindowInfo windowInfo;
+    [SerializeField] VilligeUnitSpawner villigeUnitSpawner;
 
     public override void Init()
     {
-        contentsTransform = transform.Find("NewHeroList").GetChild(0).GetChild(0).GetChild(0);
+        scrollRect = transform.Find("NewHeroList").GetChild(0).GetComponent<ScrollRect>();
+        characterPopulation = characterList.GetComponent<CharacterPopulation>();
+        contentsTransform = scrollRect.transform.GetChild(0).GetChild(0);
+
+        playInfo = GameManager.manager.battleClearManager.SaveDataInfo.playInfo;
         CheckCanSummonHeroData();
     }
     public void SetOpen(bool onoff)
@@ -28,7 +38,7 @@ public class SummonHeroWindow : CamTuringWindow
         for (int i = 0; i < maxHeroSummonCount; i++)
         {
             tempTag = Instantiate(summonHeroNameTag, contentsTransform);
-            tempTag.Init(handImage, windowInfo);
+            tempTag.Init(handImage, windowInfo, scrollRect);
             tagAction(i, tempTag);
         }
     }
@@ -38,11 +48,10 @@ public class SummonHeroWindow : CamTuringWindow
     }
     void CheckCanSummonHeroData()
     {
-        SaveData.PlayInfo info = GameManager.manager.battleClearManager.SaveDataInfo.playInfo;
-        if (info.canSummonHero == null)
+        if (playInfo.canSummonHero == null)
         {
-            info.canSummonHero = new SaveData.HeroData[info.canSummonHeroCount];
-            SetHeroList(info.canSummonHeroCount, (index, tag) =>
+            playInfo.canSummonHero = new SaveData.SummonHeroData[playInfo.canSummonHeroCount];
+            SetHeroList(playInfo.canSummonHeroCount, (index, tag) =>
             {
                 tag.SetNewHeroData(2);
                 tag.SaveNameTag(index);
@@ -50,9 +59,49 @@ public class SummonHeroWindow : CamTuringWindow
             GameManager.manager.battleClearManager.OverrideSummonHeroList();
         }
         else
-            SetHeroList(info.canSummonHero.Length, (index, tag) =>
+            SetHeroList(playInfo.canSummonHero.Length, (index, tag) =>
             {
-                tag.LoadHeroData(info.canSummonHero[index]);
+                tag.LoadHeroData(playInfo.canSummonHero[index]);
             });
+    }
+
+    public void DragToCharacterList(GameObject dragObject, float yPosition)
+    {
+        characterList.MoveBoard(dragObject, yPosition);
+        isDragtoSummon = true;
+    }
+    public void NoMove(GameObject dragObject)
+    {
+        characterList.NoMove(dragObject, false);
+        isDragtoSummon = false;
+    }
+    public void DragEnd(SummonHeroNameTag summonNameTag)
+    {
+        if (isDragtoSummon && characterPopulation.CanAddHero(1))
+        {
+            villigeInteract nameTag = villigeUnitSpawner.SummonHeroFromHeroData(summonNameTag.heroData);
+            characterList.EndDrag(nameTag);
+            SetTagInteractableFalse(summonNameTag);
+        }
+        else
+        {
+            characterList.EndDrag();
+            summonNameTag.SetView(true);
+        }
+    }
+    public void ClickSpawn(SummonHeroNameTag summonNameTag)
+    {
+        if (!characterPopulation.CanAddHero(1))
+            return;
+
+        villigeUnitSpawner.SummonHeroFromHeroData(summonNameTag.heroData);
+        SetTagInteractableFalse(summonNameTag);
+        summonNameTag.SetView(false);
+        characterList.ReArrage();
+    }
+    void SetTagInteractableFalse(SummonHeroNameTag summonNameTag)
+    {
+        summonNameTag.SetInteractableFalse();
+        playInfo.canSummonHero[summonNameTag.transform.GetSiblingIndex()].isSummoned = true;
     }
 }

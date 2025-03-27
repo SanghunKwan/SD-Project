@@ -133,7 +133,7 @@ public class BuildingSetWindow : CamTuringWindow
         if (data == null)
             buildset.ResetTeam();
         else
-            buildset.ChangeTeam(data.hero.curstat.NAME, data.hero.keycode);
+            buildset.ChangeTeam(data.hero.name, data.hero.keycode);
     }
     void CheckBuildingActive()
     {
@@ -159,7 +159,7 @@ public class BuildingSetWindow : CamTuringWindow
 
     public void SetHeroInDic(GameObject key)
     {
-        buildSetDic[key].ChangeTeam(vill_Interact.hero.curstat.NAME, vill_Interact.hero.keycode);
+        buildSetDic[key].ChangeTeam(vill_Interact.hero.name, vill_Interact.hero.keycode);
         vill_Interact.NoMove();
 
     }
@@ -169,7 +169,7 @@ public class BuildingSetWindow : CamTuringWindow
         if (buildingComponent.IsDataNull(key.transform.GetSiblingIndex(), out villigeInteract saveVillige))
             buildSetDic[key].ResetTeam();
         else
-            buildSetDic[key].ChangeTeam(saveVillige.hero.curstat.NAME, saveVillige.hero.keycode);
+            buildSetDic[key].ChangeTeam(saveVillige.hero.name, saveVillige.hero.keycode);
 
         CheckBuildingActive();
     }
@@ -217,6 +217,6 @@ public class BuildingSetWindow : CamTuringWindow
     }
     public void BuildSetCharactersCheck(int index, villigeInteract vill)
     {
-        buildSetCharacters[index].ChangeTeam(vill.hero.curstat.NAME, vill.hero.keycode);
+        buildSetCharacters[index].ChangeTeam(vill.hero.name, vill.hero.keycode);
     }
 }

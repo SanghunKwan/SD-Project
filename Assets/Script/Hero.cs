@@ -157,10 +157,6 @@ namespace Unit
         {
             MakeQuirk(quirks, QuirkData.manager.quirkInfo, Random.Range(1, 8));
         }
-        public void MakeDisease()
-        {
-            MakeQuirk(disease, QuirkData.manager.diseaseInfo, Random.Range(1, 2));
-        }
         void MakeQuirk(QuirkData.Quirk[] quirkArray, QuirkData.QuirkS info, int quirkIndex)
         {
             int i = 0;
@@ -213,6 +209,12 @@ namespace Unit
         {
             int jobNum = 2;
             curstat.RefreshStatus(stat, ((EquipsNum[equipNum] - 1) * (3 * jobNum)) + equipNum);
+        }
+        public void LoadTeamString(in string newTeam)
+        {
+            TeamChange(newTeam);
+            PlayerNavi.nav.SetTeam(unitMove, newTeam);
+            PlayerNavi.nav.HeroClear(this, "=");
         }
         #endregion
         public void alloBuilding(ActionAlert.ActionType type)
