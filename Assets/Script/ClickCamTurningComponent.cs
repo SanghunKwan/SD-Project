@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using Unit;
 using UnityEngine;
 
@@ -10,6 +9,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     protected CamTuringWindow camTurningWindow { get; private set; }
     protected bool isWindowOpen { get; set; }
     protected Camera camMain;
+    static Vector3 camTuringStartPosition;
     CapsuleCollider capsuleCollider;
     IEnumerator moveIenum;
 
@@ -24,7 +24,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     [Tooltip("Tower 등 Layer 추가 가리기")]
     [SerializeField] protected int[] cullingLayers;
     //Tower의 경우 바닥도 투명하게 함.
-    
+
 
     protected bool isUsable;
 
@@ -85,6 +85,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
 
         if (isWindowOpen)
         {
+            camTuringStartPosition = camMain.transform.position;
             StartInterpolation(RotateIenum(camAngle, camSize, fX, fZ));
             camMain.cullingMask -= 32;
             camMain.cullingMask -= 4096;
@@ -100,6 +101,8 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
                     camMain.cullingMask += 4096;
                     foreach (int layer in cullingLayers)
                         camMain.cullingMask += (int)Mathf.Pow(2, layer);
+
+                    GameManager.manager.PointMoveConversionToUI(camMain.transform.position - camTuringStartPosition);
                 };
         }
     }
@@ -193,9 +196,12 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     }
     void GetCamPosition(float angle, float size, float distance, in Vector3 addVector, in Vector3 centerPosition)
     {
-        CamTuringWindow.transformObject.transform.RotateAround(centerPosition, Vector3.right, angle);
+        Transform TransformObjectTransform = CamTuringWindow.transformObject.transform;
+
+        TransformObjectTransform.RotateAround(centerPosition, Vector3.right, angle);
 
         SetCamDistance(distance, addVector, centerPosition);
+        float sin = Mathf.Sin(Mathf.Deg2Rad * TransformObjectTransform.rotation.eulerAngles.x);
         camMain.orthographicSize += size;
     }
     void SetCamDistance(float distance, in Vector3 addVector, in Vector3 centerPosition)

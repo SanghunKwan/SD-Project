@@ -22,10 +22,10 @@ public class VilligeBuildingConstructing : MonoBehaviour
         rectTransform = transform as RectTransform;
     }
 
-    public void SetTargetBuilding(BuildingConstructDelay buildingTarget, int dayRemaining, float timeNormalized = 0)
+    public void SetTargetBuilding(BuildingConstructDelay buildingTarget, int dayRemaining, float timeNormalized)
     {
         building = buildingTarget;
-        SetQuota(Mathf.Floor(timeNormalized * (dayRemaining + 1)) + 1, timeNormalized);
+        SetQuota(GetMaxQuotation(dayRemaining, timeNormalized), timeNormalized);
         anim = building.anim;
         anim.Update(0);
         timeAccumulate = timeNormalized * anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
@@ -37,6 +37,11 @@ public class VilligeBuildingConstructing : MonoBehaviour
     {
         quotaToday.fillAmount = dayQuota;
         quotaCurrent.fillAmount = currentQuota;
+    }
+    float GetMaxQuotation(int dayRemaining, float timeNormalized)
+    {
+        //Mathf.Floor(timeNormalized * (dayRemaining + 1))
+        return Mathf.Floor(1 + timeNormalized * (dayRemaining + 1)) / (dayRemaining + 1);
     }
     private void Update()
     {

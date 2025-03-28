@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     public ActionEvent onVilligeBuildingHeroAllocation { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeBuildingHeroCancellation { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeBuildingWindowOpen { get; private set; } = new ActionEvent();
-    public ActionEvent onVilligeHeroInteractDrag{ get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeHeroInteractDrag { get; private set; } = new ActionEvent();
     #endregion
     public PointerEventData pointerEventData { get; set; }
 
@@ -452,6 +452,14 @@ public class GameManager : MonoBehaviour
     {
         screenMove(move);
     }
+    public void PointMoveConversionToUI(Vector3 move)
+    {
+        Vector3 conversionVector3 = new Vector3(
+                       move.x * Screen.height / (Camera.main.orthographicSize * 2),
+                       move.z * Screen.height / (Camera.main.orthographicSize * 2) * Mathf.Sin(Mathf.Deg2Rad * 40));
+
+        screenMove(conversionVector3);
+    }
     #endregion
     #region heap
     struct UnitDistance
@@ -704,10 +712,7 @@ public class GameManager : MonoBehaviour
         Vector3 beforePosition = Camera.main.transform.position;
         Camera.main.transform.position = ray.GetPoint((10 - vec.y) / Mathf.Cos(50 * Mathf.Deg2Rad));
 
-        float uiWidth = (Camera.main.transform.position.x - beforePosition.x) * Screen.height / (Camera.main.orthographicSize * 2);
-        float uiHeight = (Camera.main.transform.position.z - beforePosition.z) * Screen.height / (Camera.main.orthographicSize * 2) * Mathf.Sin(Mathf.Deg2Rad * 40); ;
-
-        PointMove(new Vector3(uiWidth, uiHeight, 0));
+        PointMoveConversionToUI(Camera.main.transform.position - beforePosition);
     }
 
     void VilligeBuildingScroll()
