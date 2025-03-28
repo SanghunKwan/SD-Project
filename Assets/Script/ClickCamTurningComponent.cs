@@ -91,6 +91,8 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
             camMain.cullingMask -= 4096;
             foreach (int layer in cullingLayers)
                 camMain.cullingMask -= (int)Mathf.Pow(2, layer);
+
+            GameManager.manager.questManager.isBuildingUnderControl = true;
         }
         else
         {
@@ -103,6 +105,9 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
                         camMain.cullingMask += (int)Mathf.Pow(2, layer);
 
                     GameManager.manager.PointMoveConversionToUI(camMain.transform.position - camTuringStartPosition);
+                    GameManager.manager.questManager.isBuildingUnderControl = false;
+                    GameManager.manager.questManager.onBuildingControlFinish?.Invoke();
+                    GameManager.manager.questManager.onBuildingControlFinish = null;
                 };
         }
     }

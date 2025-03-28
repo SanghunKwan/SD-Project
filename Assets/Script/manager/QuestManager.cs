@@ -242,6 +242,8 @@ public class QuestManager : JsonLoad
 
     QuestDatas questDatas;
     public QuestPool questPool { get; set; }
+    public bool isBuildingUnderControl { get; set; }
+    public Action onBuildingControlFinish { get; set; }
 
     private void Awake()
     {

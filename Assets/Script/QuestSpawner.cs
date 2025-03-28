@@ -6,12 +6,15 @@ using UnityEngine;
 
 public class QuestSpawner : MonoBehaviour
 {
+    delegate void HighLightActions(Vector3 highLightPosition, Vector3 callPosition, float highLightSize, ref Action action);
+
+    HighLightActions[] highLightActions2;
+
     QuestManager questManager;
     QuestSaveData questSaveData;
     GameManager.ActionEvent[] actionEvent;
 
     Action<QuestManager.QuestData.QuestAct, QuestManager.QuestType, int>[] prepareQuestActions;
-    Action<Vector3, Vector3, float>[] highLightActions;
     Action<QuestManager.QuestData, Action, int>[] createQuestRequirementsActions;
     Action<QuestManager.QuestData.QuestReward>[] EventClearActions;
 
@@ -43,12 +46,11 @@ public class QuestSpawner : MonoBehaviour
         prepareQuestActions[(int)QuestManager.QuestTrigger.Location] = PrepareQuestbyLocation;
         prepareQuestActions[(int)QuestManager.QuestTrigger.UnitSpecificAct] = PrepareQuestbySpecificAction;
 
-        highLightActions = new Action<Vector3, Vector3, float>[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.Max];
-        highLightActions[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.Vector]
-            = (highLightPosition, vec, size) => HighLightVector(highLightPosition, size);
-        highLightActions[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.Object] = HighLightObject;
-        highLightActions[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.NoFocus] = HighLightNoFocus;
-        highLightActions[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.FocusUI] = HighLightUI;
+        highLightActions2 = new HighLightActions[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.Max];
+        highLightActions2[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.Vector] = HighLightVector;
+        highLightActions2[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.Object] = HighLightObject;
+        highLightActions2[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.NoFocus] = HighLightNoFocus;
+        highLightActions2[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.FocusUI] = HighLightUI;
 
         createQuestRequirementsActions
             = new Action<QuestManager.QuestData, Action, int>[(int)QuestManager.QuestData.QuestRequirements.RequirementsType.Max];
@@ -156,7 +158,7 @@ public class QuestSpawner : MonoBehaviour
         slot.SetQuestText(data.name, data.detail);
 
         //퀘스트 관련 backGround
-        QuestHighLight(data.highLight, callPosition, slot);
+        QuestHighLight2(data.highLight, callPosition, slot);
 
         //퀘스트 현재 상태 변경
         SetBitSave(type, questNum, QuestSaveData.SaveDataBit.Doing);
@@ -278,46 +280,126 @@ public class QuestSpawner : MonoBehaviour
 
     #endregion
     #endregion
-    #region 하이라이트 actions
-    void QuestHighLight(QuestManager.QuestData.QuestHighLight highlight, in Vector3 callPosition, QuestUISlot slot)
+    #region 하이라이트 actions 사용 안 함.
+    //void QuestHighLight(QuestManager.QuestData.QuestHighLight highlight, in Vector3 callPosition, QuestUISlot slot)
+    //{
+    //    float nowScale = Time.timeScale;
+    //    slot.hideAction = () =>
+    //    {
+    //        if (highlight.highLight != QuestManager.QuestData.QuestHighLight.HighLightTarget.None)
+    //        {
+    //            questBackGround.SetOff();
+    //            Time.timeScale = nowScale;
+    //        }
+    //    };
+    //    Action action = () =>
+    //    {
+    //        if (highlight.timeStop)
+    //        {
+    //            Time.timeScale = 0;
+    //            slot.TimeStopHighLight();
+    //        }
+    //    };
+    //    //마을에서 건물 관련 효과 진행중일 때 지연.
+    //    if (highlight.timeStop)
+    //    {
+    //        Time.timeScale = 0;
+    //        slot.TimeStopHighLight();
+    //    }
+    //    //UI 관련 효과가 아닐 경우 action에 더해줌.
+    //    highLightActions[(int)highlight.highLight]?.Invoke(highlight.highLightPosition, callPosition, highlight.size);
+    //}
+    //void HighLightVector(in Vector3 highLightPosition, float highLightSize)
+    //{
+    //    questBackGround.SetHighLight(highLightPosition, highLightSize);
+    //}
+    //void HighLightObject(Vector3 highLightPosition, Vector3 callPosition, float highLightSize)
+    //{
+    //    //카메라 object 주변으로 이동.
+    //    GameManager.manager.ScreenToPoint(callPosition);
+    //    questBackGround.SetHighLight(callPosition + highLightPosition, highLightSize);
+    //}
+    //void HighLightNoFocus(Vector3 highLightPosition, Vector3 callPosition, float highLightSize)
+    //{
+    //    questBackGround.SetHighLight(callPosition, highLightSize);
+    //    questBackGround.SetActiveHole(false);
+    //}
+    //void HighLightUI(Vector3 highLightPosition, Vector3 callPosition, float highLightSize)
+    //{
+    //    questBackGround.SetHighLightUI(highLightPosition, highLightSize);
+    //}
+    #endregion
+    #region HighLightActions2
+    void QuestHighLight2(QuestManager.QuestData.QuestHighLight highlight, in Vector3 callPosition, QuestUISlot slot)
     {
         float nowScale = Time.timeScale;
+
+        Action action = () =>
+        {
+            if (highlight.timeStop)
+            {
+                Time.timeScale = 0;
+                slot.TimeStopHighLight();
+            }
+        };
+        //마을에서 건물 관련 효과 진행중일 때 지연.
+        //UI 관련 효과가 아닐 경우 action에 더해줌.
+        highLightActions2[(int)highlight.highLight]?.Invoke(highlight.highLightPosition, callPosition, highlight.size, ref action);
+
         slot.hideAction = () =>
         {
             if (highlight.highLight != QuestManager.QuestData.QuestHighLight.HighLightTarget.None)
             {
                 questBackGround.SetOff();
                 Time.timeScale = nowScale;
+
+                GameManager.manager.onBattleClearManagerRegistered -= action;
             }
         };
-
-        if (highlight.timeStop)
-        {
-            Time.timeScale = 0;
-            slot.TimeStopHighLight();
-        }
-        highLightActions[(int)highlight.highLight]?.Invoke(highlight.highLightPosition, callPosition, highlight.size);
     }
-    void HighLightVector(in Vector3 highLightPosition, float highLightSize)
+    void HighLightVector(Vector3 highLightPosition, Vector3 callPosition, float highLightSize, ref Action action)
     {
+        action += () =>
         questBackGround.SetHighLight(highLightPosition, highLightSize);
+
+        DelayHighLight(action);
     }
-    void HighLightObject(Vector3 highLightPosition, Vector3 callPosition, float highLightSize)
+    void HighLightObject(Vector3 highLightPosition, Vector3 callPosition, float highLightSize, ref Action action)
     {
         //카메라 object 주변으로 이동.
-        GameManager.manager.ScreenToPoint(callPosition);
-        questBackGround.SetHighLight(callPosition + highLightPosition, highLightSize);
+        action += () =>
+        {
+            GameManager.manager.ScreenToPoint(callPosition);
+            questBackGround.SetHighLight(callPosition + highLightPosition, highLightSize);
+        };
+
+        DelayHighLight(action);
     }
-    void HighLightNoFocus(Vector3 highLightPosition, Vector3 callPosition, float highLightSize)
+    void HighLightNoFocus(Vector3 highLightPosition, Vector3 callPosition, float highLightSize, ref Action action)
     {
-        questBackGround.SetHighLight(callPosition, highLightSize);
-        questBackGround.SetActiveHole(false);
+        action += () =>
+        {
+            questBackGround.SetHighLight(callPosition, highLightSize);
+            questBackGround.SetActiveHole(false);
+        };
+        DelayHighLight(action);
     }
-    void HighLightUI(Vector3 highLightPosition, Vector3 callPosition, float highLightSize)
+    void HighLightUI(Vector3 highLightPosition, Vector3 callPosition, float highLightSize, ref Action action)
     {
+        action();
         questBackGround.SetHighLightUI(highLightPosition, highLightSize);
     }
+    void DelayHighLight(Action action)
+    {
+        //바로 작동할 수 있을 때
+        if (!questManager.isBuildingUnderControl)
+            action();
+        else
+            questManager.onBuildingControlFinish += action;
+
+    }
     #endregion
+
 
     #region 외부 이벤트 요청
     public void PrepareQuest(QuestManager.QuestType type, int questNum)
