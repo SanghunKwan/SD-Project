@@ -89,6 +89,7 @@ public class QuestPool : MonoBehaviour
         public int progress { get; private set; }
         public int questIndex { get; private set; }
         public QuestManager.QuestType type { get; private set; }
+        int conditionComparison;
         int layerNum;
         int maxCount;
         Action completeAction;
@@ -107,6 +108,7 @@ public class QuestPool : MonoBehaviour
             completeAction = nowCompleteAction;
             type = data.questType;
             questIndex = data.num;
+            conditionComparison = (int)require.conditionComparison;
 
             savedEvent = eventAction[(int)require.actionType];
             savedEvent.eventAction += CompleteCheck;
@@ -145,7 +147,7 @@ public class QuestPool : MonoBehaviour
 
         public void CompleteCheck(int objectLayerNum, Vector3 vec)
         {
-            if (layerNum != objectLayerNum)
+            if (!CompareSymbols(objectLayerNum))
                 return;
 
             actionCalled?.Invoke();
@@ -154,6 +156,14 @@ public class QuestPool : MonoBehaviour
             {
                 CompleteQuest();
             }
+        }
+        bool CompareSymbols(int objectLayerNum)
+        {
+            Debug.Log("layerNum : " + layerNum + "   objectNum : " + objectLayerNum);
+            return (conditionComparison & 0x4) == 0x4 && layerNum > objectLayerNum ||
+                (conditionComparison & 0x2) == 0x2 && layerNum < objectLayerNum ||
+                (conditionComparison & 0x1) == 0x1 && layerNum == objectLayerNum;
+
         }
         void CompleteQuest()
         {

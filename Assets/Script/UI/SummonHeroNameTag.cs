@@ -105,6 +105,9 @@ public class SummonHeroNameTag : HandImage, IPointerClickHandler, IDragHandler, 
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (eventData.dragging)
+            return;
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             //ÁÂÅ¬¸¯½Ã ¿µ¿õ µ¥ÀÌÅÍÃ¢ ¿ÀÇÂ.

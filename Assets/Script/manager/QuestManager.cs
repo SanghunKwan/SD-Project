@@ -55,6 +55,7 @@ public class QuestManager : JsonLoad
 
             public QuestAct.UnitActType actionType;
             public QuestAct.ActCondition actCondition;
+            public QuestAct.ConditionComparison conditionComparison;
             public int accumulatedTime;
             public int stageOffsetIndex;
 
@@ -67,6 +68,7 @@ public class QuestManager : JsonLoad
                 spot = Vector3.zero;
                 radius = 1;
                 actCondition = QuestAct.ActCondition.Accumulated;
+                conditionComparison = QuestAct.ConditionComparison.Equal;
                 accumulatedTime = 0;
             }
         }
@@ -103,6 +105,7 @@ public class QuestManager : JsonLoad
                 VilligeBuildingHeroCancellation,
                 VilligeBuildingWindowOpen,
                 VilligeHeroInteractDrag,
+                VilligeHeroSummon,
                 Max
             }
             public enum ActCondition
@@ -112,12 +115,19 @@ public class QuestManager : JsonLoad
                 HasSuperQuest,
                 Max
             }
+            public enum ConditionComparison
+            {
+                Equal = 1,
+                MoreThan = 2,
+                LessThan = 4
+            }
 
             public Vector3 spot;
             public float radius;
             public int layer;
             public int id;
             public UnitActType whatCause;
+            public ConditionComparison conditionComparison;
 
 
             public QuestAct()
@@ -127,6 +137,7 @@ public class QuestManager : JsonLoad
                 layer = 7;
                 id = 0;
                 whatCause = UnitActType.LowHP;
+                conditionComparison = ConditionComparison.Equal;
             }
         }
         [Serializable]
@@ -200,6 +211,7 @@ public class QuestManager : JsonLoad
 
         }
     }
+
     [Serializable]
     public class QuestDatas
     {

@@ -104,6 +104,7 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingHeroCancellation] = GameManager.manager.onVilligeBuildingHeroCancellation;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingWindowOpen] = GameManager.manager.onVilligeBuildingWindowOpen;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeHeroInteractDrag] = GameManager.manager.onVilligeHeroInteractDrag;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeHeroSummon] = GameManager.manager.onVilligeHeroSummon;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {

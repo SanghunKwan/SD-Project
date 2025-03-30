@@ -158,8 +158,8 @@ namespace SaveData
         {
             name = "디스마스";
             lv = 1;
-            quirks = new QuirkSaveData();
-            disease = new QuirkDefaultData(new int[4], 0);
+            quirks = new QuirkSaveData(5);
+            disease = new QuirkDefaultData(4);
             keycode = "=";
             equipNum = new int[3] { 1, 1, 1 };
             fieldEquipNum = new int[3] { 0, 0, 0 };
@@ -168,14 +168,8 @@ namespace SaveData
             workBuilding = 0;
             unitData = new UnitData();
         }
-        public HeroData(Hero hero)
+        public HeroData(Hero hero) : this()
         {
-            quirks = new QuirkSaveData(5);
-            disease = new QuirkDefaultData(4);
-            equipNum = new int[3];
-            fieldEquipNum = new int[3];
-            skillNum = new int[4];
-            unitData = new UnitData();
             InitData(hero);
         }
         public HeroData(in string getName, int getLevel, unit_status statData, QuirkSaveData quirkData, QuirkDefaultData diseaseData)
@@ -198,9 +192,7 @@ namespace SaveData
         }
         void InitData(Hero hero)
         {
-            unit_status stat = hero.curstat;
-
-            name = stat.NAME;
+            name = hero.name;
             lv = hero.lv;
             quirks.SetData(hero.quirks, 5);
             disease.SetData(hero.disease, 4);

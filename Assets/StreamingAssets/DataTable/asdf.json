@@ -38,6 +38,7 @@
                 "itemDatas": [],
                 "actionType": 0,
                 "actCondition": 0,
+                "conditionComparison": 1,
                 "accumulatedTime": 0,
                 "stageOffsetIndex": 0
             },
@@ -50,7 +51,8 @@
                 "radius": 1.0,
                 "layer": 7,
                 "id": 0,
-                "whatCause": 4
+                "whatCause": 4,
+                "conditionComparison": 1
             },
             "follow": {
                 "datas": [
@@ -102,6 +104,7 @@
                 "itemDatas": [],
                 "actionType": 0,
                 "actCondition": 0,
+                "conditionComparison": 1,
                 "accumulatedTime": 0,
                 "stageOffsetIndex": 0
             },
@@ -114,7 +117,8 @@
                 "radius": 1.0,
                 "layer": 7,
                 "id": 0,
-                "whatCause": 4
+                "whatCause": 4,
+                "conditionComparison": 1
             },
             "follow": {
                 "datas": [
@@ -166,6 +170,7 @@
                 "itemDatas": [],
                 "actionType": 0,
                 "actCondition": 0,
+                "conditionComparison": 1,
                 "accumulatedTime": 0,
                 "stageOffsetIndex": 0
             },
@@ -178,7 +183,8 @@
                 "radius": 1.0,
                 "layer": 7,
                 "id": 0,
-                "whatCause": 4
+                "whatCause": 4,
+                "conditionComparison": 1
             },
             "follow": {
                 "datas": [
@@ -230,6 +236,7 @@
                 "itemDatas": [],
                 "actionType": 0,
                 "actCondition": 0,
+                "conditionComparison": 1,
                 "accumulatedTime": 0,
                 "stageOffsetIndex": 0
             },
@@ -242,7 +249,8 @@
                 "radius": 1.0,
                 "layer": 7,
                 "id": 0,
-                "whatCause": 4
+                "whatCause": 4,
+                "conditionComparison": 1
             },
             "follow": {
                 "datas": [

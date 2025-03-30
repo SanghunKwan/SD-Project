@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     public ActionEvent onVilligeBuildingHeroCancellation { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeBuildingWindowOpen { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeHeroInteractDrag { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeHeroSummon { get; private set; } = new ActionEvent();
     #endregion
     public PointerEventData pointerEventData { get; set; }
 

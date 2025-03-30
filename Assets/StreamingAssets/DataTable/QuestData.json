@@ -121,7 +121,7 @@
       "num": 2,
       "questType": 0,
       "name": "부대호출하기",
-      "detail": "이전에 저장한 부대를 다시 불러오자",
+      "detail": "키보드 상단 숫자키를 눌러 이전에 저장한 부대를 다시 불러오자",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -944,7 +944,7 @@
           "z": 0.0
         },
         "radius": 0.0,
-        "id":0,
+        "id": 0,
         "layer": 2,
         "whatCause": 17
       },
@@ -1008,7 +1008,7 @@
       "follow": {
         "datas": [
           {
-              "type": 1,
+            "type": 1,
             "questNum": 5
           }
         ],
@@ -1060,6 +1060,123 @@
         },
         "radius": 50.0,
         "layer": 7,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 6
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 6,
+      "questType": 1,
+      "name": "영웅 소환하기",
+      "detail": "영지의 소환진 클릭해서 관리창 열기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 2,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": -0.5,
+          "z": 0.0
+        },
+        "size": 4.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 10,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 20,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 7
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 7,
+      "questType": 1,
+      "name": "영웅 소환하기",
+      "detail": "좌클릭으로 영웅의 상세정보 확인.\n우클릭으로 영웅 소환.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1050.0,
+          "y": 600.0,
+          "z": 0.0
+        },
+        "size": 4.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 1,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 22,
+        "actCondition": 0,
+        "conditionComparison": 5,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 50.0,
+        "id": 0,
+        "layer": 9,
         "whatCause": 0
       },
       "follow": {
