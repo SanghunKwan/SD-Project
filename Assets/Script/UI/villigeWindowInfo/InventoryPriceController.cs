@@ -7,11 +7,12 @@ public class InventoryPriceController : MonoBehaviour
 {
     InventoryShowPrice[] prices;
     InventoryStorage inventoryStorage;
-    [SerializeField] StorageComponent itemUIStorageComponent;
+    [SerializeField] VilligeStorage itemUIStorageComponent;
 
     private void Start()
     {
         inventoryStorage = GetComponent<InventoryStorage>();
+
         Transform priceParent = transform.GetChild(1);
         int length = priceParent.childCount;
         prices = new InventoryShowPrice[length];
@@ -35,23 +36,30 @@ public class InventoryPriceController : MonoBehaviour
         inventoryStorage.StorePaymentEvent = PayPrice;
 
     }
-    public void CheckSupplyCount(int slotIndex, int itemCount)
+    void CheckSupplyCount(int slotIndex, int itemCount)
     {
         SupplyShow(slotIndex, itemCount <= 0);
     }
-    public void SupplyShow(int slotIndex, bool onoff)
+    void SupplyShow(int slotIndex, bool onoff)
     {
         prices[slotIndex].SetShow(onoff);
     }
-    public void SetPrice(int slotIndex)
+    void SetPrice(int slotIndex)
     {
         prices[slotIndex].ChangePrice(InventoryManager.i.info.prices[inventoryStorage.slots[slotIndex].itemCode]);
     }
-    public void PayPrice(int itemCode, int firstCount, int lastCount)
+    public bool PayPrice(int itemCode, int firstCount, int lastCount)
     {
         int multiplyBase = Mathf.Min(firstCount, 0) - Mathf.Min(lastCount, 0);
         int payment = InventoryManager.i.info.prices[itemCode] * multiplyBase;
+        int curMoney = itemUIStorageComponent.storageComponent.ItemCounts[12];
 
-        itemUIStorageComponent.ItemCountChange(13, -payment);
+        if (curMoney < payment)
+        {
+            itemUIStorageComponent.NotEnoughNodeHighLight(payment, curMoney, 4);
+            return false;
+        }
+        itemUIStorageComponent.storageComponent.ItemCountChange(12, -payment);
+        return true;
     }
 }

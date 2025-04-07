@@ -21,8 +21,8 @@ public class BuildingComponent : ClickCamTurningComponent
     protected override void VirtualAwake()
     {
         buildingWindow = camTurningWindow as BuildingSetWindow;
-        isUsable = true;
-        constructionAction += (day) => isUsable = false;
+        ReadytoUse();
+        constructionAction += (day) => ReadytoUse();
     }
 
     protected override void SetWindowOpen()
@@ -45,7 +45,18 @@ public class BuildingComponent : ClickCamTurningComponent
         }
 
         saveVilligeInteract[index] = vil_interact;
+        //영웅 building 앞으로 이동 후 특정 애니메이션 재생.
+        //vil_interact.hero.unitMove.MoveOrAttack(MoveType.Move, transform.position);
+        QueueBuildingWork(vil_interact.hero.unitMove, index);
         GameManager.manager.onVilligeBuildingHeroAllocation.eventAction?.Invoke((int)type, transform.position);
+    }
+    async void QueueBuildingWork(UnitMove heroMove, int index)
+    {
+        heroMove.NowActorReserve(MoveType.Move, transform.position + Vector3.back * 5, OrderType.NowAct);
+
+        await System.Threading.Tasks.Task.Delay(100);
+        heroMove.QueueBuildingWork(type, index);
+        heroMove.NowActorReserve(MoveType.Move, transform.position + Vector3.back * 2, OrderType.InQueue);
     }
     public void ResetData(int index)
     {

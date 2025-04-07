@@ -26,7 +26,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     //Tower의 경우 바닥도 투명하게 함.
 
 
-    protected bool isUsable;
+    bool isUsable;
 
     Action delaySetCam = () => { };
     public Action tickCamMove { get; set; } = () => { };

@@ -94,7 +94,7 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.CallGroup] = GameManager.manager.onCallgroup;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.LowHPRelease] = GameManager.manager.onLowHPRelease;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.EnterStage] = GameManager.manager.onPlayerEnterStage;
-        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingScroll] = GameManager.manager.onVilligeBuildingScroll;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeButton] = GameManager.manager.onVilligeButton;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.EffectedOtherQuest] = GameManager.manager.onEffectedOtherEvent;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.TargettingNonDetected] = GameManager.manager.onTargettingNonDetected;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingChoosed] = GameManager.manager.onVilligeBuildingChoosed;
@@ -105,6 +105,11 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeBuildingWindowOpen] = GameManager.manager.onVilligeBuildingWindowOpen;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeHeroInteractDrag] = GameManager.manager.onVilligeHeroInteractDrag;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeHeroSummon] = GameManager.manager.onVilligeHeroSummon;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeSummonInteract] = GameManager.manager.onVilligeSummonInteract;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeTowerFloorSelect] = GameManager.manager.onVilligeTowerFloorSelect;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeExpeditionWindow] = GameManager.manager.onVilligeExpeditionWindow;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.ItemUseOnStore] = GameManager.manager.onItemUseOnStore;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.ItemUseOnExpedition] = GameManager.manager.onItemUseOnExpedition;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {

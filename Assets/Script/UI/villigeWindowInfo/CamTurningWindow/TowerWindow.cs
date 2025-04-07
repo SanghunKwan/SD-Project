@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -207,6 +206,7 @@ public class TowerWindow : CamTuringWindow
         Window1Active(false);
         Window2LoadingEffect();
         towerComponent.SetAssembleCollierActive(false);
+        GameManager.manager.onVilligeButton.eventAction?.Invoke((int)GameManager.ActionButtonNum.VilligeFloorSelectBtn, Vector3.zero);
         towerComponent.windowEnd += () =>
         {
             camMoveEndObject.SetActive(true);
@@ -258,5 +258,8 @@ public class TowerWindow : CamTuringWindow
         saveStageView.gameObject.SetActive(false);
         missionExplain.anim.SetTrigger(triggerId[2]);
     }
-
+    public void OnButtonExpedition()
+    {
+        GameManager.manager.onVilligeButton.eventAction?.Invoke((int)GameManager.ActionButtonNum.VilligeExpeditionBtn, Vector3.zero);
+    }
 }

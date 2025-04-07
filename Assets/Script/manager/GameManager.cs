@@ -46,6 +46,12 @@ public class GameManager : MonoBehaviour
     {
         public Action<int, Vector3> eventAction;
     }
+    public enum ActionButtonNum
+    {
+        VilligeBuildingScrollBtn = 1,
+        VilligeFloorSelectBtn,
+        VilligeExpeditionBtn,
+    }
     public ActionEvent onCry { get; private set; } = new ActionEvent();
     public ActionEvent onAttack { get; private set; } = new ActionEvent();
     public ActionEvent onBackAttack { get; private set; } = new ActionEvent();
@@ -58,7 +64,7 @@ public class GameManager : MonoBehaviour
     public ActionEvent onCallgroup { get; private set; } = new ActionEvent();
     public ActionEvent onLowHPRelease { get; private set; } = new ActionEvent();
     public ActionEvent onPlayerEnterStage { get; private set; } = new ActionEvent();
-    public ActionEvent onVilligeBuildingScroll { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeButton { get; private set; } = new ActionEvent();
     public ActionEvent onEffectedOtherEvent { get; private set; } = new ActionEvent();
     public ActionEvent onTargettingNonDetected { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeBuildingChoosed { get; private set; } = new ActionEvent();
@@ -69,6 +75,11 @@ public class GameManager : MonoBehaviour
     public ActionEvent onVilligeBuildingWindowOpen { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeHeroInteractDrag { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeHeroSummon { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeSummonInteract { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeTowerFloorSelect { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeExpeditionWindow { get; private set; } = new ActionEvent();
+    public ActionEvent onItemUseOnStore { get; private set; } = new ActionEvent();
+    public ActionEvent onItemUseOnExpedition { get; private set; } = new ActionEvent();
     #endregion
     public PointerEventData pointerEventData { get; set; }
 
@@ -804,7 +815,10 @@ public class GameManager : MonoBehaviour
 
             case 9:
                 {
-                    dicObjects.TryGetValue(unknownObject, out tempObject);
+                    while (!dicObjects.TryGetValue(unknownObject, out tempObject))
+                    {
+                        unknownObject = unknownObject.transform.parent.gameObject;
+                    }
                     break;
                 }
 

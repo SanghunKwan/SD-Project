@@ -34,6 +34,7 @@ public class CharacterList : MonoBehaviour
 
     public BuildingSetWindow buildingSetWindow { get; private set; }
     [SerializeField] HandImage handImage;
+    public bool NameTagInteractable { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -246,7 +247,7 @@ public class CharacterList : MonoBehaviour
             image.transform.position = defObject.transform.position + new Vector3(100, 10);
             image.transform.SetSiblingIndex(defSaveInt);
 
-            
+
             //null값 반환 시 옮김 실패 추가
             moveObjectTransform.ChangeTeamKey(newString);
 
@@ -410,6 +411,7 @@ public class CharacterList : MonoBehaviour
     }
     public void CollidersSetInteractive(bool onoff)
     {
+        NameTagInteractable = onoff;
         foreach (var item in trViewPort.Values)
         {
             item.TeamColliderSetInteractive(onoff);

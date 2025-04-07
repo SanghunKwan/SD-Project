@@ -21,8 +21,10 @@ public class TowerAssembleClick : MonoBehaviour
         if (isLastClick)
             return;
 
-        towerComponent.AssembleClick(transform.GetSiblingIndex());
+        int siblingIndex = transform.GetSiblingIndex();
+        towerComponent.AssembleClick(siblingIndex);
         isLastClick = true;
+        GameManager.manager.onVilligeTowerFloorSelect.eventAction?.Invoke(siblingIndex + 1, Vector3.zero);
     }
     private void OnMouseEnter()
     {
@@ -31,7 +33,7 @@ public class TowerAssembleClick : MonoBehaviour
     private void OnMouseExit()
     {
         skyTransparent.ChangeTransparent(SkyScraperTransparent.EnumMaterial.originalMaterials);
-        
+
     }
 
     public void SetColliderActive(bool onoff)

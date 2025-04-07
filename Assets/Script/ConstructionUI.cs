@@ -23,7 +23,7 @@ public class ConstructionUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     void ToggleScroll()
     {
         scroll.SetActive(!scroll.gameObject.activeSelf);
-        GameManager.manager.onVilligeBuildingScroll.eventAction?.Invoke(0, Vector3.zero);
+        GameManager.manager.onVilligeButton.eventAction?.Invoke((int)GameManager.ActionButtonNum.VilligeBuildingScrollBtn, Vector3.zero);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

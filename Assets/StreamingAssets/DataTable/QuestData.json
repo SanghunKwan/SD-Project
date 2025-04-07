@@ -753,7 +753,7 @@
       "trigger": 0,
       "require": {
         "type": 2,
-        "layer": 0,
+        "layer": 1,
         "spot": {
           "x": 0.0,
           "y": 0.0,
@@ -1162,7 +1162,7 @@
         },
         "radius": 0.0,
         "itemDatas": [],
-        "actionType": 22,
+        "actionType": 23,
         "actCondition": 0,
         "conditionComparison": 5,
         "accumulatedTime": 0,
@@ -1182,6 +1182,531 @@
       "follow": {
         "datas": [
           {
+            "type": 1,
+            "questNum": 8
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 8,
+      "questType": 1,
+      "name": "원정준비",
+      "detail": "탑 클릭하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 2,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": -0.5,
+          "z": 0.0
+        },
+        "size": 8.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 9,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 20,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 9
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 9,
+      "questType": 1,
+      "name": "원정준비",
+      "detail": "탑 층 클릭하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 960.0,
+          "y": 240.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 1,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 24,
+        "actCondition": 1,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 10
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 10,
+      "questType": 1,
+      "name": "원정준비",
+      "detail": "탑 층 선택하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 960.0,
+          "y": 120.0,
+          "z": 0.0
+        },
+        "size": 4.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 2,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 12,
+        "actCondition": 1,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 11
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 11,
+      "questType": 1,
+      "name": "원정준비",
+      "detail": "원정대 구성하기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1770.0,
+          "y": 600.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 1,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 21,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 12
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 12,
+      "questType": 1,
+      "name": "원정준비",
+      "detail": "영웅 배치하기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 780.0,
+          "y": 580.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 9,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 18,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 13
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 13,
+      "questType": 1,
+      "name": "원정준비",
+      "detail": "두 번 더 배치하세요.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 0,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 0.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 9,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 18,
+        "actCondition": 0,
+        "accumulatedTime": 2,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 14
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 14,
+      "questType": 1,
+      "name": "원정준비",
+      "detail": "우측으로 드래그하거나 검은 점을 클릭해서 상점 탭으로 이동하세요.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1500.0,
+          "y": 720.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 1,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 25,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 15
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 15,
+      "questType": 1,
+      "name": "원정준비",
+      "detail": "우클릭하거나 드래그해서 원정에 가져갈 인벤토리에 추가하세요.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 960.0,
+          "y": 700.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 1,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 26,
+        "actCondition": 0,
+        "conditionComparison": 3,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 16
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 16,
+      "questType": 1,
+      "name": "원정",
+      "detail": "원정 버튼을 누르세요.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 980.0,
+          "y": 120.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 3,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 12,
+        "actCondition": 1,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 12
           }
         ],
         "needCallNextQuest": false

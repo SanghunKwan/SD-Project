@@ -6,8 +6,6 @@ using Unit;
 
 //길찾기, 기본 스탠딩 애니메이션 등
 
-
-
 public class Character : UnitMove
 {
     enum LineAddType
@@ -49,10 +47,12 @@ public class Character : UnitMove
         }
     }
     List<ObjVec> objVecs = new List<ObjVec>();
+    Stack<Vector3> needUpdateRendererPosition;
     protected override void Awake()
     {
         base.Awake();
         unit_State.SelectSet(0);
+        needUpdateRendererPosition = new Stack<Vector3>();
     }
     private void OnEnable()
     {
@@ -147,6 +147,11 @@ public class Character : UnitMove
         lineRenderer_miniMap.Points[lineRenderer_miniMap.Points.Length - 2]
             = lineRenderer.Points[lineRenderer.Points.Length - 2]
             = NewPoint(vec);
+        if (GameManager.manager.questManager.isBuildingUnderControl)
+        {
+            GameManager.manager.questManager.onBuildingControlFinish += DelayNewVectorWhileWindowOpen;
+            needUpdateRendererPosition.Push(vec);
+        }
         lineRenderer.SetAllDirty();
         lineRenderer_miniMap.SetAllDirty();
     }
@@ -158,6 +163,18 @@ public class Character : UnitMove
         vector2.y = vector3.y;
 
         return vector2;
+    }
+    void DelayNewVectorWhileWindowOpen()
+    {
+        int length = Mathf.Min(lineRenderer.Points.Length - 1, needUpdateRendererPosition.Count);
+
+        for (int i = 0; i < length; i++)
+        {
+            lineRenderer.Points[i] = lineRenderer_miniMap.Points[i] = NewPoint(needUpdateRendererPosition.Pop());
+        }
+        needUpdateRendererPosition.Clear();
+        lineRenderer.SetAllDirty();
+        lineRenderer_miniMap.SetAllDirty();
     }
     public void ScreenMove(Vector3 vector3)
     {
@@ -193,21 +210,9 @@ public class Character : UnitMove
     }
     void AddQueueLine(Vector3 vec)
     {
-
-
         AddQueueLine(LineAddType.Shift);
 
         StartCoroutine(AddQueueLineDelay(vec));
-
-    }
-    IEnumerator AddQueueLineDelay(Vector3 vec)
-    {
-        yield return new WaitWhile(() => isDeQueue2);
-
-        lineRenderer.Points[0] = NewPoint(vec);
-        lineRenderer_miniMap.Points[0] = NewPoint(vec);
-        lineRenderer.SetAllDirty();
-        lineRenderer_miniMap.SetAllDirty();
     }
     void AddQueueLine(LineAddType type)
     {
@@ -223,7 +228,7 @@ public class Character : UnitMove
 
         Vector2[] arVec = new Vector2[2 + orderQueue.Count + (int)orderCount];
 
-        arVec[arVec.Length - 2] = NewPoint(transform.position);
+        //arVec[arVec.Length - 2] = NewPoint(transform.position);
 
         for (int i = 0; i <= lineRenderer.Points.Length - 2; i++)
         {
@@ -247,6 +252,17 @@ public class Character : UnitMove
             objVecs[i].IndexAdd();
         }
     }
+    IEnumerator AddQueueLineDelay(Vector3 vec)
+    {
+        yield return new WaitWhile(() => isDeQueue2);
+
+        lineRenderer.Points[0] = lineRenderer_miniMap.Points[0] = NewPoint(vec);
+        if (GameManager.manager.questManager.isBuildingUnderControl)
+            needUpdateRendererPosition.Push(vec);
+        lineRenderer.SetAllDirty();
+        lineRenderer_miniMap.SetAllDirty();
+    }
+
 
     protected override void DequeueOrder()
     {
@@ -303,6 +319,7 @@ public class Character : UnitMove
     protected override void LineClear()
     {
         StartCoroutine(LineClearDelay());
+        needUpdateRendererPosition.Clear();
     }
     IEnumerator LineClearDelay()
     {

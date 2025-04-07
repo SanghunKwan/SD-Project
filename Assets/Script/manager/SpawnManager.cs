@@ -13,7 +13,8 @@ public class SpawnManager : MonoBehaviour
 
     public int[] competeIndexs { get; protected set; }
     public int nowFloorIndex { get; private set; }
-    public bool isEnter { get; private set; }
+    public virtual bool isEnter { get; protected set; }
+
 
     private void Start()
     {
@@ -22,8 +23,6 @@ public class SpawnManager : MonoBehaviour
     void DelayStart()
     {
         SaveDataInfo saveDataInfo = GameManager.manager.battleClearManager.SaveDataInfo;
-
-        isEnter = saveDataInfo.stageData.isEnter;
 
         monsterDatas = saveDataInfo.stageData.monsterData;
         objectDatas = saveDataInfo.stageData.objectDatas;
@@ -48,6 +47,11 @@ public class SpawnManager : MonoBehaviour
     }
     protected virtual void VirtualStart()
     {
-
+        isEnter = GameManager.manager.battleClearManager.SaveDataInfo.stageData.isEnter;
+    }
+    public virtual void SetEnter(bool newIsEnter)
+    {
+        isEnter = newIsEnter;
+        GameManager.manager.battleClearManager.SaveDataInfo.stageData.isEnter = isEnter;
     }
 }

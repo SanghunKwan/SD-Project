@@ -53,7 +53,7 @@ public class VilligeStorage : MonoBehaviour, IStorageVisible
         NotEnoughNodeHighLight(needMaterials.timberNum, storageComponent.ItemCounts[4], 3);
         NotEnoughNodeHighLight(needMaterials.money, storageComponent.ItemCounts[12], 4);
     }
-    void NotEnoughNodeHighLight(int needItem, int itemCount, int nodeIndex)
+    public void NotEnoughNodeHighLight(int needItem, int itemCount, int nodeIndex)
     {
         if (needItem > itemCount)
             nodes[nodeIndex].PlayHighLight();

@@ -41,6 +41,7 @@ public class SummonHeroNameTag : HandImage, IPointerClickHandler, IDragHandler, 
         heroData = new SaveData.HeroData(name, 1, Unit.Data.Instance.statusList[301 + Random.Range(0, 2)],
                                           new SaveData.QuirkSaveData(quirkCount, 5),
                                           new SaveData.QuirkDefaultData(quirkCount - 1, 4, QuirkData.manager.diseaseInfo));
+        heroData.unitData.objectData.cur_status.curHP = heroData.unitData.objectData.cur_status.HP;
     }
     public void SaveNameTag(int index)
     {
@@ -73,6 +74,7 @@ public class SummonHeroNameTag : HandImage, IPointerClickHandler, IDragHandler, 
 
         SetView(false);
         summonHeroWindow.NoMove(gameObject);
+        GameManager.manager.onVilligeSummonInteract.eventAction?.Invoke((int)heroData.unitData.objectData.cur_status.type, Vector3.zero);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -108,6 +110,7 @@ public class SummonHeroNameTag : HandImage, IPointerClickHandler, IDragHandler, 
         if (eventData.dragging)
             return;
 
+        GameManager.manager.onVilligeSummonInteract.eventAction?.Invoke((int)heroData.unitData.objectData.cur_status.type, Vector3.zero);
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             //¡¬≈¨∏ØΩ√ øµøı µ•¿Ã≈Õ√¢ ø¿«¬.

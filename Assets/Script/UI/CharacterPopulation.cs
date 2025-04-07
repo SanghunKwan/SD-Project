@@ -74,7 +74,10 @@ public class CharacterPopulation : MonoBehaviour
             anim.SetTrigger(hashKey);
 
         return canAdd;
-
-
+    }
+    public void AddHero()
+    {
+        heroNum++;
+        ResetText();
     }
 }

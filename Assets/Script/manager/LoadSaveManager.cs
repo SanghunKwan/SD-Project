@@ -540,6 +540,7 @@ namespace SaveData
         public int[] enableUpgrades;
         public int canSummonHeroCount;
         public SummonHeroData[] canSummonHero;
+        public bool isEnter;
 
         public PlayInfo()
         {
@@ -547,6 +548,7 @@ namespace SaveData
             enableUpgrades = new int[] { 1, 1, 1, 1, 1, 1, 1 };
             canSummonHero = null;
             canSummonHeroCount = 2;
+            isEnter = true;
         }
         public void SaveData()
         {

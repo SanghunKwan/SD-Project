@@ -7,7 +7,6 @@ public class TeamUI : CheckUICondition
 {
     BuildSetCharacter[] buildSetCharacters;
     public villigeInteract[] villigeInteracts { get; private set; }
-
     [SerializeField] int characterNum;
 
 

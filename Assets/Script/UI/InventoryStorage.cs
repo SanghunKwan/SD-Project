@@ -97,7 +97,7 @@ public class InventoryStorage : StorageComponent
     Action onAfterInit = () => { };
     Action<int>[] inventoryFullAction = new Action<int>[(int)InventoryComponent.InventoryType.Max];
     public Action<int, int> StoreEventCountFallUnderZero { get; set; } = (slotIndex, count) => { };
-    public Action<int, int, int> StorePaymentEvent { get; set; } = (itemCode, firstCount, lastCount) => { };
+    public Func<int, int, int, bool> StorePaymentEvent { get; set; } = (itemCode, firstCount, lastCount) => { return true; };
     Action<int, int> onCountChanged = (slotIndex, forIndex) => { };
 
     CheckUICallChange uiCallChange;
@@ -282,10 +282,14 @@ public class InventoryStorage : StorageComponent
     }
     #endregion
     #region slot 개수 추가
-    public void SlotOperateWithCodeIndex(int codeIndex, ref int addNum, in Item item)
+    public bool SlotOperateWithCodeIndex(int codeIndex, ref int addNum, in Item item)
     {
         Slot slot = slots[codeIndex];
         int count = addNum + slot.itemCount;
+
+        if (!StorePaymentEvent(item.itemCode, slot.itemCount, count))
+            return false;
+
         int[] brunchArray = slot.brunchIndex.ToArray();
         if (m_type != InventoryComponent.InventoryType.Store)
         {
@@ -295,14 +299,10 @@ public class InventoryStorage : StorageComponent
         //count는 최종 개수
         //addNum은 추가로 더해야할 수
 
-        StorePaymentEvent(item.itemCode, slot.itemCount, count);
-
         ChangeCountByItem(slot, brunchArray, count);
 
-
         StoreEventCountFallUnderZero(codeIndex, count);
-
-
+        return true;
     }
     void CheckNeedMore(in Item item, int slotIndex)
     {
@@ -335,7 +335,7 @@ public class InventoryStorage : StorageComponent
 
         BaseChangeItemCount(itemCode, itemCount);
 
-        if (count == 0)
+        if (count == 0 && m_type != InventoryComponent.InventoryType.Store)
         {
             ZeroSetEmpty(brunchArray[0], count);
             itemCode = 0;
@@ -515,15 +515,21 @@ public class InventoryStorage : StorageComponent
             itemCode2slotData[code].itemCode = slots[slotIndex].beforeSlotIndex;
         }
     }
-    public void ItemCountChangeByIndex(int slotIndex, int addNum, out float usedNum)
+    public bool ItemCountChangeByIndex(int slotIndex, int addNum, out float usedNum)
     {
         Item item = InventoryManager.i.info.items[slots[slotIndex].itemCode];
         int originNum = addNum;
 
-        SlotOperateWithCodeIndex(slotIndex, ref addNum, item);
+        if (!SlotOperateWithCodeIndex(slotIndex, ref addNum, item))
+        {
+            usedNum = 0;
+            return false;
+        }
+
         usedNum = -originNum + addNum;
 
         CheckNeedMore(item, slotIndex);
+        return true;
     }
 
 

@@ -42,6 +42,7 @@ public class TowerComponent : ClickCamTurningComponent
     {
         AssembleClickReset();
         towerWindow.PopUpWindow(floorNum + 1);
+        GameManager.manager.onVilligeTowerFloorSelect.eventAction?.Invoke(floorNum, Vector3.zero);
     }
     public void AssembleClickReset()
     {

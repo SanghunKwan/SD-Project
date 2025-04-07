@@ -69,6 +69,7 @@ public abstract class UnitMove : MonoBehaviour
     public bool arrive;
     public bool attackMove;
     public bool isFear { get; protected set; }
+    bool canOrder = true;
     Dictionary<bool, Action> Chasing = new Dictionary<bool, Action>();
 
     [SerializeField] protected NavMeshAgent nav;
@@ -95,6 +96,9 @@ public abstract class UnitMove : MonoBehaviour
     protected Action<MoveType, Vector3>[] OrdertoReserve;
     protected Queue<Action> orderQueue = new Queue<Action>();
     protected Action nextBehaviour;
+
+
+
     protected virtual void Awake()
     {
         nav = GetComponent<NavMeshAgent>();
@@ -346,6 +350,9 @@ public abstract class UnitMove : MonoBehaviour
     }
     public void NewTarget(CObject target, OrderType order = OrderType.NowAct)
     {
+        if (!canOrder)
+            return;
+
         if (order == OrderType.NowAct)
         {
             QueueClear();
@@ -386,7 +393,7 @@ public abstract class UnitMove : MonoBehaviour
     }
     public virtual void CounterAttack(CObject gameObject)
     {
-        if (!EnermySearch)
+        if (!(EnermySearch && canOrder))
             return;
 
         if (!isCounter)
@@ -700,6 +707,11 @@ public abstract class UnitMove : MonoBehaviour
     {
         OrdertoReserve[(int)orderType](moveType, vec);
     }
+    public void NowActorCheckCanOrder(MoveType moveType, Vector3 vec, OrderType orderType)
+    {
+        if (canOrder)
+            NowActorReserve(moveType, vec, orderType);
+    }
     void Arrive()
     {
         if (targetEnermy == default && !arrive && !isHold && !isFear)
@@ -746,6 +758,28 @@ public abstract class UnitMove : MonoBehaviour
             nav.isStopped = false;
             nav.ResetPath();
         }
+    }
+    public void QueueBuildingWork(AddressableManager.BuildingImage buildingType, int managerIndex)
+    {
+        orderQueue.Enqueue(
+            () =>
+            {
+                //속도 감소
+                SetActionSpeed();
+                //애니메이션 설정
+                unit_State.SetBuildingWork(true);
+                unit_State.SetBuildingAnimation(buildingType, managerIndex);
+                canOrder = false;
+            }
+            );
+    }
+    public void BuildingWorkEnd()
+    {
+        canOrder = true;
+        SpeedReturn();
+        unit_State.SetBuildingWork(false);
+        QueueClear();
+        Stop();
     }
     #region StatusEffect
     public void Fear(int ntime)

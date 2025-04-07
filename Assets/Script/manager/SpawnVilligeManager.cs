@@ -2,13 +2,30 @@ using SaveData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class SpawnVilligeManager : SpawnManager
 {
     public (HeroData, int)[] heroBeforeDatas { get; set; }
+    public override bool isEnter
+    {
+        get
+        {
+            if (!base.isEnter)
+                towerCompoent.ReadytoUse();
+
+            return base.isEnter;
+        }
+        protected set => base.isEnter = value;
+    }
+    [SerializeField] TowerComponent towerCompoent;
+
     protected override void VirtualStart()
     {
         SaveDataInfo saveDataInfo = GameManager.manager.battleClearManager.SaveDataInfo;
+
+        isEnter = saveDataInfo.playInfo.isEnter;
+
         int length = saveDataInfo.hero.Length;
 
         if (competeIndexs.Length > 0)
@@ -51,5 +68,9 @@ public class SpawnVilligeManager : SpawnManager
             }
         }
     }
-
+    public override void SetEnter(bool newIsEnter)
+    {
+        isEnter = newIsEnter;
+        GameManager.manager.battleClearManager.SaveDataInfo.playInfo.isEnter = isEnter;
+    }
 }

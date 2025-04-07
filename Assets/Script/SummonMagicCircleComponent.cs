@@ -8,7 +8,7 @@ public class SummonMagicCircleComponent : ClickCamTurningComponent
     protected override void VirtualAwake()
     {
         summonHeroWindow = camTurningWindow as SummonHeroWindow;
-        isUsable = true;
+        ReadytoUse();
     }
     protected override void SetMemory()
     {

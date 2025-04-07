@@ -7,16 +7,20 @@ public class UnitState : MonoBehaviour
 {
     public float turningTime { get; private set; }
     protected Animator basic_Ani;
-    IEnumerator corSC;
     Dictionary<bool, int> booltoint = new Dictionary<bool, int>();
-    int hashHitType;
-    int hashHit;
     int nPCis1;
-    int battleSkill;
-    int ambushSkill;
+    static int hashHitType = Animator.StringToHash("HitType");
+    static int hashHit = Animator.StringToHash("hit");
+    static int battleSkill = Animator.StringToHash("BattleSkill");
+    static int ambushSkill = Animator.StringToHash("AmbushSkill");
+    static int id = Animator.StringToHash("State");
+    static int buildingWorkAnim = Animator.StringToHash("BuildingWorking");
+    static int buildingWorkType = Animator.StringToHash("Building");
+    static int buildingManagerIndex = Animator.StringToHash("manager");
 
     System.Action<MovingState, bool>[] selectSet;
 
+    IEnumerator corSC;
     IEnumerator corHeadWeigh;
 
     enum UPdown
@@ -59,11 +63,6 @@ public class UnitState : MonoBehaviour
             (state, trfal) => { SetStateNPC(state, trfal); }
         };
         SetVoiceList();
-
-        hashHitType = Animator.StringToHash("HitType");
-        hashHit = Animator.StringToHash("hit");
-        battleSkill = Animator.StringToHash("BattleSkill");
-        ambushSkill = Animator.StringToHash("AmbushSkill");
     }
     void SetVoiceList()
     {
@@ -98,13 +97,13 @@ public class UnitState : MonoBehaviour
     }
     protected IEnumerator StateChange(int state)
     {
-        int id = Animator.StringToHash("State");
-
         float offset = state - basic_Ani.GetFloat(id);
         float fAdd = offset / 32;
+        float fValue;
+
         while (Mathf.Abs(offset) > 0.1f)
         {
-            float fValue = basic_Ani.GetFloat(id) + fAdd;
+            fValue = basic_Ani.GetFloat(id) + fAdd;
             basic_Ani.SetFloat(id, fValue);
             offset = state - fValue;
 
@@ -139,16 +138,19 @@ public class UnitState : MonoBehaviour
     }
     public virtual void FocusTarget(bool downIsTrue)
     {
+        if (basic_Ani.GetBool(buildingWorkAnim))
+            return;
+
         if (corHeadWeigh != null)
         {
             StopCoroutine(corHeadWeigh);
         }
 
-        corHeadWeigh = Head_TurnWeighDown(UPdown.up);
+        UPdown updown = UPdown.up;
         if (downIsTrue)
-        {
-            corHeadWeigh = Head_TurnWeighDown(UPdown.down);
-        }
+            updown = UPdown.down;
+
+        corHeadWeigh = Head_TurnWeighDown(updown);
         StartCoroutine(corHeadWeigh);
     }
 
@@ -214,24 +216,14 @@ public class UnitState : MonoBehaviour
     {
         basic_Ani.SetTrigger(hashHit);
         basic_Ani.SetTrigger("Death");
-        StartCoroutine(AttackWeighDown());
+
         if (!isLoadedDead)
             VoicePlay(voiceType.DieVoice);
-        if (corHeadWeigh != null)
-            StopCoroutine(corHeadWeigh);
+        StopHeadShake();
 
         if (backAttack) basic_Ani.SetTrigger("BackDeath");
     }
-    IEnumerator AttackWeighDown()
-    {
-        for (int i = 0; i < 20; i++)
-        {
-            basic_Ani.SetLayerWeight(2, basic_Ani.GetLayerWeight(2) - 0.05f);
-            basic_Ani.SetLayerWeight(3, basic_Ani.GetLayerWeight(3) - 0.03f);
-            yield return new WaitForSeconds(0.1f);
-        }
 
-    }
     public void SelectSet(int Playeris0)
     {
         nPCis1 = Playeris0;
@@ -255,5 +247,42 @@ public class UnitState : MonoBehaviour
     public void Ambush()
     {
         basic_Ani.SetTrigger(ambushSkill);
+    }
+
+    public void SetBuildingWork(bool onoff)
+    {
+        basic_Ani.SetBool(buildingWorkAnim, onoff);
+
+        if (onoff)
+            StopHeadShake();
+        else
+        {
+            FocusTarget(onoff);
+            basic_Ani.SetLayerWeight(2, 1);
+        }
+    }
+    void StopHeadShake()
+    {
+        if (corHeadWeigh != null)
+            StopCoroutine(corHeadWeigh);
+
+        corHeadWeigh = AttackWeighControl(true);
+        StartCoroutine(corHeadWeigh);
+    }
+    IEnumerator AttackWeighControl(bool trueIsMinus)
+    {
+        int sign = System.Convert.ToInt32(trueIsMinus) * 2 - 1;
+        for (int i = 0; i < 20; i++)
+        {
+            basic_Ani.SetLayerWeight(2, basic_Ani.GetLayerWeight(2) - (0.05f * sign));
+            basic_Ani.SetLayerWeight(3, basic_Ani.GetLayerWeight(3) - (0.03f * sign));
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+    public void SetBuildingAnimation(AddressableManager.BuildingImage buildingType, int managerIndex)
+    {
+
+        basic_Ani.SetFloat(buildingWorkType, (int)buildingType);
+        basic_Ani.SetFloat(buildingManagerIndex, managerIndex);
     }
 }

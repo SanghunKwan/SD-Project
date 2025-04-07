@@ -40,6 +40,8 @@ public class loadingbar : MonoBehaviour
         current_status = curstat;
         caseSize = size + leastSize;
 
+        if (current_status.HP != current_status.curHP)
+            transform.parent.gameObject.SetActive(true);
     }
     void HPUpdate()
     {

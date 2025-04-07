@@ -139,7 +139,8 @@ public class PlayerNavi : MonoBehaviour
         {
             nowVec += item.transform.position;
 
-        };
+        }
+        ;
         return nowVec / lists.Count;
     }
     public void TargetSet(Collider collider, OrderType order)
@@ -206,13 +207,13 @@ public class PlayerNavi : MonoBehaviour
         now_center = Now_center();
 
         last_vec = now_center;
-        lists[0].NowActorReserve(MoveType.Move, last_vec, order);
+        lists[0].NowActorCheckCanOrder(MoveType.Move, last_vec, order);
     }
     void NoFormationMove(MoveType moveType, OrderType order)
     {
         now_center = lists[0].transform.position;
 
-        lists[0].NowActorReserve(moveType, des_center, order);
+        lists[0].NowActorCheckCanOrder(moveType, des_center, order);
     }
     #region 기본 원형
     Vector3 GetCircleDestination(int i, int dir, out Vector3 looking)
@@ -241,7 +242,7 @@ public class PlayerNavi : MonoBehaviour
 
         for (int i = 0; i < lists.Count; i++)
         {
-            lists[i].NowActorReserve(MoveType.Move, GetCircleDestination(i, dir, looking), order);
+            lists[i].NowActorCheckCanOrder(MoveType.Move, GetCircleDestination(i, dir, looking), order);
         }
         int Direction(out Vector3 _looking)
         {
@@ -269,7 +270,7 @@ public class PlayerNavi : MonoBehaviour
         for (int i = 0; i < lists.Count; i++)
         {
             vector = GetCircleDestinationMove(i, dir, looking);
-            lists[i].NowActorReserve(moveType, vector, order);
+            lists[i].NowActorCheckCanOrder(moveType, vector, order);
         }
         int DirectiontoDestination(out Vector3 _looking)
         {
@@ -322,18 +323,14 @@ public class PlayerNavi : MonoBehaviour
         int innerCircleNum = Mathf.RoundToInt(lists.Count / 5f);
         int dir = SquareDirection(out Vector3 looking);
 
-        lists[0].Navi_Destination(now_center);
-
         for (int i = 0; i < innerCircleNum; i++)
         {
-            lists[i].Navi_Destination(GetSquareDestination(i, dir, looking, innerCircleNum));
-            lists[i].NowActorReserve(MoveType.Move, GetSquareDestination(i, dir, looking, innerCircleNum), order);
+            lists[i].NowActorCheckCanOrder(MoveType.Move, GetSquareDestination(i, dir, looking, innerCircleNum), order);
         }
 
         for (int i = innerCircleNum; i < lists.Count; i++)
         {
-            lists[i].Navi_Destination(GetSquareDestination(i, dir, looking, lists.Count - innerCircleNum));
-            lists[i].NowActorReserve(MoveType.Move, GetSquareDestination(i, dir, looking, lists.Count - innerCircleNum), order);
+            lists[i].NowActorCheckCanOrder(MoveType.Move, GetSquareDestination(i, dir, looking, lists.Count - innerCircleNum), order);
         }
         int SquareDirection(out Vector3 _looking)
         {
@@ -358,20 +355,18 @@ public class PlayerNavi : MonoBehaviour
         int innerCircleNum = Mathf.RoundToInt(lists.Count / 5f);
         int dir = SquareDirectiontoDestination(out Vector3 looking);
 
-        lists[0].MoveOrAttack(moveType, des_center);
-
         Vector3 vector;
 
         for (int i = 0; i < innerCircleNum; i++)
         {
             vector = GetSquareDestinationMove(i, dir, looking, innerCircleNum);
-            lists[i].NowActorReserve(moveType, vector, order);
+            lists[i].NowActorCheckCanOrder(moveType, vector, order);
         }
 
         for (int i = innerCircleNum; i < lists.Count; i++)
         {
             vector = GetSquareDestinationMove(i, dir, looking, lists.Count - innerCircleNum);
-            lists[i].NowActorReserve(moveType, vector, order);
+            lists[i].NowActorCheckCanOrder(moveType, vector, order);
         }
 
         int SquareDirectiontoDestination(out Vector3 _looking)
@@ -418,7 +413,7 @@ public class PlayerNavi : MonoBehaviour
 
         for (int i = 0; i < lists.Count; i++)
         {
-            lists[i].NowActorReserve(MoveType.Move, GetLinearDestination(i, dir, looking), order);
+            lists[i].NowActorCheckCanOrder(MoveType.Move, GetLinearDestination(i, dir, looking), order);
         }
 
         int LinearDirection(out Vector3 _looking)
@@ -448,7 +443,7 @@ public class PlayerNavi : MonoBehaviour
         for (int i = 0; i < lists.Count; i++)
         {
             vector = GetLinearDestinationMove(i, dir, looking);
-            lists[i].NowActorReserve(moveType, vector, order);
+            lists[i].NowActorCheckCanOrder(moveType, vector, order);
         }
 
         int LinearDirectiontoDestination(out Vector3 _looking)
@@ -498,7 +493,7 @@ public class PlayerNavi : MonoBehaviour
 
         for (int i = 0; i < lists.Count; i++)
         {
-            lists[i].NowActorReserve(MoveType.Move, GetLinearDestinationSecond(i, dir, looking), order);
+            lists[i].NowActorCheckCanOrder(MoveType.Move, GetLinearDestinationSecond(i, dir, looking), order);
         }
 
         int LinearDirection(out Vector3 _looking)
@@ -528,7 +523,7 @@ public class PlayerNavi : MonoBehaviour
         for (int i = 0; i < lists.Count; i++)
         {
             vector = GetLinearDestinationSecondMove(i, dir, looking);
-            lists[i].NowActorReserve(moveType, vector, order);
+            lists[i].NowActorCheckCanOrder(moveType, vector, order);
         }
 
         int LinearDirectiontoDestination(out Vector3 _looking)
@@ -620,7 +615,7 @@ public class PlayerNavi : MonoBehaviour
             return;
 
         int i = Random.Range(0, lists.Count - 1);
-        lists[i].NowActorReserve(MoveType.Move, pos, order);
+        lists[i].NowActorCheckCanOrder(MoveType.Move, pos, order);
     }
     public string GetEmptyTeamString()
     {

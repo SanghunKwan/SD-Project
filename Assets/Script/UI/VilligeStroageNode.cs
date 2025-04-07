@@ -22,6 +22,7 @@ public class VilligeStroageNode : InitObject
     void CountChanged(int count)
     {
         text.text = count.ToString("N0");
+        Debug.Log("텍스트 변경2");
     }
     public void PlayHighLight()
     {

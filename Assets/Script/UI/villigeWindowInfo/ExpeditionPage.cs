@@ -31,6 +31,7 @@ public class ExpeditionPage : InitObject
 
     public void GotoPage(int page)
     {
+        GameManager.manager.onVilligeExpeditionWindow.eventAction?.Invoke(page, Vector3.zero);
         AllocateCourutine(MoveAnimation(GetXAxisValue(page)));
     }
 

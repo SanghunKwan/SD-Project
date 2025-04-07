@@ -31,6 +31,7 @@ public class StorageComponent : InitObject
     public virtual void ItemCountChange(int itemCode, int addNum)
     {
         m_itemCounts[itemCode] += addNum;
+        Debug.Log(m_itemCounts[itemCode]);
         eventAlert(itemCode);
     }
     public void AddListener(Action<int> callWhenCountChanged)

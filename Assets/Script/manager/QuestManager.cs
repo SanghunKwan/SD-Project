@@ -95,7 +95,7 @@ public class QuestManager : JsonLoad
                 CallGroup,
                 LowHPRelease,
                 EnterStage,
-                VilligeBuildingScroll,
+                VilligeButton,
                 EffectedOtherQuest,
                 TargettingNonDetected,
                 VilligeBuildingChoosed,
@@ -106,6 +106,11 @@ public class QuestManager : JsonLoad
                 VilligeBuildingWindowOpen,
                 VilligeHeroInteractDrag,
                 VilligeHeroSummon,
+                VilligeSummonInteract,
+                VilligeTowerFloorSelect,
+                VilligeExpeditionWindow,
+                ItemUseOnStore,
+                ItemUseOnExpedition,
                 Max
             }
             public enum ActCondition

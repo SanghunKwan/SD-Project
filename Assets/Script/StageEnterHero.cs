@@ -55,7 +55,7 @@ public class StageEnterHero : MonoBehaviour
             SetAllLayer(tempHero.transform.GetChild(0).gameObject, 7);
             await Task.Delay(spawnCoolTime - moveTime);
         }
-
+        spawnManager.SetEnter(false);
     }
     void SetAllLayer(GameObject targetObject, int layerNum)
     {

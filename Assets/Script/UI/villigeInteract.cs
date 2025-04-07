@@ -129,7 +129,8 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
             GameManager.manager.Unselect(GameManager.manager.dicPlayerCharacter);
             GameManager.manager.Unselect(GameManager.manager.dicObjects);
 
-            GameManager.manager.ScreenToPoint(hero.transform.position);
+            if (characterList.NameTagInteractable)
+                GameManager.manager.ScreenToPoint(hero.transform.position);
 
             hero.Selected(true);
         };
@@ -235,6 +236,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         GameManager.manager.onVilligeBuildingHeroCancellation.eventAction?.Invoke((int)workingBuilding.Type, workingBuilding.transform.position);
         SaveWorkPlace(null, 0);
         ChangeImage(AddressableManager.BuildingImage.Tomb, false);
+        hero.unitMove.BuildingWorkEnd();
     }
     public bool isCanLoad(out BuildingComponent workingbuilding, out int workindex)
     {

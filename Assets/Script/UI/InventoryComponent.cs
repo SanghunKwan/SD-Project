@@ -344,16 +344,24 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         int index = (Convert.ToInt32(Input.GetKey(GameManager.manager.shiftCode)) * (int)InventoryType.Max) + (int)type;
         useAction[index](slotIndex);
     }
-    void VilligeUse(int slotIndex, InventoryType type, int moveCount = 0)
+    void VilligeUse(int slotIndex, InventoryType opersiteType, int moveCount = 0)
     {
         InventoryStorage.Slot slot = inventoryStorage.slots[slotIndex];
         int itemCode = slot.itemCode;
         if (moveCount == 0)
             moveCount = SlotMoveCount(slot, InventoryManager.i.info.items[itemCode]);
 
-        inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _);
-        GameManager.manager.storageManager.inventoryComponents(type).
+        //상속 받은 기능에 0 이하가 되면 가려지는 기능이 있음. 상점에 불필요.
+        if (!inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _))
+            return;
+
+        GameManager.manager.storageManager.inventoryComponents(opersiteType).
             inventoryStorage.ItemCountChange(itemCode, moveCount);
+
+        if (type == InventoryType.Villige)
+            GameManager.manager.onItemUseOnExpedition.eventAction?.Invoke(itemCode, Vector3.zero);
+        else
+            GameManager.manager.onItemUseOnStore.eventAction?.Invoke(itemCode, Vector3.zero);
     }
     int SlotMoveCount(in InventoryStorage.Slot slot, in StorageComponent.Item item)
     {

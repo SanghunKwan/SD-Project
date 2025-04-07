@@ -99,17 +99,17 @@ public class SummonHeroWindow : CamTuringWindow
         characterList.ReArrage();
         HeroSpawnEvent(summonNameTag);
     }
-    void SetTagInteractableFalse(SummonHeroNameTag summonNameTag)
-    {
-        summonNameTag.SetInteractableFalse();
-        playInfo.canSummonHero[summonNameTag.transform.GetSiblingIndex()].isSummoned = true;
-    }
     void HeroSpawnEvent(SummonHeroNameTag summonNameTag)
     {
         SaveData.HeroData heroData = summonNameTag.heroData;
         SetTagInteractableFalse(summonNameTag);
         GameManager.manager.onVilligeHeroSummon.eventAction?.Invoke(
             (int)heroData.unitData.objectData.cur_status.type, heroData.unitData.objectData.position);
-        characterPopulation.ResetText();
+        characterPopulation.AddHero();
+    }
+    void SetTagInteractableFalse(SummonHeroNameTag summonNameTag)
+    {
+        summonNameTag.SetInteractableFalse();
+        playInfo.canSummonHero[summonNameTag.transform.GetSiblingIndex()].isSummoned = true;
     }
 }
