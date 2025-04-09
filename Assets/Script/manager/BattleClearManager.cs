@@ -31,6 +31,8 @@ public class BattleClearManager : MonoBehaviour
     public InventoryComponent.InventoryType ManagerType;
     [HideInInspector] public UnityEngine.UI.Button StageEndButton;
     [HideInInspector] public CharacterList characterList;
+    [HideInInspector] public HeroTeam heroTeam;
+    [HideInInspector] public SaveStageView saveStageView;
 
 
     Action[] setStageByNextScene;
@@ -147,7 +149,7 @@ public class BattleClearManager : MonoBehaviour
     {
         RenewalSavedataInStage(isClear);
         OverrideSaveDataFileHeroInventory();
-        loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
+        OverrideSummonHeroList();
     }
     void RenewalSavedataInStage(bool isClear)
     {
@@ -194,9 +196,7 @@ public class BattleClearManager : MonoBehaviour
             }
         }
 
-        InventoryStorage storage = GameManager.manager.storageManager
-            .inventoryComponents(InventoryComponent.InventoryType.Stage).inventoryStorage;
-        stageData.inventoryData.SetData(storage.Inventory2ItemDatas(), storage.GetHeroCorpseIndexs());
+        SetInventoryData(stageData, InventoryComponent.InventoryType.Stage);
     }
 
     public void OverrideSaveDataBeforeSettle()
@@ -204,7 +204,28 @@ public class BattleClearManager : MonoBehaviour
         OverrideSaveDataFileHeroInventory(true, new Vector3(5, 0, 2));
 
         DeleteSaveDataFileStageUnitDropItems();
-        loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
+        OverrideSummonHeroList();
+    }
+    public void OverrideSaveDataBeforeStage()
+    {
+        OverrideSaveDataVilligeHero();
+        OverrideSaveDataFileBuilding();
+
+        //스테이지 데이터 생성.
+        StageData stageData = new StageData(saveStageView.GetStageFloorsData(),
+                                            heroTeam.GetHeroStageData());
+        saveData.stageData = stageData;
+        //영웅 index list 생성
+
+        SetInventoryData(stageData, InventoryComponent.InventoryType.Villige);
+
+        OverrideSummonHeroList();
+    }
+    void SetInventoryData(StageData stageData, InventoryComponent.InventoryType inventoryType)
+    {
+        InventoryStorage storage = GameManager.manager.storageManager
+            .inventoryComponents(inventoryType).inventoryStorage;
+        stageData.inventoryData.SetData(storage.Inventory2ItemDatas(), storage.GetHeroCorpseIndexs());
     }
 
     void DeleteSaveDataFileStageUnitDropItems()
@@ -266,6 +287,9 @@ public class BattleClearManager : MonoBehaviour
             saveData.questSaveData[item.type].nowQuestList.Add(new QuestSaveData.BitSaveData.QuestProgress(item));
         }
     }
+    ///<summary>
+    ///세이브 데이터 저장.
+    ///</summary>
     public void OverrideSummonHeroList()
     {
         loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
@@ -284,7 +308,7 @@ public class BattleClearManager : MonoBehaviour
         OverrideSaveDataFileBuilding();
         OverrideInProgressQuest();
         OverrideSaveDataPlayInfo();
-        loadSaveManager.OverrideSaveFile(StageManager.instance.saveDataIndex, saveData);
+        OverrideSummonHeroList();
     }
     void OverrideSaveDataPlayInfo()
     {

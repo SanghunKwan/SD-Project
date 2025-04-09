@@ -35,6 +35,9 @@ public class SpawnManager : MonoBehaviour
         heroDatas = new HeroData[competeIndexs.Length];
         for (int i = 0; i < competeIndexs.Length; i++)
         {
+            if (competeIndexs[i] == -1)
+                continue;
+
             heroDatas[i] = saveDataInfo.hero[competeIndexs[i]];
         }
 

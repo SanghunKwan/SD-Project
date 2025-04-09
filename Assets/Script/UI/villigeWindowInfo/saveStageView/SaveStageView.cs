@@ -209,4 +209,14 @@ public class SaveStageView : InitObject
         return -1;
     }
     #endregion
+
+    public int[] GetStageFloorsData()
+    {
+        int length = nowIndex + 1;
+        int[] data = new int[length];
+        for (int i = 0; i < length; i++)
+            data[i] = nodes[i].saveStage;
+
+        return data;
+    }
 }

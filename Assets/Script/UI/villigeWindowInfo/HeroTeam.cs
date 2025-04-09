@@ -7,7 +7,7 @@ public class HeroTeam : MonoBehaviour
 {
     [SerializeField] TeamUI[] teamuis;
 
-    public int activeHeroTeamCount { get; private set; } = 0;
+    public int activeHeroTeamCount { get; private set; } = 2;
 
     public TeamUI GetTeamUI(int index)
     {
@@ -35,5 +35,27 @@ public class HeroTeam : MonoBehaviour
     public void AnimationEnd()
     {
         gameObject.SetActive(false);
+    }
+
+
+    public int[] GetHeroStageData()
+    {
+        int teamMembers = 5;
+        int teamIndex = -1;
+        int[] heroTeam = new int[activeHeroTeamCount * teamMembers];
+        System.Array.Fill(heroTeam, -1);
+
+        for (int i = 0; i < activeHeroTeamCount; i++)
+        {
+            for (int j = 0; j < teamMembers; j++)
+            {
+                teamIndex++;
+                if (teamuis[i].villigeInteracts[j] is null)
+                    continue;
+
+                teamuis[i].villigeInteracts[j].GetCharacterListIndex();
+            }
+        }
+        return heroTeam;
     }
 }

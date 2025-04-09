@@ -569,7 +569,6 @@ public class InventoryStorage : StorageComponent
 
             datas.Enqueue(new ItemData(i, slots[i]));
         }
-
         return datas.ToArray();
     }
     #endregion

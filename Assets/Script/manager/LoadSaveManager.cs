@@ -273,10 +273,12 @@ namespace SaveData
         public MonsterData[] monsterData;
         public ObjectData[] objectDatas;
         public DropItemData[] dropItemDatas;
-        public StageData()
+        public StageData() : this(new int[] { 0 }, new int[] { 0 }) { }
+        public StageData(in int[] getFloors, in int[] getHeros)
         {
-            heros = new int[1] { 0 };
-            floors = new int[] { 0 };
+            heros = getHeros;
+            floors = getFloors;
+            inventoryData = new InventoryData();
             nowFloorIndex = 0;
             isEnter = true;
             isClear = false;

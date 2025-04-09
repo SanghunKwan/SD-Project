@@ -225,7 +225,7 @@ public class TowerWindow : CamTuringWindow
     }
     void Window2LoadingEffect()
     {
-        stageButtonSet.GetHeroTeam.SetTeamActiveCount(0);
+        stageButtonSet.GetHeroTeam.SetTeamActiveCount(1);
         missionExplain.gameObject.SetActive(true);
     }
     public void Exit()

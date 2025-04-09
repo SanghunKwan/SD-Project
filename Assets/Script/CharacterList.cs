@@ -440,7 +440,7 @@ public class CharacterList : MonoBehaviour
             beforePortCharacterCount += GetViewPortByIndex(i).characters.Count;
         }
 
-        return beforePortCharacterCount + trViewPort[villigeInteractObject].characters.BinarySearch(interact);
+        return beforePortCharacterCount + trViewPort[villigeInteractObject].characters.IndexOf(interact);
     }
     public villigeInteract GetInteractByIndex(int index)
     {
