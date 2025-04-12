@@ -725,7 +725,295 @@
         ],
         "needCallNextQuest": false
       }
-
+    },
+    {
+      "num": 12,
+      "questType": 0,
+      "name": "부대 컨트롤",
+      "detail": "드래그앤드롭, shift+클릭\n활용해서 다중 선택",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 0,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 2,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 28,
+        "actCondition": 0,
+        "conditionComparison": 3,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 0,
+        "layer": 7,
+        "whatCause": 4
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 0,
+            "questNum": 13
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 13,
+      "questType": 0,
+      "name": "부대 컨트롤",
+      "detail": "R를 눌러 진형 변경",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": true,
+        "highLight": 3,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 0.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 3,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 29,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 0,
+        "layer": 7,
+        "whatCause": 4
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 0,
+            "questNum": 14
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 14,
+      "questType": 0,
+      "name": "부대 컨트롤",
+      "detail": "부대 이동",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 1,
+        "highLightPosition": {
+          "x": 4.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 1
+      },
+      "trigger": 0,
+      "require": {
+        "type": 0,
+        "layer": 7,
+        "spot": {
+          "x": 4.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 1.0,
+        "itemDatas": [],
+        "actionType": 0,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 0,
+        "layer": 7,
+        "whatCause": 4
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 0,
+            "questNum": 15
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 15,
+      "questType": 0,
+      "name": "부대 컨트롤",
+      "detail": "진형 변경\nQ W E R",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 0,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 1
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 0,
+        "spot": {
+          "x": 4.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 1.0,
+        "itemDatas": [],
+        "actionType": 29,
+        "actCondition": 0,
+        "conditionComparison": 3,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 0,
+        "layer": 7,
+        "whatCause": 4
+      },
+      "follow": {
+        "datas": [
+          {
+          }
+        ],
+        "needCallNextQuest": false
+      }
+    },
+    {
+      "num": 16,
+      "questType": 0,
+      "name": "기습",
+      "detail": "일부 영웅은 기습하여 큰 피해를 입힐 수 있습니다.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": true,
+        "highLight": 2,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 1
+      },
+      "trigger": 1,
+      "require": {
+        "type": 2,
+        "layer": 7,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 6,
+        "actCondition": 0,
+        "conditionComparison": 1,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "id": 0,
+        "layer": 7,
+        "whatCause": 2
+      },
+      "follow": {
+        "datas": [
+          {
+          }
+        ],
+        "needCallNextQuest": false
+      }
     }
   ],
   "villigePerformOnedata": [
@@ -1705,11 +1993,15 @@
       "follow": {
         "datas": [
           {
-            "type": 1,
+            "type": 0,
             "questNum": 12
+          },
+          {
+            "type": 0,
+            "questNum": 16
           }
         ],
-        "needCallNextQuest": false
+        "needCallNextQuest": true
       }
     }
   ],

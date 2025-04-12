@@ -21,8 +21,8 @@ public class BuildingComponent : ClickCamTurningComponent
     protected override void VirtualAwake()
     {
         buildingWindow = camTurningWindow as BuildingSetWindow;
-        ReadytoUse();
-        constructionAction += (day) => ReadytoUse();
+        //ReadytoUse();
+        //constructionAction += (day) => ReadytoUse();
     }
 
     protected override void SetWindowOpen()

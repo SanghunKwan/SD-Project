@@ -34,11 +34,16 @@ public class SummonHeroNameTag : HandImage, IPointerClickHandler, IDragHandler, 
             SetInteractableFalse();
         }
     }
-    public void SetNewHeroData(int newQuirkCount)
+    public void SetNewHeroData(int index, int newQuirkCount)
     {
         int quirkCount = Random.Range(1, newQuirkCount + 1);
+        int typeAddNum = Random.Range(0, 2);
+        if (GameManager.manager.battleClearManager.SaveDataInfo.day == 1)
+            typeAddNum = index; 
+        //첫날은 근접과 활이 무조건 나옴.
+
         DefaultNameManager.mananger.GetRandomName(out string name);
-        heroData = new SaveData.HeroData(name, 1, Unit.Data.Instance.statusList[301 + Random.Range(0, 2)],
+        heroData = new SaveData.HeroData(name, 1, Unit.Data.Instance.statusList[301 + typeAddNum],
                                           new SaveData.QuirkSaveData(quirkCount, 5),
                                           new SaveData.QuirkDefaultData(quirkCount - 1, 4, QuirkData.manager.diseaseInfo));
         heroData.unitData.objectData.cur_status.curHP = heroData.unitData.objectData.cur_status.HP;

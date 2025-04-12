@@ -9,6 +9,7 @@ public class StagePoolManager : MonoBehaviour
     public int startFloorIndex { get; private set; }
     public int floorIndexAdd { get; private set; }
     public int nowFloorIndex { get { return startFloorIndex + floorIndexAdd; } }
+    public bool isLoaded { get; private set; }
 
 
     private void Start()
@@ -24,6 +25,8 @@ public class StagePoolManager : MonoBehaviour
 
         stageFloors = saveDataInfo.stageData.floors;
         startFloorIndex = saveDataInfo.stageData.nowFloorIndex;
+
+        isLoaded = saveDataInfo.stageData.floorUnitDatas.Length > 0;
 
         for (int i = 0; i < transform.childCount; i++)
         {

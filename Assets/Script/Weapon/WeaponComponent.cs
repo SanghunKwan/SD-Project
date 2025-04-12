@@ -36,7 +36,7 @@ public abstract class WeaponComponent : MonoBehaviour
 
     public void SurpriseAttack()
     {
-
+        GameManager.manager.onBackAttack.eventAction?.Invoke(unitMove.gameObject.layer, transform.position);
         actions[(int)unitMove.cUnit.GetSpecies]();
     }
     protected abstract IEnumerator GoblinSurprise();
@@ -45,7 +45,6 @@ public abstract class WeaponComponent : MonoBehaviour
     protected void PlayerSurpriseReact()
     {
         GameManager.manager.InputSpace();
-        GameManager.manager.onBackAttack.eventAction?.Invoke(10, transform.position);
     }
     private void OnDisable()
     {

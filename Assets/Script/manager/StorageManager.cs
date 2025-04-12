@@ -63,7 +63,7 @@ public class StorageManager : MonoBehaviour
         Physics.Raycast(Camera.main.ScreenPointToRay(clickPoint), out RaycastHit hit, 30, ~layerMask);
 
         Dictionary<GameObject, CUnit> clist = (from character in PlayerNavi.nav.lists
-                                              select character.cUnit).ToDictionary((unit) => unit.gameObject, (unit) => unit);
+                                               select character.cUnit).ToDictionary((unit) => unit.gameObject, (unit) => unit);
 
         CObject target = gameManager.GetNearest(clist, hit.point, (character) => true, 35);
 
@@ -112,6 +112,7 @@ public class StorageManager : MonoBehaviour
         dropItem.SetActive(true);
 
         dropItem.transform.position = target.transform.position + offset;
+        DropManager.instance.pool.CheckPosition(dropItem);
         dropItem.transform.RotateAround(target.transform.position, Vector3.up, target.transform.eulerAngles.y + addAngle);
 
 

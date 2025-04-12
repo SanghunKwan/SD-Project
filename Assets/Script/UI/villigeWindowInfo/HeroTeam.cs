@@ -42,8 +42,9 @@ public class HeroTeam : MonoBehaviour
     {
         int teamMembers = 5;
         int teamIndex = -1;
-        int[] heroTeam = new int[activeHeroTeamCount * teamMembers];
-        System.Array.Fill(heroTeam, -1);
+        int tempBuildingIndex;
+        BuildingComponent tempBuildingComponent;
+        List<int> heroTeam = new List<int>(5);
 
         for (int i = 0; i < activeHeroTeamCount; i++)
         {
@@ -53,9 +54,15 @@ public class HeroTeam : MonoBehaviour
                 if (teamuis[i].villigeInteracts[j] is null)
                     continue;
 
-                teamuis[i].villigeInteracts[j].GetCharacterListIndex();
+                heroTeam.Add(teamuis[i].villigeInteracts[j].GetCharacterListIndex());
+                if (teamuis[i].villigeInteracts[j].isCanLoad(out tempBuildingComponent, out tempBuildingIndex))
+                {
+                    tempBuildingComponent.ResetData(tempBuildingIndex);
+                }
             }
+            if (i == 1)
+                Debug.Log("2팀 출전 미구현");
         }
-        return heroTeam;
+        return heroTeam.ToArray();
     }
 }

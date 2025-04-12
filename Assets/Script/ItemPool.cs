@@ -6,6 +6,7 @@ public class ItemPool : MonoBehaviour
 {
     public GameObject[] itemPrefabs;
     Transform[] folders;
+    [SerializeField] Transform itemTransform;
 
 
     // Start is called before the first frame update
@@ -49,9 +50,15 @@ public class ItemPool : MonoBehaviour
         {
             obj = Instantiate(itemPrefabs[num], Vector3.zero, Quaternion.identity, transform);
         }
+
         return obj;
     }
-
+    public void CheckPosition(GameObject itemObject)
+    {
+        Debug.DrawRay(itemObject.transform.position + Vector3.up, Vector3.down, Color.red, 2);
+        Physics.Raycast(itemObject.transform.position + Vector3.up, Vector3.down, out RaycastHit hit, 4, 1 << 8);
+        itemObject.transform.SetParent(itemTransform.GetChild(hit.collider.gameObject.transform.parent.parent.GetSiblingIndex()), true);
+    }
     public void ReturnItem(int index, GameObject item)
     {
         item.transform.SetParent(transform.GetChild(index - 1));

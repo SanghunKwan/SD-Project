@@ -80,6 +80,8 @@ public class GameManager : MonoBehaviour
     public ActionEvent onVilligeExpeditionWindow { get; private set; } = new ActionEvent();
     public ActionEvent onItemUseOnStore { get; private set; } = new ActionEvent();
     public ActionEvent onItemUseOnExpedition { get; private set; } = new ActionEvent();
+    public ActionEvent onHeroSelect { get; private set; } = new ActionEvent();
+    public ActionEvent onCallFormation { get; private set; } = new ActionEvent();
     #endregion
     public PointerEventData pointerEventData { get; set; }
 
@@ -438,6 +440,10 @@ public class GameManager : MonoBehaviour
                 item.Selected(true);
             }
         }
+
+        onHeroSelect.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
+
+
         void DragEffect<T>(Dictionary<GameObject, T> values) where T : CObject
         {
             foreach (var item in values.Values)
@@ -630,6 +636,8 @@ public class GameManager : MonoBehaviour
 
         if (playerNavi.lists.Count > 0)
             onCallgroup.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
+
+        onHeroSelect.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
     }
     public string GetConvert(in string key)
     {
@@ -645,6 +653,7 @@ public class GameManager : MonoBehaviour
     public void Formation(string key)
     {
         playerNavi.MakeFormation(GetConvert(key));
+
     }
 
     public void InputSpace()
@@ -708,6 +717,8 @@ public class GameManager : MonoBehaviour
         {
             item.Selected(true);
         }
+
+        onHeroSelect.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
     }
     public void RegroupTeam(in string key)
     {
@@ -770,7 +781,7 @@ public class GameManager : MonoBehaviour
     {
         objectCount++;
         int allObjects = dicObjects.Count + dicNpcCharacter.Count + dicPlayerCharacter.Count;
-
+        Debug.Log("allCount : " + allObjects + "  objectsCount : " + objectCount + "\ndicobj" + dicObjects.Count);
         if (objectCount != allObjects)
             return;
 
@@ -786,7 +797,8 @@ public class GameManager : MonoBehaviour
     {
         int length = collections.Count;
 
-        foreach (var item in collections.Values)
+
+        foreach (var item in collections.Values.ToArray())
         {
             item.OnInitEnd?.Invoke();
         }

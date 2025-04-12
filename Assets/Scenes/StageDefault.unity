@@ -2651,6 +2651,8 @@ MonoBehaviour:
   ManagerType: 0
   StageEndButton: {fileID: 8337161477225245666}
   characterList: {fileID: 0}
+  heroTeam: {fileID: 0}
+  saveStageView: {fileID: 0}
 --- !u!1 &412396038
 GameObject:
   m_ObjectHideFlags: 0
@@ -5135,8 +5137,8 @@ MonoBehaviour:
   stagePoolManager: {fileID: 613401353}
   stageObjects:
   - {fileID: 5081041062042086339, guid: 94ef613ffb15d9f40b4208d043f02402, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5081041062042086339, guid: edb8adf8d61e5e446b27ee4c4f56374f, type: 3}
+  - {fileID: 5081041062042086339, guid: a97b33969420470459f9604c4b2777ec, type: 3}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!1 &894107960
@@ -5519,6 +5521,12 @@ MonoBehaviour:
   heroes:
   - {fileID: 5470614714861533334, guid: a0ed5b738cf9d4a4e9c2b838681784c9, type: 3}
   - {fileID: 5983662283031617189, guid: 044424bf73b74854588fcd84ccc50151, type: 3}
+  objectTransform: {fileID: 1842580190}
+  monNavi: {fileID: 1747327119}
+  stagePoolTransform: {fileID: 613401352}
+  monsters:
+  - {fileID: 8554956818604915918, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  - {fileID: 5452231333053911642, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
   cobjects:
   - {fileID: 7851440790770928516, guid: 4f8becbc4f03a124e9b424576307fccc, type: 3}
   - {fileID: 5397217330490727609, guid: fce718a01f0c1d446bd18f0e0484e132, type: 3}
@@ -5526,11 +5534,6 @@ MonoBehaviour:
   - {fileID: 7851440790770928516, guid: 4da6ce8457f350d4e95760aa55133522, type: 3}
   - {fileID: 7851440790770928516, guid: fb96897b78d23bf4f8b222e286e57826, type: 3}
   - {fileID: 7851440790770928516, guid: 15005464ab50d1a4a86947022dd5cf53, type: 3}
-  objectTransform: {fileID: 1842580190}
-  monNavi: {fileID: 1747327119}
-  monsters:
-  - {fileID: 8554956818604915918, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
-  - {fileID: 5452231333053911642, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
 --- !u!114 &929805029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5677,6 +5680,7 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
   - component: {fileID: 963194230}
+  - component: {fileID: 963194231}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5819,6 +5823,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &963194231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6946727718dfd12489d012d9c3df9c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &970687466
 GameObject:
   m_ObjectHideFlags: 0
@@ -6128,6 +6144,8 @@ MonoBehaviour:
   stagePoolManager: {fileID: 613401353}
   stageObjects:
   - {fileID: 650489501655692614, guid: 2f52fa25b14ec4b488208787c7b429df, type: 3}
+  - {fileID: 650489501655692614, guid: eed958935c49a1b4398cd09b54106340, type: 3}
+  - {fileID: 650489501655692614, guid: 5d823ff87a12c5348b6fa6621d22023e, type: 3}
 --- !u!1 &1062042358
 GameObject:
   m_ObjectHideFlags: 0
@@ -11186,6 +11204,7 @@ MonoBehaviour:
   - {fileID: 5463040032755583667, guid: 8cec85dd11510f44ea69c10fc0d83584, type: 3}
   - {fileID: 0}
   - {fileID: 0}
+  itemTransform: {fileID: 892687276}
 --- !u!1 &2000678669
 GameObject:
   m_ObjectHideFlags: 0
@@ -11602,6 +11621,14 @@ PrefabInstance:
     - target: {fileID: 68672808907535303, guid: 74a73959cc775c34f85782a0a78fd9d5, type: 3}
       propertyPath: m_Name
       value: QuestUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446734949407444482, guid: 74a73959cc775c34f85782a0a78fd9d5, type: 3}
+      propertyPath: m_ChildControlHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3206450231146780424, guid: 74a73959cc775c34f85782a0a78fd9d5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6976708426146038656, guid: 74a73959cc775c34f85782a0a78fd9d5, type: 3}
       propertyPath: m_Pivot.x

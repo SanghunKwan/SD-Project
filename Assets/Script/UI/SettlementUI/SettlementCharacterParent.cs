@@ -26,7 +26,7 @@ public class SettlementCharacterParent : SettleCanSkip
         GameManager.manager.battleClearManager.OverrideSaveDataBeforeSettle();
 
     }
-    async void SettleCharacters(SaveDataInfo saveInfo)
+    void SettleCharacters(SaveDataInfo saveInfo)
     {
         int[] herosIndex = saveInfo.stageData.heros;
         int heroCount = herosIndex.Length;
@@ -49,8 +49,6 @@ public class SettlementCharacterParent : SettleCanSkip
                 settlementCharacters[i].CreateNewDisease(heroData.disease);
             else
                 Debug.Log("새 질병 생성하지 않는 확률");
-
-            await Task.Delay(interval);
         }
     }
 

@@ -111,6 +111,8 @@ public class QuestManager : JsonLoad
                 VilligeExpeditionWindow,
                 ItemUseOnStore,
                 ItemUseOnExpedition,
+                HeroSelect,
+                CallFormation,
                 Max
             }
             public enum ActCondition

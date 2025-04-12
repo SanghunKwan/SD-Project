@@ -8,11 +8,11 @@ public class StageMonsterPrefabs : StagePrefabsCaller
     void Start()
     {
         int length = stagePoolManager.stageFloors.Length;
-        for (int i = stagePoolManager.startFloorIndex; i < length; i++)
+        for (int i = stagePoolManager.startFloorIndex + System.Convert.ToInt32(stagePoolManager.isLoaded); i < length; i++)
         {
             PlacePrefab(GameManager.manager.battleClearManager.stageFloorComponents[i], stagePoolManager.stageFloors[i]);
+            if (i == 0) transform.GetChild(0).gameObject.SetActive(true);
         }
-        transform.GetChild(0).gameObject.SetActive(GameManager.manager.battleClearManager.SaveDataInfo.stageData.isEnter);
     }
     public override GameObject PlacePrefab(StageFloorComponent floor, int floorNum)
     {

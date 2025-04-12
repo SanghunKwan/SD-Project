@@ -110,6 +110,8 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeExpeditionWindow] = GameManager.manager.onVilligeExpeditionWindow;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.ItemUseOnStore] = GameManager.manager.onItemUseOnStore;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.ItemUseOnExpedition] = GameManager.manager.onItemUseOnExpedition;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.HeroSelect] = GameManager.manager.onHeroSelect;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.CallFormation] = GameManager.manager.onCallFormation;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
@@ -181,7 +183,9 @@ public class QuestSpawner : MonoBehaviour
                 for (int i = 0; i < length; i++)
                 {
                     SetBitSave(datas[i].type, datas[i].questNum, QuestSaveData.SaveDataBit.Enable);
-                    PrepareQuest(datas[i].type, datas[i].questNum);
+
+                    if (ContainsType(datas[i].type))
+                        PrepareQuest(datas[i].type, datas[i].questNum);
                 }
 
             }
@@ -192,6 +196,11 @@ public class QuestSpawner : MonoBehaviour
 
         GameManager.manager.onEffectedOtherEvent.eventAction?.Invoke(questNum, Vector3.zero);
     }
+    bool ContainsType(QuestManager.QuestType type)
+    {
+        return Array.IndexOf(types, type) >= 0;
+    }
+
     void SetBitSave(QuestManager.QuestType type, int questNum, QuestSaveData.SaveDataBit nowState)
     {
         questSaveData.SetQuestState(type, questNum, nowState);

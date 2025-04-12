@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public FloorUnitData[] floorUnitDatas { get; private set; }
     public HeroData[] heroDatas { get; protected set; }
-    public MonsterData[] monsterDatas { get; private set; }
-    public ObjectData[] objectDatas { get; private set; }
     public BuildingData[] buildingDatas { get; private set; }
-    public DropItemData[] dropItemDatas { get; private set; }
 
     public int[] competeIndexs { get; protected set; }
     public int nowFloorIndex { get; private set; }
@@ -24,20 +22,16 @@ public class SpawnManager : MonoBehaviour
     {
         SaveDataInfo saveDataInfo = GameManager.manager.battleClearManager.SaveDataInfo;
 
-        monsterDatas = saveDataInfo.stageData.monsterData;
-        objectDatas = saveDataInfo.stageData.objectDatas;
+        floorUnitDatas = saveDataInfo.stageData.floorUnitDatas;
         buildingDatas = saveDataInfo.building;
-        dropItemDatas = saveDataInfo.stageData.dropItemDatas;
 
         nowFloorIndex = saveDataInfo.stageData.nowFloorIndex;
         competeIndexs = saveDataInfo.stageData.heros;
 
         heroDatas = new HeroData[competeIndexs.Length];
+
         for (int i = 0; i < competeIndexs.Length; i++)
         {
-            if (competeIndexs[i] == -1)
-                continue;
-
             heroDatas[i] = saveDataInfo.hero[competeIndexs[i]];
         }
 

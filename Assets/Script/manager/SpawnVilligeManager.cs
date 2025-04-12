@@ -38,7 +38,7 @@ public class SpawnVilligeManager : SpawnManager
         int nowCompeteIndex = 0;
         int heroIndex = 0;
         int teamArrayCorrection = 0;
-        string lastKeycode = "";
+        string lastKeycode = saveDataInfo.hero[0].keycode;
         HeroData tempHeroData;
         for (int i = 0; i < length; i++)
         {
@@ -65,6 +65,7 @@ public class SpawnVilligeManager : SpawnManager
             {
                 teamArrayCorrection = heroIndex;
                 lastKeycode = tempHeroData.keycode;
+                Debug.Log(heroIndex + "ÆÀ º¯°æ");
             }
         }
     }

@@ -120,7 +120,7 @@ namespace SaveData
         public bool willChange;
         public int willChangeIndex;
 
-        public QuirkSaveData()
+        public QuirkSaveData() : base()
         {
             Init();
         }
@@ -158,7 +158,7 @@ namespace SaveData
         {
             name = "디스마스";
             lv = 1;
-            quirks = new QuirkSaveData(5);
+            quirks = new QuirkSaveData();
             disease = new QuirkDefaultData(4);
             keycode = "=";
             equipNum = new int[3] { 1, 1, 1 };
@@ -269,10 +269,10 @@ namespace SaveData
 
         public InventoryData inventoryData;
 
-        public UnitData[] unitData;
-        public MonsterData[] monsterData;
-        public ObjectData[] objectDatas;
-        public DropItemData[] dropItemDatas;
+        public FloorUnitData[] floorUnitDatas;
+
+
+
         public StageData() : this(new int[] { 0 }, new int[] { 0 }) { }
         public StageData(in int[] getFloors, in int[] getHeros)
         {
@@ -291,6 +291,14 @@ namespace SaveData
             isClear = stageData.isClear;
             isEnter = stageData.isEnter;
         }
+    }
+    [Serializable]
+    public class FloorUnitData
+    {
+        public UnitData[] unitData;
+        public MonsterData[] monsterData;
+        public ObjectData[] objectDatas;
+        public DropItemData[] dropItemDatas;
     }
     [Serializable]
     public class MonsterData
@@ -534,6 +542,12 @@ namespace SaveData
         {
             data[(int)type].AddQuestState(questNum, bit);
         }
+        public void SetStageQuest()
+        {
+            QuestManager questManager = GameManager.manager.questManager;
+            floorQuestData = new BitSaveData(questManager.GetQuestCount(QuestManager.QuestType.FloorQuest));
+            floorQuestData.bits[0] = 1;
+        }
     }
     [Serializable]
     public class PlayInfo
@@ -546,7 +560,8 @@ namespace SaveData
 
         public PlayInfo()
         {
-            camPosition = new Vector3(0.25f, 10f, -9.38f);
+            camPosition = new Vector3();
+            ResetPosition();
             enableUpgrades = new int[] { 1, 1, 1, 1, 1, 1, 1 };
             canSummonHero = null;
             canSummonHeroCount = 2;
@@ -555,6 +570,10 @@ namespace SaveData
         public void SaveData()
         {
             camPosition.Set(Camera.main.transform.position.x, 10, Camera.main.transform.position.z);
+        }
+        public void ResetPosition()
+        {
+            camPosition.Set(0.25f, 10f, -9.38f);
         }
     }
     [Serializable]

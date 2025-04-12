@@ -107,6 +107,7 @@ namespace SDUI
 
             interact.teamUIData.SaveData(teamUI, transform.parent.GetSiblingIndex());
             interact.ChangeImage(AddressableManager.BuildingImage.Tower);
+            
             GameManager.manager.onVilligeBuildingHeroAllocation.eventAction?.Invoke(9, Vector3.zero);
         }
         public void DataErase()

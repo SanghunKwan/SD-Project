@@ -37,8 +37,10 @@ public class PlayerNavi : MonoBehaviour
     string formationKey;
 
     public Dictionary<string, List<Character>> PlayerCharacter { get; private set; } = new();
+    Dictionary<string, int> key2EventIndex = new Dictionary<string, int>();
 
     public Vector3 getCenter { get { return Now_center(); } }
+
     private void Awake()
     {
         nav = this;
@@ -102,6 +104,11 @@ public class PlayerNavi : MonoBehaviour
         simpleKey.Add("D", (ordertype) => TeamHolD(ordertype));
         simpleKey.Add("V", (ordertype) => TeamMove(ordertype));
         simpleKey.Add("A", (ordertype) => AttackMove(ordertype));
+
+        key2EventIndex.Add("Q", 0);
+        key2EventIndex.Add("W", 1);
+        key2EventIndex.Add("E", 2);
+        key2EventIndex.Add("R", 3);
     }
     void SetTeam()
     {
@@ -125,6 +132,7 @@ public class PlayerNavi : MonoBehaviour
         if (lists.Count >= 1) lists[0].Formation = key;
 
         formationKey = key;
+        GameManager.manager.onCallFormation.eventAction?.Invoke(key2EventIndex[key], getCenter);
     }
     public void Navi_Destination(Vector3 click, MoveType moveType, OrderType order)
     {

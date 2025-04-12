@@ -71,6 +71,7 @@ public class VilligeUnitSpawner : UnitSpawner
         Unit.Hero tempHero;
         tempHero = SpawnHeroData(heroData, heroIndex);
         characterList.MatchingHeroWithInteract(heroIndex, tempHero);
+        Debug.Log(heroIndex);
     }
     public villigeInteract SummonHeroFromHeroData(HeroData heroData)
     {

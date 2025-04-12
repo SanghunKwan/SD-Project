@@ -48,12 +48,12 @@ public class SummonHeroWindow : CamTuringWindow
     }
     void CheckCanSummonHeroData()
     {
-        if (playInfo.canSummonHero == null)
+        if (playInfo.canSummonHero.Length == 0)
         {
             playInfo.canSummonHero = new SaveData.SummonHeroData[playInfo.canSummonHeroCount];
             SetHeroList(playInfo.canSummonHeroCount, (index, tag) =>
             {
-                tag.SetNewHeroData(2);
+                tag.SetNewHeroData(index, 2);
                 tag.SaveNameTag(index);
             });
             GameManager.manager.battleClearManager.OverrideSummonHeroList();

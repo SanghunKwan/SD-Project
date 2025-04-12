@@ -10,7 +10,6 @@ public abstract class UnitSpawner : MonoBehaviour
     [SerializeField] protected SpawnManager SpawnManager;
 
     [SerializeField] Hero[] heroes;
-    [SerializeField] CObject[] cobjects;
 
     protected Action<int>[] spawnActions;
     public Transform objectTransform;
@@ -29,21 +28,11 @@ public abstract class UnitSpawner : MonoBehaviour
             heroIndex++;
         }
 
-        foreach (var item in SpawnManager.objectDatas)
-        {
-            SpawnObjectData(item);
-        }
-
         VirtualStart();
     }
     protected abstract void VirtualStart();
     protected abstract void DefaultStart();
-    void SpawnObjectData(ObjectData data)
-    {
-        CObject newOjb = Instantiate(cobjects[(data.cur_status.ID - 1) % 100], data.position, data.quaternion, objectTransform);
-        NewSpawnedObjectSet(newOjb, data);
-        newOjb.gameObject.SetActive(true);
-    }
+    
     protected void NewSpawnedObjectSet(CObject newObject, ObjectData data)
     {
         newObject.GetStatusEffect(data.dots, data.dotsDirection);

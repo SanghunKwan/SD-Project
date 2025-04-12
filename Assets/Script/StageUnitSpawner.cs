@@ -8,26 +8,58 @@ public class StageUnitSpawner : UnitSpawner
 {
     [Header("StageOnly")]
     [SerializeField] MonNavi monNavi;
-
+    [SerializeField] Transform stagePoolTransform;
     [SerializeField] Monster[] monsters;
+    [SerializeField] CObject[] cobjects;
+
+    Transform[] prefabsTransform;
+    public enum StagePoolPrefabs
+    {
+        Object,
+        Monster,
+        Item,
+        Max
+    }
 
     protected override void VirtualStart()
     {
-        foreach (var item in SpawnManager.monsterDatas)
+        int length = SpawnManager.floorUnitDatas.Length;
+        int prefabLength = prefabsTransform.Length;
+        FloorUnitData item;
+        for (int i = 0; i < length; i++)
         {
-            SpawnMonsterData(item);
+            for (int j = 0; j < prefabLength; j++)
+            {
+                GameObject folder = new GameObject(((StagePoolPrefabs)i).ToString());
+                folder.transform.SetParent(prefabsTransform[j]);
+            }
         }
-        foreach (var item in SpawnManager.dropItemDatas)
+
+        for (int i = 0; i < length; i++)
         {
-            SpawnItemData(item);
+            item = SpawnManager.floorUnitDatas[i];
+            foreach (var monster in item.monsterData)
+            {
+                SpawnMonsterData(monster, i);
+            }
+
+            foreach (var drop in item.dropItemDatas)
+            {
+                SpawnItemData(drop, i);
+            }
+
+            foreach (var obj in item.objectDatas)
+            {
+                SpawnObjectData(obj, i);
+            }
         }
     }
-    void SpawnMonsterData(MonsterData data)
+    void SpawnMonsterData(MonsterData data, int folderIndex)
     {
         Monster newOjb = Instantiate(monsters[data.unitData.objectData.cur_status.ID % 100],
                                                data.unitData.objectData.position,
                                                data.unitData.objectData.quaternion,
-                                               monNavi.transform);
+                                               prefabsTransform[(int)StagePoolPrefabs.Monster].GetChild(folderIndex));
 
         NewSpawnedObjectSet(newOjb, data.unitData.objectData);
         NewSpawnedUnitSet(newOjb, data.unitData);
@@ -42,15 +74,29 @@ public class StageUnitSpawner : UnitSpawner
         move.standType = data.standType;
     }
 
-    void SpawnItemData(DropItemData data)
+    void SpawnItemData(DropItemData data, int folderIndex)
     {
         GameObject item = DropManager.instance.pool.CallItem(data.index - 1);
+        item.transform.SetParent(prefabsTransform[(int)StagePoolPrefabs.Item].GetChild(folderIndex));
 
         item.transform.position = data.position;
     }
-
+    void SpawnObjectData(ObjectData data, int folderIndex)
+    {
+        CObject newOjb = Instantiate(cobjects[(data.cur_status.ID - 1) % 100], data.position, data.quaternion,
+                                prefabsTransform[(int)StagePoolPrefabs.Object].GetChild(folderIndex));
+        NewSpawnedObjectSet(newOjb, data);
+        newOjb.gameObject.SetActive(true);
+    }
     protected override void DefaultStart()
     {
+        int length = (int)StagePoolPrefabs.Max;
+        prefabsTransform = new Transform[length];
 
+        for (int i = 0; i < length; i++)
+        {
+            prefabsTransform[i] = stagePoolTransform.GetChild(i);
+        }
     }
+
 }

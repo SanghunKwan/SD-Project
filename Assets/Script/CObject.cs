@@ -13,7 +13,7 @@ namespace Unit
         public Vector3 dotsDirection { get; protected set; }
         public int id { get { return ID; } }
         protected int initCount;
-        protected int initMaxCount = 2;
+        protected int initMaxCount  = 2;
         public unit_status stat { get; protected set; }
         public unit_status curstat { get; protected set; }
         public bool selected { get; protected set; } = false;
@@ -350,6 +350,7 @@ namespace Unit
 
                     item.transform.position = transform.position
                         + Quaternion.Euler(0, 360 * i / DropInfo.MaxNum, 0) * Vector3.right * (ObjectCollider.radius + 0.5f);
+                    DropManager.instance.pool.CheckPosition(item);
                     item.transform.Rotate(0, 360 * i / DropInfo.MaxNum, 0);
 
                     yield return new WaitForSeconds(0.1f);
@@ -363,7 +364,7 @@ namespace Unit
                 item.SetActive(true);
 
                 item.transform.position = transform.position;
-
+                DropManager.instance.pool.CheckPosition(item);
                 yield return new WaitForSeconds(0.1f);
             }
             else
@@ -373,7 +374,7 @@ namespace Unit
                 item.SetActive(true);
 
                 item.transform.position = transform.position;
-
+                DropManager.instance.pool.CheckPosition(item);
                 yield return new WaitForSeconds(0.1f);
             }
         }

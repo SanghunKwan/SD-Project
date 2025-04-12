@@ -133,6 +133,8 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
                 GameManager.manager.ScreenToPoint(hero.transform.position);
 
             hero.Selected(true);
+
+            GameManager.manager.onHeroSelect.eventAction?.Invoke(1, hero.transform.position);
         };
 
     }
