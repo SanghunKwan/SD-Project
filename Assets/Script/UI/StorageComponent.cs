@@ -48,6 +48,6 @@ public class StorageComponent : InitObject
         ItemCountChange(2, -needMaterial.blackNum);
         ItemCountChange(3, -needMaterial.whiteNum);
         ItemCountChange(4, -needMaterial.timberNum);
-        ItemCountChange(12, -needMaterial.money);
+        ItemCountChange(13, -needMaterial.money);
     }
 }

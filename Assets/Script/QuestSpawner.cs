@@ -17,6 +17,7 @@ public class QuestSpawner : MonoBehaviour
     Action<QuestManager.QuestData.QuestAct, QuestManager.QuestType, int>[] prepareQuestActions;
     Action<QuestManager.QuestData, Action, int>[] createQuestRequirementsActions;
     Action<QuestManager.QuestData.QuestReward>[] EventClearActions;
+    Action<int, int, QuestUISlot>[] createQuestEventActions;
 
     public QuestManager.QuestType[] types;
     [SerializeField] QuestUIViewer questUIViewer;
@@ -24,8 +25,8 @@ public class QuestSpawner : MonoBehaviour
     QuestBackGround questBackGround;
     QuestPool questPool;
 
-    [SerializeField] InventoryStorage inventoryStorage;
-    [SerializeField] InventoryComponent inventoryComponent;
+    [SerializeField] StorageComponent storage;
+    [SerializeField] SetBuildingMat setBuildingMat;
 
     Dictionary<QuestManager.QuestData, QuestPool.QuestActionInstance> doingActionQuestDictionary;
 
@@ -66,6 +67,8 @@ public class QuestSpawner : MonoBehaviour
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.NewStage] = (reward) => ClearForStage();
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.StageSet] = (reward) => ClearStageArrive();
 
+        createQuestEventActions = new Action<int, int, QuestUISlot>[(int)QuestManager.QuestData.QuestEvent.EventType.Max];
+        createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.FreeMaterial] = QuestEventFreeMaterial;
     }
     void Start()
     {
@@ -112,6 +115,9 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.ItemUseOnExpedition] = GameManager.manager.onItemUseOnExpedition;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.HeroSelect] = GameManager.manager.onHeroSelect;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.CallFormation] = GameManager.manager.onCallFormation;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.EnemyHorror] = GameManager.manager.onEnemyHorror;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeExpeditionFloorSelect] = GameManager.manager.onVilligeExpeditionFloorSelect;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeExpeditionFloorDelete] = GameManager.manager.onVilligeExpeditionFloorDelete;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
@@ -171,6 +177,8 @@ public class QuestSpawner : MonoBehaviour
         //퀘스트 현재 상태 변경
         SetBitSave(type, questNum, QuestSaveData.SaveDataBit.Doing);
 
+        CreateQuestEvent(data.questEvent, slot);
+
         Action completeAction = () =>
         {
             SetBitSave(type, questNum, QuestSaveData.SaveDataBit.Complete);
@@ -193,6 +201,7 @@ public class QuestSpawner : MonoBehaviour
 
         //퀘스트 클리어 조건 형성
         CreateQuestRequirements(data, completeAction, nowProgress);
+
 
         GameManager.manager.onEffectedOtherEvent.eventAction?.Invoke(questNum, Vector3.zero);
     }
@@ -239,15 +248,14 @@ public class QuestSpawner : MonoBehaviour
             int length = itemDatas.Length;
             for (int i = 0; i < length; i++)
             {
-                if (inventoryStorage.ItemCounts[itemDatas[i].itemCode] < itemDatas[i].itemCount)
+                if (storage.ItemCounts[itemDatas[i].itemCode] < itemDatas[i].itemCount)
                     return;
             }
 
             action();
-            inventoryStorage.SubtractListener(Wrapper);
+            storage.SubtractListener(Wrapper);
         }
-        inventoryStorage.AddListener(Wrapper);
-
+        storage.AddListener(Wrapper);
     }
 
     void CreateQuestForAction(QuestManager.QuestData data, Action completeAction, int nowProgress)
@@ -267,6 +275,24 @@ public class QuestSpawner : MonoBehaviour
 
     }
     #endregion
+    #region CreateQuestEvent
+    void CreateQuestEvent(QuestManager.QuestData.QuestEvent questEvent, QuestUISlot slot)
+    {
+        //퀘스트 이벤트 발생
+        createQuestEventActions[(int)questEvent.eventType]?.Invoke(questEvent.eventIndex, questEvent.eventNum, slot);
+    }
+    void QuestEventFreeMaterial(int eventIndex, int eventNum, QuestUISlot slot)
+    {
+        //자원 무료 사용
+        //priceInfoBox 표기값 변경, isBuildable true로 변경
+        setBuildingMat.AddQuest((SetBuildingMat.MaterialsType)eventIndex, eventNum);
+        slot.hideAction += () => setBuildingMat.RemoveQuest((SetBuildingMat.MaterialsType)eventIndex, eventNum);
+    }
+    void QuestEventItemTracking(int eventIndex, int eventNum)
+    {
+        //아이템 개수 추적. quest창에 표기.
+    }
+    #endregion
     #region eventClearActions
     void EventClear(QuestManager.QuestData.QuestReward reward)
     {
@@ -277,7 +303,7 @@ public class QuestSpawner : MonoBehaviour
     {
         foreach (var item in reward.rewardItems)
         {
-            inventoryStorage.ItemCountChange(item.itemCode, item.itemCount);
+            storage.ItemCountChange(item.itemCode, item.itemCount);
         }
     }
     void ClearForStage()
@@ -361,7 +387,7 @@ public class QuestSpawner : MonoBehaviour
         //UI 관련 효과가 아닐 경우 action에 더해줌.
         highLightActions2[(int)highlight.highLight]?.Invoke(highlight.highLightPosition, callPosition, highlight.size, ref action);
 
-        slot.hideAction = () =>
+        slot.hideAction += () =>
         {
             if (highlight.highLight != QuestManager.QuestData.QuestHighLight.HighLightTarget.None)
             {
@@ -455,6 +481,8 @@ public class QuestSpawner : MonoBehaviour
         Debug.Log("actionAdded");
         actionEvent[(int)actType].eventAction += Wrapper;
     }
+
+
 
     #endregion
 }

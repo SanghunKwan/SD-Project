@@ -66,5 +66,6 @@ public class SaveStageViewNode : InitObject, IPointerExitHandler
     {
         exitAction();
         exitAction = () => { };
+        GameManager.manager.onVilligeButton.eventAction?.Invoke((int)GameManager.ActionButtonNum.VilligeExpeditionProlongCancelExit, Vector3.zero);
     }
 }

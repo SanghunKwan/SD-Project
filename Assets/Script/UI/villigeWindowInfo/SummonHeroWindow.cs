@@ -81,7 +81,7 @@ public class SummonHeroWindow : CamTuringWindow
         {
             villigeInteract nameTag = villigeUnitSpawner.SummonHeroFromHeroData(summonNameTag.heroData);
             characterList.EndDrag(nameTag);
-            HeroSpawnEvent(summonNameTag);
+            HeroSpawnEvent(summonNameTag, nameTag.hero);
         }
         else
         {
@@ -94,18 +94,24 @@ public class SummonHeroWindow : CamTuringWindow
         if (!characterPopulation.CanAddHero(1))
             return;
 
-        villigeUnitSpawner.SummonHeroFromHeroData(summonNameTag.heroData);
+        Unit.Hero hero = villigeUnitSpawner.SummonHeroFromHeroData(summonNameTag.heroData).hero;
         summonNameTag.SetView(false);
         characterList.ReArrage();
-        HeroSpawnEvent(summonNameTag);
+        HeroSpawnEvent(summonNameTag, hero);
     }
-    void HeroSpawnEvent(SummonHeroNameTag summonNameTag)
+    void HeroSpawnEvent(SummonHeroNameTag summonNameTag, Unit.Hero hero)
     {
         SaveData.HeroData heroData = summonNameTag.heroData;
         SetTagInteractableFalse(summonNameTag);
         GameManager.manager.onVilligeHeroSummon.eventAction?.Invoke(
             (int)heroData.unitData.objectData.cur_status.type, heroData.unitData.objectData.position);
         characterPopulation.AddHero();
+
+        HeroRallyPoint(hero);
+    }
+    void HeroRallyPoint(Unit.Hero hero)
+    {
+        hero.unitMove.Navi_Destination(clickCamturningComponent.transform.position + Vector3.back * 3);
     }
     void SetTagInteractableFalse(SummonHeroNameTag summonNameTag)
     {

@@ -128,6 +128,7 @@ namespace Unit
         protected override void Fear()
         {
             unitMove.Fear(dots[(int)SkillData.EFFECTINDEX.FEAR]);
+            GameManager.manager.onEnemyHorror.eventAction?.Invoke(gameObject.layer, transform.position);
         }
 
         public virtual void Recovery(int add)

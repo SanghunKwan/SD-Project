@@ -17,7 +17,7 @@ public class OpenWithMousePosition : MonoBehaviour
         InWindow(pointer.position.x, pointer.position.y);
     }
 
-    void InWindow(in float x, in float y)
+    void InWindow(float x, float y)
     {
         float fX, fY;
 
@@ -38,6 +38,14 @@ public class OpenWithMousePosition : MonoBehaviour
         rect.position = new Vector2(fX, fY);
 
     }
+    public void OpenOnBoxes(UnityEngine.UI.Image image)
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        float fX = image.rectTransform.position.x - rect.sizeDelta.x + image.rectTransform.sizeDelta.x;
+        float fY = image.rectTransform.position.y - image.rectTransform.sizeDelta.y;
+        rect.position = new Vector2(fX, fY);
+    }
+
 
     public void Close()
     {

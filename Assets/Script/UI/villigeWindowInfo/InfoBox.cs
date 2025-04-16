@@ -18,7 +18,8 @@ public class InfoBox : MonoBehaviour
     Dictionary<Type, Action<Hero, Enum, int>> buttonActions = new();
     StringBuilder builder;
 
-    SetBuildingMat materialPriceBox;
+    [SerializeField] SetBuildingMat materialPriceBox;
+    OpenWithMousePosition materialPosition;
 
     enum TextBoxType
     {
@@ -35,7 +36,7 @@ public class InfoBox : MonoBehaviour
             images[i] = transform.GetChild(i).GetComponent<Image>();
             textMeshProUGUIs[i] = images[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         }
-        materialPriceBox = images[0].transform.Find("PricenfoBox").GetComponent<SetBuildingMat>();
+        materialPosition = materialPriceBox.GetComponent<OpenWithMousePosition>();
 
         actions.Add(typeof(AddressableManager.PreviewImage), (qwer, uiop) =>
         { PreviewImage(qwer, (AddressableManager.PreviewImage)uiop); });
@@ -86,7 +87,7 @@ public class InfoBox : MonoBehaviour
     {
         PreviewImage(hero.Getnum, skillImage, hero.SkillsNum[(int)skillImage], TextBoxType.Left);
         PreviewImage(hero.Getnum, skillImage, skillNum, TextBoxType.DefaultRight);
-        materialPriceBox.transform.GetChild(0).gameObject.SetActive(true);
+        materialPosition.OpenOnBoxes(images[0]);
         materialPriceBox.GetData((int)skillImage + ((skillNum - 1) * 4) + 1, SetBuildingMat.MaterialsType.SkillUpgradeNeed);
     }
     void PreviewImage(SaveData.HeroData hero, AddressableManager.PreviewImage skillImage)
@@ -130,7 +131,7 @@ public class InfoBox : MonoBehaviour
     {
         EquipsImage(hero.Getnum, equipsImage, hero.EquipsNum[(int)equipsImage], TextBoxType.Left);
         EquipsImage(hero.Getnum, equipsImage, equipNum, TextBoxType.DefaultRight);
-        materialPriceBox.transform.GetChild(0).gameObject.SetActive(true);
+        materialPosition.OpenOnBoxes(images[0]);
         materialPriceBox.GetData((int)equipsImage + ((equipNum - 1) * 3) + 1, SetBuildingMat.MaterialsType.UpgradeNeed);
     }
     void EquipsImage(SaveData.HeroData hero, AddressableManager.EquipsImage equipsImage)

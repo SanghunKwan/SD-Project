@@ -62,6 +62,11 @@
                     }
                 ],
                 "needCallNextQuest": false
+            },
+            "questEvent": {
+                "eventType": 0,
+                "eventIndex": 0,
+                "eventNum": 0
             }
         }
     ],
@@ -128,6 +133,11 @@
                     }
                 ],
                 "needCallNextQuest": false
+            },
+            "questEvent": {
+                "eventType": 0,
+                "eventIndex": 0,
+                "eventNum": 0
             }
         }
     ],
@@ -194,6 +204,11 @@
                     }
                 ],
                 "needCallNextQuest": false
+            },
+            "questEvent": {
+                "eventType": 0,
+                "eventIndex": 0,
+                "eventNum": 0
             }
         }
     ],
@@ -260,6 +275,11 @@
                     }
                 ],
                 "needCallNextQuest": false
+            },
+            "questEvent": {
+                "eventType": 0,
+                "eventIndex": 0,
+                "eventNum": 0
             }
         }
     ]

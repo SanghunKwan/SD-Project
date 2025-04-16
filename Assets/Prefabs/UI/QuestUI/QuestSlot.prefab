@@ -365,6 +365,7 @@ MonoBehaviour:
   detail: {fileID: 5229298924652121739}
   animator: {fileID: 7062861926469906282}
   layoutGroup: {fileID: 2572215908645589117}
+  image: {fileID: 6540544331739039882}
 --- !u!95 &7062861926469906282
 Animator:
   serializedVersion: 5

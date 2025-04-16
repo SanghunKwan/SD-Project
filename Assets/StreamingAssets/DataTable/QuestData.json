@@ -953,9 +953,15 @@
       "follow": {
         "datas": [
           {
+            "type": 1,
+            "questNum": 17
+          },
+          {
+            "type": 1,
+            "questNum": 19
           }
         ],
-        "needCallNextQuest": false
+        "needCallNextQuest": true
       }
     },
     {
@@ -1006,6 +1012,63 @@
         "id": 0,
         "layer": 7,
         "whatCause": 2
+      },
+      "follow": {
+        "datas": [
+          {
+          }
+        ],
+        "needCallNextQuest": false
+      }
+    },
+    {
+      "num": 17,
+      "questType": 0,
+      "name": "공포",
+      "detail": "몬스터들은 피격, 동료 사망 시 사기가 감소하며, 사기가 0이 되면 도망칩니다.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": true,
+        "highLight": 2,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 1
+      },
+      "trigger": 1,
+      "require": {
+        "type": 2,
+        "layer": 10,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 6,
+        "actCondition": 0,
+        "conditionComparison": 1,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "id": 0,
+        "layer": 10,
+        "whatCause": 30
       },
       "follow": {
         "datas": [
@@ -1975,7 +2038,7 @@
         "radius": 0.0,
         "itemDatas": [],
         "actionType": 12,
-        "actCondition": 1,
+        "actCondition": 0,
         "accumulatedTime": 0,
         "stageOffsetIndex": 0
       },
@@ -1999,9 +2062,440 @@
           {
             "type": 0,
             "questNum": 16
+          },
+          {
+            "type": 0,
+            "questNum": 17
           }
         ],
         "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 17,
+      "questType": 1,
+      "name": "치유소 건설",
+      "detail": "체력, 기벽, 질병을 관리하기 위해 치유소를 지으세요.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {
+            "itemCode": 1,
+            "itemCount": 4
+          },
+          {
+            "itemCode": 2,
+            "itemCount": 1
+          },
+          {
+            "itemCode": 4,
+            "itemCount": 2
+          },
+          {
+            "itemCode": 13,
+            "itemCount": 100
+          }
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 0,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 0.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 8,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 16,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 1,
+        "eventIndex": 0,
+        "eventNum": 9
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 0,
+            "questNum": 18
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 18,
+      "questType": 1,
+      "name": "치유소 건설",
+      "detail": "제작 기간이 있는 경우, 원정을 갔다오면 진행도 최대치가 증가합니다.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 2,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": -0.5,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 9,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 6,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 209,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 0,
+            "questNum": 18
+          }
+        ],
+        "needCallNextQuest": false
+      }
+    },
+    {
+      "num": 19,
+      "questType": 1,
+      "name": "원정 설계",
+      "detail": "여러 스테이지를 한 번의 원정으로 클리어할 수 있습니다.\n스테이지를 선택하세요.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 600.0,
+          "y": 300.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 1,
+      "require": {
+        "type": 2,
+        "layer": 2,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 31,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "layer": 2,
+        "whatCause": 12
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 20
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 20,
+      "questType": 1,
+      "name": "원정 설계",
+      "detail": "연장 버튼을 눌러 복귀하지 않고 원정을 이어나갈 수 있습니다.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1330.0,
+          "y": 80.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 4,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 12,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 21
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 21,
+      "questType": 1,
+      "name": "원정 설계",
+      "detail": "원정 연장 시 아직 도달하지 못한 층도 포함시킬 수 있습니다.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 600.0,
+          "y": 420.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 3,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 31,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 22
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 22,
+      "questType": 1,
+      "name": "원정 설계",
+      "detail": "층 스택을 눌러 원정에서 제거할 수 있습니다.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 920.0,
+          "y": 830.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 0,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 32,
+        "conditionComparison": 3,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 23
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 23,
+      "questType": 1,
+      "name": "원정 설계",
+      "detail": "층을 원정에서 제거하여 못 가는 층은 자동으로 제거됩니다.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 920.0,
+          "y": 830.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 5,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 12,
+        "conditionComparison": 1,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 211,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 18
+          }
+        ],
+        "needCallNextQuest": false
       }
     }
   ],

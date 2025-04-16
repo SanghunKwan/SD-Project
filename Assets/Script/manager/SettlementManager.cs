@@ -43,9 +43,6 @@ public class SettlementManager : SettleCanSkip
         hideAnimator.gameObject.SetActive(true);
         if (onoff)
             hideAnimator.SetTrigger("fadeOutNoDelay");
-
-        else
-            hideAnimator.SetTrigger("StopFadeOut");
     }
     void SaveStageClearData(out bool stageSucess)
     {

@@ -211,6 +211,7 @@ public class BattleClearManager : MonoBehaviour
             if (needPositionReset)
             {
                 hero.unitData.objectData.position = newPosition;
+                hero.unitData.destination = newPosition + Vector3.back * 2;
                 hero.unitData.objectData.quaternion = Quaternion.Euler(0, 180, 0);
                 hero.unitData.objectData.selected = false;
             }
@@ -225,6 +226,7 @@ public class BattleClearManager : MonoBehaviour
 
         DeleteSaveDataFileStageUnitDropItems();
         DeletePlayInfoCamPosition();
+        OverrideFloorData();
         OverrideSummonHeroList();
 
     }
@@ -242,6 +244,7 @@ public class BattleClearManager : MonoBehaviour
         foreach (var item in needResetIndexArray)
         {
             saveData.hero[item].unitData.objectData.position = 2 * Vector3.forward;
+            saveData.hero[item].unitData.destination = Vector3.zero;
             saveData.hero[item].unitData.objectData.quaternion = Quaternion.Euler(0, 180, 0);
             saveData.hero[item].unitData.objectData.selected = false;
         }
@@ -253,7 +256,8 @@ public class BattleClearManager : MonoBehaviour
         saveData.playInfo = null;
         saveData.questSaveData.SetStageQuest();
         SetInventoryData(stageData, InventoryComponent.InventoryType.Villige);
-
+        //villige 데이터 저장할 때 int[] savedata.item에 저장해야 함.
+        //출정 시 storageManager(villige)를 현재 가지고 있는 item과 연산한 후 저장.
         OverrideSummonHeroList();
     }
     void SetInventoryData(StageData stageData, InventoryComponent.InventoryType inventoryType)
@@ -262,6 +266,7 @@ public class BattleClearManager : MonoBehaviour
             .inventoryComponents(inventoryType).inventoryStorage;
         stageData.inventoryData.SetData(storage.Inventory2ItemDatas(), storage.GetHeroCorpseIndexs());
     }
+    
 
     void DeleteSaveDataFileStageUnitDropItems()
     {
@@ -277,6 +282,20 @@ public class BattleClearManager : MonoBehaviour
     void DeletePlayInfoCamPosition()
     {
         saveData.playInfo.ResetPosition();
+    }
+    void OverrideFloorData()
+    {
+        int expeditionMaxFloor = saveData.floorData.topFloor;
+        int length = saveData.stageData.floors.Length;
+        for (int i = 0; i < length; i++)
+        {
+            if (expeditionMaxFloor < saveData.stageData.floors[i] + 1)
+            {
+                expeditionMaxFloor = saveData.stageData.floors[i] + 1;
+            }
+        }
+
+        saveData.floorData.topFloor = expeditionMaxFloor;
     }
     void OverrideSaveDataVilligeHero()
     {

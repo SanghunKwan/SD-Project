@@ -18,5 +18,6 @@ public class SettlementSkip : MonoBehaviour
     {
         settlementManager.interval = 0;
         settleInput.onClickEvent -= SetIntervalZero;
+        Debug.Log("½ºÅµ");
     }
 }

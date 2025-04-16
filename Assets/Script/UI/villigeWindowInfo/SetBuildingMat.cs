@@ -10,7 +10,8 @@ public class SetBuildingMat : MonoBehaviour
     {
         BuildingNeed,
         UpgradeNeed,
-        SkillUpgradeNeed
+        SkillUpgradeNeed,
+        Max
     }
 
     [SerializeField] MaterialsData manager;
@@ -32,7 +33,7 @@ public class SetBuildingMat : MonoBehaviour
     RectTransform rectTransform;
     float defaultHeight;
 
-
+    HashSet<int>[] questEventProceed;
     public bool isBuildable { get; private set; }
 
     private void Awake()
@@ -42,12 +43,21 @@ public class SetBuildingMat : MonoBehaviour
         time = gold.transform.parent.Find("TimeText").GetComponent<TextMeshProUGUI>();
         description = title.transform.Find("desc").GetComponent<TextMeshProUGUI>();
         rectTransform = GetComponent<RectTransform>();
+
+        int length = (int)MaterialsType.Max;
+        questEventProceed = new HashSet<int>[length];
+        for (int i = 0; i < length; i++)
+        {
+            questEventProceed[i] = new HashSet<int>();
+        }
+
         defaultHeight = rectTransform.sizeDelta.y;
     }
     public MaterialsData.NeedMaterials GetData(int materialIndex, MaterialsType materialsType)
     {
         MaterialsData.NeedMaterials needMaterials = manager.data.needsArray[(int)materialsType][materialIndex];
         GetData(needMaterials);
+        CheckTutorial(materialIndex, materialsType);
         return needMaterials;
     }
     void GetData(MaterialsData.NeedMaterials needMaterial)
@@ -63,6 +73,7 @@ public class SetBuildingMat : MonoBehaviour
         gold.text = needMaterial.money.ToString();
         time.text = needMaterial.turn.ToString();
         description.text = needMaterial.desc;
+        title.text = needMaterial.name;
 
         CompareCountToChangeColor(needMaterial);
         SetRectTransformSize(isMidMaterialExist);
@@ -102,6 +113,42 @@ public class SetBuildingMat : MonoBehaviour
 
         return onoff;
     }
+    #region QuestEvent
+    void CheckTutorial(int materialIndex, MaterialsType materialsType)
+    {
+        //튜토리얼 시 빌딩 재료 무료.
+        //설명에 튜토리얼 중에 무료라고 표기.
+        if (!GetIsContainsQuestEventProceed(materialsType, materialIndex))
+            return;
+
+        description.text += "\n<color=#33CA3E>튜토리얼 진행을 위해 한시적 무료.</color>";
+        if (gold.text != "0")
+        {
+            gold.text = "0";
+            gold.color = textColors[3];
+        }
+
+        foreach (var item in materials)
+        {
+            item.numText.text = "0";
+            item.numText.color = textColors[3];
+        }
+        isBuildable = true;
+    }
+    bool GetIsContainsQuestEventProceed(MaterialsType materialsType, int materialIndex)
+    {
+        return questEventProceed[(int)materialsType].Contains(materialIndex);
+    }
+    public void AddQuest(MaterialsType materialsType, int materialIndex)
+    {
+        questEventProceed[(int)materialsType].Add(materialIndex);
+    }
+    public void RemoveQuest(MaterialsType materialsType, int materialIndex)
+    {
+        questEventProceed[(int)materialsType].Remove(materialIndex);
+    }
+    #endregion
+
     void SetRectTransformSize(bool onoff)
     {
         if (onoff)

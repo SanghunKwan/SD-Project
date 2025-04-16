@@ -245,7 +245,6 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         int brunchOffset;
         int refItemCount = -itemCount;
         InventoryStorage.Slot memorySlot = new InventoryStorage.Slot();
-        StorageComponent.Item item = InventoryManager.i.info.items[itemCode];
         Action callSavedItems = () => { };
 
         for (int i = 0; i < length; i++)
@@ -254,9 +253,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
             if (CanBackUpItem(brunchOffset, ref memorySlot, ref callSavedItems, ref callChangedSlots))
                 ItemRemove(brunchOffset, nowInventoryComponent);
         }
-        nowInventoryComponent.inventoryStorage.ItemCountChangeBySlot(nowSlotIndex, itemCount, item);
-        nowInventoryComponent.inventoryStorage.BaseChangeItemCount(itemCode, -itemCount);
-        nowInventoryComponent.inventoryStorage.EmptySlotIndexRemove(nowSlotIndex, item.needSlots, item.figure);
+        nowInventoryComponent.inventoryStorage.LoadItem(nowSlotIndex, itemCode, itemCount);
         callSavedItems();
     }
 

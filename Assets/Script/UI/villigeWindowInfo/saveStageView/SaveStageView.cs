@@ -42,6 +42,7 @@ public class SaveStageView : InitObject
         } while (!NowNode.IsInteractive);
 
         button.interactable = IsLastIndex;
+        GameManager.manager.onVilligeButton.eventAction?.Invoke((int)GameManager.ActionButtonNum.VilligeExpeditionProlongBtn, Vector3.zero);
     }
 
     void MaxFloorIncrease()
@@ -72,6 +73,7 @@ public class SaveStageView : InitObject
                 RemoveFromList(nodeIndex);
                 MaxFloorDecrease(tempFloor);
                 nodesToRemove.Clear();
+              
             };
         else
         {
@@ -84,6 +86,7 @@ public class SaveStageView : InitObject
         NowNode.AnimRepeatStop();
 
         nodes[nodeIndex].NodeReset();
+        GameManager.manager.onVilligeExpeditionFloorDelete.eventAction?.Invoke(nodeIndex, Vector3.zero);
     }
     bool SearchNum(int tempFloor, int nodeIndex)
     {

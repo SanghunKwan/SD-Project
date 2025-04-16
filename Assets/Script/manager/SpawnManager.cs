@@ -16,7 +16,14 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.manager.onBattleClearManagerRegistered += DelayStart;
+        WaitUntilManagerRegistered(DelayStart);
+    }
+    void WaitUntilManagerRegistered(in System.Action action)
+    {
+        if (GameManager.manager.battleClearManager != null)
+            action();
+        else
+            GameManager.manager.onBattleClearManagerRegistered += action;
     }
     void DelayStart()
     {

@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
         VilligeBuildingScrollBtn = 1,
         VilligeFloorSelectBtn,
         VilligeExpeditionBtn,
+        VilligeExpeditionProlongBtn,
+        VilligeExpeditionProlongCancelExit
     }
     public ActionEvent onCry { get; private set; } = new ActionEvent();
     public ActionEvent onAttack { get; private set; } = new ActionEvent();
@@ -82,6 +84,9 @@ public class GameManager : MonoBehaviour
     public ActionEvent onItemUseOnExpedition { get; private set; } = new ActionEvent();
     public ActionEvent onHeroSelect { get; private set; } = new ActionEvent();
     public ActionEvent onCallFormation { get; private set; } = new ActionEvent();
+    public ActionEvent onEnemyHorror { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeExpeditionFloorSelect { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeExpeditionFloorDelete { get; private set; } = new ActionEvent();
     #endregion
     public PointerEventData pointerEventData { get; set; }
 

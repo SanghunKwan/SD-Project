@@ -147,11 +147,13 @@ public class Character : UnitMove
         lineRenderer_miniMap.Points[lineRenderer_miniMap.Points.Length - 2]
             = lineRenderer.Points[lineRenderer.Points.Length - 2]
             = NewPoint(vec);
+
         if (GameManager.manager.questManager.isBuildingUnderControl)
         {
             GameManager.manager.questManager.onBuildingControlFinish += DelayNewVectorWhileWindowOpen;
             needUpdateRendererPosition.Push(vec);
         }
+
         lineRenderer.SetAllDirty();
         lineRenderer_miniMap.SetAllDirty();
     }

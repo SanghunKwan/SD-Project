@@ -11,6 +11,7 @@ public class QuestUISlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI detail;
     [SerializeField] Animator animator;
     [SerializeField] VerticalLayoutGroup layoutGroup;
+    [SerializeField] Image image;
     int triggerOffNum;
     int triggerHighLightNum;
     int animStateNameHash;
@@ -43,6 +44,7 @@ public class QuestUISlot : MonoBehaviour
     {
         gameObject.SetActive(false);
         transform.SetAsLastSibling();
+        image.enabled = true;
     }
     public void TimeStopHighLight()
     {

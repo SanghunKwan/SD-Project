@@ -27,5 +27,4 @@ public class StageChildManager : StageManager
         settlementScene.SetActive(true);
 
     }
-
 }

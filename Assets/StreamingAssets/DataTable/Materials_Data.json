@@ -15,7 +15,7 @@
             "index": 2,
             "name": "대장간 건설",
             "money": 0,
-            "turn": 1,
+            "turn": 0,
             "grayNum": 0,
             "blackNum": 0,
             "whiteNum": 0,
@@ -39,12 +39,12 @@
         {
             "index": 5,
             "name": "작업장 설치",
-            "money": 150,
+            "money": 100,
             "grayNum": 2,
-            "blackNum": 0,
+            "blackNum": 1,
             "whiteNum": 0,
-            "timberNum": 3,
-            "desc": "간단한 작업을 하는 장소입니다."
+            "timberNum": 2,
+            "desc": "간단한 정비를 할 수 있습니다."
         },
         {
             "index": 6,
@@ -76,14 +76,14 @@
         },
         {
             "index": 9,
-            "name": "돌집 건설",
-            "money": 700,
-            "turn": 2,
-            "grayNum": 3,
-            "blackNum": 5,
+            "name": "치료소 건설",
+            "money": 100,
+            "turn": 1,
+            "grayNum": 4,
+            "blackNum": 1,
             "whiteNum": 0,
-            "timberNum": 1,
-            "desc": "영웅들이 사용하는 거주지입니다."
+            "timberNum": 2,
+            "desc": "영웅의 상태를 관리합니다."
         }
     ],
     "NeedsInUpgrade": [

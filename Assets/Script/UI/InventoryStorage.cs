@@ -395,7 +395,8 @@ public class InventoryStorage : StorageComponent
     {
         Item item = InventoryManager.i.info.items[itemIndex];
         ItemCountChangeBySlot(slotIndex, itemCount, item);
-
+        BaseChangeItemCount(itemIndex, itemCount);
+        EmptySlotIndexRemove(slotIndex, item.needSlots, item.figure);
     }
     #endregion
     #region Slot empty »Æ¿Œ
@@ -504,6 +505,7 @@ public class InventoryStorage : StorageComponent
             return;
 
         int newIndex = emptySlotList.BinarySearch(codeIndex);
+        Debug.Log(emptySlotList.Count);
         emptySlotList.Insert(~newIndex, codeIndex);
         itemCode2slotData[codeIndex].slotNeedMore.Remove(newIndex);
     }

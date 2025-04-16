@@ -12,9 +12,15 @@ public class VilligeItemsLoad : MonoBehaviour
 
     private void Start()
     {
-        GameManager.manager.onBattleClearManagerRegistered += ItemDataLoad;
+        WaitUntilManagerRegistered(ItemDataLoad);
     }
-
+    void WaitUntilManagerRegistered(in System.Action action)
+    {
+        if (GameManager.manager.battleClearManager != null)
+            action();
+        else
+            GameManager.manager.onBattleClearManagerRegistered += action;
+    }
     void ItemDataLoad()
     {
         storageComponent.Init();

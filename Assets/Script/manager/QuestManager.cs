@@ -113,6 +113,9 @@ public class QuestManager : JsonLoad
                 ItemUseOnExpedition,
                 HeroSelect,
                 CallFormation,
+                EnemyHorror,
+                VilligeExpeditionFloorSelect,
+                VilligeExpeditionFloorDelete,
                 Max
             }
             public enum ActCondition
@@ -191,6 +194,27 @@ public class QuestManager : JsonLoad
                 needCallNextQuest = false;
             }
         }
+        [Serializable]
+        public class QuestEvent
+        {
+            public EventType eventType;
+            public int eventIndex;
+            public int eventNum;
+
+            public QuestEvent()
+            {
+                eventType = EventType.None;
+                eventIndex = 0;
+                eventNum = 0;
+            }
+
+            public enum EventType
+            {
+                None,
+                FreeMaterial,
+                Max
+            }
+        }
 
         public int num;
         public QuestType questType;
@@ -203,6 +227,7 @@ public class QuestManager : JsonLoad
         public QuestRequirements require;
         public QuestAct act;
         public QuestFollow follow;
+        public QuestEvent questEvent;
 
         public QuestData()
         {
@@ -215,7 +240,7 @@ public class QuestManager : JsonLoad
             trigger = QuestTrigger.Location;
             require = new QuestRequirements();
             act = new QuestAct();
-
+            questEvent = new QuestEvent();
         }
     }
 

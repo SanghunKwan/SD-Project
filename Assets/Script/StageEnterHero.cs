@@ -45,7 +45,6 @@ public class StageEnterHero : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             tempHero = unitSpawner.SpawnHeroData(spawnManager.heroDatas[i], i);
-            tempHero.unitMove.Navi_Destination(gatePosition + Vector3.back);
             SetAllLayer(tempHero.transform.GetChild(0).gameObject, 18);
             villigeHeroSpawnAction?.Invoke(spawnManager.competeIndexs[i], tempHero);
             await Task.Delay(moveTime);
