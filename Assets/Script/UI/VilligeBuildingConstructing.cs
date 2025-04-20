@@ -14,6 +14,7 @@ public class VilligeBuildingConstructing : MonoBehaviour
 
     float timeAccumulate;
     public float timeNormalized { get; private set; }
+    public static bool isReady { private get; set; }
 
     private void Awake()
     {
@@ -45,7 +46,7 @@ public class VilligeBuildingConstructing : MonoBehaviour
     }
     private void Update()
     {
-        if (anim.speed == 0)
+        if (!isReady || anim.speed == 0)
             return;
 
         timeAccumulate += Time.deltaTime;

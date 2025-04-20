@@ -1458,8 +1458,9 @@ MonoBehaviour:
   ID: 1
   BarOffset: 30
   overlappedCorpse: 0
-  num: 1
+  num: 0
   species: 0
+  mentalBar: {fileID: 0}
 --- !u!114 &7852364757600364414
 MonoBehaviour:
   m_ObjectHideFlags: 0

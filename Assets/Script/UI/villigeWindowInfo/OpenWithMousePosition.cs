@@ -38,11 +38,11 @@ public class OpenWithMousePosition : MonoBehaviour
         rect.position = new Vector2(fX, fY);
 
     }
-    public void OpenOnBoxes(UnityEngine.UI.Image image)
+    public void OpenOnBoxes(RectTransform imageRect)
     {
         transform.GetChild(0).gameObject.SetActive(true);
-        float fX = image.rectTransform.position.x - rect.sizeDelta.x + image.rectTransform.sizeDelta.x;
-        float fY = image.rectTransform.position.y - image.rectTransform.sizeDelta.y;
+        float fX = imageRect.position.x + imageRect.sizeDelta.x - rect.sizeDelta.x;
+        float fY = imageRect.position.y - imageRect.sizeDelta.y;
         rect.position = new Vector2(fX, fY);
     }
 

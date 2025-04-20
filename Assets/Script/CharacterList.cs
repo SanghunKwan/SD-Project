@@ -39,6 +39,7 @@ public class CharacterList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        NameTagInteractable = true;
         viewPortTransform = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<RectTransform>();
         scrollTransform = transform.GetChild(0).GetComponent<RectTransform>();
         SetCharacterListLength();

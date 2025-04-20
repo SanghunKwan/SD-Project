@@ -47,6 +47,7 @@ public class StageManager : JsonLoad
         loadActionList = new(3);
         stageData = LoadData<StageDatas>("StageData");
         triggerNamedNoDelay = Animator.StringToHash("fadeOutNoDelay");
+        VilligeBuildingConstructing.isReady = false;
     }
     void Start()
     {
@@ -107,7 +108,11 @@ public class StageManager : JsonLoad
         sceneFadeAnim.enabled = true;
         sceneFadeAnim.SetTrigger(triggerNamedNoDelay);
 
-        OnAnimationEnd(() => sceneFadeAnim.gameObject.SetActive(false));
+        OnAnimationEnd(() =>
+        {
+            sceneFadeAnim.gameObject.SetActive(false);
+            VilligeBuildingConstructing.isReady = true;
+        });
     }
 
     protected async void OnAnimationEnd(Action action)

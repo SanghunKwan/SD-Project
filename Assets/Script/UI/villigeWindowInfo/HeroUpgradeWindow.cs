@@ -10,12 +10,13 @@ public class HeroUpgradeWindow : InitObject
         None,
         Equip,
         Skill,
+        Quirk,
         Max
     }
     [SerializeField] Button button;
     [Space]
-    [SerializeField] ItemPreview itemPreview;
-    [SerializeField] SkillPreview skillPreview;
+    [SerializeField] UpgradePreview[] upgradePreivews;
+
     [Space]
     [SerializeField] SetBuildingMat setBuildingMat;
     public SetBuildingMat SetBuildingMat { get { return setBuildingMat; } }
@@ -27,8 +28,11 @@ public class HeroUpgradeWindow : InitObject
     public override void Init()
     {
         button.onClick.AddListener(OnButtonEvent);
-        itemPreview.Awake();
-        skillPreview.Awake();
+        foreach (var item in upgradePreivews)
+        {
+            item.Awake();
+        }
+
     }
     private void OnDisable()
     {
@@ -72,8 +76,10 @@ public class HeroUpgradeWindow : InitObject
     }
     public void SetHero(Unit.Hero hero)
     {
-        itemPreview.ActiveItemPreview(hero);
-        skillPreview.ActivateSkillPreview(hero);
+        foreach (var item in upgradePreivews)
+        {
+            item.ActivePreview(hero);
+        }
     }
 
     void AddressableLoadData()

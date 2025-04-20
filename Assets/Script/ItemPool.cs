@@ -56,8 +56,10 @@ public class ItemPool : MonoBehaviour
     public void CheckPosition(GameObject itemObject)
     {
         Debug.DrawRay(itemObject.transform.position + Vector3.up, Vector3.down, Color.red, 2);
-        Physics.Raycast(itemObject.transform.position + Vector3.up, Vector3.down, out RaycastHit hit, 4, 1 << 8);
-        itemObject.transform.SetParent(itemTransform.GetChild(hit.collider.gameObject.transform.parent.parent.GetSiblingIndex()), true);
+        if (Physics.Raycast(itemObject.transform.position + Vector3.up, Vector3.down, out RaycastHit hit, 4, 1 << 8))
+            itemObject.transform.SetParent(itemTransform.GetChild(hit.collider.gameObject.transform.parent.parent.GetSiblingIndex()), true);
+        else
+            itemObject.gameObject.SetActive(false);
     }
     public void ReturnItem(int index, GameObject item)
     {

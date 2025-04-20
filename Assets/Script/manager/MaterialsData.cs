@@ -24,12 +24,14 @@ public class MaterialsData : JsonLoad
         public NeedMaterials[] Needs;
         public NeedMaterials[] NeedsInUpgrade;
         public NeedMaterials[] NeedsInSkillUpgrade;
+        public NeedMaterials[] NeedsInMedecine;
 
         public NeedMaterials[][] needsArray;
 
         public void Init()
         {
-            needsArray = new NeedMaterials[][] { Needs, NeedsInUpgrade, NeedsInSkillUpgrade };
+            needsArray = new NeedMaterials[][]
+            { Needs, NeedsInUpgrade, NeedsInSkillUpgrade, NeedsInMedecine };
         }
     }
 

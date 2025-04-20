@@ -2,7 +2,7 @@
     "day": 3,
     "nextScene": 2,
     "floorData": {
-        "topFloor": 1,
+        "topFloor": 2,
         "floorLooks": [
             0
         ],
@@ -64,9 +64,9 @@
                     "z": 0.0
                 },
                 "depart": {
-                    "x": -2.8298373222351076,
+                    "x": -10.244145393371582,
                     "y": 0.06666666269302368,
-                    "z": 15.514923095703125
+                    "z": 8.094730377197266
                 },
                 "objectData": {
                     "position": {
@@ -105,7 +105,7 @@
                         "Range": 1,
                         "Mentality": 30,
                         "Stress": 8,
-                        "curHP": 19,
+                        "curHP": 11,
                         "curMORALE": 0
                     },
                     "dots": [
@@ -170,9 +170,9 @@
                     "z": 0.0
                 },
                 "depart": {
-                    "x": -2.3269619941711427,
+                    "x": -8.888829231262207,
                     "y": 0.06666666269302368,
-                    "z": 16.335216522216798
+                    "z": 7.831571578979492
                 },
                 "objectData": {
                     "position": {
@@ -211,7 +211,7 @@
                         "Range": 1,
                         "Mentality": 30,
                         "Stress": 5,
-                        "curHP": 10,
+                        "curHP": 23,
                         "curMORALE": 0
                     },
                     "dots": [
@@ -276,9 +276,9 @@
                     "z": 0.0
                 },
                 "depart": {
-                    "x": -1.8987951278686524,
+                    "x": -10.322159767150879,
                     "y": 0.06666666269302368,
-                    "z": 19.032066345214845
+                    "z": 8.895545959472657
                 },
                 "objectData": {
                     "position": {
@@ -317,7 +317,7 @@
                         "Range": 6,
                         "Mentality": 30,
                         "Stress": 7,
-                        "curHP": 21,
+                        "curHP": 17,
                         "curMORALE": 0
                     },
                     "dots": [
@@ -418,24 +418,34 @@
         "inventoryData": {
             "itemDatas": [
                 {
-                    "itemIndex": 4,
+                    "itemIndex": 7,
                     "itemCount": 1,
                     "slotIndex": 0
                 },
                 {
-                    "itemIndex": 1,
-                    "itemCount": 4,
+                    "itemIndex": 9,
+                    "itemCount": 1,
                     "slotIndex": 1
                 },
                 {
-                    "itemIndex": 6,
-                    "itemCount": 1,
+                    "itemIndex": 1,
+                    "itemCount": 2,
                     "slotIndex": 2
                 },
                 {
-                    "itemIndex": 8,
-                    "itemCount": 2,
+                    "itemIndex": 10,
+                    "itemCount": 1,
                     "slotIndex": 3
+                },
+                {
+                    "itemIndex": 11,
+                    "itemCount": 1,
+                    "slotIndex": 4
+                },
+                {
+                    "itemIndex": 8,
+                    "itemCount": 1,
+                    "slotIndex": 5
                 }
             ],
             "corpseIndex": []
@@ -445,7 +455,7 @@
     "questSaveData": {
         "stagePerformOneData": {
             "bits": [
-                17168728063
+                17171480575
             ],
             "nowQuestList": []
         },
@@ -488,12 +498,12 @@
         "canSummonHero": [
             {
                 "heroData": {
-                    "name": "화이트",
+                    "name": "테일러",
                     "lv": 1,
                     "quirks": {
                         "quirks": [
-                            6,
                             7,
+                            5,
                             0,
                             0,
                             0
@@ -564,24 +574,24 @@
                             "selected": false,
                             "isDead": false,
                             "cur_status": {
-                                "ID": 302,
-                                "NAME": "playerRange",
+                                "ID": 301,
+                                "NAME": "playerMelee",
                                 "SPECIES": 1,
-                                "HP": 21,
-                                "ATK": 5,
+                                "HP": 27,
+                                "ATK": 7,
                                 "DEF": 0,
-                                "DOG": 15,
+                                "DOG": 10,
                                 "MORALE": 0,
-                                "SPEED": 6,
-                                "ViewAngle": 70,
-                                "ViewRange": 10,
-                                "type": 1,
-                                "Accuracy": 80,
+                                "SPEED": 5,
+                                "ViewAngle": 90,
+                                "ViewRange": 6,
+                                "type": 0,
+                                "Accuracy": 85,
                                 "AtkSpeed": 1.5,
-                                "Range": 6,
+                                "Range": 1,
                                 "Mentality": 30,
-                                "Stress": 7,
-                                "curHP": 21,
+                                "Stress": 5,
+                                "curHP": 27,
                                 "curMORALE": 0
                             },
                             "dots": [
@@ -597,12 +607,12 @@
             },
             {
                 "heroData": {
-                    "name": "토마스",
+                    "name": "스미스",
                     "lv": 1,
                     "quirks": {
                         "quirks": [
+                            5,
                             7,
-                            6,
                             0,
                             0,
                             0

@@ -32,7 +32,8 @@ namespace SaveData
             hero = new HeroData[1] { new HeroData() };
             floorData = new FloorData();
             stageData = new StageData();
-            items = new int[(int)Materials.Max];
+            //blank Æ÷ÇÔ +1
+            items = new int[(int)Materials.Max + 1];
         }
         public SaveDataInfo(int getDay, int getNextScene, FloorData getFloorData, in HeroData[] geHero,
             in BuildingData[] getBuilding, in int[] getItems, StageData getStageData, QuestSaveData getQuestSaveData)

@@ -7,12 +7,13 @@ using System.Linq;
 public class QuirkInfo : MonoBehaviour
 {
     TextMeshProUGUI[] details;
-    
+    public RectTransform rectTransform { get; private set; }
 
 
     private void Awake()
     {
         details = transform.GetComponentsInChildren<TextMeshProUGUI>();
+        rectTransform = GetComponent<RectTransform>();
     }
 
     public void Print(int infoindex, QuirkChange.quirkType type)
@@ -75,7 +76,7 @@ public class QuirkInfo : MonoBehaviour
                 i++;
             }
 
-            while(i < lastCount)
+            while (i < lastCount)
             {
                 details[i].text = "";
                 i++;
@@ -83,7 +84,7 @@ public class QuirkInfo : MonoBehaviour
         }
 
     }
-    
+
 
 
 }

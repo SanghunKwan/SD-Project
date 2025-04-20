@@ -87,7 +87,7 @@ public class InfoBox : MonoBehaviour
     {
         PreviewImage(hero.Getnum, skillImage, hero.SkillsNum[(int)skillImage], TextBoxType.Left);
         PreviewImage(hero.Getnum, skillImage, skillNum, TextBoxType.DefaultRight);
-        materialPosition.OpenOnBoxes(images[0]);
+        materialPosition.OpenOnBoxes(images[0].rectTransform);
         materialPriceBox.GetData((int)skillImage + ((skillNum - 1) * 4) + 1, SetBuildingMat.MaterialsType.SkillUpgradeNeed);
     }
     void PreviewImage(SaveData.HeroData hero, AddressableManager.PreviewImage skillImage)
@@ -131,7 +131,7 @@ public class InfoBox : MonoBehaviour
     {
         EquipsImage(hero.Getnum, equipsImage, hero.EquipsNum[(int)equipsImage], TextBoxType.Left);
         EquipsImage(hero.Getnum, equipsImage, equipNum, TextBoxType.DefaultRight);
-        materialPosition.OpenOnBoxes(images[0]);
+        materialPosition.OpenOnBoxes(images[0].rectTransform);
         materialPriceBox.GetData((int)equipsImage + ((equipNum - 1) * 3) + 1, SetBuildingMat.MaterialsType.UpgradeNeed);
     }
     void EquipsImage(SaveData.HeroData hero, AddressableManager.EquipsImage equipsImage)

@@ -15,8 +15,9 @@ public class WindowInfo : tempMenuWindow
     QuirkChange quirk;
     QuirkChange disease;
     ActionAlert action;
-    SkillPreview skill;
-    ItemPreview item;
+
+    UpgradePreview[] upgradePreviews;
+    int upgradePreivewCount = 2;
     IEnumerator turning;
 
 
@@ -37,8 +38,11 @@ public class WindowInfo : tempMenuWindow
         wStatus = new WindowStatus();
         wStatus.Init(transform.GetChild(7).GetChild(2), 6, 1);
 
-        skill = transform.GetChild(8).GetComponent<SkillPreview>();
-        item = transform.GetChild(9).GetComponent<ItemPreview>();
+        upgradePreviews = new UpgradePreview[upgradePreivewCount];
+        for (int i = 0; i < upgradePreivewCount; i++)
+        {
+            upgradePreviews[i] = transform.GetChild(8 + i).GetComponent<UpgradePreview>();
+        }
     }
     //이름 i 버튼 누르면 수정 가능.
     public void VilligeWindowOpen(Hero hero)
@@ -57,8 +61,11 @@ public class WindowInfo : tempMenuWindow
         quirk.SetQuirk(hero.quirks);
         disease.SetQuirk(hero.disease);
         action.ChangeAction(hero.VilligeAction, hero.BuildingAction);
-        skill.ActivateSkillPreview(hero);
-        item.ActiveItemPreview(hero);
+
+        for (int i = 0; i < upgradePreivewCount; i++)
+        {
+            upgradePreviews[i].ActivePreview(hero);
+        }
     }
 
     public void SetCam(bool active, Hero hero)
@@ -91,8 +98,6 @@ public class WindowInfo : tempMenuWindow
                 queue.Enqueue(current.GetChild(i));
             }
         }
-
-
     }
     public void VilligeWindowOpen(SummonHeroNameTag nameTag)
     {
@@ -111,8 +116,11 @@ public class WindowInfo : tempMenuWindow
         disease.SetQuirk(hero.disease);
         action.ChangeAction((ActionAlert.ActionType)hero.villigeAction,
                             (AddressableManager.BuildingImage)hero.workBuilding);
-        skill.ActivateSkillPreview(hero);
-        item.ActiveItemPreview(hero);
+
+        for (int i = 0; i < upgradePreivewCount; i++)
+        {
+            upgradePreviews[i].ActivePreview(hero);
+        }
     }
     public void SetCam(bool active, Transform heroTransform)
     {

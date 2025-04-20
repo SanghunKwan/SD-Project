@@ -11,6 +11,7 @@ public class SetBuildingMat : MonoBehaviour
         BuildingNeed,
         UpgradeNeed,
         SkillUpgradeNeed,
+        MedecineNeed,
         Max
     }
 

@@ -1245,6 +1245,108 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f810fa9a9002f2d4ba2d7998c37e0c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &225699818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 225699819}
+  - component: {fileID: 225699820}
+  m_Layer: 0
+  m_Name: EnvironmentPrefabs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &225699819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225699818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 613401352}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &225699820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225699818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a9c79291a849040a9fc099f990073a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stagePoolManager: {fileID: 613401353}
+  stageObjects:
+  - name: 1~9
+    objects:
+    - {fileID: 1911256052628684218, guid: 3e609acd69b145c42b8845fd9c3775dd, type: 3}
+    - {fileID: 1911256052628684218, guid: e2f9b1efa3298024cbdb254ed3b2c37d, type: 3}
+    - {fileID: 1911256052628684218, guid: 54395801e104e894294b36b28e7408d9, type: 3}
+  - name: 11~19
+    objects:
+    - {fileID: 1911256052628684218, guid: 3e609acd69b145c42b8845fd9c3775dd, type: 3}
+    - {fileID: 1911256052628684218, guid: e2f9b1efa3298024cbdb254ed3b2c37d, type: 3}
+    - {fileID: 1911256052628684218, guid: 54395801e104e894294b36b28e7408d9, type: 3}
+  - name: 21~29
+    objects:
+    - {fileID: 1911256052628684218, guid: 3e609acd69b145c42b8845fd9c3775dd, type: 3}
+    - {fileID: 1911256052628684218, guid: e2f9b1efa3298024cbdb254ed3b2c37d, type: 3}
+    - {fileID: 1911256052628684218, guid: 54395801e104e894294b36b28e7408d9, type: 3}
+  - name: 31~39
+    objects:
+    - {fileID: 1911256052628684218, guid: 3e609acd69b145c42b8845fd9c3775dd, type: 3}
+    - {fileID: 1911256052628684218, guid: e2f9b1efa3298024cbdb254ed3b2c37d, type: 3}
+    - {fileID: 1911256052628684218, guid: 54395801e104e894294b36b28e7408d9, type: 3}
+  - name: 41~49
+    objects:
+    - {fileID: 1911256052628684218, guid: 3e609acd69b145c42b8845fd9c3775dd, type: 3}
+    - {fileID: 1911256052628684218, guid: e2f9b1efa3298024cbdb254ed3b2c37d, type: 3}
+    - {fileID: 1911256052628684218, guid: 54395801e104e894294b36b28e7408d9, type: 3}
+  - name: 51~59
+    objects:
+    - {fileID: 1911256052628684218, guid: 3e609acd69b145c42b8845fd9c3775dd, type: 3}
+    - {fileID: 1911256052628684218, guid: e2f9b1efa3298024cbdb254ed3b2c37d, type: 3}
+    - {fileID: 1911256052628684218, guid: 54395801e104e894294b36b28e7408d9, type: 3}
+  - name: 61~69
+    objects:
+    - {fileID: 1911256052628684218, guid: 3e609acd69b145c42b8845fd9c3775dd, type: 3}
+    - {fileID: 1911256052628684218, guid: e2f9b1efa3298024cbdb254ed3b2c37d, type: 3}
+    - {fileID: 1911256052628684218, guid: 54395801e104e894294b36b28e7408d9, type: 3}
+  - name: 71~79
+    objects:
+    - {fileID: 1911256052628684218, guid: 3e609acd69b145c42b8845fd9c3775dd, type: 3}
+    - {fileID: 1911256052628684218, guid: e2f9b1efa3298024cbdb254ed3b2c37d, type: 3}
+    - {fileID: 1911256052628684218, guid: 54395801e104e894294b36b28e7408d9, type: 3}
+  - name: 81~89
+    objects:
+    - {fileID: 1911256052628684218, guid: 3e609acd69b145c42b8845fd9c3775dd, type: 3}
+    - {fileID: 1911256052628684218, guid: e2f9b1efa3298024cbdb254ed3b2c37d, type: 3}
+    - {fileID: 1911256052628684218, guid: 54395801e104e894294b36b28e7408d9, type: 3}
+  - name: 91~99
+    objects:
+    - {fileID: 1911256052628684218, guid: 3e609acd69b145c42b8845fd9c3775dd, type: 3}
+    - {fileID: 1911256052628684218, guid: e2f9b1efa3298024cbdb254ed3b2c37d, type: 3}
+    - {fileID: 1911256052628684218, guid: 54395801e104e894294b36b28e7408d9, type: 3}
+  - name: 0
+    objects:
+    - {fileID: 1911256052628684218, guid: 0e3d5c6d8d141e64cbd4144c8aee1491, type: 3}
+  - name: 10
+    objects:
+    - {fileID: 1911256052628684218, guid: 0e3d5c6d8d141e64cbd4144c8aee1491, type: 3}
 --- !u!1 &278500550
 GameObject:
   m_ObjectHideFlags: 0
@@ -3488,6 +3590,7 @@ Transform:
   - {fileID: 970687467}
   - {fileID: 1055864207}
   - {fileID: 892687276}
+  - {fileID: 225699819}
   m_Father: {fileID: 565492013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &613401353
@@ -4962,8 +5065,8 @@ MonoBehaviour:
   types: 0000000002000000
   questUIViewer: {fileID: 1840197967}
   backGroundTransform: {fileID: 1335275617762089754}
-  inventoryStorage: {fileID: 5803968329823553806}
-  inventoryComponent: {fileID: 2088239303}
+  storage: {fileID: 5803968329823553806}
+  setBuildingMat: {fileID: 0}
 --- !u!114 &858449605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5881,12 +5984,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stagePoolManager: {fileID: 613401353}
   stageObjects:
-  - {fileID: 1911256052628684218, guid: 0e3d5c6d8d141e64cbd4144c8aee1491, type: 3}
-  - {fileID: 1911256052628684218, guid: 3e609acd69b145c42b8845fd9c3775dd, type: 3}
-  - {fileID: 6357710306899917329, guid: a72d5ec3216317c47931750f6bcbd07d, type: 3}
-  - {fileID: 1350504990679468391, guid: 4da6ce8457f350d4e95760aa55133522, type: 3}
-  - {fileID: 1350504990679468391, guid: fb96897b78d23bf4f8b222e286e57826, type: 3}
-  - {fileID: 1350504990679468391, guid: 15005464ab50d1a4a86947022dd5cf53, type: 3}
+  - {fileID: 5807085778900544965, guid: cbeb1a2c98154134cb1fd2c4d54bb912, type: 3}
+  - {fileID: 5807085778900544965, guid: cbeb1a2c98154134cb1fd2c4d54bb912, type: 3}
+  - {fileID: 5807085778900544965, guid: cbeb1a2c98154134cb1fd2c4d54bb912, type: 3}
 --- !u!1001 &973700076
 PrefabInstance:
   m_ObjectHideFlags: 0

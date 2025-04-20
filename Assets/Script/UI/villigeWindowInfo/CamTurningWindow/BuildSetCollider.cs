@@ -52,7 +52,7 @@ public class BuildSetCollider : MonoBehaviour, IPointerEnterHandler, IPointerExi
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        isVilligeInteractExist = buildingSetWindow.buildingComponent.IsDataNull(transform.GetSiblingIndex(), out _)
+        isVilligeInteractExist = !buildingSetWindow.buildingComponent.IsDataNull(transform.parent.GetSiblingIndex(), out _)
                                  && eventData.button != PointerEventData.InputButton.Left;
 
         if (!isVilligeInteractExist)

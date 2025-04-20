@@ -13,7 +13,7 @@ namespace Unit
         public Vector3 dotsDirection { get; protected set; }
         public int id { get { return ID; } }
         protected int initCount;
-        protected int initMaxCount  = 2;
+        protected int initMaxCount = 2;
         public unit_status stat { get; protected set; }
         public unit_status curstat { get; protected set; }
         public bool selected { get; protected set; } = false;

@@ -10,10 +10,11 @@ public class QuirkRemem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     TextMeshProUGUI textMeshProUGUI;
     QuirkData.Quirk quirk;
     [SerializeField] QuirkInfo quirkInfo;
+    public QuirkInfo QuirkInfo => quirkInfo;
     QuirkChange.quirkType quirkType;
     Action<int>[] callQuirkData = new Action<int>[2];
 
-    private void Awake()
+    private void Init()
     {
         textMeshProUGUI = GetComponent<TextMeshProUGUI>();
 
@@ -22,6 +23,7 @@ public class QuirkRemem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void RegistQuirkType(QuirkChange.quirkType type)
     {
+        Init();
         quirkType = type;
     }
     public void QuirkRemember(int quirkIndex)

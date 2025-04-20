@@ -35,6 +35,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - VilligeWindowImage
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 667647984c5ed7f498543ddc58a219a4
+    m_Address: Assets/Package/Clean Vector Icons/4medical_.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - VilligeWindowImage
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eefd57e8b57cd814ebc86925f3a4a109
+    m_Address: Assets/Package/Clean Vector Icons/5healing.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - VilligeWindowImage
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
   m_SchemaSet:

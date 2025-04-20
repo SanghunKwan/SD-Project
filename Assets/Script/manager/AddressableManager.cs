@@ -96,7 +96,9 @@ public class AddressableManager : MonoBehaviour
     {
         OK,
         Upgrade,
-        Lock
+        Lock,
+        Medecine,
+        Healing
     }
     #endregion
 

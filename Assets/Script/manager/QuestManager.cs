@@ -212,6 +212,7 @@ public class QuestManager : JsonLoad
             {
                 None,
                 FreeMaterial,
+                ItemTracking,
                 Max
             }
         }

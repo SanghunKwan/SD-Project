@@ -17,7 +17,7 @@ public class QuestSpawner : MonoBehaviour
     Action<QuestManager.QuestData.QuestAct, QuestManager.QuestType, int>[] prepareQuestActions;
     Action<QuestManager.QuestData, Action, int>[] createQuestRequirementsActions;
     Action<QuestManager.QuestData.QuestReward>[] EventClearActions;
-    Action<int, int, QuestUISlot>[] createQuestEventActions;
+    Action<int, int, QuestUISlot, QuestManager.QuestData>[] createQuestEventActions;
 
     public QuestManager.QuestType[] types;
     [SerializeField] QuestUIViewer questUIViewer;
@@ -67,8 +67,9 @@ public class QuestSpawner : MonoBehaviour
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.NewStage] = (reward) => ClearForStage();
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.StageSet] = (reward) => ClearStageArrive();
 
-        createQuestEventActions = new Action<int, int, QuestUISlot>[(int)QuestManager.QuestData.QuestEvent.EventType.Max];
+        createQuestEventActions = new Action<int, int, QuestUISlot, QuestManager.QuestData>[(int)QuestManager.QuestData.QuestEvent.EventType.Max];
         createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.FreeMaterial] = QuestEventFreeMaterial;
+        createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.ItemTracking] = QuestEventCountTracking;
     }
     void Start()
     {
@@ -177,7 +178,7 @@ public class QuestSpawner : MonoBehaviour
         //퀘스트 현재 상태 변경
         SetBitSave(type, questNum, QuestSaveData.SaveDataBit.Doing);
 
-        CreateQuestEvent(data.questEvent, slot);
+        CreateQuestEvent(data, slot);
 
         Action completeAction = () =>
         {
@@ -276,21 +277,46 @@ public class QuestSpawner : MonoBehaviour
     }
     #endregion
     #region CreateQuestEvent
-    void CreateQuestEvent(QuestManager.QuestData.QuestEvent questEvent, QuestUISlot slot)
+    void CreateQuestEvent(QuestManager.QuestData questData, QuestUISlot slot)
     {
+        QuestManager.QuestData.QuestEvent questEvent = questData.questEvent;
         //퀘스트 이벤트 발생
-        createQuestEventActions[(int)questEvent.eventType]?.Invoke(questEvent.eventIndex, questEvent.eventNum, slot);
+        createQuestEventActions[(int)questEvent.eventType]?.Invoke(questEvent.eventIndex, questEvent.eventNum, slot, questData);
     }
-    void QuestEventFreeMaterial(int eventIndex, int eventNum, QuestUISlot slot)
+    void QuestEventFreeMaterial(int eventIndex, int eventNum, QuestUISlot slot, QuestManager.QuestData questData)
     {
         //자원 무료 사용
         //priceInfoBox 표기값 변경, isBuildable true로 변경
         setBuildingMat.AddQuest((SetBuildingMat.MaterialsType)eventIndex, eventNum);
         slot.hideAction += () => setBuildingMat.RemoveQuest((SetBuildingMat.MaterialsType)eventIndex, eventNum);
     }
-    void QuestEventItemTracking(int eventIndex, int eventNum)
+    void QuestEventCountTracking(int eventIndex, int eventNum, QuestUISlot slot, QuestManager.QuestData questData)
     {
         //아이템 개수 추적. quest창에 표기.
+        QuestManager.QuestData.ItemData tempData;
+        int length = questData.require.itemDatas.Length;
+        slot.GetQuestText(out string originalTitle, out string originalDetail);
+        System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+        AddText();
+
+
+        DisposableActionItem(() =>
+        {
+            slot.SetQuestText(originalTitle, originalDetail);
+            AddText();
+        }, questData.require.itemDatas);
+
+        void AddText()
+        {
+
+            for (int i = 0; i < length; i++)
+            {
+                tempData = questData.require.itemDatas[i];
+                stringBuilder.AppendJoin(' ', "\n<color=#AAAAAA>", InventoryManager.i.info.items[tempData.itemCode].name, "<color=#FFA500>" + storage.ItemCounts[tempData.itemCode], "</color>/</color>", tempData.itemCount);
+                slot.AddQuestText("", stringBuilder.ToString());
+                stringBuilder.Clear();
+            }
+        }
     }
     #endregion
     #region eventClearActions

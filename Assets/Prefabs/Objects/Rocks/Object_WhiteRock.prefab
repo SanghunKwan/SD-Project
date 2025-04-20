@@ -170,7 +170,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b45d4fd0fa681dc4c8bc805b6576ba29, type: 2}
   mouseOnCollider: 0
   CirclePad: 0
-  ID: 1023
+  ID: 103
   BarOffset: 30
 --- !u!136 &3598957572126723244
 CapsuleCollider:

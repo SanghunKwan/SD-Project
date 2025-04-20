@@ -286,6 +286,11 @@
         "layer": 15,
         "whatCause": 0
       },
+      "questEvent": {
+        "eventType": 2,
+        "eventIndex": 0,
+        "eventNum": 0
+      },
       "follow": {
         "datas": [
           {
@@ -1184,6 +1189,11 @@
         "layer": 7,
         "whatCause": 0
       },
+      "questEvent": {
+        "eventType": 1,
+        "eventIndex": 0,
+        "eventNum": 3
+      },
       "follow": {
         "datas": [
           {
@@ -1202,7 +1212,10 @@
       "reward": {
         "rewardType": 0,
         "rewardItems": [
-          {}
+          {
+            "itemCode": 4,
+            "itemCount": 2
+          }
         ]
       },
       "highLight": {
@@ -1240,6 +1253,11 @@
         "radius": 1.0,
         "layer": 7,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 1,
+        "eventIndex": 0,
+        "eventNum": 3
       },
       "follow": {
         "datas": [
@@ -1333,7 +1351,7 @@
       "trigger": 0,
       "require": {
         "type": 2,
-        "layer": 1,
+        "layer": 0,
         "spot": {
           "x": 0.0,
           "y": 0.0,
@@ -1738,7 +1756,7 @@
       "trigger": 0,
       "require": {
         "type": 2,
-        "layer": 1,
+        "layer":0,
         "spot": {
           "x": 0.0,
           "y": 0.0,
@@ -2142,7 +2160,7 @@
       "follow": {
         "datas": [
           {
-            "type": 0,
+            "type": 1,
             "questNum": 18
           }
         ],
@@ -2153,7 +2171,7 @@
       "num": 18,
       "questType": 1,
       "name": "치유소 건설",
-      "detail": "제작 기간이 있는 경우, 원정을 갔다오면 진행도 최대치가 증가합니다.",
+      "detail": "제작 기간이 남는 경우, 원정을 갔다오면 진행도 최대치가 증가합니다.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -2200,18 +2218,18 @@
       "follow": {
         "datas": [
           {
-            "type": 0,
-            "questNum": 18
+            "type": 1,
+            "questNum": 24
           }
         ],
-        "needCallNextQuest": false
+        "needCallNextQuest": true
       }
     },
     {
       "num": 19,
       "questType": 1,
       "name": "원정 설계",
-      "detail": "여러 스테이지를 한 번의 원정으로 클리어할 수 있습니다.\n스테이지를 선택하세요.",
+      "detail": "여러 스테이지를 한 번의 원정으로 클리어할 수 있습니다.\n스테이지 선택하기.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -2384,7 +2402,7 @@
       "num": 22,
       "questType": 1,
       "name": "원정 설계",
-      "detail": "층 스택을 눌러 원정에서 제거할 수 있습니다.",
+      "detail": "층 스택을 눌러 원정에서 제외하기.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -2496,6 +2514,354 @@
           }
         ],
         "needCallNextQuest": false
+      }
+    },
+    {
+      "num": 24,
+      "questType": 1,
+      "name": "건물 관리자",
+      "detail": "건물 관리자가 원정을 떠나면, 관리자 임명이 취소되고 원정 중 기능이 정지합니다.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 2,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": -0.5,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 2,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 20,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 203,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 25
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 25,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "치유소를 눌러 관리창 열기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 2,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": -0.5,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 1,
+      "require": {
+        "type": 2,
+        "layer": 9,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 20,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0,
+        "id": 0,
+        "layer": 9,
+        "whatCause": 17
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 26
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 26,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "치유소를 관리할 영웅을 선택해 드래그하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1770.0,
+          "y": 600.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 1,
+      "require": {
+        "type": 2,
+        "layer": 0,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 21,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 203,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 27
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 27,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "영웅을 드래그해서 건물에 배정하기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 910.0,
+          "y": 450.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 8,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 18,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 203,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 25
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 27,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "건물 기능을 이용할 영웅 배정하기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 910.0,
+          "y": 450.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 8,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 18,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 203,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 28
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 28,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "버튼을 눌러 팝업창 열기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 910.0,
+          "y": 450.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 8,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 18,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 203,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 25
+          }
+        ],
+        "needCallNextQuest": true
       }
     }
   ],

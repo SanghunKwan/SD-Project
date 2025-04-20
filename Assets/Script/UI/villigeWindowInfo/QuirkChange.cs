@@ -14,7 +14,7 @@ public class QuirkChange : MonoBehaviour
         disease = 1
     }
 
-    private void Awake()
+    public void Awake()
     {
         quirkRemems = transform.GetChild(1).GetComponentsInChildren<QuirkRemem>();
 

@@ -33,6 +33,8 @@ public class BuildingConstructDelay : MonoBehaviour
                                                 GetComponent<VilligeBuildingConstructing>();
         dayRemaining = newDayRemaining;
         constructingUI.SetTargetBuilding(this, dayRemaining, constructionProgress);
+        if (constructionProgress >= 1)
+            OnAnimConstructionComplete();
     }
     public void LoadConstructionData(BuildingData data)
     {

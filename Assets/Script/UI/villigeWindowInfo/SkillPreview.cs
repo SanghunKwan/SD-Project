@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unit;
 using System;
+using SaveData;
 
-public class SkillPreview : MonoBehaviour
+public class SkillPreview : UpgradePreview
 {
     Image[] images = new Image[4];
     [SerializeField] AddressableManager addrMgr;
@@ -13,7 +14,7 @@ public class SkillPreview : MonoBehaviour
 
     public Action<int>[] upgradeViewerUpdate { get; set; } = new Action<int>[4];
 
-    public void Awake()
+    public override void Awake()
     {
         for (int i = 0; i < images.Length; i++)
         {
@@ -22,7 +23,13 @@ public class SkillPreview : MonoBehaviour
         interact = GetComponent<MouseOnImage>();
     }
 
-    public void ActivateSkillPreview(Hero hero)
+    public void SetImage(TypeNum type, AddressableManager.PreviewImage previewImage)
+    {
+        addrMgr.GetData(type.ToString() + "Skill", previewImage, out Sprite sprite);
+        images[(int)previewImage].sprite = sprite;
+    }
+
+    public override void ActivePreview(Hero hero)
     {
         interact.SetHero(hero);
         for (int i = 0; i < 4; i++)
@@ -32,12 +39,8 @@ public class SkillPreview : MonoBehaviour
         }
         Debug.Log("specialMove 이미지 수정 예정");
     }
-    public void SetImage(TypeNum type, AddressableManager.PreviewImage previewImage)
-    {
-        addrMgr.GetData(type.ToString() + "Skill", previewImage, out Sprite sprite);
-        images[(int)previewImage].sprite = sprite;
-    }
-    public void ActivateSkillPreview(SaveData.HeroData hero)
+
+    public override void ActivePreview(HeroData hero)
     {
         interact.SetHero(hero);
         for (int i = 0; i < 4; i++)

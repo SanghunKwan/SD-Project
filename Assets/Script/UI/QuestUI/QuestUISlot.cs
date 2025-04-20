@@ -30,6 +30,16 @@ public class QuestUISlot : MonoBehaviour
         title.text = dataTitle;
         detail.text = dataDetail;
     }
+    public void GetQuestText(out string dataTitle, out string dataDetail)
+    {
+        dataTitle = title.text;
+        dataDetail = detail.text;
+    }
+    public void AddQuestText(in string dataTitle, in string dataDetail)
+    {
+        title.text += dataTitle;
+        detail.text += dataDetail;
+    }
     public void HideQuest()
     {
         animator.SetTrigger(triggerOffNum);

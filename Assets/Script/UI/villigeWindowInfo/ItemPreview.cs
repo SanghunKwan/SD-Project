@@ -1,3 +1,4 @@
+using SaveData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,7 +6,7 @@ using Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemPreview : MonoBehaviour
+public class ItemPreview : UpgradePreview
 {
     Image[] images = new Image[3];
     [SerializeField] AddressableManager addrMgr;
@@ -15,7 +16,7 @@ public class ItemPreview : MonoBehaviour
     public Action<int>[] upgradeViewerUpdate { get; set; } = new Action<int>[3];
 
 
-    public void Awake()
+    public override void Awake()
     {
         for (int i = 0; i < images.Length; i++)
         {
@@ -30,15 +31,6 @@ public class ItemPreview : MonoBehaviour
         interact = GetComponent<MouseOnImage>();
     }
 
-    public void ActiveItemPreview(Hero hero)
-    {
-        interact.SetHero(hero);
-        for (int i = 0; i < 3; i++)
-        {
-            SetImage(hero.Getnum, (AddressableManager.ItemQuality)hero.EquipsNum[i], (AddressableManager.EquipsImage)i);
-            upgradeViewerUpdate[i]?.Invoke(hero.EquipsNum[i]);
-        }
-    }
     public void SetImage(TypeNum type, AddressableManager.ItemQuality itemQuality, AddressableManager.EquipsImage equipsImage)
     {
         string dicKey = type.ToString() + itemQuality.ToString();
@@ -49,7 +41,18 @@ public class ItemPreview : MonoBehaviour
 
         images[ImageIndex].color = Color.white * floats[(int)itemQuality];
     }
-    public void ActiveItemPreview(SaveData.HeroData hero)
+
+    public override void ActivePreview(Hero hero)
+    {
+        interact.SetHero(hero);
+        for (int i = 0; i < 3; i++)
+        {
+            SetImage(hero.Getnum, (AddressableManager.ItemQuality)hero.EquipsNum[i], (AddressableManager.EquipsImage)i);
+            upgradeViewerUpdate[i]?.Invoke(hero.EquipsNum[i]);
+        }
+    }
+
+    public override void ActivePreview(HeroData hero)
     {
         interact.SetHero(hero);
         for (int i = 0; i < 3; i++)
@@ -58,5 +61,4 @@ public class ItemPreview : MonoBehaviour
             upgradeViewerUpdate[i]?.Invoke(hero.equipNum[i]);
         }
     }
-
 }

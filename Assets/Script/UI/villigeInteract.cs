@@ -183,7 +183,8 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     {
         base.OnDrag(eventData);
         if (eventData.button == PointerEventData.InputButton.Left
-            || eventData.pointerCurrentRaycast.gameObject is null)
+            || eventData.pointerCurrentRaycast.gameObject is null
+            || hero == null)
             return;
 
         copyHand.rectTransform.position = eventData.position - offset;
@@ -207,7 +208,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public override void OnEndDrag(PointerEventData eventData)
     {
         base.OnEndDrag(eventData);
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left || hero == null)
             return;
 
         onHand.gameObject.SetActive(false);
@@ -257,10 +258,10 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public void BeginDragOffset(PointerEventData eventData, Image rectImage)
     {
         base.OnBeginDrag(eventData);
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left || hero == null)
             return;
 
-        GameManager.manager.onVilligeHeroInteractDrag.eventAction?.Invoke(hero.lv, hero.transform.position);
+        GameManager.manager.onVilligeHeroInteractDrag.eventAction?.Invoke(0, hero.transform.position);
         float subtractHeight = (eventData.pressPosition.y - rectImage.rectTransform.position.y)
                                 / rectImage.rectTransform.sizeDelta.y * image.rectTransform.sizeDelta.y;
         offset = new Vector2(eventData.pressPosition.x - rectImage.rectTransform.position.x, subtractHeight);
