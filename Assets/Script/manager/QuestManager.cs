@@ -116,6 +116,7 @@ public class QuestManager : JsonLoad
                 EnemyHorror,
                 VilligeExpeditionFloorSelect,
                 VilligeExpeditionFloorDelete,
+                GetMaterials,
                 Max
             }
             public enum ActCondition

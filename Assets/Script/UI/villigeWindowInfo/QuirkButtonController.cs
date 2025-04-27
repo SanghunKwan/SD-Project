@@ -51,7 +51,7 @@ public class QuirkButtonController : MonoBehaviour
 
         quirkOrderButton.SetButtonPosition(vec);
         quirkOrderButton.SetButtonAction(() => OnButtonClick(type, siblingIndex));
-
+        GameManager.manager.onGetMaterials.eventAction?.Invoke((int)System.Enum.Parse<GameManager.GetMaterialsNum>(type.ToString()), Vector3.zero);
     }
     public void SetHero(Hero hero)
     {
@@ -67,6 +67,7 @@ public class QuirkButtonController : MonoBehaviour
             quirks = m_hero.disease;
 
         TryRemoveAtQuirk(siblingIndex, type, quirks);
+
     }
     void TryRemoveAtQuirk(int index, QuirkButtonType type, QuirkData.Quirk[] quirks)
     {

@@ -49,10 +49,28 @@ public class GameManager : MonoBehaviour
     public enum ActionButtonNum
     {
         VilligeBuildingScrollBtn = 1,
+
         VilligeFloorSelectBtn,
         VilligeExpeditionBtn,
         VilligeExpeditionProlongBtn,
-        VilligeExpeditionProlongCancelExit
+        VilligeExpeditionProlongCancelExit,
+
+        VilligeUpgradeWindowCallBtn
+    }
+    public enum GetMaterialsNum
+    {
+        Quirk,
+        Disease,
+        Healing,
+        Helmet,
+        Armor,
+        Weapon,
+        WeaponType,
+        ArmorType,
+        Skill,
+        SpecialMove,
+        Building,
+
     }
     public ActionEvent onCry { get; private set; } = new ActionEvent();
     public ActionEvent onAttack { get; private set; } = new ActionEvent();
@@ -87,7 +105,10 @@ public class GameManager : MonoBehaviour
     public ActionEvent onEnemyHorror { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeExpeditionFloorSelect { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeExpeditionFloorDelete { get; private set; } = new ActionEvent();
+    public ActionEvent onGetMaterials { get; private set; } = new ActionEvent();
     #endregion
+
+
     public PointerEventData pointerEventData { get; set; }
 
     #region гою╖ managers
@@ -834,6 +855,7 @@ public class GameManager : MonoBehaviour
                 {
                     while (!dicObjects.TryGetValue(unknownObject, out tempObject))
                     {
+                        Debug.Log(unknownObject.name);
                         unknownObject = unknownObject.transform.parent.gameObject;
                     }
                     break;

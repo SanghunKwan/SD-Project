@@ -86,7 +86,7 @@ namespace Unit
         }
         IEnumerator DelayRegist()
         {
-            while (GameManager.isReady.Equals(false))
+            while (GameManager.isReady.Equals(false) || GameManager.manager.battleClearManager == null)
             {
                 yield return null;
             }

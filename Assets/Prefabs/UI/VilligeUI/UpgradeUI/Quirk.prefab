@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 5345837977601909595}
   - component: {fileID: 2530807561346619908}
   - component: {fileID: 9133977984821421676}
+  - component: {fileID: 4252196939072814020}
   m_Layer: 0
   m_Name: Healing
   m_TagString: Untagged
@@ -232,6 +233,19 @@ MonoBehaviour:
   stageSettlementImage: 0
   villigeWindowImage: 4
   m_image: {fileID: 5345837977601909595}
+--- !u!114 &4252196939072814020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511358040773144873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 347852e46c749974f94eeeef40dee15d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setBuildingMat: {fileID: 0}
 --- !u!1 &2142936109810812191
 GameObject:
   m_ObjectHideFlags: 0

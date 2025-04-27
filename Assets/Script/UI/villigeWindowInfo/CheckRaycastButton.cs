@@ -20,9 +20,16 @@ public class CheckRaycastButton : CheckRaycast
     public override void OnPointerEnter(PointerEventData eventData)
     {
         if (type == UpgradeSlot.SlotType.Item)
+        {
             raycastMgr.OnPointerEnter(eventData.position, equipImage, upgradedNum);
+            GameManager.manager.onGetMaterials.eventAction?.Invoke((int)System.Enum.Parse<GameManager.GetMaterialsNum>(equipImage.ToString()), Vector3.zero);
+        }
         else
+        {
             raycastMgr.OnPointerEnter(eventData.position, previewImage, upgradedNum);
+            GameManager.manager.onGetMaterials.eventAction?.Invoke((int)System.Enum.Parse<GameManager.GetMaterialsNum>(previewImage.ToString()), Vector3.zero);
+        }
+
     }
 
     public override void OnPointerExit(PointerEventData eventData)

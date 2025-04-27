@@ -52,11 +52,19 @@ public class BuildingComponent : ClickCamTurningComponent
     }
     async void QueueBuildingWork(UnitMove heroMove, int index)
     {
-        heroMove.NowActorReserve(MoveType.Move, transform.position + Vector3.back * 5, OrderType.NowAct);
+        Vector3 vec = transform.position;
+        vec.z -= 5;
+        heroMove.NowActorReserve(MoveType.Move, vec, OrderType.NowAct);
 
         await System.Threading.Tasks.Task.Delay(100);
-        heroMove.QueueBuildingWork(type, index);
-        heroMove.NowActorReserve(MoveType.Move, transform.position + Vector3.back * 2, OrderType.InQueue);
+        if (index != 0)
+            heroMove.QueueBuildingWork(type, index);
+
+        vec = transform.position;
+        vec.x += 1 - index;
+        vec.z -= 2;
+
+        heroMove.NowActorReserve(MoveType.Move, vec, OrderType.InQueue);
     }
     public void ResetData(int index)
     {

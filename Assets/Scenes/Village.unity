@@ -42304,6 +42304,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -12.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4252196939072814020, guid: 47f00a1913429bd4e99045b31ad22e83, type: 3}
+      propertyPath: setBuildingMat
+      value: 
+      objectReference: {fileID: 1580241436498297544}
     - target: {fileID: 4353458812995127216, guid: 47f00a1913429bd4e99045b31ad22e83, type: 3}
       propertyPath: raycastMgr
       value: 

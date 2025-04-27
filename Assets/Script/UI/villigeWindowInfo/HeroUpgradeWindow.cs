@@ -41,6 +41,7 @@ public class HeroUpgradeWindow : InitObject
     public void OnButtonEvent()
     {
         OnHeroAllocated(!gameObject.activeSelf);
+        GameManager.manager.onVilligeButton.eventAction?.Invoke((int)GameManager.ActionButtonNum.VilligeUpgradeWindowCallBtn, Vector3.zero);
     }
     public void OnHeroAllocated(bool onoff)
     {

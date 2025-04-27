@@ -119,6 +119,7 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.EnemyHorror] = GameManager.manager.onEnemyHorror;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeExpeditionFloorSelect] = GameManager.manager.onVilligeExpeditionFloorSelect;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeExpeditionFloorDelete] = GameManager.manager.onVilligeExpeditionFloorDelete;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.GetMaterials] = GameManager.manager.onGetMaterials;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
