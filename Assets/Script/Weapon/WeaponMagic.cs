@@ -5,46 +5,45 @@ using UnityEngine;
 
 public class WeaponMagic : WeaponComponent
 {
-    public void Hit(Collider other)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Hit2(Collider other)
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override IEnumerator NormalAttackandDelay()
     {
-        //unit_State.Attack();
-        //targetSave = targetEnermy;
+        unitMove.NomalAttackAniStart(0f, ActingState.Concentrate);
 
-        //ActionStart(10f, ActingState.Concentrate, Skill.NormalAttack);
+        yield return new WaitForSeconds(1f);
 
-        //yield return new WaitForSeconds(1f);
+        //이펙트 상대방 추적.
+        InputEffect.e.PrintEffect4(transform.position, unitMove.targetSave.transform.position, 3);
 
-        //Damage(Skill.NormalAttack);
-
-        //yield return new WaitForSeconds(0.5f);
-        //ActionEnd(Skill.NormalAttack);
-        //yield return new WaitForSeconds(2f);
-        //bitArray[2] = false;
-        throw new System.NotImplementedException();
+        unitMove.Damage(UnitMove.Skill.NormalAttack);
+        unitMove.SkillEnd();
+        yield return new WaitForSeconds(0.5f);
+        unitMove.ActionEnd(UnitMove.Skill.NormalAttack);
+        yield return new WaitForSeconds(3f);
+        unitMove.bitArray[2] = false;
     }
 
     public override IEnumerator NormalSkillandDelay()
     {
-        throw new System.NotImplementedException();
+        unitState.Skill();
+        unitMove.SkillAniStart(0, ActingState.Concentrate);
+        unitState.VoicePlay(UnitState.voiceType.ShowStrength, 0);
+        yield return StartCoroutine(SkillData.manager.MakeSkillStruct(6, this, unitMove.targetSave, unitMove.targetSave.transform.position));
+
+        unitMove.ActionEnd(UnitMove.Skill.Skill);
+        unitMove.SkillEnd();
+
+        //(SkillData.manager.SkillInfo.skill 배열 index 확인
+        yield return new WaitForSeconds(SkillData.manager.SkillInfo.skill[1].coolTime);
+        unitMove.bitArray[(int)UnitMove.Skill.Skill + 1] = false;
     }
 
     protected override IEnumerator GoblinSurprise()
     {
-        throw new System.NotImplementedException();
+        yield return NormalAttackandDelay();
     }
 
     protected override IEnumerator PlayerSurprise()
     {
-        throw new System.NotImplementedException();
+        yield return NormalAttackandDelay();
     }
 }

@@ -120,7 +120,6 @@ public class CharacterList : MonoBehaviour
     {
         villigeInteract nametag = trViewPort[keyToTeamsNum[hero.keycode]].characters[heroIndex];
         nametag.MatchHero(hero);
-        nametag.hero.ResetFieldEquip();
         VilligeHero vh = nametag.hero.gameObject.AddComponent<VilligeHero>();
         vh.Init(nametag);
     }

@@ -70,19 +70,19 @@ public class SkillData : JsonLoad
         SkillInfo = LoadData<SKILLS>("Skill_Data");
     }
 
-    public IEnumerator MakeSkillStruct(int nIndex, WeaponComponent user, CObject target)
+    public IEnumerator MakeSkillStruct(int nIndex, WeaponComponent user, CObject target, Vector3 position)
     {
         yield return new WaitForSeconds(SkillInfo.skill[nIndex].firstDelay);
-        MakeAOE(SkillInfo.skill[nIndex], user, (coll, vec) => user.Hit(coll, vec, SkillInfo.skill[nIndex], target));
+        MakeAOE(SkillInfo.skill[nIndex], user, (coll, vec) => user.Hit(coll, vec, SkillInfo.skill[nIndex], target), position);
 
         yield return new WaitForSeconds(SkillInfo.skill[nIndex].lastDelay);
     }
-    void MakeAOE(Skill skill, WeaponComponent user, System.Action<Collider, Vector3> action)
+    void MakeAOE(Skill skill, WeaponComponent user, System.Action<Collider, Vector3> action, in Vector3 position)
     {
 
         Collider col = AOEManager.manager.Call(skill.range);
         col.gameObject.SetActive(true);
-        col.transform.position = user.transform.position;
+        col.transform.position = position;
         col.transform.localScale = Vector3.one * skill.rangeMultiply;
 
         AOEComponent colComponent = col.GetComponent<AOEComponent>();

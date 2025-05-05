@@ -9,6 +9,7 @@ using System;
 public class StorageManager : MonoBehaviour
 {
     [SerializeField] InventoryComponent[] m_inventoryComponents;
+    [SerializeField] StorageComponent villigeStorage;
     GameManager gameManager;
 
     [SerializeField] Vector3 offset;
@@ -118,4 +119,5 @@ public class StorageManager : MonoBehaviour
 
     }
     int ItemCode2ItemPoolCode(int itemCode) => itemCode - 1;
+
 }

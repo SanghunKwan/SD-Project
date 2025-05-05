@@ -2988,12 +2988,27 @@
     {
       "num": 32,
       "questType": 1,
-      "name": "선반 설치",
-      "detail": "장비를 강화하기 위해 선반을 지으세요.",
+      "name": "작업장 설치",
+      "detail": "장비를 강화하기 위해 작업장을 지으세요.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
-          {}
+          {
+            "itemCode": 1,
+            "itemCount": 2
+          },
+          {
+            "itemCode": 2,
+            "itemCount": 1
+          },
+          {
+            "itemCode": 4,
+            "itemCount": 2
+          },
+          {
+            "itemCode": 13,
+            "itemCount": 100
+          }
         ]
       },
       "highLight": {
@@ -3051,12 +3066,19 @@
     {
       "num": 33,
       "questType": 1,
-      "name": "훈련소 설치",
-      "detail": "기술 숙련도를 강화하기 위해 훈련소를 지으세요.",
+      "name": "야외 훈련장 설치",
+      "detail": "기술 숙련도를 강화하기 위해 야외 훈련장를 지으세요.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
-          {}
+          {
+            "itemCode": 4,
+            "itemCount": 5
+          },
+          {
+            "itemCode": 13,
+            "itemCount": 100
+          }
         ]
       },
       "highLight": {
@@ -3115,7 +3137,7 @@
       "num": 34,
       "questType": 1,
       "name": "영웅 관리",
-      "detail": "선반 클릭해서 관리창 열기",
+      "detail": "작업장 클릭해서 관리창 열기",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -3415,8 +3437,8 @@
         "timeStop": false,
         "highLight": 4,
         "highLightPosition": {
-          "x": 1210.0,
-          "y": 590.0,
+          "x": 1505.0,
+          "y": 785.0,
           "z": 0.0
         },
         "size": 2.0
@@ -3424,7 +3446,7 @@
       "trigger": 0,
       "require": {
         "type": 2,
-        "layer": 6,
+        "layer": 4,
         "spot": {
           "x": 0.0,
           "y": 0.0,
@@ -3432,7 +3454,7 @@
         },
         "radius": 0.0,
         "itemDatas": [],
-        "actionType": 12,
+        "actionType": 20,
         "actCondition": 0,
         "accumulatedTime": 0,
         "stageOffsetIndex": 0
@@ -3459,7 +3481,7 @@
       "num": 40,
       "questType": 1,
       "name": "영웅 관리",
-      "detail": "훈련소 클릭해서 관리창 열기",
+      "detail": "야외 훈련장 클릭해서 관리창 열기",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -3817,8 +3839,8 @@
         "timeStop": false,
         "highLight": 4,
         "highLightPosition": {
-          "x": 1210.0,
-          "y": 590.0,
+          "x": 1505.0,
+          "y": 785.0,
           "z": 0.0
         },
         "size": 2.0
@@ -3834,7 +3856,7 @@
         },
         "radius": 0.0,
         "itemDatas": [],
-        "actionType": 12,
+        "actionType": 20,
         "actCondition": 0,
         "accumulatedTime": 0,
         "stageOffsetIndex": 0

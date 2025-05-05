@@ -196,7 +196,7 @@ MonoBehaviour:
   camSize: 30
   type: 9
   camAngle: 10
-  cullingLayers: 08000000
+  cullingLayers: 0800000013000000
 --- !u!114 &677536854097126474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +220,6 @@ MonoBehaviour:
   bottom:
     height: 4.2
     floor: {fileID: 6892541486930027237, guid: de80828630067454c8fadecaee8c954e, type: 3}
-  floorManager: {fileID: 0}
 --- !u!114 &5539718399703558785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,8 +233,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
+  disEnabledOffset: 0
   trMesh: {fileID: 6435299220686443519}
-  renderers: []
+  scraperScripts: []
 --- !u!1 &5119178186709388996
 GameObject:
   m_ObjectHideFlags: 0

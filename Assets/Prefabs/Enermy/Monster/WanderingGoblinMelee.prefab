@@ -2326,6 +2326,7 @@ MonoBehaviour:
   overlappedCorpse: 0
   num: 0
   species: 0
+  mentalBar: {fileID: 0}
 --- !u!114 &3229122156408745005
 MonoBehaviour:
   m_ObjectHideFlags: 0

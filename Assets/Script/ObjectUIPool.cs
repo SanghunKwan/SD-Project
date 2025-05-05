@@ -24,6 +24,7 @@ public class ObjectUIPool : MonoBehaviour
         VilligeConstructingUI,
 
         AOESwing,
+        AOECircle,
     }
     public enum UICanvasType
     {
@@ -79,7 +80,7 @@ public class ObjectUIPool : MonoBehaviour
     }
     GameObject CallPooling(Folder type)
     {
-        if (folder[(int)type].transform.childCount >= 1)
+        if (folder[(int)type].transform.childCount > 0)
         {
             return folder[(int)type].transform.GetChild(0).gameObject;
         }

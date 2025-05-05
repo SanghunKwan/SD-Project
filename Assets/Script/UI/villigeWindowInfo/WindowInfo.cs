@@ -102,7 +102,7 @@ public class WindowInfo : tempMenuWindow
     public void VilligeWindowOpen(SummonHeroNameTag nameTag)
     {
         SaveData.HeroData hero = nameTag.heroData;
-        wStatus.AlloStatus(hero.unitData.objectData.cur_status);
+        wStatus.AlloStatus(hero.unitData.objectData.cur_status, hero.unitData.objectData.cur_status);
 
         TypeNum type = hero.unitData.objectData.cur_status.type;
         profileImg.sprite = profileSprites[(int)type];

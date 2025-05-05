@@ -26,7 +26,7 @@ namespace Unit
         Tank,
         Object = 100,
         Building = 200,
-        PlayerTypeLength = 2
+        PlayerTypeLength = 3
     }
     public enum WaitingTypeNum
     {
@@ -168,9 +168,66 @@ namespace Unit
 
             curHP += data.HP;
         }
-        public void QuirkDiseaseCalculate(in int[] quirkArray)
+        public void QuirkDiseaseCalculate(in QuirkData.Quirk[] quirkArray, in QuirkData.Quirk[] diseaseArray)
         {
-            //질병 및 기벽 반영 예정.
+            //질병 및 기벽 반영
+
+            QuirkData.Quirk quirkSum = new QuirkData.Quirk();
+
+            foreach (var item in quirkArray)
+            {
+                AddQuirkNum(item, ref quirkSum);
+            }
+
+            foreach (var item in diseaseArray)
+            {
+                AddQuirkNum(item, ref quirkSum);
+            }
+            //기벽 반영 시 curStat에 곱연산을 마지막으로 진행.
+            CalculateQuirk(quirkSum);
+
+        }
+        void AddQuirkNum(in QuirkData.Quirk quirk, ref QuirkData.Quirk quirkSum)
+        {
+            quirkSum.HP += quirk.HP;
+            quirkSum.ATK += quirk.ATK;
+            quirkSum.DEF += quirk.DEF;
+            quirkSum.DOG += quirk.DOG;
+            quirkSum.SPEED += quirk.SPEED;
+            quirkSum.ViewAngle += quirk.ViewAngle;
+            quirkSum.ViewRange += quirk.ViewRange;
+            quirkSum.Accuracy += quirk.Accuracy;
+            quirkSum.AtkSpeed += quirk.AtkSpeed;
+            quirkSum.Range += quirk.Range;
+            quirkSum.Mentality += quirk.Mentality;
+            quirkSum.Stress += quirk.Stress;
+        }
+        void CalculateQuirk(QuirkData.Quirk quirkSum)
+        {
+            MakeQuirkNum(ref HP, quirkSum.HP);
+            MakeQuirkNum(ref ATK, quirkSum.ATK);
+            MakeQuirkNum(ref DEF, quirkSum.DEF);
+            MakeQuirkNum(ref DOG, quirkSum.DOG);
+            MakeQuirkNum(ref SPEED, quirkSum.SPEED);
+            MakeQuirkNum(ref ViewAngle, quirkSum.ViewAngle);
+            MakeQuirkNum(ref ViewRange, quirkSum.ViewRange);
+            MakeQuirkNum(ref Accuracy, quirkSum.Accuracy);
+            MakeQuirkNum(ref AtkSpeed, quirkSum.AtkSpeed);
+            MakeQuirkNum(ref Range, quirkSum.Range);
+            MakeQuirkNum(ref Mentality, quirkSum.Mentality);
+            MakeQuirkNum(ref Stress, quirkSum.Stress);
+        }
+        void MakeQuirkNum(ref float statNum, int quirkSumNum)
+        {
+            float multiplyNum = (100 + quirkSumNum) / 10f;
+            if (quirkSumNum >= 0)
+                statNum = Mathf.Ceil(statNum * multiplyNum) / 10f;
+            else
+                statNum = Mathf.Floor(statNum * multiplyNum) / 10f;
+        }
+        void MakeQuirkNum(ref int statNum, int quirkSumNum)
+        {
+            statNum = Mathf.CeilToInt(statNum * (1 + (quirkSumNum / 100f)));
         }
 
     }

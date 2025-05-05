@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8202034987958920810}
   - component: {fileID: 3569455265592029965}
   - component: {fileID: 1270356680015883331}
-  - component: {fileID: 4269509087762331084}
   - component: {fileID: 77651743561207341}
+  - component: {fileID: 4186796181867231149}
   m_Layer: 13
   m_Name: AOESwingCol
   m_TagString: Untagged
@@ -542,19 +542,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &4269509087762331084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2776759726212173331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eb4b507ff52e40f58f68c2065e32636, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manageVisibility: 1
 --- !u!114 &77651743561207341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,3 +554,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f0bf336da2a004ea7a1506bdd82329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4186796181867231149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2776759726212173331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb4b507ff52e40f58f68c2065e32636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manageVisibility: 1

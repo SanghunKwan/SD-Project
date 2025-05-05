@@ -28,7 +28,7 @@ public class AOEComponent : MonoBehaviour
         aoeCollider.transform.rotation = Quaternion.Euler(0, degree, 0);
         action = Hit;
 
-        GameObject obj = ObjectUIPool.pool.Call((ObjectUIPool.Folder)((int)skill.type + numDef), ObjectUIPool.UICanvasType.GroundCanvas);
+        GameObject obj = ObjectUIPool.pool.Call((ObjectUIPool.Folder)((int)skill.range + numDef), ObjectUIPool.UICanvasType.GroundCanvas);
         obj.transform.localScale = Vector3.one * skill.rangeMultiply * 2.14f;
 
         uiBase = obj.GetComponent<UIPrimitiveBase>();

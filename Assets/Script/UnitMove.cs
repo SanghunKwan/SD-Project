@@ -110,6 +110,8 @@ public abstract class UnitMove : MonoBehaviour
     {
         range = _range;
         MaxSpeed = _speed;
+
+        Debug.Log("생성 정보 : range" + range);
     }
     protected virtual void Start()
     {

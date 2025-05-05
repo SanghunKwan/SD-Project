@@ -71,7 +71,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         if (wasWindowOpen != isWindowOpen)
         {
             SetCam();
-            GameManager.manager.onVilligeBuildingWindowOpen.eventAction?.Invoke((int)type, transform.position);
+            GameManager.manager.onVilligeBuildingWindowToggle.eventAction?.Invoke((int)type, transform.position);
         }
         else
             StartInterpolation(RotateIenum(camAngle, camSize, fX, fZ, 3));

@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
     public ActionEvent onVilligeBuildingCompleteConstruction { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeBuildingHeroAllocation { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeBuildingHeroCancellation { get; private set; } = new ActionEvent();
-    public ActionEvent onVilligeBuildingWindowOpen { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeBuildingWindowToggle { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeHeroInteractDrag { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeHeroSummon { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeSummonInteract { get; private set; } = new ActionEvent();
@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
     public ActionEvent onVilligeExpeditionFloorSelect { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeExpeditionFloorDelete { get; private set; } = new ActionEvent();
     public ActionEvent onGetMaterials { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeBuildingWindowClose { get; private set; } = new ActionEvent();
     #endregion
 
 

@@ -23,6 +23,13 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
     Camera camMain;
     [SerializeField] GameObject QuestBackGround;
+
+    [Header("cameraMoveRange")]
+    public float cameraMaxX;
+    public float cameraMinX;
+    public float cameraMaxY;
+    public float cameraMinY;
+
     void Start()
     {
         copyRec = Instantiate(rectangle, transform.parent);
@@ -107,39 +114,32 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
         if (pointerEventData == null || QuestBackGround.activeSelf)
             return;
 
-        if (MiniMapClick)
-        {
-            suburbUpdate = false;
-            return;
-        }
+        suburbUpdate = false;
 
-        if (pointerEventData.position.x > Screen.width - suburb)
+        if (MiniMapClick)
+            return;
+
+        if (camMain.transform.position.x < cameraMaxX && pointerEventData.position.x > Screen.width - suburb)
         {
             move = Vector3.right * Time.unscaledDeltaTime * speed;
             camMain.transform.position += move;
             suburbUpdate = true;
         }
-        else if (pointerEventData.position.x < suburb)
+        else if (camMain.transform.position.x > cameraMinX && pointerEventData.position.x < suburb)
         {
             move = Vector3.left * Time.unscaledDeltaTime * speed;
             camMain.transform.position += move;
             suburbUpdate = true;
-
-        }
-        else
-        {
-            suburbUpdate = false;
         }
 
-
-        if (pointerEventData.position.y > Screen.height - suburb)
+        if (camMain.transform.position.z < cameraMaxY && pointerEventData.position.y > Screen.height - suburb)
         {
             movey = -Vector3.back * Time.unscaledDeltaTime * speed;
             camMain.transform.position += movey;
             suburbUpdate = true;
 
         }
-        else if (pointerEventData.position.y < suburb)
+        else if (camMain.transform.position.z > cameraMinY && pointerEventData.position.y < suburb)
         {
             movey = Vector3.back * Time.unscaledDeltaTime * speed;
             camMain.transform.position += movey;

@@ -49,7 +49,7 @@ namespace Unit
             {
                 villigeHero = GetComponent<VilligeHero>();
                 GetDefaultName();
-
+                ResetFieldEquip();
             }
             CheckInitCount();
         }
@@ -207,8 +207,9 @@ namespace Unit
         }
         public override void EquipOne(int equipNum)
         {
-            int jobNum = 2;
-            curstat.RefreshStatus(stat, ((EquipsNum[equipNum] - 1) * (3 * jobNum)) + equipNum);
+            int jobCount = 2;
+            curstat.RefreshStatus(stat, ((EquipsNum[equipNum] - 1) * (3 * jobCount)) + equipNum);
+            curstat.QuirkDiseaseCalculate(quirks, disease);
         }
         public void LoadTeamString(in string newTeam)
         {
@@ -248,6 +249,8 @@ namespace Unit
             FieldEquipsNum[0] = 0;
             FieldEquipsNum[1] = 0;
             FieldEquipsNum[2] = 0;
+
+            EquipSet();
         }
     }
 }

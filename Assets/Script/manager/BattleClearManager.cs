@@ -266,7 +266,7 @@ public class BattleClearManager : MonoBehaviour
             .inventoryComponents(inventoryType).inventoryStorage;
         stageData.inventoryData.SetData(storage.Inventory2ItemDatas(), storage.GetHeroCorpseIndexs());
     }
-    
+
 
     void DeleteSaveDataFileStageUnitDropItems()
     {

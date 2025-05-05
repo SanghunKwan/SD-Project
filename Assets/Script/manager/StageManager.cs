@@ -17,6 +17,8 @@ public class StageManager : JsonLoad
     public int targetSceneNum;
     public int saveDataIndex { get; set; }
     protected List<UnityAction<Scene, LoadSceneMode>> loadActionList;
+    public bool buildingConstructingReady { get; private set; }
+    public LinkedList<VilligeBuildingConstructing> constructingUIList;
 
     [Serializable]
     public class StageData
@@ -41,13 +43,13 @@ public class StageManager : JsonLoad
     {
         VirtualAwake();
         instance = this;
+        constructingUIList = new LinkedList<VilligeBuildingConstructing>();
     }
     protected virtual void VirtualAwake()
     {
         loadActionList = new(3);
         stageData = LoadData<StageDatas>("StageData");
         triggerNamedNoDelay = Animator.StringToHash("fadeOutNoDelay");
-        VilligeBuildingConstructing.isReady = false;
     }
     void Start()
     {
@@ -111,7 +113,14 @@ public class StageManager : JsonLoad
         OnAnimationEnd(() =>
         {
             sceneFadeAnim.gameObject.SetActive(false);
-            VilligeBuildingConstructing.isReady = true;
+            buildingConstructingReady = true;
+
+            foreach (var item in constructingUIList)
+            {
+                item.StartConstruct();
+            }
+            constructingUIList.Clear();
+            constructingUIList = null;
         });
     }
 

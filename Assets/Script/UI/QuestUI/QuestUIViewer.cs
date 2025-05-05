@@ -21,12 +21,16 @@ public class QuestUIViewer : MonoBehaviour
     }
     public void ShowNewQuest(out QuestUISlot newQuestUI)
     {
+
+        if (hiddenSlots.Count <= 0)
+            hiddenSlots.Enqueue(Instantiate(slotPrefab, ContentsTransform));
+
         newQuestUI = hiddenSlots.Dequeue();
-        newQuestUI.gameObject.SetActive(true);
+        newQuestUI.Call();
     }
     public void ClearQuest(QuestUISlot oldUISlot)
     {
-        oldUISlot.HideQuest();
-        hiddenSlots.Enqueue(oldUISlot);
+        oldUISlot.HideQuest(hiddenSlots);
+
     }
 }

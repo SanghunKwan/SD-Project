@@ -103,7 +103,7 @@ public class QuestManager : JsonLoad
                 VilligeBuildingCompleteConstruction,
                 VilligeBuildingHeroAllocation,
                 VilligeBuildingHeroCancellation,
-                VilligeBuildingWindowOpen,
+                VilligeBuildingWindowToggle,
                 VilligeHeroInteractDrag,
                 VilligeHeroSummon,
                 VilligeSummonInteract,

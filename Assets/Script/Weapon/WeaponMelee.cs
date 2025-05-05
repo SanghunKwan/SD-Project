@@ -26,11 +26,11 @@ public class WeaponMelee : WeaponComponent
         unitState.Skill();
         unitMove.SkillAniStart(0, ActingState.Superarmor);
         unitState.VoicePlay(UnitState.voiceType.ShowStrength, 0);
-        yield return StartCoroutine(SkillData.manager.MakeSkillStruct(0, this, unitMove.targetSave));
+        yield return StartCoroutine(SkillData.manager.MakeSkillStruct(0, this, unitMove.targetSave, transform.position));
 
         unitState.VoicePlay(UnitState.voiceType.ShowStrength, 1);
 
-        yield return StartCoroutine(SkillData.manager.MakeSkillStruct(1, this, unitMove.targetSave));
+        yield return StartCoroutine(SkillData.manager.MakeSkillStruct(1, this, unitMove.targetSave, transform.position));
 
         unitMove.ActionEnd(UnitMove.Skill.Skill);
         unitMove.SkillEnd();

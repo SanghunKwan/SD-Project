@@ -32,6 +32,7 @@ public class VilligeItemsLoad : MonoBehaviour
         {
             storageComponent.ItemCountChange(i, info.items[i]);
         }
+        info.items = storageComponent.ItemCounts;
 
         foreach (var item in info.stageData.inventoryData.itemDatas)
         {

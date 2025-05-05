@@ -33,6 +33,16 @@ public class VilligeBuildingConstructing : MonoBehaviour
         enabled = true;
         rectTransform.localPosition = Unit.Data.Instance.CameratoCanvas(building.transform.position) + (Vector3.down * 0.5f);
         GameManager.manager.screenMove += ScreenMove;
+        if (!StageManager.instance.buildingConstructingReady)
+        {
+            if (timeNormalized < quotaToday.fillAmount)
+            {
+                StageManager.instance.constructingUIList.AddLast(this);
+                anim.speed = 0;
+            }
+            else if (timeNormalized >= 1)
+                enabled = false;
+        }
     }
     void SetQuota(float dayQuota, float currentQuota)
     {
@@ -46,16 +56,16 @@ public class VilligeBuildingConstructing : MonoBehaviour
     }
     private void Update()
     {
-        if (!isReady || anim.speed == 0)
+        if (!StageManager.instance.buildingConstructingReady || anim.speed == 0)
             return;
 
         timeAccumulate += Time.deltaTime;
         timeNormalized = timeAccumulate / anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
 
-        if (quotaToday.fillAmount < 1 && timeNormalized >= quotaToday.fillAmount)
-            anim.speed = 0;
-        else
+        if (timeNormalized < quotaToday.fillAmount)
             quotaCurrent.fillAmount = timeNormalized;
+        else
+            anim.speed = 0;
 
         if (timeNormalized >= 1)
             enabled = false;
@@ -71,5 +81,9 @@ public class VilligeBuildingConstructing : MonoBehaviour
         anim = null;
         ObjectUIPool.pool.BackPooling(gameObject, ObjectUIPool.Folder.VilligeConstructingUI);
         GameManager.manager.screenMove -= ScreenMove;
+    }
+    public void StartConstruct()
+    {
+        anim.speed = 1;
     }
 }

@@ -189,7 +189,7 @@ public class BuildingSetWindow : CamTuringWindow
         int siblingIndex = key.transform.GetSiblingIndex();
         int length = buildSetCharacters.Length;
 
-        if (vill_Interact.isCanLoad(out BuildingComponent beforeWork, out int beforeIndex) && siblingIndex != 0)
+        if (vill_Interact.isCanLoad(out BuildingComponent beforeWork, out int beforeIndex))
         {
             //siblingIndex == 0일 때는 시설 이용자
             if (beforeWork == buildingComponent)

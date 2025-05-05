@@ -24,21 +24,28 @@ public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerDownHa
         obj = preview;
         obj.gameObject.SetActive(true);
         buildType = type;
-
         if (CheckRaycast(UnityEngine.InputSystem.Mouse.current.position.value, out RaycastHit hit))
         {
-            lastPoint = hit.point;
-            obj.transform.position = lastPoint;
+            RoundPoint(hit);
         }
+    }
+    void RoundPoint(in RaycastHit hit)
+    {
+        Vector3 vec = new Vector3();
+
+        vec.x = Mathf.RoundToInt(hit.point.x);
+        vec.y = Mathf.RoundToInt(hit.point.y);
+        vec.z = Mathf.RoundToInt(hit.point.z);
+
+        lastPoint = vec;
+        obj.transform.position = lastPoint;
     }
 
     public void OnPointerMove(PointerEventData eventData)
     {
-
         if (CheckRaycast(eventData.position, out RaycastHit hit))
         {
-            lastPoint = hit.point;
-            obj.transform.position = lastPoint;
+            RoundPoint(hit);
         }
     }
     bool CheckRaycast(in Vector2 eventData, out RaycastHit hit)

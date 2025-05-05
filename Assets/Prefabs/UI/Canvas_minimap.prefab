@@ -92,8 +92,12 @@ MonoBehaviour:
   rectangle: {fileID: 5460284940111814924, guid: 3262c7f581a269246bac9b56b1fc532e, type: 3}
   copyRec: {fileID: 0}
   speed: 30
-  suburb: 80
-  inventoryDescription: {fileID: 0}
+  suburb: 30
+  QuestBackGround: {fileID: 0}
+  cameraMaxX: 45
+  cameraMinX: -45
+  cameraMaxY: 35
+  cameraMinY: -55
 --- !u!114 &1561780866771882924
 MonoBehaviour:
   m_ObjectHideFlags: 0

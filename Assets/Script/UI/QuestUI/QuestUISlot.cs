@@ -12,6 +12,9 @@ public class QuestUISlot : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] VerticalLayoutGroup layoutGroup;
     [SerializeField] Image image;
+
+    Queue<QuestUISlot> viewerQueue;
+
     int triggerOffNum;
     int triggerHighLightNum;
     int animStateNameHash;
@@ -40,11 +43,13 @@ public class QuestUISlot : MonoBehaviour
         title.text += dataTitle;
         detail.text += dataDetail;
     }
-    public void HideQuest()
+    public void HideQuest(Queue<QuestUISlot> queue)
     {
         animator.SetTrigger(triggerOffNum);
         hideAction();
         hideAction = null;
+
+        viewerQueue = queue;
     }
     public void OnFadeOutStart()
     {
@@ -55,6 +60,10 @@ public class QuestUISlot : MonoBehaviour
         gameObject.SetActive(false);
         transform.SetAsLastSibling();
         image.enabled = true;
+
+        viewerQueue.Enqueue(this);
+
+        viewerQueue = null;
     }
     public void TimeStopHighLight()
     {
@@ -109,5 +118,9 @@ public class QuestUISlot : MonoBehaviour
     }
     //onenable로 vertical padding spacing * 1.5f로 유지.
     //onFacdOutEnd로 동일하게 유지.
-
+    public void Call()
+    {
+        gameObject.SetActive(true);
+        animator.Rebind();
+    }
 }
