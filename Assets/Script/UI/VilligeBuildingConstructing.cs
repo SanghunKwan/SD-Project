@@ -62,9 +62,8 @@ public class VilligeBuildingConstructing : MonoBehaviour
         timeAccumulate += Time.deltaTime;
         timeNormalized = timeAccumulate / anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
 
-        if (timeNormalized < quotaToday.fillAmount)
-            quotaCurrent.fillAmount = timeNormalized;
-        else
+        quotaCurrent.fillAmount = timeNormalized;
+        if (timeNormalized >= quotaToday.fillAmount)
             anim.speed = 0;
 
         if (timeNormalized >= 1)

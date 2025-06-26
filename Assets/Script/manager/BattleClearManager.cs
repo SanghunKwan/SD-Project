@@ -38,18 +38,14 @@ public class BattleClearManager : MonoBehaviour
     Action[] setStageByNextScene;
     public Action<int> SetActiveNewStageObjects { get; set; }
     public Action onStageChanged { get; set; }
+    public Action<FloorUnitData, int> onStageSave { get; set; }
     public Func<StageFloorComponent> onVilligeFloorComponentSet { get; set; }
-
-    List<Hero> spawnedHero;
-    List<Monster> spawnedMonster;
-    List<ItemComponent> spawnedItem;
-    List<CObject> spawnedObject;
-    List<BuildingConstructDelay> spawnedBuilding;
 
     Queue<int> stageHeroDeleting;
 
     public HashSet<QuestTrigger> doingQuestTrigger { get; private set; }
     public HashSet<QuestPool.QuestActionInstance> doingQuestActionInstance { get; private set; }
+
 
     public enum OBJECTNUM
     {
@@ -58,12 +54,6 @@ public class BattleClearManager : MonoBehaviour
     private void Awake()
     {
         battleClearPool = GetComponent<BattleClearPool>();
-
-        spawnedHero = new List<Hero>();
-        spawnedMonster = new List<Monster>();
-        spawnedItem = new List<ItemComponent>();
-        spawnedObject = new List<CObject>();
-        spawnedBuilding = new();
 
         doingQuestTrigger = new();
         doingQuestActionInstance = new();
@@ -166,45 +156,23 @@ public class BattleClearManager : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             stageData.floorUnitDatas[i] = new FloorUnitData();
+            onStageSave?.Invoke(saveData.stageData.floorUnitDatas[i], i);
         }
+        //형변환 수정 예정.
+        //삭제된 cobject Transform 이동 예정.
+        stageData.yetDroppedItems = (List<YetDroppedItem>)GameManager.manager.objectManager.YetDroppedItems;
         //saveData.stageData
-        SetSaveData(spawnedItem, (num, dropDatas) => stageData.floorUnitDatas[num].dropItemDatas = dropDatas,
-                    (spawnedObj) => new DropItemData(spawnedObj), length);
-
-        SetSaveData(spawnedMonster, (num, monsterDatas) => stageData.floorUnitDatas[num].monsterData = monsterDatas,
-                    (spawnedObj) => new MonsterData(spawnedObj), length);
-
-        SetSaveData(spawnedObject, (num, objectDatas) => stageData.floorUnitDatas[num].objectDatas = objectDatas,
-                    (spawnedObj) => new ObjectData(spawnedObj), length);
-    }
-    void SetSaveData<T1, T2>(in List<T1> t2Array, Action<int, T2[]> stagedata, Func<T1, T2> constructor, int nowFloorIndex) where T1 : MonoBehaviour
-    {
-        int length = t2Array.Count;
-        Debug.Log(1);
-        List<T2>[] data = new List<T2>[nowFloorIndex];
-        for (int i = 0; i < nowFloorIndex; i++)
-        {
-            data[i] = new List<T2>(length / nowFloorIndex);
-        }
-        Debug.Log(2);
-        for (int i = 0; i < length; i++)
-        {
-            data[t2Array[i].transform.parent.GetSiblingIndex()].Add(constructor(t2Array[i]));
-        }
-        Debug.Log(saveData.stageData.floorUnitDatas[0]);
-
-        for (int i = 0; i < nowFloorIndex; i++)
-        {
-            stagedata(i, data[i].ToArray());
-        }
-        Debug.Log(4);
+        //시체 등 objectManager에 없는 요소는 미리 savedata에 저장.
+        //item이나 object 등 이동하지 않는 오브젝트는 stage에 종속.
+        //monster는 spawn되면 시체가 되지 않고 사라지지 않음.
     }
     void OverrideSaveDataFileHeroInventory(bool needPositionReset = false, Vector3 newPosition = new Vector3())
     {
         StageData stageData = saveData.stageData;
+        ObjectManager manager = GameManager.manager.objectManager;
         HeroData hero;
 
-        foreach (var item in spawnedHero)
+        foreach (Hero item in manager.ObjectList[0])
         {
             hero = saveData.hero[stageData.heros[item.heroInStageIndex]];
             hero.SetHeroData(item);
@@ -317,11 +285,16 @@ public class BattleClearManager : MonoBehaviour
     }
     void OverrideSaveDataFileBuilding()
     {
-        saveData.building = new BuildingData[spawnedBuilding.Count];
+        ObjectManager manager = GameManager.manager.objectManager;
 
-        for (int i = 0; i < spawnedBuilding.Count; i++)
+        int length = manager.NoneObjectList[(int)ObjectManager.AdditionalType.Building].Count;
+        saveData.building = new BuildingData[length];
+        LinkedListNode<MonoBehaviour> node = manager.NoneObjectList[(int)ObjectManager.AdditionalType.Building].Last;
+        
+        for (int i = 0; i < length; i++)
         {
-            saveData.building[i] = new BuildingData(spawnedBuilding[i]);
+            saveData.building[i] = new BuildingData((BuildingConstructDelay)node.Value);
+            node = node.Next;
         }
     }
     void OverrideInProgressQuest()
@@ -383,46 +356,4 @@ public class BattleClearManager : MonoBehaviour
         if (saveData.stageData.isClear)
             ActivateNextFloor(questSpawner, false);
     }
-    #region 세이브 데이터 관리
-    public void NewHero(Hero newHero)
-    {
-        spawnedHero.Add(newHero);
-    }
-    public void StageOutHero(Hero fadeHero)
-    {
-        spawnedHero.Remove(fadeHero);
-    }
-    public void NewMonster(Monster newMonster)
-    {
-        spawnedMonster.Add(newMonster);
-    }
-    public void StageOutMonster(Monster fadeMonster)
-    {
-        spawnedMonster.Remove(fadeMonster);
-    }
-    public void NewItem(ItemComponent newItem)
-    {
-        spawnedItem.Add(newItem);
-    }
-    public void StageOutItem(ItemComponent usedItem)
-    {
-        spawnedItem.Remove(usedItem);
-    }
-    public void NewObject(CObject newObject)
-    {
-        spawnedObject.Add(newObject);
-    }
-    public void StageOutObject(CObject fadeObject)
-    {
-        spawnedObject.Remove(fadeObject);
-    }
-    public void NewBuilding(BuildingConstructDelay newBuilding)
-    {
-        spawnedBuilding.Add(newBuilding);
-    }
-    public void StageOutBuilding(BuildingConstructDelay fadeBuilding)
-    {
-        spawnedBuilding.Remove(fadeBuilding);
-    }
-    #endregion
 }

@@ -20,7 +20,16 @@ public class StageUnitSpawner : UnitSpawner
         Item,
         Max
     }
+    protected override void DefaultStart()
+    {
+        int length = (int)StagePoolPrefabs.Max;
+        prefabsTransform = new Transform[length];
 
+        for (int i = 0; i < length; i++)
+        {
+            prefabsTransform[i] = stagePoolTransform.GetChild(i);
+        }
+    }
     protected override void VirtualStart()
     {
         int length = SpawnManager.floorUnitDatas.Length;
@@ -53,6 +62,7 @@ public class StageUnitSpawner : UnitSpawner
                 SpawnObjectData(obj, i);
             }
         }
+        SpawnDroppingData();
     }
     void SpawnMonsterData(MonsterData data, int folderIndex)
     {
@@ -76,10 +86,11 @@ public class StageUnitSpawner : UnitSpawner
 
     void SpawnItemData(DropItemData data, int folderIndex)
     {
-        GameObject item = DropManager.instance.pool.CallItem(data.index - 1);
+        GameObject item = DropManager.instance.pool.CallItem(data.index - 1, data.stageIndex);
         item.transform.SetParent(prefabsTransform[(int)StagePoolPrefabs.Item].GetChild(folderIndex));
 
         item.transform.position = data.position;
+        item.SetActive(true);
     }
     void SpawnObjectData(ObjectData data, int folderIndex)
     {
@@ -88,14 +99,14 @@ public class StageUnitSpawner : UnitSpawner
         NewSpawnedObjectSet(newOjb, data);
         newOjb.gameObject.SetActive(true);
     }
-    protected override void DefaultStart()
+    void SpawnDroppingData()
     {
-        int length = (int)StagePoolPrefabs.Max;
-        prefabsTransform = new Transform[length];
-
-        for (int i = 0; i < length; i++)
+        ObjectManager manager = GameManager.manager.objectManager;
+        foreach (var item in SpawnManager.droppingItems)
         {
-            prefabsTransform[i] = stagePoolTransform.GetChild(i);
+            manager.AddYetDroppedItem(item);
+            //아이템 드랍 이벤트 콜.
+            DropManager.instance.pool.CallItems(item);
         }
     }
 

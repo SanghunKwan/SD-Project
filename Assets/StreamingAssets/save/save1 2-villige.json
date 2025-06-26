@@ -55,18 +55,18 @@
             "villigeAction": 0,
             "workBuilding": 0,
             "unitData": {
-                "detected": false,
+                "detected": true,
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": -5.736378192901611,
-                    "y": 0.5000000596046448,
-                    "z": 2.461318016052246
+                    "x": 5.0,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "depart": {
-                    "x": -8.072437286376954,
+                    "x": -2.5544352531433107,
                     "y": 0.06666666269302368,
-                    "z": 6.672442436218262
+                    "z": 4.952640533447266
                 },
                 "objectData": {
                     "position": {
@@ -94,18 +94,18 @@
                         "HP": 27,
                         "ATK": 10,
                         "DEF": 0,
-                        "DOG": 10,
+                        "DOG": 11,
                         "MORALE": 0,
-                        "SPEED": 5,
-                        "ViewAngle": 90,
-                        "ViewRange": 6,
+                        "SPEED": 6,
+                        "ViewAngle": 95,
+                        "ViewRange": 7,
                         "type": 0,
                         "Accuracy": 90,
                         "AtkSpeed": 1.399999976158142,
                         "Range": 1,
-                        "Mentality": 30,
+                        "Mentality": 33,
                         "Stress": 8,
-                        "curHP": 15,
+                        "curHP": 11,
                         "curMORALE": 0
                     },
                     "dots": [
@@ -121,16 +121,17 @@
     "building": [],
     "items": [
         0,
+        5,
         0,
         0,
+        3,
+        0,
+        1,
+        1,
+        2,
         0,
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        1,
         0,
         0
     ],
@@ -147,34 +148,57 @@
         "inventoryData": {
             "itemDatas": [
                 {
+                    "itemIndex": 11,
+                    "itemCount": 1,
+                    "slotIndex": 0
+                },
+                {
                     "itemIndex": 4,
                     "itemCount": 3,
-                    "slotIndex": 0
+                    "slotIndex": 1
+                },
+                {
+                    "itemIndex": 1,
+                    "itemCount": 5,
+                    "slotIndex": 2
+                },
+                {
+                    "itemIndex": 6,
+                    "itemCount": 1,
+                    "slotIndex": 3
                 },
                 {
                     "itemIndex": 7,
                     "itemCount": 1,
-                    "slotIndex": 1
+                    "slotIndex": 4
                 },
                 {
                     "itemIndex": 8,
-                    "itemCount": 1,
-                    "slotIndex": 2
-                },
-                {
-                    "itemIndex": 1,
                     "itemCount": 2,
-                    "slotIndex": 3
-                },
-                {
-                    "itemIndex": 9,
-                    "itemCount": 1,
-                    "slotIndex": 4
+                    "slotIndex": 5
                 }
             ],
             "corpseIndex": []
         },
-        "floorUnitDatas": []
+        "floorUnitDatas": [],
+        "yetDroppedItems": [
+            {
+                "type": 0,
+                "currentItemIndex": 1,
+                "listIndex": 0,
+                "stageIndex": 0,
+                "itemsPosition": {
+                    "x": -5.673158168792725,
+                    "y": 0.06666666269302368,
+                    "z": 9.085813522338868
+                },
+                "items": [
+                    0,
+                    5
+                ],
+                "offset": 0.8999999761581421
+            }
+        ]
     },
     "questSaveData": {
         "stagePerformOneData": {
@@ -185,7 +209,8 @@
         },
         "villigePerformOneData": {
             "bits": [
-                1
+                1,
+                0
             ],
             "nowQuestList": []
         },
@@ -222,7 +247,7 @@
         "canSummonHero": [
             {
                 "heroData": {
-                    "name": "베이커",
+                    "name": "화이트",
                     "lv": 1,
                     "quirks": {
                         "quirks": [
@@ -331,12 +356,12 @@
             },
             {
                 "heroData": {
-                    "name": "에반스",
+                    "name": "가르시아",
                     "lv": 1,
                     "quirks": {
                         "quirks": [
+                            4,
                             7,
-                            6,
                             0,
                             0,
                             0

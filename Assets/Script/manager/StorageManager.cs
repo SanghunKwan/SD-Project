@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unit;
-using UnityEngine;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
+using Unit;
+using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class StorageManager : MonoBehaviour
 {
@@ -63,13 +64,17 @@ public class StorageManager : MonoBehaviour
 
         Physics.Raycast(Camera.main.ScreenPointToRay(clickPoint), out RaycastHit hit, 30, ~layerMask);
 
-        Dictionary<GameObject, CUnit> clist = (from character in PlayerNavi.nav.lists
-                                               select character.cUnit).ToDictionary((unit) => unit.gameObject, (unit) => unit);
+        CObject target = gameManager.GetNearest(gameManager.objectManager.ObjectList[(int)ObjectManager.CObjectType.Hero], hit.point);
 
-        CObject target = gameManager.GetNearest(clist, hit.point, (character) => true, 35);
-
-        ThrowAwaySave(itemCount, poolCode, target, gameManager.IsOnOneRight(target, hit.point), out _);
+        ItemDrop(new SaveData.YetDroppedItem(itemCount, poolCode, target, gameManager.IsOnOneRight(target, hit.point)));
+        //ThrowAwaySave(itemCount, poolCode, target, gameManager.IsOnOneRight(target, hit.point), out _);
     }
+    void ItemDrop(SaveData.YetDroppedItem dropItems)
+    {
+        GameManager.manager.objectManager.AddYetDroppedItem(dropItems);
+        DropManager.instance.pool.CallItems(dropItems);
+    }
+
     void CheckCorpseThrowAway(int itemCode, int itemCount)
     {
         if (itemCode != 12)
@@ -90,9 +95,13 @@ public class StorageManager : MonoBehaviour
         Physics.Raycast(Camera.main.ScreenPointToRay(clickPoint), out RaycastHit hit, 30, ~layerMask);
 
         if (lastFinderCObject == null)
-            lastFinderCObject = lastFinder.GetComponent<CObject>();
+            lastFinderCObject = gameManager.objectManager.GetNode(lastFinder).Value;
 
-        ThrowAwaySave(itemCount, poolCode, lastFinderCObject, gameManager.IsOnOneRight(lastFinderCObject, hit.point), out _);
+        if (lastFinderCObject != null)
+        {
+            ItemDrop(new SaveData.YetDroppedItem(itemCount, poolCode, lastFinderCObject, gameManager.IsOnOneRight(lastFinderCObject, hit.point)));
+        }
+        //ThrowAwaySave(itemCount, poolCode, lastFinderCObject, gameManager.IsOnOneRight(lastFinderCObject, hit.point), out _);
     }
     void ThrowAwaySave(int itemCount, int poolCode, CObject target, bool isRight, out Task task)
     {
@@ -109,15 +118,16 @@ public class StorageManager : MonoBehaviour
     }
     void ThrowAwayItem(int poolCode, in CObject target, float addAngle)
     {
-        GameObject dropItem = DropManager.instance.pool.CallItem(poolCode);
+        GameObject dropItem = DropManager.instance.pool.CallItem(poolCode, target.stageIndex);
         dropItem.SetActive(true);
 
         dropItem.transform.position = target.transform.position + offset;
         DropManager.instance.pool.CheckPosition(dropItem);
         dropItem.transform.RotateAround(target.transform.position, Vector3.up, target.transform.eulerAngles.y + addAngle);
-
-
     }
+
+
+
     int ItemCode2ItemPoolCode(int itemCode) => itemCode - 1;
 
 }

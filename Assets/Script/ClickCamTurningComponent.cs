@@ -29,6 +29,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     bool isUsable;
 
     Action delaySetCam = () => { };
+    Action delaySetCamCanInterrupted;
     public Action tickCamMove { get; set; } = () => { };
     public CObject CObject { get; private set; }
 
@@ -85,13 +86,17 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
 
         if (isWindowOpen)
         {
-            camTuringStartPosition = camMain.transform.position;
+
+            if (GameManager.manager.questManager.isBuildingUnderControl == false)
+            {
+                camTuringStartPosition = camMain.transform.position;
+
+                camMain.cullingMask -= 32;
+                camMain.cullingMask -= 4096;
+            }
             StartInterpolation(RotateIenum(camAngle, camSize, fX, fZ));
-            camMain.cullingMask -= 32;
-            camMain.cullingMask -= 4096;
             foreach (int layer in cullingLayers)
                 camMain.cullingMask -= (int)Mathf.Pow(2, layer);
-
             GameManager.manager.questManager.isBuildingUnderControl = true;
         }
         else
@@ -99,16 +104,20 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
             StartInterpolation(RotateIenum(40, 5, fX * 1.5f, 0));
             delaySetCam = () =>
                 {
-                    camMain.cullingMask += 32;
-                    camMain.cullingMask += 4096;
                     foreach (int layer in cullingLayers)
                         camMain.cullingMask += (int)Mathf.Pow(2, layer);
-
-                    GameManager.manager.PointMoveConversionToUI(camMain.transform.position - camTuringStartPosition);
-                    GameManager.manager.questManager.isBuildingUnderControl = false;
-                    GameManager.manager.questManager.onBuildingControlFinish?.Invoke();
-                    GameManager.manager.questManager.onBuildingControlFinish = null;
                 };
+
+            delaySetCamCanInterrupted = () =>
+            {
+                camMain.cullingMask += 32;
+                camMain.cullingMask += 4096;
+
+                GameManager.manager.PointMoveConversionToUI(camMain.transform.position - camTuringStartPosition);
+                GameManager.manager.questManager.isBuildingUnderControl = false;
+                GameManager.manager.questManager.onBuildingControlFinish?.Invoke();
+                GameManager.manager.questManager.onBuildingControlFinish = null;
+            };
         }
     }
 
@@ -136,7 +145,8 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         float perSize = size - camMain.orthographicSize;
         float perDistance = lastDistance - rotateDistance;
 
-        CamTuringWindow.transformObject = new GameObject();
+        GameObject tempObject = new GameObject();
+        CamTuringWindow.transformObject = tempObject;
         CamTuringWindow.transformObject.transform.position = camMain.transform.position;
         CamTuringWindow.transformObject.transform.rotation = camMain.transform.rotation;
 
@@ -161,12 +171,19 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         } while (timeCheck < 1);
 
         yield return null;
-        Destroy(CamTuringWindow.transformObject);
-
+        RotationEnumEndEvent(CamTuringWindow.transformObject != tempObject);
+        Destroy(tempObject);
+    }
+    void RotationEnumEndEvent(bool interrupted)
+    {
         delaySetCam();
-        tickCamMove();
         delaySetCam = () => { };
-
+        tickCamMove();
+        if (!interrupted)
+        {
+            delaySetCamCanInterrupted?.Invoke();
+            delaySetCamCanInterrupted = null;
+        }
     }
     int GetCamDistanceFromWindow(bool isWinOpen)
     {
@@ -231,12 +248,11 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         isWindowOpen = false;
         SetColliderActive(true);
 
-        camTurningWindow.Collider_UIActive(!isWindowOpen);
-
-        camMain.cullingMask += 32;
-        camMain.cullingMask += 4096;
         foreach (int layer in cullingLayers)
             camMain.cullingMask += (int)Mathf.Pow(2, layer);
+        delaySetCam = () => { };
+
+        camTurningWindow.Collider_UIActive(!isWindowOpen);
 
         SetWindowOpen();
     }

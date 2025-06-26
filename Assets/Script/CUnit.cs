@@ -8,7 +8,6 @@ namespace Unit
 {
     public enum MovingState
     {
-
         Run,
         Standing
     }
@@ -62,6 +61,9 @@ namespace Unit
             while (view == null)
                 await Task.Yield();
 
+            if (view.enabled)
+                return;
+
             view.enabled = true;
             view.ViewAngle = curstat.ViewAngle;
             view.ViewRange = curstat.ViewRange;
@@ -76,12 +78,12 @@ namespace Unit
         }
         protected override void LoadDead(bool isLoaded, in Vector3 vec)
         {
+            ReturnUIAfterDeath();
             enabled = false;
             SetDetected(false);
             unitMove.Death(vec, isLoaded);
             ObjectCollider.isTrigger = true;
             gameObject.layer = 16;
-            ReturnUIAfterDeath();
             StopCoroutine(LateRepeat);
             view.enabled = false;
             gameObject.AddComponent<CorpseComponent>();
@@ -96,14 +98,7 @@ namespace Unit
             view.enabled = false;
         }
 
-        protected override void DisableVirtual()
-        {
-        }
-        public override void DetectbyHit(CUnit Attacker)
-        {
 
-            GameManager.manager.Search(Attacker, unitMove);
-        }
         public override void Counter(CUnit unit)
         {
             unitMove.CounterAttack(unit);
@@ -141,6 +136,10 @@ namespace Unit
             }
             hpbarScript.BarUpdate();
         }
+
+
+
+
 
         public abstract void EquipOne(int equipNum);
         public abstract void EquipUpgrade(int equipNum, int level);

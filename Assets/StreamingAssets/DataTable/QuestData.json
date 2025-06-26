@@ -34,7 +34,7 @@
         "itemDatas": [],
         "actionType": 6,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -46,6 +46,13 @@
         "radius": 1.0,
         "layer": 7,
         "whatCause": 4
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
+
       },
       "follow": {
         "datas": [
@@ -94,7 +101,7 @@
         ],
         "actionType": 8,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -106,6 +113,12 @@
         "radius": 30.0,
         "layer": 7,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "ctrl + 숫자키"
       },
       "follow": {
         "datas": [
@@ -154,7 +167,7 @@
         ],
         "actionType": 9,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -166,6 +179,12 @@
         "radius": 30.0,
         "layer": 7,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "숫자키"
       },
       "follow": {
         "datas": [
@@ -211,7 +230,7 @@
         "itemDatas": [],
         "actionType": 0,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -273,7 +292,7 @@
         ],
         "actionType": 0,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -338,7 +357,7 @@
         ],
         "actionType": 7,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -350,6 +369,12 @@
         "radius": 30.0,
         "layer": 7,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "우클릭"
       },
       "follow": {
         "datas": [
@@ -398,7 +423,7 @@
         ],
         "actionType": 1,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -410,6 +435,12 @@
         "radius": 10.0,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "공격"
       },
       "follow": {
         "datas": [
@@ -478,7 +509,7 @@
         ],
         "actionType": 6,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -490,6 +521,12 @@
         "radius": 1.0,
         "layer": 10,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -594,7 +631,7 @@
         ],
         "actionType": 6,
         "actCondition": 2,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 8
       },
       "act": {
@@ -606,6 +643,12 @@
         "radius": 1.0,
         "layer": 8,
         "whatCause": 13
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "영웅 좌클릭"
       },
       "follow": {
         "datas": [
@@ -652,7 +695,7 @@
         ],
         "actionType": 14,
         "actCondition": 2,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 8
       },
       "act": {
@@ -664,6 +707,12 @@
         "radius": 1.0,
         "layer": 8,
         "whatCause": 13
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "적 우클릭"
       },
       "follow": {
         "datas": [
@@ -710,7 +759,7 @@
         ],
         "actionType": 10,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -722,6 +771,12 @@
         "radius": 1.0,
         "layer": 7,
         "whatCause": 4
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "아이템 우클릭"
       },
       "follow": {
         "datas": [
@@ -780,6 +835,12 @@
         "layer": 7,
         "whatCause": 4
       },
+      "questEvent": {
+        "eventType": 6,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "영웅 선택"
+      },
       "follow": {
         "datas": [
           {
@@ -824,7 +885,7 @@
         "itemDatas": [],
         "actionType": 29,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -837,6 +898,12 @@
         "id": 0,
         "layer": 7,
         "whatCause": 4
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "키보드 R 입력"
       },
       "follow": {
         "datas": [
@@ -941,7 +1008,7 @@
         "actionType": 29,
         "actCondition": 0,
         "conditionComparison": 3,
-        "accumulatedTime": 0,
+        "accumulatedTime": 2,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -954,6 +1021,12 @@
         "id": 0,
         "layer": 7,
         "whatCause": 4
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "키보드 입력"
       },
       "follow": {
         "datas": [
@@ -1004,7 +1077,7 @@
         "actionType": 6,
         "actCondition": 0,
         "conditionComparison": 1,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1017,6 +1090,12 @@
         "id": 0,
         "layer": 7,
         "whatCause": 2
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1061,7 +1140,7 @@
         "actionType": 6,
         "actCondition": 0,
         "conditionComparison": 1,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1074,6 +1153,12 @@
         "id": 0,
         "layer": 10,
         "whatCause": 30
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1119,7 +1204,7 @@
         "itemDatas": [],
         "actionType": 12,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1131,6 +1216,12 @@
         "radius": 1.0,
         "layer": 7,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1176,7 +1267,7 @@
         "itemDatas": [],
         "actionType": 15,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1190,9 +1281,10 @@
         "whatCause": 0
       },
       "questEvent": {
-        "eventType": 1,
+        "eventType": 3,
         "eventIndex": 0,
-        "eventNum": 3
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1241,7 +1333,7 @@
         "itemDatas": [],
         "actionType": 16,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1255,9 +1347,10 @@
         "whatCause": 0
       },
       "questEvent": {
-        "eventType": 1,
+        "eventType": 3,
         "eventIndex": 0,
-        "eventNum": 3
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1303,7 +1396,7 @@
         "itemDatas": [],
         "actionType": 20,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1316,6 +1409,12 @@
         "id": 0,
         "layer": 2,
         "whatCause": 17
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1361,7 +1460,7 @@
         "itemDatas": [],
         "actionType": 21,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1373,6 +1472,12 @@
         "radius": 50.0,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "드래그"
       },
       "follow": {
         "datas": [
@@ -1418,7 +1523,7 @@
         "itemDatas": [],
         "actionType": 18,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1430,6 +1535,12 @@
         "radius": 50.0,
         "layer": 7,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "드롭"
       },
       "follow": {
         "datas": [
@@ -1475,7 +1586,7 @@
         "itemDatas": [],
         "actionType": 20,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1488,6 +1599,12 @@
         "id": 211,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1534,7 +1651,7 @@
         "actionType": 23,
         "actCondition": 0,
         "conditionComparison": 5,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1547,6 +1664,12 @@
         "id": 0,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1592,7 +1715,7 @@
         "itemDatas": [],
         "actionType": 20,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1605,6 +1728,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1650,7 +1779,7 @@
         "itemDatas": [],
         "actionType": 24,
         "actCondition": 1,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1663,6 +1792,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1708,7 +1843,7 @@
         "itemDatas": [],
         "actionType": 12,
         "actCondition": 1,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1721,6 +1856,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1766,7 +1907,7 @@
         "itemDatas": [],
         "actionType": 21,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1779,6 +1920,12 @@
         "id": 211,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "드래그"
       },
       "follow": {
         "datas": [
@@ -1824,7 +1971,7 @@
         "itemDatas": [],
         "actionType": 18,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1837,6 +1984,12 @@
         "id": 211,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "드롭"
       },
       "follow": {
         "datas": [
@@ -1896,6 +2049,12 @@
         "layer": 9,
         "whatCause": 0
       },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "영웅 배치"
+      },
       "follow": {
         "datas": [
           {
@@ -1940,7 +2099,7 @@
         "itemDatas": [],
         "actionType": 25,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -1953,6 +2112,12 @@
         "id": 211,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -1999,7 +2164,7 @@
         "actionType": 26,
         "actCondition": 0,
         "conditionComparison": 3,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2012,6 +2177,12 @@
         "id": 211,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "우클릭"
       },
       "follow": {
         "datas": [
@@ -2057,7 +2228,7 @@
         "itemDatas": [],
         "actionType": 12,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2070,6 +2241,12 @@
         "id": 211,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -2201,7 +2378,7 @@
         "itemDatas": [],
         "actionType": 6,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2214,6 +2391,12 @@
         "id": 209,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -2259,7 +2442,7 @@
         "itemDatas": [],
         "actionType": 31,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2271,6 +2454,12 @@
         "radius": 0.0,
         "layer": 2,
         "whatCause": 12
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -2316,7 +2505,7 @@
         "itemDatas": [],
         "actionType": 12,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2329,6 +2518,12 @@
         "id": 211,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -2374,7 +2569,7 @@
         "itemDatas": [],
         "actionType": 31,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2387,6 +2582,12 @@
         "id": 211,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -2433,7 +2634,7 @@
         "actionType": 32,
         "conditionComparison": 3,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2446,6 +2647,12 @@
         "id": 211,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -2492,7 +2699,7 @@
         "actionType": 12,
         "conditionComparison": 1,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2505,6 +2712,12 @@
         "id": 211,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
       },
       "follow": {
         "datas": [
@@ -2550,7 +2763,7 @@
         "itemDatas": [],
         "actionType": 20,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2564,11 +2777,21 @@
         "layer": 9,
         "whatCause": 0
       },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
+      },
       "follow": {
         "datas": [
           {
             "type": 1,
             "questNum": 25
+          },
+          {
+            "type": 1,
+            "questNum": 47
           }
         ],
         "needCallNextQuest": true
@@ -2608,7 +2831,7 @@
         "itemDatas": [],
         "actionType": 20,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2621,6 +2844,12 @@
         "id": 0,
         "layer": 8,
         "whatCause": 17
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -2666,7 +2895,7 @@
         "itemDatas": [],
         "actionType": 21,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2679,6 +2908,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "드래그"
       },
       "follow": {
         "datas": [
@@ -2724,7 +2959,7 @@
         "itemDatas": [],
         "actionType": 18,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2737,6 +2972,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "드롭"
       },
       "follow": {
         "datas": [
@@ -2782,7 +3023,7 @@
         "itemDatas": [],
         "actionType": 18,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2795,6 +3036,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "드래그앤드롭"
       },
       "follow": {
         "datas": [
@@ -2840,7 +3087,7 @@
         "itemDatas": [],
         "actionType": 12,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2853,6 +3100,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -2899,7 +3152,7 @@
         "actionType": 33,
         "actCondition": 0,
         "conditionComparison": 5,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2912,6 +3165,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
       },
       "follow": {
         "datas": [
@@ -2957,7 +3216,7 @@
         "itemDatas": [],
         "actionType": 33,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -2970,6 +3229,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
       },
       "follow": {
         "datas": [
@@ -3167,7 +3432,7 @@
         "itemDatas": [],
         "actionType": 20,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3179,6 +3444,12 @@
         "radius": 0.0,
         "layer": 4,
         "whatCause": 17
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -3224,7 +3495,7 @@
         "itemDatas": [],
         "actionType": 12,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3237,6 +3508,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "영웅 배정 후 클릭"
       },
       "follow": {
         "datas": [
@@ -3282,7 +3559,7 @@
         "itemDatas": [],
         "actionType": 33,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3295,6 +3572,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
       },
       "follow": {
         "datas": [
@@ -3340,7 +3623,7 @@
         "itemDatas": [],
         "actionType": 33,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3353,6 +3636,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
       },
       "follow": {
         "datas": [
@@ -3398,7 +3687,7 @@
         "itemDatas": [],
         "actionType": 33,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3411,6 +3700,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
       },
       "follow": {
         "datas": [
@@ -3456,7 +3751,7 @@
         "itemDatas": [],
         "actionType": 20,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3469,6 +3764,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -3511,7 +3812,7 @@
         "itemDatas": [],
         "actionType": 20,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3523,6 +3824,12 @@
         "radius": 0.0,
         "layer": 6,
         "whatCause": 17
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
       },
       "follow": {
         "datas": [
@@ -3568,7 +3875,7 @@
         "itemDatas": [],
         "actionType": 12,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3581,6 +3888,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "영웅 배정하고 클릭"
       },
       "follow": {
         "datas": [
@@ -3626,7 +3939,7 @@
         "itemDatas": [],
         "actionType": 33,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3639,6 +3952,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
       },
       "follow": {
         "datas": [
@@ -3684,7 +4003,7 @@
         "itemDatas": [],
         "actionType": 33,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3697,6 +4016,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
       },
       "follow": {
         "datas": [
@@ -3742,7 +4067,7 @@
         "itemDatas": [],
         "actionType": 33,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3755,6 +4080,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
       },
       "follow": {
         "datas": [
@@ -3800,7 +4131,7 @@
         "itemDatas": [],
         "actionType": 33,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3813,6 +4144,12 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
       },
       "follow": {
         "datas": [
@@ -3858,7 +4195,7 @@
         "itemDatas": [],
         "actionType": 20,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -3871,6 +4208,74 @@
         "id": 210,
         "layer": 9,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
+      },
+      "follow": {
+        "datas": [
+          {}
+        ],
+        "needCallNextQuest": false
+      }
+    },
+    {
+      "num": 47,
+      "questType": 1,
+      "name": "영지 운영(1)",
+      "detail": "영지 내 영웅 2명 추가로 소환하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 0,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 0.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 6,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 22,
+        "actCondition": 0,
+        "conditionComparison": 4,
+        "accumulatedTime": 2,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "영웅 소환"
       },
       "follow": {
         "datas": [
@@ -3930,6 +4335,11 @@
         "layer": 7,
         "whatCause": 0
       },
+      "questEvent": {
+        "eventType": 5,
+        "eventIndex": 0,
+        "eventNum": 0
+      },
       "follow": {
         "datas": [
           {
@@ -3975,7 +4385,7 @@
         ],
         "actionType": 11,
         "actCondition": 0,
-        "accumulatedTime": 0,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 1
       },
       "act": {
@@ -3987,6 +4397,12 @@
         "radius": 30.0,
         "layer": 7,
         "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "스테이지 이동"
       },
       "follow": {
         "datas": [

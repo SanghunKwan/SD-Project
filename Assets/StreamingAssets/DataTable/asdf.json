@@ -66,7 +66,8 @@
             "questEvent": {
                 "eventType": 0,
                 "eventIndex": 0,
-                "eventNum": 0
+                "eventNum": 0,
+                "actionName": ""
             }
         }
     ],
@@ -137,7 +138,8 @@
             "questEvent": {
                 "eventType": 0,
                 "eventIndex": 0,
-                "eventNum": 0
+                "eventNum": 0,
+                "actionName": ""
             }
         }
     ],
@@ -208,7 +210,8 @@
             "questEvent": {
                 "eventType": 0,
                 "eventIndex": 0,
-                "eventNum": 0
+                "eventNum": 0,
+                "actionName": ""
             }
         }
     ],
@@ -279,7 +282,8 @@
             "questEvent": {
                 "eventType": 0,
                 "eventIndex": 0,
-                "eventNum": 0
+                "eventNum": 0,
+                "actionName": ""
             }
         }
     ]

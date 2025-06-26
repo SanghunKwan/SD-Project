@@ -126,8 +126,8 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         {
             PlayerNavi.nav.HeroClear();
 
-            GameManager.manager.Unselect(GameManager.manager.dicPlayerCharacter);
-            GameManager.manager.Unselect(GameManager.manager.dicObjects);
+            GameManager.manager.DragFalse(GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.Hero]);
+            GameManager.manager.DragFalse(GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.FieldObject]);
 
             if (characterList.NameTagInteractable)
                 GameManager.manager.ScreenToPoint(hero.transform.position);

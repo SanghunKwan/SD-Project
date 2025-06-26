@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SettlementCharacter : MonoBehaviour
 {
@@ -53,7 +52,6 @@ public class SettlementCharacter : MonoBehaviour
         }
         else
             Debug.Log(DebugLog);
-
     }
     int GetQuirksData(int maxLength, QuirkDefaultData heroQuirkData)
     {

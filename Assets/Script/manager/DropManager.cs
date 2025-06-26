@@ -40,7 +40,7 @@ public enum Materials
     Coprse,
     Coin,
     Max
-    
+
 }
 public class DropManager : JsonSaveLoad
 {
@@ -97,6 +97,7 @@ public class DropManager : JsonSaveLoad
         Debug.Log("버그 발생    " + "id : " + id.ToString());
         return null;
     }
+
 
     public override void Init()
     {

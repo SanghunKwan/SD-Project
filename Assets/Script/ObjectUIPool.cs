@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectUIPool : MonoBehaviour
@@ -89,7 +88,10 @@ public class ObjectUIPool : MonoBehaviour
 
     public void BackPooling(GameObject poolingObject, Folder type)
     {
+        if (!gameObject.scene.isLoaded) return;
+
         poolingObject.transform.SetParent(folder[(int)type], false);
+        poolingObject.SetActive(false);
     }
 
     public void ReadytoSceneLoad()

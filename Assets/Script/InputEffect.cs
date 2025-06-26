@@ -10,6 +10,8 @@ public class InputEffect : MonoBehaviour
 {
 
     [SerializeField] GameObject[] effects;
+    [SerializeField] ProjectileComponent[] projectileEffects;
+    Queue<ProjectileComponent>[] projectileQueue;
     [SerializeField] int inItCount = 5;
     [SerializeField] int offset1 = 120;
 
@@ -31,18 +33,34 @@ public class InputEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         e = this;
+        projectileQueue = new Queue<ProjectileComponent>[projectileEffects.Length];
         canvas = GameObject.FindWithTag("CanvasWorld").transform;
+        GameObject effectFolder = new GameObject("effectFolder");
+        GameObject projectileFolder = new GameObject("projectileFolder");
+        effectFolder.transform.SetParent(transform);
+        projectileFolder.transform.SetParent(transform);
 
+        GameObject folder;
         for (int i = 0; i < effects.Length; i++)
         {
-            GameObject folder = new GameObject(effects[i].name);
-            folder.transform.SetParent(transform);
+            folder = new GameObject(effects[i].name);
+            folder.transform.SetParent(effectFolder.transform);
 
             for (int k = 0; k < inItCount; k++)
             {
-                var effect = Instantiate(effects[i], transform.GetChild(i));
+                var effect = Instantiate(effects[i], folder.transform);
+            }
+        }
+        for (int i = 0; i < projectileEffects.Length; i++)
+        {
+            folder = new GameObject(projectileEffects[i].name);
+            folder.transform.SetParent(projectileFolder.transform);
+            projectileQueue[i] = new Queue<ProjectileComponent>();
+            for (int k = 0; k < inItCount; k++)
+            {
+                var effect = Instantiate(projectileEffects[i], folder.transform);
+                projectileQueue[i].Enqueue(effect);
             }
         }
     }
@@ -55,24 +73,24 @@ public class InputEffect : MonoBehaviour
         }
         else
         {
-            usedEffect.transform.SetParent(transform.GetChild(_type));
+            usedEffect.transform.SetParent(transform.GetChild(0).GetChild(_type));
             usedEffect.SetActive(false);
         }
 
     }
     public void PrintEffect(Vector3 vec, int effectNum)
     {
-        Transform folder = transform.GetChild(effectNum);
+        Transform folder = transform.GetChild(0).GetChild(effectNum);
         GameObject effect;
 
         if (folder.childCount > 1)
         {
             effect = folder.GetChild(0).gameObject;
-            effect.transform.SetParent(transform);
+            effect.transform.SetParent(folder.parent);
         }
         else
         {
-            effect = Instantiate(effects[effectNum], transform);
+            effect = Instantiate(effects[effectNum], folder.parent);
             effect.GetComponent<EffectReturn>().type = effectNum;
         }
         ReObject(effect, vec);
@@ -89,7 +107,7 @@ public class InputEffect : MonoBehaviour
 
     public Text PrintEffect2(Vector3 vec, string qltskrka = "ºø³ª°¨")
     {
-        Transform folder = transform.GetChild(1);
+        Transform folder = transform.GetChild(0).GetChild(1);
         Text effect;
 
         if (folder.childCount > 1)
@@ -135,12 +153,12 @@ public class InputEffect : MonoBehaviour
             yield return null;
         }
         gameObject.SetActive(false);
-        gameObject.transform.SetParent(transform.GetChild(type));
+        gameObject.transform.SetParent(transform.GetChild(0).GetChild(type));
 
     }
     public GameObject PrintEffect3(int effectNum, Transform parent)
     {
-        Transform folder = transform.GetChild(effectNum);
+        Transform folder = transform.GetChild(0).GetChild(effectNum);
         GameObject effect;
 
         if (folder.childCount > 1)
@@ -164,13 +182,13 @@ public class InputEffect : MonoBehaviour
     }
     public GameObject PrintEffect4(Vector3 start, Vector3 Destination, int effectNum)
     {
-        Transform folder = transform.GetChild(effectNum);
+        Transform folder = transform.GetChild(0).GetChild(effectNum);
         GameObject effect;
 
         if (folder.childCount > 1)
         {
             effect = folder.GetChild(0).gameObject;
-            effect.transform.SetParent(transform);
+            effect.transform.SetParent(folder.parent);
         }
         else
         {
@@ -188,7 +206,7 @@ public class InputEffect : MonoBehaviour
     }
     public TextMeshProUGUI PrintTextMesh(Vector3 vec, string qltskrka = "ºø³ª°¨")
     {
-        Transform folder = transform.GetChild(4);
+        Transform folder = transform.GetChild(0).GetChild(4);
         TextMeshProUGUI effect;
         if (folder.childCount > 1)
         {
@@ -219,7 +237,7 @@ public class InputEffect : MonoBehaviour
 
     public GameObject PrintAnimation(Vector3 vec)
     {
-        Transform folder = transform.GetChild(5);
+        Transform folder = transform.GetChild(0).GetChild(5);
         RectTransform effect;
         if (folder.childCount > 1)
         {
@@ -251,5 +269,23 @@ public class InputEffect : MonoBehaviour
                 }
         }
     }
+    public ProjectileComponent CallProjectileComponent(int effectIndex)
+    {
+        Transform folder = transform.GetChild(1).GetChild(effectIndex);
+        ProjectileComponent projectileComponent;
+        if (projectileQueue[effectIndex].Count > 0)
+        {
+            projectileComponent = projectileQueue[effectIndex].Dequeue();
+            projectileComponent.transform.SetParent(folder.parent);
+        }
+        else
+            projectileComponent = Instantiate(projectileEffects[effectIndex], folder.parent);
 
+        return projectileComponent;
+    }
+    public void ReturnProjectileComponent(int effectIndex, ProjectileComponent usedComponent)
+    {
+        usedComponent.transform.SetParent(transform.GetChild(1).GetChild(effectIndex));
+        projectileQueue[effectIndex].Enqueue(usedComponent);
+    }
 }

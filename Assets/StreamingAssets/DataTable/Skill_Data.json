@@ -121,12 +121,32 @@
       "hitWeigh": 30
     },
     {
+      "name": "파이어볼",
+      "type": 0,
+      "range": 1,
+      "atkMultiply": 70,
+      "outRange": 0,
+      "frendlyFire": false,
+      "effect_IndexEnum": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "durTime": 0.3,
+      "rangeMultiply": 0.9,
+      "firstDelay": 0,
+      "lastDelay": 0,
+      "coolTime": 0,
+      "hitWeigh": 0
+    },
+    {
       "name": "불기둥",
       "type": 0,
       "range": 1,
       "atkMultiply": 300,
       "outRange": 0,
-      "frendlyFire": true,
+      "frendlyFire": false,
       "effect_IndexEnum": [
         0,
         0,
@@ -135,8 +155,8 @@
       ],
       "durTime": 0.3,
       "rangeMultiply": 1.4,
-      "firstDelay": 0.2,
-      "lastDelay": 0.5,
+      "firstDelay": 0.1,
+      "lastDelay": 1,
       "coolTime": 15,
       "hitWeigh": 0
     }

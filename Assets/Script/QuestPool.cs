@@ -44,7 +44,7 @@ public class QuestPool : MonoBehaviour
             = new Action<QuestActionInstance>[(int)QuestManager.QuestData.QuestAct.ActCondition.Max];
 
         questActInstanceAddTypeActions[(int)QuestManager.QuestData.QuestAct.ActCondition.Accumulated]
-            = (instance) => instance.TypeAccumulate();
+            = (instance) => instance.ActionAdd(instance.ProgressAdd);
         questActInstanceAddTypeActions[(int)QuestManager.QuestData.QuestAct.ActCondition.LastUnit]
             = (instance) => instance.TypeLastUnit();
         questActInstanceAddTypeActions[(int)QuestManager.QuestData.QuestAct.ActCondition.HasSuperQuest]
@@ -90,11 +90,12 @@ public class QuestPool : MonoBehaviour
         public int questIndex { get; private set; }
         public QuestManager.QuestType type { get; private set; }
         int conditionComparison;
-        int layerNum;
+        public int layerNum { get; private set; }
         int maxCount;
         Action completeAction;
         Action actionCalled;
         public Action<Action> LateInit { get; set; }
+        public Action<int> layerCalled { get; set; }
         GameManager.ActionEvent savedEvent;
 
         public void Init(int nowProgress, QuestManager.QuestData data, in Action nowCompleteAction,
@@ -121,18 +122,18 @@ public class QuestPool : MonoBehaviour
         {
             progress++;
         }
-        public void TypeAccumulate()
+        public void ActionAdd(in Action action)
         {
-            actionCalled += ProgressAdd;
+            actionCalled += action;
         }
         public void TypeLastUnit()
         {
-            TypeAccumulate();
-            maxCount = GameManager.manager.dicNpcCharacter.Count;
+            ActionAdd(ProgressAdd);
+            maxCount = GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster].Count;
         }
         public void TypeHasSuperQuest()
         {
-            TypeAccumulate();
+            ActionAdd(ProgressAdd);
             LateInit += SuperQuestProgressAdd;
         }
         void SuperQuestProgressAdd(Action action)
@@ -147,6 +148,7 @@ public class QuestPool : MonoBehaviour
 
         public void CompleteCheck(int objectLayerNum, Vector3 vec)
         {
+            layerCalled?.Invoke(objectLayerNum);
             if (!CompareSymbols(objectLayerNum))
                 return;
 
@@ -181,6 +183,7 @@ public class QuestPool : MonoBehaviour
             completeAction = null;
             savedEvent = null;
             actionCalled = null;
+            layerCalled = null;
         }
     }
     public QuestActionInstance GetQuestActInstance(int nowProgress, QuestManager.QuestData data, in Action nowCompleteAction,

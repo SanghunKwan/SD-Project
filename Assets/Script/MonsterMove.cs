@@ -135,7 +135,8 @@ public class MonsterMove : UnitMove
 
     protected override void CallTargetting(CUnit gameObject)
     {
-        GameManager.manager.NewTargetting(GameManager.manager.dicPlayerCharacter, this, (cUnit) => cUnit.detected);
+        //같은 스테이지에 있는 대상 중 가장 가까이 있는 대상 타겟팅.
+        GameManager.manager.NewTargetting(GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.Hero], this);
         SpeedCheck();
     }
 
@@ -149,7 +150,7 @@ public class MonsterMove : UnitMove
         Navi_Destination(transform.position);
 
         yield return new WaitForSeconds(2f);
-        GameManager.manager.SetOtheronBattle(GameManager.manager.dicNpcCharacter);
+        GameManager.manager.SetOtheronBattle(GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster]);
         GameManager.manager.onCry.eventAction?.Invoke(gameObject.layer, transform.position);
 
         yield return new WaitForSeconds(1f);
@@ -171,34 +172,9 @@ public class MonsterMove : UnitMove
     {
 
     }
-    public void MakeWay()
-    {
-        if (loadWait != null)
-            return;
 
-        SetTarget(GameManager.manager.GetNearest(GameManager.manager.dicObjects, transform.position, (asdf) => true, 1000));
-        isCounter = true;
-        loadWait = WaitforLoad();
-        StartCoroutine(loadWait);
-    }
-    void WayBlocked()
-    {
-        if (nav.path.status == NavMeshPathStatus.PathPartial)
-        {
-            foreach (CUnit item in GameManager.manager.dicNpcCharacter.Values)
-            {
-                MonsterMove monMove = item.unitMove as MonsterMove;
-                monMove.MakeWay();
 
-            }
-        }
-    }
-    IEnumerator WaitforLoad()
-    {
-        yield return new WaitUntil(() => nav.path.status == NavMeshPathStatus.PathComplete);
-        SetTarget(GameManager.manager.GetNearest(GameManager.manager.dicPlayerCharacter, transform.position, (asdf) => true, 1000));
-        loadWait = null;
-    }
+
     public override void CounterAttack(CObject gameObject)
     {
         if (!EnermySearch)
@@ -207,5 +183,34 @@ public class MonsterMove : UnitMove
         base.CounterAttack(gameObject);
 
         WayBlocked();
+    }
+    void WayBlocked()
+    {
+        if (nav.path.status == NavMeshPathStatus.PathPartial)
+        {
+            foreach (CUnit item in GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster])
+            {
+                MonsterMove monMove = item.unitMove as MonsterMove;
+                monMove.MakeWay();
+
+            }
+        }
+    }
+    public void MakeWay()
+    {
+        if (loadWait != null) return;
+
+        LinkedListNode<CObject> nearestNode = GameManager.manager.objectManager.GetNode(GameManager.manager.GetNearestNDetected(GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.FieldObject], transform.position, float.MaxValue));
+        SetTarget(nearestNode);
+        isCounter = true;
+        loadWait = WaitforLoad();
+        StartCoroutine(loadWait);
+    }
+    IEnumerator WaitforLoad()
+    {
+        yield return new WaitUntil(() => nav.path.status == NavMeshPathStatus.PathComplete);
+        LinkedListNode<CObject> nearestNode = GameManager.manager.objectManager.GetNode(GameManager.manager.GetNearestNDetected(GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.FieldObject], transform.position, float.MaxValue));
+        SetTarget(nearestNode);
+        loadWait = null;
     }
 }

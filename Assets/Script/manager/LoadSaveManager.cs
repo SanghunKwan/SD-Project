@@ -271,7 +271,7 @@ namespace SaveData
         public InventoryData inventoryData;
 
         public FloorUnitData[] floorUnitDatas;
-
+        public List<YetDroppedItem> yetDroppedItems;
 
 
         public StageData() : this(new int[] { 0 }, new int[] { 0 }) { }
@@ -296,7 +296,6 @@ namespace SaveData
     [Serializable]
     public class FloorUnitData
     {
-        public UnitData[] unitData;
         public MonsterData[] monsterData;
         public ObjectData[] objectDatas;
         public DropItemData[] dropItemDatas;
@@ -431,12 +430,56 @@ namespace SaveData
     {
         public Vector3 position;
         public int index;
+        public int stageIndex;
         public DropItemData(ItemComponent itemComponent)
         {
             position = itemComponent.transform.position;
             index = itemComponent.Index;
+            stageIndex = itemComponent.transform.parent.GetSiblingIndex();
         }
     }
+    [Serializable]
+    public class YetDroppedItem
+    {
+        public enum DropType
+        {
+            Drop,
+            Throw,
+        }
+
+        public DropType type;
+        public int currentItemIndex;
+        public int listIndex;
+        public int stageIndex;
+        public Vector3 itemsPosition;
+        public List<int> items;
+        public float offset;
+
+
+        public YetDroppedItem(int length, int index, in Vector3 position, float colliderRadius)
+        {
+            type = DropType.Drop;
+            currentItemIndex = 0;
+            stageIndex = index;
+            items = new List<int>(length);
+            itemsPosition = position;
+            offset = colliderRadius + 0.5f; // 아이템이 떨어지는 위치를 설정하기 위한 오프셋 값
+        }
+        public YetDroppedItem(int length, int itemCode, CObject thrower, bool isRight)
+        {
+            type = DropType.Throw;
+            currentItemIndex = 0;
+            stageIndex = thrower.stageIndex;
+            items = new List<int>(length);
+            for (int i = 0; i < length; i++)
+            {
+                items.Add(itemCode);
+            }
+            itemsPosition = thrower.transform.position;
+            offset = thrower.transform.eulerAngles.y + Convert.ToInt32(!isRight) * 180;            //회전값
+        }
+    }
+
     [Serializable]
     public class QuestSaveData
     {

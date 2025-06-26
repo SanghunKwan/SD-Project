@@ -38,17 +38,17 @@ public class ItemPool : MonoBehaviour
         }
     }
 
-    public GameObject CallItem(int num)
+    public GameObject CallItem(int num, int stageIndex)
     {
         GameObject obj;
         if (transform.GetChild(num).childCount > 0)
         {
             obj = transform.GetChild(num).GetChild(0).gameObject;
-            obj.transform.SetParent(transform);
+            obj.transform.SetParent(itemTransform.GetChild(stageIndex));
         }
         else
         {
-            obj = Instantiate(itemPrefabs[num], Vector3.zero, Quaternion.identity, transform);
+            obj = Instantiate(itemPrefabs[num], Vector3.zero, Quaternion.identity, itemTransform.GetChild(stageIndex));
         }
 
         return obj;
@@ -67,5 +67,68 @@ public class ItemPool : MonoBehaviour
         item.transform.eulerAngles = Vector3.zero;
 
         item.SetActive(false);
+    }
+
+    public void CallItems(SaveData.YetDroppedItem items)
+    {
+        if (items.type == SaveData.YetDroppedItem.DropType.Drop)
+            StartCoroutine(DropRepeatAndDelay(items));
+        else
+            StartCoroutine(ThrowRepeatAndDelay(items));
+    }
+    IEnumerator DropRepeatAndDelay(SaveData.YetDroppedItem items)
+    {
+        int length = items.items.Count;
+        for (int i = items.currentItemIndex; i < length; i++)
+        {
+            items.currentItemIndex = i;
+            Debug.Log(items.items[items.currentItemIndex]);
+            GameObject item = CallItem(items.items[items.currentItemIndex], items.stageIndex);
+            item.SetActive(true);
+
+            //회전각 계산.
+            float yAngle = 360 * i / length;
+
+            ////저장된 위치 + 회전된 방향으로 1만큼 이동.
+            //item.transform.position = transform.position
+            //        + Quaternion.Euler(0, 360 * i / DropInfo.MaxNum, 0) * Vector3.right * (ObjectCollider.radius + 0.5f);
+
+            //회전
+            item.transform.Rotate(0, yAngle, 0);
+
+            //아이템 위치 선정
+            item.transform.position = items.itemsPosition + Quaternion.Euler(0, yAngle, 0) * Vector3.right * items.offset;
+
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        GameManager.manager.objectManager.CompleteDropItemList(items.listIndex);
+    }
+    IEnumerator ThrowRepeatAndDelay(SaveData.YetDroppedItem items)
+    {
+        int length = items.items.Count;
+        int tempLength = (length <= 1) ? length : (length - 1);
+        for (int i = items.currentItemIndex; i < length; i++)
+        {
+            items.currentItemIndex = i;
+            Debug.Log(items.items[items.currentItemIndex]);
+            GameObject item = CallItem(items.items[items.currentItemIndex], items.stageIndex);
+            item.SetActive(true);
+
+            //회전각 계산.
+            float yAngle = (30 * i / tempLength) - 15 + items.offset;
+
+            //회전
+            item.transform.Rotate(0, yAngle, 0);
+
+            //아이템 위치 선정
+            item.transform.position = items.itemsPosition + Quaternion.Euler(0, yAngle, 0) * Vector3.right;
+
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        GameManager.manager.objectManager.CompleteDropItemList(items.listIndex);
     }
 }

@@ -27,6 +27,16 @@ public abstract class WeaponComponent : MonoBehaviour
         GameManager.manager.DamageCalculate(unitMove.cUnit, cTarget, (int)UnitMove.Skill.Skill, skill,
             () => cTarget.GetStatusEffect(skill.effect_IndexEnum, vec));
     }
+    public void HitExceptTarget(Collider other, Vector3 vec, SkillData.Skill skill, CObject target)
+    {
+        if (other.gameObject.layer == 1 << 16 || target.ObjectCollider == other || (other.CompareTag(tag) && !skill.frendlyFire))
+            return;
+
+        CObject cTarget = other.GetComponent<CObject>();
+
+        GameManager.manager.DamageCalculate(unitMove.cUnit, cTarget, (int)UnitMove.Skill.Skill, skill,
+            () => cTarget.GetStatusEffect(skill.effect_IndexEnum, vec));
+    }
     void Start()
     {
         actions = new System.Action[2];

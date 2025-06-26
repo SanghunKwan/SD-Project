@@ -58,8 +58,32 @@ public class QuestTrigger : MonoBehaviour
         if (id == 0)
             return false;
 
-        GameManager.manager.ApproachDictionary(other, out Unit.CObject tempObject);
-        return id != tempObject.id;
+        ObjectManager.CObjectType type = GetObjectType(other.layer);
+
+        if (type != ObjectManager.CObjectType.Max && GameManager.manager.objectManager.ObjectDictionary[(int)type].ContainsKey(other))
+            return id != GameManager.manager.objectManager.ObjectDictionary[(int)type][other].Value.id;
+
+        else return false;
+    }
+    ObjectManager.CObjectType GetObjectType(int layerNum)
+    {
+        switch (layerNum)
+        {
+            case 7:
+                return ObjectManager.CObjectType.Hero;
+
+            case 9:
+                return ObjectManager.CObjectType.FieldObject;
+
+            case 10:
+                return ObjectManager.CObjectType.Monster;
+
+            default:
+                {
+                    Debug.Log("dictionary에 접근 실패");
+                    return ObjectManager.CObjectType.Max;
+                }
+        }
     }
 
 }

@@ -19,7 +19,10 @@ public class BuildingConstructDelay : MonoBehaviour
         anim = GetComponent<Animator>();
 
         buildingComponent.constructionAction += StartConstruction;
-        GameManager.manager.battleClearManager.NewBuilding(this);
+    }
+    private void OnEnable()
+    {
+        GameManager.manager.objectManager.NewNoneObject(ObjectManager.AdditionalType.Building, this);
     }
     void StartConstruction(int newDayRemaining)
     {

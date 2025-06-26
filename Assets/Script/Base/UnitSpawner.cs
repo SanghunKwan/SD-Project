@@ -32,12 +32,12 @@ public abstract class UnitSpawner : MonoBehaviour
     }
     protected abstract void VirtualStart();
     protected abstract void DefaultStart();
-    
+
     protected void NewSpawnedObjectSet(CObject newObject, ObjectData data)
     {
-        newObject.GetStatusEffect(data.dots, data.dotsDirection);
         newObject.OnUICompleteAction += (ref unit_status stat) =>
         {
+            newObject.GetStatusEffect(data.dots, data.dotsDirection);
             stat.Clone(data.cur_status);
             newObject.Selected(data.selected);
             if (data.isDead)

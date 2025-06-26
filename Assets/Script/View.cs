@@ -151,20 +151,24 @@ public class View : MonoBehaviour
                 rayinfo = rayinfo2;
                 meshvector.Add(hit.point);
                 GameObject target = hit.collider.gameObject;
-                if (!gameObject.CompareTag(target.tag) && (target.CompareTag("Enermy") || target.CompareTag("Player")))
-                {
-                    GameManager.manager.Search(target, thismove);
-                }
+
+                if (gameObject.CompareTag(target.tag)) continue;
+
+                if (target.CompareTag("Player"))
+                    GameManager.manager.Search(ObjectManager.CObjectType.Hero, target, thismove);
+                else if (target.CompareTag("Enermy"))
+                    GameManager.manager.Search(ObjectManager.CObjectType.Monster, target, thismove);
+
             }
             else
             {
                 Vector3 vector3 = transform.position + AngletoPoint(angle) * ViewRange;
-                RayInfo rayinfo2 = new(angle, vector3);
+                RayInfo tempRayInfo = new(angle, vector3);
                 if (i > -stepCount / 2 + 0.5f && rayinfo.collide)
                 {
-                    MoreRayfor(rayinfo, rayinfo2, Detailtime);
+                    MoreRayfor(rayinfo, tempRayInfo, Detailtime);
                 }
-                rayinfo = rayinfo2;
+                rayinfo = tempRayInfo;
                 meshvector.Add(vector3);
 
             }

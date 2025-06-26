@@ -107,12 +107,12 @@ public class Character : UnitMove
         lineRenderer_miniMap.Points[lineRenderer_miniMap.Points.Length - 1]
             = lineRenderer.Points[lineRenderer.Points.Length - 1]
             = NewPoint(transform.position);
-        if (targetEnermy != default)
+        if (IsTargetActive)
         {
             lineRenderer_miniMap.enabled = lineRenderer.enabled = true;
             lineRenderer_miniMap.Points[lineRenderer_miniMap.Points.Length - 2]
                 = lineRenderer.Points[lineRenderer.Points.Length - 2]
-                = NewPoint(targetEnermy.transform.position);
+                = NewPoint(targetNode.Value.transform.position);
             lineRenderer_miniMap.color = lineRenderer.color = new Color(1, 0.4705882f, 0.4313726f);
         }
         else if (isFear)
@@ -188,11 +188,14 @@ public class Character : UnitMove
     }
     protected override void SearchAct2()
     {
-        GameManager.manager.SetOtheronBattle(GameManager.manager.dicPlayerCharacter);
+        GameManager.manager.SetOtheronBattle(GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.Hero]);
     }
     protected override void CallTargetting(CUnit gameObject)
     {
-        GameManager.manager.NewTargetting(GameManager.manager.dicNpcCharacter, this, (CUnit) => CUnit.detected, cUnit.curstat.ViewRange);
+        //같은 스테이지에 있는 대상 중 가장 가까이 있는 대상 타겟팅.
+
+        //GameManager.manager.NewTargetting(GameManager.manager.dicNpcCharacter, this, (CUnit) => CUnit.detected, cUnit.curstat.ViewRange);
+        GameManager.manager.NewTargetting(GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster], this, Mathf.Pow(cUnit.curstat.ViewRange, 2));
     }
 
     public override void Death(in Vector3 attacker_position, bool isLoaded)
@@ -329,17 +332,18 @@ public class Character : UnitMove
 
         lineRenderer_miniMap.enabled = lineRenderer.enabled = false;
     }
-    protected override void AddQueue(CObject target)
+    protected override void AddQueue(LinkedListNode<CObject> node)
     {
 
-        AddQueueLine(target.transform.position);
-        StartCoroutine(AddRefPos(target));
+        AddQueueLine(node.Value.transform.position);
+        StartCoroutine(AddRefPos(node));
 
     }
-    IEnumerator AddRefPos(CObject target)
+    IEnumerator AddRefPos(LinkedListNode<CObject> node)
     {
         yield return new WaitUntil(() => isDeQueue2);
-        objVecs.Add(new ObjVec(target));
+        objVecs.Add(new ObjVec(node.Value));
+
 
     }
 }

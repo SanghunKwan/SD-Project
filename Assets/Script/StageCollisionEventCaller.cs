@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unit;
 using UnityEngine;
 
 public class StageCollisionEventCaller : MonoBehaviour
@@ -9,7 +10,9 @@ public class StageCollisionEventCaller : MonoBehaviour
         if (other.gameObject.layer != 7)
             return;
 
+        int stageIndex = transform.parent.parent.GetSiblingIndex();
+        GameManager.manager.objectManager.GetNode(other.gameObject).Value.stageIndex = stageIndex;
         GameManager.manager.onPlayerEnterStage.eventAction?.Invoke(
-            GameManager.manager.battleClearManager.nowFloorIndex - transform.parent.parent.GetSiblingIndex(), transform.position);
+            GameManager.manager.battleClearManager.nowFloorIndex - stageIndex, transform.position);
     }
 }

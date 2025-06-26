@@ -7,7 +7,6 @@ using System;
 
 public class EffectReturn : MonoBehaviour
 {
-
     float time;
     [SerializeField] float usingTime = 0.4f;
     [SerializeField] float moving = 0;

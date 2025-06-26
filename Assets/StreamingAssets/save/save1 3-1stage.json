@@ -55,18 +55,18 @@
             "villigeAction": 3,
             "workBuilding": 2,
             "unitData": {
-                "detected": false,
+                "detected": true,
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": 3.379251718521118,
-                    "y": 6.8597864860257199e-18,
-                    "z": -7.563767433166504
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "depart": {
-                    "x": 3.3792521953582765,
+                    "x": -4.76837158203125e-7,
                     "y": 0.06666666269302368,
-                    "z": -10.563769340515137
+                    "z": -11.000001907348633
                 },
                 "objectData": {
                     "position": {
@@ -92,20 +92,20 @@
                         "NAME": "playerMelee",
                         "SPECIES": 1,
                         "HP": 27,
-                        "ATK": 10,
+                        "ATK": 7,
                         "DEF": 0,
-                        "DOG": 10,
+                        "DOG": 11,
                         "MORALE": 0,
-                        "SPEED": 5,
-                        "ViewAngle": 90,
-                        "ViewRange": 6,
+                        "SPEED": 6,
+                        "ViewAngle": 95,
+                        "ViewRange": 7,
                         "type": 0,
-                        "Accuracy": 90,
-                        "AtkSpeed": 1.399999976158142,
+                        "Accuracy": 85,
+                        "AtkSpeed": 1.5,
                         "Range": 1,
-                        "Mentality": 30,
-                        "Stress": 8,
-                        "curHP": 15,
+                        "Mentality": 33,
+                        "Stress": 5,
+                        "curHP": 11,
                         "curMORALE": 0
                     },
                     "dots": [
@@ -118,7 +118,7 @@
             }
         },
         {
-            "name": "베이커",
+            "name": "화이트",
             "lv": 1,
             "quirks": {
                 "quirks": [
@@ -165,14 +165,14 @@
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": 4.514840602874756,
-                    "y": -1.4624808001566197e-17,
-                    "z": 0.14246749877929688
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "depart": {
-                    "x": 3.8588571548461916,
-                    "y": 0.06666667014360428,
-                    "z": 2.693660259246826
+                    "x": -7.800000190734863,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "objectData": {
                     "position": {
@@ -198,15 +198,15 @@
                         "NAME": "playerMelee",
                         "SPECIES": 1,
                         "HP": 27,
-                        "ATK": 7,
+                        "ATK": 8,
                         "DEF": 0,
                         "DOG": 10,
                         "MORALE": 0,
                         "SPEED": 5,
-                        "ViewAngle": 90,
+                        "ViewAngle": 81,
                         "ViewRange": 6,
                         "type": 0,
-                        "Accuracy": 85,
+                        "Accuracy": 81,
                         "AtkSpeed": 1.5,
                         "Range": 1,
                         "Mentality": 30,
@@ -224,12 +224,12 @@
             }
         },
         {
-            "name": "에반스",
+            "name": "가르시아",
             "lv": 1,
             "quirks": {
                 "quirks": [
+                    4,
                     7,
-                    6,
                     0,
                     0,
                     0
@@ -271,14 +271,14 @@
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": -2.733555316925049,
-                    "y": 0.012414886616170407,
-                    "z": -4.25209903717041
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "depart": {
-                    "x": -5.639612674713135,
-                    "y": 0.06666666269302368,
-                    "z": -2.210996150970459
+                    "x": -7.800000190734863,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "objectData": {
                     "position": {
@@ -309,11 +309,11 @@
                         "DOG": 15,
                         "MORALE": 0,
                         "SPEED": 6,
-                        "ViewAngle": 70,
-                        "ViewRange": 10,
+                        "ViewAngle": 63,
+                        "ViewRange": 11,
                         "type": 1,
-                        "Accuracy": 80,
-                        "AtkSpeed": 1.5,
+                        "Accuracy": 68,
+                        "AtkSpeed": 1.2999999523162842,
                         "Range": 6,
                         "Mentality": 30,
                         "Stress": 7,
@@ -338,12 +338,12 @@
                 -1
             ],
             "dayRemaining": 0,
-            "timeNormalized": 1.000243067741394,
+            "timeNormalized": 1.000983715057373,
             "objectData": {
                 "position": {
-                    "x": 3.379251718521118,
-                    "y": 6.8597864860257199e-18,
-                    "z": -5.563767433166504
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -6.0
                 },
                 "dotsDirection": {
                     "x": 0.0,
@@ -390,16 +390,17 @@
     ],
     "items": [
         0,
+        10,
         0,
         0,
+        6,
+        0,
+        2,
+        2,
+        4,
         0,
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        2,
         0,
         0
     ],
@@ -418,25 +419,27 @@
         "inventoryData": {
             "itemDatas": [
                 {
-                    "itemIndex": 7,
-                    "itemCount": 1,
+                    "itemIndex": 6,
+                    "itemCount": 2,
                     "slotIndex": 0
                 }
             ],
             "corpseIndex": []
         },
-        "floorUnitDatas": []
+        "floorUnitDatas": [],
+        "yetDroppedItems": []
     },
     "questSaveData": {
         "stagePerformOneData": {
             "bits": [
-                4317380607
+                21497249791
             ],
             "nowQuestList": []
         },
         "villigePerformOneData": {
             "bits": [
-                17179869183
+                17179869183,
+                0
             ],
             "nowQuestList": []
         },

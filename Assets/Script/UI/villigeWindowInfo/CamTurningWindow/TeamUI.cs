@@ -23,13 +23,12 @@ public class TeamUI : CheckUICondition
 
     public void EnterCollider(int siblingIndex, villigeInteract nowVilligeInteract)
     {
-
-        buildSetCharacters[siblingIndex].ChangeTeam(nowVilligeInteract.hero.stat.NAME, nowVilligeInteract.hero.keycode);
+        buildSetCharacters[siblingIndex].ChangeTeam(nowVilligeInteract.hero.curstat.NAME, nowVilligeInteract.hero.keycode);
     }
     public void ExitCollider(int siblingIndex)
     {
         if (villigeInteracts[siblingIndex] is not null)
-            buildSetCharacters[siblingIndex].ChangeTeam(villigeInteracts[siblingIndex].hero.stat.NAME,
+            buildSetCharacters[siblingIndex].ChangeTeam(villigeInteracts[siblingIndex].hero.curstat.NAME,
                villigeInteracts[siblingIndex].hero.keycode);
         else
             ResetTeam(siblingIndex);

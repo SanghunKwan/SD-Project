@@ -55,24 +55,24 @@
             "villigeAction": 0,
             "workBuilding": 0,
             "unitData": {
-                "detected": true,
+                "detected": false,
                 "attackMove": true,
                 "ishold": false,
                 "destination": {
-                    "x": -8.293883323669434,
+                    "x": -6.608878135681152,
                     "y": 0.5000000596046448,
-                    "z": 7.036965370178223
+                    "z": 10.722262382507325
                 },
                 "depart": {
-                    "x": -10.970458030700684,
+                    "x": -4.780206203460693,
                     "y": 0.06666666269302368,
-                    "z": 3.8635387420654299
+                    "z": 10.11159896850586
                 },
                 "objectData": {
                     "position": {
-                        "x": -10.970458030700684,
+                        "x": -4.780206203460693,
                         "y": 0.06666666269302368,
-                        "z": 3.8635387420654299
+                        "z": 10.11159896850586
                     },
                     "dotsDirection": {
                         "x": 0.0,
@@ -81,9 +81,9 @@
                     },
                     "quaternion": {
                         "x": 0.0,
-                        "y": 0.8623222708702087,
+                        "y": 0.9365506768226624,
                         "z": 0.0,
-                        "w": 0.506359875202179
+                        "w": -0.3505322337150574
                     },
                     "selected": true,
                     "isDead": false,
@@ -94,18 +94,18 @@
                         "HP": 27,
                         "ATK": 10,
                         "DEF": 0,
-                        "DOG": 10,
+                        "DOG": 11,
                         "MORALE": 0,
-                        "SPEED": 5,
-                        "ViewAngle": 90,
-                        "ViewRange": 6,
+                        "SPEED": 6,
+                        "ViewAngle": 95,
+                        "ViewRange": 7,
                         "type": 0,
                         "Accuracy": 90,
                         "AtkSpeed": 1.399999976158142,
                         "Range": 1,
-                        "Mentality": 30,
+                        "Mentality": 33,
                         "Stress": 8,
-                        "curHP": 15,
+                        "curHP": 11,
                         "curMORALE": 0
                     },
                     "dots": [
@@ -120,6 +120,7 @@
     ],
     "building": [],
     "items": [
+        0,
         0,
         0,
         0,
@@ -147,36 +148,25 @@
         "inventoryData": {
             "itemDatas": [
                 {
-                    "itemIndex": 4,
-                    "itemCount": 3,
+                    "itemIndex": 11,
+                    "itemCount": 1,
                     "slotIndex": 0
                 },
                 {
-                    "itemIndex": 7,
-                    "itemCount": 1,
+                    "itemIndex": 4,
+                    "itemCount": 3,
                     "slotIndex": 1
                 },
                 {
-                    "itemIndex": 8,
+                    "itemIndex": 1,
                     "itemCount": 1,
                     "slotIndex": 2
-                },
-                {
-                    "itemIndex": 1,
-                    "itemCount": 2,
-                    "slotIndex": 3
-                },
-                {
-                    "itemIndex": 9,
-                    "itemCount": 1,
-                    "slotIndex": 4
                 }
             ],
             "corpseIndex": []
         },
         "floorUnitDatas": [
             {
-                "unitData": [],
                 "monsterData": [
                     {
                         "waitingTypeNum": 0,
@@ -201,15 +191,15 @@
                                 "z": 0.0
                             },
                             "depart": {
-                                "x": -10.99871826171875,
+                                "x": -9.6212739944458,
                                 "y": 0.06666666269302368,
-                                "z": 5.151450157165527
+                                "z": 6.3368635177612309
                             },
                             "objectData": {
                                 "position": {
-                                    "x": -11.019515991210938,
+                                    "x": -5.673158168792725,
                                     "y": 0.06666666269302368,
-                                    "z": 6.0993170738220219
+                                    "z": 9.085813522338868
                                 },
                                 "dotsDirection": {
                                     "x": 0.0,
@@ -218,9 +208,9 @@
                                 },
                                 "quaternion": {
                                     "x": 0.0,
-                                    "y": 0.9999399185180664,
+                                    "y": 0.35053232312202456,
                                     "z": 0.0,
-                                    "w": 0.010968804359436036
+                                    "w": 0.9365506768226624
                                 },
                                 "selected": false,
                                 "isDead": true,
@@ -243,13 +233,13 @@
                                     "Mentality": 10,
                                     "Stress": 3,
                                     "curHP": -3,
-                                    "curMORALE": 0
+                                    "curMORALE": 8
                                 },
                                 "dots": [
                                     0,
                                     0,
                                     0,
-                                    6
+                                    0
                                 ]
                             }
                         }
@@ -268,7 +258,7 @@
                             "z": 0.0
                         },
                         "unitData": {
-                            "detected": true,
+                            "detected": false,
                             "attackMove": false,
                             "ishold": false,
                             "destination": {
@@ -277,15 +267,15 @@
                                 "z": 0.0
                             },
                             "depart": {
-                                "x": -0.5298941135406494,
+                                "x": -5.174604892730713,
                                 "y": 0.06666666269302368,
-                                "z": 4.956465721130371
+                                "z": 5.579052925109863
                             },
                             "objectData": {
                                 "position": {
-                                    "x": -9.752449035644532,
+                                    "x": -4.619091033935547,
                                     "y": 0.06666666269302368,
-                                    "z": 3.1840248107910158
+                                    "z": 12.509527206420899
                                 },
                                 "dotsDirection": {
                                     "x": 0.0,
@@ -294,9 +284,9 @@
                                 },
                                 "quaternion": {
                                     "x": 0.0,
-                                    "y": -0.5063599348068237,
+                                    "y": 0.9994375705718994,
                                     "z": 0.0,
-                                    "w": 0.8623222708702087
+                                    "w": -0.03353768587112427
                                 },
                                 "selected": false,
                                 "isDead": true,
@@ -319,83 +309,7 @@
                                     "Mentality": 10,
                                     "Stress": 3,
                                     "curHP": -3,
-                                    "curMORALE": 1
-                                },
-                                "dots": [
-                                    0,
-                                    0,
-                                    0,
-                                    0
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "waitingTypeNum": 0,
-                        "standType": 0,
-                        "originTransform": {
-                            "x": -12.927310943603516,
-                            "y": 0.0,
-                            "z": -5.2720746994018559
-                        },
-                        "patrolDestination": {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "unitData": {
-                            "detected": false,
-                            "attackMove": false,
-                            "ishold": false,
-                            "destination": {
-                                "x": 0.0,
-                                "y": 0.0,
-                                "z": 0.0
-                            },
-                            "depart": {
-                                "x": -16.96270179748535,
-                                "y": 0.06666666269302368,
-                                "z": -2.349487543106079
-                            },
-                            "objectData": {
-                                "position": {
-                                    "x": -17.773347854614259,
-                                    "y": 0.06666666269302368,
-                                    "z": -2.7798914909362795
-                                },
-                                "dotsDirection": {
-                                    "x": 0.0,
-                                    "y": 0.0,
-                                    "z": 0.0
-                                },
-                                "quaternion": {
-                                    "x": 0.0,
-                                    "y": 0.49996623396873476,
-                                    "z": 0.0,
-                                    "w": 0.8660449981689453
-                                },
-                                "selected": false,
-                                "isDead": true,
-                                "cur_status": {
-                                    "ID": 0,
-                                    "NAME": "WanderingGoblinMelee (3)",
-                                    "SPECIES": 0,
-                                    "HP": 24,
-                                    "ATK": 4,
-                                    "DEF": 0,
-                                    "DOG": 18,
-                                    "MORALE": 30,
-                                    "SPEED": 4,
-                                    "ViewAngle": 90,
-                                    "ViewRange": 5,
-                                    "type": 0,
-                                    "Accuracy": 70,
-                                    "AtkSpeed": 1.5,
-                                    "Range": 1,
-                                    "Mentality": 10,
-                                    "Stress": 3,
-                                    "curHP": -6,
-                                    "curMORALE": 6
+                                    "curMORALE": 9
                                 },
                                 "dots": [
                                     0,
@@ -1115,9 +1029,9 @@
                     },
                     {
                         "position": {
-                            "x": -3.474700927734375,
-                            "y": 0.0,
-                            "z": 11.541299819946289
+                            "x": -3.290555000305176,
+                            "y": -0.009403632022440434,
+                            "z": 11.742966651916504
                         },
                         "dotsDirection": {
                             "x": 0.0,
@@ -1150,54 +1064,7 @@
                             "Range": 0,
                             "Mentality": 1,
                             "Stress": 0,
-                            "curHP": 30,
-                            "curMORALE": 0
-                        },
-                        "dots": [
-                            0,
-                            0,
-                            0,
-                            0
-                        ]
-                    },
-                    {
-                        "position": {
-                            "x": 1.474513053894043,
-                            "y": -0.013492771424353123,
-                            "z": -9.995343208312989
-                        },
-                        "dotsDirection": {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "quaternion": {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0,
-                            "w": 1.0000001192092896
-                        },
-                        "selected": false,
-                        "isDead": true,
-                        "cur_status": {
-                            "ID": 104,
-                            "NAME": "Object_Tree1 (11)",
-                            "SPECIES": 100,
-                            "HP": 30,
-                            "ATK": 0,
-                            "DEF": 0,
-                            "DOG": -90,
-                            "MORALE": 0,
-                            "SPEED": 0,
-                            "ViewAngle": 0,
-                            "ViewRange": 0,
-                            "type": 100,
-                            "Accuracy": 0,
-                            "AtkSpeed": 0.0,
-                            "Range": 0,
-                            "Mentality": 1,
-                            "Stress": 0,
-                            "curHP": -4,
+                            "curHP": 13,
                             "curMORALE": 0
                         },
                         "dots": [
@@ -1540,11 +1407,21 @@
                 "dropItemDatas": [
                     {
                         "position": {
+                            "x": -7.723426818847656,
+                            "y": 0.0,
+                            "z": -9.899160385131836
+                        },
+                        "index": 8,
+                        "stageIndex": 0
+                    },
+                    {
+                        "position": {
                             "x": -4.163900375366211,
                             "y": 0.0,
                             "z": -1.871894121170044
                         },
-                        "index": 8
+                        "index": 8,
+                        "stageIndex": 0
                     },
                     {
                         "position": {
@@ -1552,25 +1429,64 @@
                             "y": 0.0,
                             "z": 9.583462715148926
                         },
-                        "index": 8
+                        "index": 8,
+                        "stageIndex": 0
                     },
                     {
                         "position": {
-                            "x": -11.448718070983887,
+                            "x": -3.782650947570801,
                             "y": 0.06666666269302368,
-                            "z": 5.930872917175293
+                            "z": 11.563562393188477
                         },
-                        "index": 1
+                        "index": 1,
+                        "stageIndex": 0
                     },
                     {
                         "position": {
-                            "x": -11.009156227111817,
+                            "x": -5.582651138305664,
                             "y": 0.06666666269302368,
-                            "z": 5.627096176147461
+                            "z": 11.563562393188477
                         },
-                        "index": 8
+                        "index": 1,
+                        "stageIndex": 0
+                    },
+                    {
+                        "position": {
+                            "x": -4.682651042938232,
+                            "y": 0.06666666269302368,
+                            "z": 12.46356201171875
+                        },
+                        "index": 7,
+                        "stageIndex": 0
+                    },
+                    {
+                        "position": {
+                            "x": -4.773158073425293,
+                            "y": 0.06666666269302368,
+                            "z": 9.085813522338868
+                        },
+                        "index": 1,
+                        "stageIndex": 0
                     }
                 ]
+            }
+        ],
+        "yetDroppedItems": [
+            {
+                "type": 0,
+                "currentItemIndex": 0,
+                "listIndex": 0,
+                "stageIndex": 0,
+                "itemsPosition": {
+                    "x": -5.673158168792725,
+                    "y": 0.06666666269302368,
+                    "z": 9.085813522338868
+                },
+                "items": [
+                    0,
+                    5
+                ],
+                "offset": 0.8999999761581421
             }
         ]
     },
@@ -1583,7 +1499,8 @@
         },
         "villigePerformOneData": {
             "bits": [
-                1
+                1,
+                0
             ],
             "nowQuestList": []
         },
@@ -1603,9 +1520,9 @@
     },
     "playInfo": {
         "camPosition": {
-            "x": -7.264641761779785,
+            "x": -5.288265705108643,
             "y": 10.0,
-            "z": -5.691821098327637
+            "z": -0.9966801404953003
         },
         "enableUpgrades": [
             1,

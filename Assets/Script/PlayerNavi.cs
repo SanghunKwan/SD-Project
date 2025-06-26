@@ -155,7 +155,16 @@ public class PlayerNavi : MonoBehaviour
     {
         foreach (var item in lists)
         {
-            item.NewTarget(collider.GetComponent<CObject>(), order);
+            item.NewTarget(GameManager.manager.objectManager.GetNode(collider.gameObject), order);
+
+            //collider.gameobject로 접근해서
+            //UnitManager가 가지고 있는 linkedList에 접근해서 Node 가져오기.
+            //Node에 있는 CObject를 타겟으로 지정.
+            //이후에 오브젝트 파괴 시 단순 null 체크만으로도 오류 방지 가능.
+            //Hero 상속 class에서도 null ? index -1 : transform.position;
+
+            //그럴려면 오브젝트 생성 시 Node를 ArrayList로 관리하고,
+            //gameobject를 Key, Node를 Value로 하는 Dictionary를 만들어야 할듯.
         }
     }
     public void HeroAdd(CUnit gameObject)
@@ -634,5 +643,23 @@ public class PlayerNavi : MonoBehaviour
         }
         return null;
     }
+    public void SmartOrder(RaycastHit hit, OrderType type)
+    {
+        if (lists.Count <= 0) return;
 
+        switch (hit.collider.gameObject.layer)
+        {
+            case 10:
+                TargetSet(hit.collider, type);
+                break;
+
+            case 15:
+                GetItem(hit.collider.transform.position, type);
+                break;
+
+            default:
+                Navi_Destination(hit.point, MoveType.Move, type);
+                break;
+        }
+    }
 }

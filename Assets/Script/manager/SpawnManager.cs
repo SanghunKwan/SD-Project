@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviour
     public FloorUnitData[] floorUnitDatas { get; private set; }
     public HeroData[] heroDatas { get; protected set; }
     public BuildingData[] buildingDatas { get; private set; }
+    public List<YetDroppedItem> droppingItems { get; private set; }
 
     public int[] competeIndexs { get; protected set; }
     public int nowFloorIndex { get; private set; }
@@ -34,6 +35,7 @@ public class SpawnManager : MonoBehaviour
 
         nowFloorIndex = saveDataInfo.stageData.nowFloorIndex;
         competeIndexs = saveDataInfo.stageData.heros;
+        droppingItems = saveDataInfo.stageData.yetDroppedItems;
 
         heroDatas = new HeroData[competeIndexs.Length];
 

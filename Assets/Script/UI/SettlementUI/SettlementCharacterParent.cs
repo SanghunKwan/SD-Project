@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SaveData;
-using System.Threading.Tasks;
 
 public class SettlementCharacterParent : SettleCanSkip
 {
@@ -34,6 +33,10 @@ public class SettlementCharacterParent : SettleCanSkip
         HeroData[] heros = saveInfo.hero;
         HeroData heroData;
 
+        ObjectManager manager = GameManager.manager.objectManager;
+        var tempHeroNode = manager.ObjectList[(int)ObjectManager.CObjectType.Hero].First;
+        Unit.Hero heroUnit;
+
         for (int i = 0; i < heroCount; i++)
         {
             heroData = heros[herosIndex[i]];
@@ -49,6 +52,12 @@ public class SettlementCharacterParent : SettleCanSkip
                 settlementCharacters[i].CreateNewDisease(heroData.disease);
             else
                 Debug.Log("새 질병 생성하지 않는 확률");
+
+            heroUnit = (Unit.Hero)tempHeroNode.Value;
+            heroUnit.SetQuirk(heroData.quirks.quirks);
+            heroUnit.SetDisease(heroData.disease.quirks);
+
+            tempHeroNode = tempHeroNode.Next;
         }
     }
 

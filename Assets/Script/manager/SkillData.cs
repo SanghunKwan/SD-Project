@@ -77,6 +77,13 @@ public class SkillData : JsonLoad
 
         yield return new WaitForSeconds(SkillInfo.skill[nIndex].lastDelay);
     }
+    public IEnumerator MakeSkillStructExceptTarget(int nIndex, WeaponComponent user, CObject target, Vector3 position)
+    {
+        yield return new WaitForSeconds(SkillInfo.skill[nIndex].firstDelay);
+        MakeAOE(SkillInfo.skill[nIndex], user, (coll, vec) => user.HitExceptTarget(coll, vec, SkillInfo.skill[nIndex], target), position);
+
+        yield return new WaitForSeconds(SkillInfo.skill[nIndex].lastDelay);
+    }
     void MakeAOE(Skill skill, WeaponComponent user, System.Action<Collider, Vector3> action, in Vector3 position)
     {
 

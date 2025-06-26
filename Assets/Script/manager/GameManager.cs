@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Unit;
-using UnityEditor;
 using UnityEngine.InputSystem;
 using System;
 using UnityEngine.EventSystems;
@@ -15,16 +13,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerNavi playerNavi;
     [SerializeField] MonNavi monNavi;
 
-    public Dictionary<GameObject, CUnit> dicNpcCharacter { get; private set; } = new();
-    public Dictionary<GameObject, CObject> dicObjects { get; private set; } = new();
-    public Dictionary<GameObject, CUnit> dicPlayerCharacter { get; private set; } = new();
+    //새로운 유닛 매니저 생성해서 관리하도록 할 것.
+    //dictionary<gameObject, linkedListNode>
+    //linkedlist<cobject>
+    //두 종류로 관리하고, 유닛 사망 시 node를 삭제해서 null 체크를 할 수 있도록 구현.
+    //기존 기능은 dic과 linkedlist를 나눠서 접근.
+    //battleClearManager의 List를 linkedList에 통합해서 관리.
 
-    public int playerDetected;
-    public int nPCDetected;
+    int playerDetected;
+    int nPCDetected;
     int objectCount;
+
     int keyDictionaryCount;
 
-    public float[] rec { get; private set; } = new float[4];
 
     public static bool isReady { get; private set; }
 
@@ -118,12 +119,12 @@ public class GameManager : MonoBehaviour
     public StorageManager storageManager { get; set; }
     public BattleClearManager battleClearManager { get; private set; }
     public QuestManager questManager { get; set; }
+    public ObjectManager objectManager { get; set; }
     #endregion
 
     private void Awake()
     {
         manager = this;
-        heapList.Add(new UnitDistance());
 
         isReady = true;
 
@@ -180,175 +181,118 @@ public class GameManager : MonoBehaviour
     #region 오브젝트 활성화/비활성화 체크
     public void HereComesNewChallenger(CUnit unit, string keycode)
     {
-        dicPlayerCharacter.Add(unit.gameObject, unit);
-
         playerNavi.SetTeam(unit.unitMove, keycode);
 
-        foreach (CUnit item in dicNpcCharacter.Values)
-        {
-            item.EyeOpen();
-        }
-
-        if (dicNpcCharacter.Count > nPCDetected)
-            unit.EyeOpen();
-
-
+        EyeOpenIfCountChanged(objectManager.ObjectDictionary[(int)ObjectManager.CObjectType.Hero],
+                              objectManager.ObjectDictionary[(int)ObjectManager.CObjectType.Monster],
+                              nPCDetected, playerDetected, unit);
     }
     public void HereComesNewEnermy(CUnit gameObject)
     {
-        dicNpcCharacter.Add(gameObject.gameObject, gameObject);
         monNavi.MonsterAdd(gameObject);
 
-        foreach (CUnit unit in dicPlayerCharacter.Values)
-        {
-            unit.EyeOpen();
-        }
-
-        if (dicPlayerCharacter.Count > playerDetected)
-            gameObject.EyeOpen();
+        EyeOpenIfCountChanged(objectManager.ObjectDictionary[(int)ObjectManager.CObjectType.Monster],
+                              objectManager.ObjectDictionary[(int)ObjectManager.CObjectType.Hero],
+                              playerDetected, nPCDetected, gameObject);
     }
+    void EyeOpenIfCountChanged(IReadOnlyDictionary<GameObject, LinkedListNode<CObject>> AddedDic,
+                               IReadOnlyDictionary<GameObject, LinkedListNode<CObject>> eyeCheckDic,
+                               int eyeCheckDetectedCount, int addedDetectedCount, CUnit addedUnit)
+    {
+        if (eyeCheckDic.Count > eyeCheckDetectedCount)
+            addedUnit.EyeOpen();
+
+        if (AddedDic.Count != addedDetectedCount + 1) return;
+
+        foreach (var unit in eyeCheckDic.Values)
+        {
+            ((CUnit)unit.Value).EyeOpen();
+        }
+    }
+
     public void ChallengerOut(CUnit gameObject, string keycode, bool detected)
     {
-        dicPlayerCharacter.Remove(gameObject.gameObject);
         playerNavi.HeroClear(gameObject, keycode);
-        TargetOutMonster(gameObject);
+        objectManager.OutObject(ObjectManager.CObjectType.Hero, gameObject.gameObject);
 
         if (detected)
             playerDetected--;
-
-        MonsteronBattleoff();
-
-        foreach (Monster item in dicNpcCharacter.Values)
+    }
+    public void HeroDeathEvent()
+    {
+        foreach (Monster item in objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster])
         {
             item.curstat.Mentality = item.stat.Mentality;
             item.MentalBarRenew();
-        }
 
+            if (playerDetected > 0) continue;
+
+            item.unitMove.OnBattle(false);
+        }
     }
+
     public void MonsterOut(CUnit gameObject, bool detected)
     {
-        dicNpcCharacter.Remove(gameObject.gameObject);
         monNavi.MonsterRemove(gameObject);
-        TargetOutCharacter(gameObject);
+        objectManager.OutObject(ObjectManager.CObjectType.Monster, gameObject.gameObject);
 
         if (detected)
             nPCDetected--;
-
-        PlayeronBattleoff();
-
-        IEnumerable<Monster> monster = from unit in dicNpcCharacter.Values
-                                       where !((Monster)unit).unitMove.isFear
-                                       select (Monster)unit;
+    }
+    public void MonsterDeathEvent()
+    {
+        IReadOnlyCollection<CObject> monster = objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster];
 
         foreach (Monster item in monster)
         {
+            if (item.unitMove.isFear) continue;
+
             item.curstat.curMORALE -= 7;
             item.MentalBarRenew();
         }
 
-        if (monster.Count() <= 0)
-        {
-            foreach (var item in dicPlayerCharacter.Values)
-            {
-                item.SetDetected(false);
-            }
-        }
-    }
+        if (monster.Count > 0) return;
 
-    public void HereComesNewObject(CObject gameObject)
-    {
-        dicObjects.Add(gameObject.gameObject, gameObject);
-    }
-    public void ObjectOut(CObject gameObject)
-    {
-        dicObjects.Remove(gameObject.gameObject);
-        TargetOutMonster(gameObject);
-    }
-    void TargetOutCharacter(CObject gameObject)
-    {
-        var character = from one in dicPlayerCharacter.Values
-                        where one.unitMove.targetEnermy == gameObject
-                        select one;
-
-        foreach (CUnit item in character)
+        foreach (CUnit item in objectManager.ObjectList[(int)ObjectManager.CObjectType.Hero])
         {
-            item.unitMove.BattleContinue();
+            item.SetDetected(false);
+            item.unitMove.OnBattle(false);
         }
+        playerDetected = 0;
     }
-    void TargetOutMonster(CObject gameObject)
-    {
-        var monster = from one in dicNpcCharacter.Values
-                      where one.unitMove.targetEnermy == gameObject
-                      select one;
-
-        foreach (CUnit item in monster)
-        {
-            item.unitMove.BattleContinue();
-        }
-        TargetOutCharacter(gameObject);
-    }
-    void PlayeronBattleoff()
-    {
-        if (dicNpcCharacter.Count == 0)
-        {
-            foreach (CUnit item in dicPlayerCharacter.Values)
-            {
-                item.SetDetected(false);
-                item.unitMove.OnBattle(false);
-            }
-            playerDetected = 0;
-        }
-    }
-    void MonsteronBattleoff()
-    {
-        if (playerDetected == 0)
-        {
-            foreach (CUnit mon in dicNpcCharacter.Values)
-            {
-                mon.unitMove.OnBattle(false);
-            }
-        }
-    }
-
     #endregion 오브젝트 활성화/비활성화 체크
     #region view 타겟 확인
-    public void Search(GameObject foundObject, UnitMove founder)
+    public void Search(ObjectManager.CObjectType objectType, GameObject foundObject, UnitMove founder)
     {
-        CUnit cUnit = foundObject.GetComponent<CUnit>();
-        Search(cUnit, founder);
+        Search(objectType, (CUnit)objectManager.ObjectDictionary[(int)objectType][foundObject].Value, founder);
     }
-    public void Search(CUnit cUnit, UnitMove founder)
+    public void Search(ObjectManager.CObjectType unitType, CUnit cUnit, UnitMove founder)
     {
-        if (cUnit.detected)
-            return;
+        if (cUnit.detected) return;
+
         cUnit.SetDetected(true);
 
         founder.SearchAct();
 
+        SearchEvent(unitType == ObjectManager.CObjectType.Hero, objectManager.ObjectList[(int)unitType], objectManager.ObjectList[Mathf.Abs((int)unitType - 1)]);
+    }
 
-        if (founder is MonsterMove)
+    void SearchEvent(bool isTypeHero, IReadOnlyCollection<CObject> detectedList, IReadOnlyCollection<CObject> detectingList)
+    {
+        ref int detectedNum = ref (isTypeHero ? ref playerDetected : ref nPCDetected);
+
+        detectedNum++;
+        if (detectedNum == detectedList.Count)
         {
-            playerDetected++;
-            if (playerDetected == dicPlayerCharacter.Count)
-            {
-                CloseEyes(dicNpcCharacter);
-                //모두 발각되었다는 알림.
-            }
-        }
-        else
-        {
-            nPCDetected++;
-            if (nPCDetected == dicNpcCharacter.Count)
-            {
-                Debug.Log(nPCDetected);
-                CloseEyes(dicPlayerCharacter);
-                //모든 적 발견 알림.
-            }
+            CloseEyes(detectingList);
+            //모두 발각되었다는 알림.
         }
     }
-    void CloseEyes(Dictionary<GameObject, CUnit> cUnits)
+
+
+    void CloseEyes(IReadOnlyCollection<CObject> detectedList)
     {
-        foreach (var item in cUnits.Values)
+        foreach (CUnit item in detectedList)
         {
             item.FindAll();
         }
@@ -357,25 +301,12 @@ public class GameManager : MonoBehaviour
     #region 마우스 입력
     public void OrderUnit(RaycastHit hit)
     {
-        if (string.Compare(hit.collider.tag, "Enermy") == 0)
-        {
-            playerNavi.TargetSet(hit.collider, (OrderType)System.Convert.ToInt32(GetShift()));
-        }
-        else if (string.Compare(hit.collider.tag, "Item") == 0)
-        {
-            playerNavi.GetItem(hit.collider.transform.position, (OrderType)System.Convert.ToInt32(GetShift()));
-        }
-        else
-        {
-            playerNavi.Navi_Destination(hit.point, MoveType.Move, (OrderType)System.Convert.ToInt32(GetShift()));
-        }
+        playerNavi.SmartOrder(hit, (OrderType)Convert.ToInt32(GetShift()));
 
         bool GetShift()
         {
             return Input.GetKey(shiftCode);
         }
-
-
     }
     public void ChangeShift(in string newShift)
     {
@@ -398,11 +329,11 @@ public class GameManager : MonoBehaviour
                 if (newShift.Contains("numpad"))
                 {
                     string strNumPad = newShift.Replace("num", "key");
-                    System.Enum.TryParse(strNumPad, true, out newCode);
+                    Enum.TryParse(strNumPad, true, out newCode);
                 }
                 else
                 {
-                    System.Enum.TryParse(newShift, true, out newCode);
+                    Enum.TryParse(newShift, true, out newCode);
                     if (newCode == KeyCode.None)
                         Debug.Log("할당 실패" + newShift);
                 }
@@ -412,71 +343,77 @@ public class GameManager : MonoBehaviour
 
         shiftCode = newCode;
     }
-    public void DragUnitPosition(Vector3 vector3, Vector2 vector2, bool dragging)
+    public void DragUnitPosition(Vector3 vector3, Vector2 recSize, bool dragging)
     {
-        rec[0] = vector3.x;
-        rec[1] = vector3.x + vector2.x;
-        rec[2] = vector3.y;
-        rec[3] = vector3.y + vector2.y;
+        float[] rec = new float[4] { vector3.x,
+                                     vector3.x + recSize.x,
+                                     vector3.y,
+                                     vector3.y + recSize.y };
 
-        DragEffect(dicObjects);
-        DragEffect(dicNpcCharacter);
-        DragEffect(dicPlayerCharacter);
-
-        void DragEffect<T>(Dictionary<GameObject, T> values) where T : CObject
+        foreach (var item in objectManager.ObjectList)
         {
-            foreach (var item in values.Values)
-            {
-                item.DragBoxCollide(rec, dragging);
-            }
+            DragEffectObject(item, rec, dragging);
         }
     }
+    void DragEffectObject(IReadOnlyCollection<CObject> values, in float[] rec, bool dragging)
+    {
+        foreach (var item in values)
+        {
+            item.DragBoxCollide(rec, dragging);
+        }
+    }
+
     public void DragSelectingEnd(int count)
     {
+        int selectedCount = 0;
         playerNavi.HeroClear();
 
-        DragEffect(dicObjects);
-        DragEffect(dicNpcCharacter);
-        DragEffect(dicPlayerCharacter);
+        bool isNotSelected = true;
+        foreach (var item in objectManager.ObjectList)
+        {
+            if (isNotSelected)
+            {
+                if (DragEffect(item, ref selectedCount))
+                {
+                    isNotSelected = true;
+                }
+            }
+            else
+            {
+                DragFalse(item);
+            }
+        }
 
-        var list = from item in dicPlayerCharacter.Values
-                   where item.selected
-                   select item;
-        if (list.Count() < 1)
+        if (selectedCount < 1)
             return;
+
         if (count % 2 == 0)
         {
-            CUnit target = list.First();
-
-            var group = from team in playerNavi.PlayerCharacter.Values
-                        from one in team
-                        where team.Any(Unit => Unit.cUnit == target) && one.cUnit.Getnum == target.Getnum
-                        select one.cUnit;
-
-            foreach (CUnit item in group)
-            {
-                item.Selected(true);
-            }
-
-        }
-        else
-        {
-            playerNavi.HeroClear();
-            foreach (CUnit item in list)
-            {
-                item.Selected(true);
-            }
+            //더블 클릭
+            if (playerNavi.lists.Count > 0)
+                //player nav의 같은 팀원 호출.
+                foreach (var item in playerNavi.PlayerCharacter[((Hero)playerNavi.lists[0].cUnit).keycode])
+                {
+                    item.cUnit.Selected(true);
+                }
         }
 
         onHeroSelect.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
+        Debug.Log(playerNavi.lists.Count);
 
 
-        void DragEffect<T>(Dictionary<GameObject, T> values) where T : CObject
+        bool DragEffect(IReadOnlyCollection<CObject> values, ref int selectedCount)
         {
-            foreach (var item in values.Values)
+            bool isSelected = false;
+            foreach (var item in values)
             {
-                item.DragEnd(ModifierCtrl(item), ModifierShift(item));
+                if (item.DragEnd(ModifierCtrl(item), ModifierShift(item)))
+                {
+                    isSelected = true;
+                    selectedCount++;
+                }
             }
+            return isSelected;
         }
 
         bool ModifierShift<T>(T item) where T : CObject
@@ -491,8 +428,16 @@ public class GameManager : MonoBehaviour
             //                              && !(selecting && ctrl)
             return Keyboard.current.ctrlKey.isPressed && item.selected;
         }
-    }
 
+
+    }
+    public void DragFalse(IReadOnlyCollection<CObject> values)
+    {
+        foreach (var item in values)
+        {
+            item.DragFalse();
+        }
+    }
     public void PointMove(Vector3 move)
     {
         screenMove(move);
@@ -504,80 +449,74 @@ public class GameManager : MonoBehaviour
                        move.z * Screen.height / (Camera.main.orthographicSize * 2) * Mathf.Sin(Mathf.Deg2Rad * 40));
 
         screenMove(conversionVector3);
+        Debug.Log("이동");
     }
     #endregion
     #region heap
-    struct UnitDistance
+    public CObject GetNearestNDetected(IReadOnlyCollection<CObject> targets, Vector3 position, float maxValue)
     {
-        public CObject unit;
-        public float distance;
+        return GetConditionedObject(targets,
+           (obj) =>
+           {
+               if (!((CUnit)obj).detected) return float.MaxValue;
 
-        public UnitDistance(CObject cUnit, float num)
+               return Vector3.SqrMagnitude(obj.transform.position - position);
+           },
+           (current, previous) => current < previous,
+           maxValue);
+    }
+    public CObject GetNearest(IReadOnlyCollection<CObject> targets, Vector3 position)
+    {
+        return GetConditionedObject(targets,
+            (obj) => Vector3.SqrMagnitude(obj.transform.position - position),
+            (current, previous) => current < previous,
+            float.MaxValue);
+    }
+    /// <summary>
+    /// 조건에 맞는 오브젝트를 찾는 함수.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="targets">순회할 배열</param>
+    /// <param name="getCurrentValueFunc">배열에서 필요한 값 계산 함수</param>
+    /// <param name="conditionFunc">이전 값과 현재 값 비교 함수</param>
+    /// <param name="initValue">이전값 초기화(최소 혹은 최대)</param>
+    /// <returns></returns>
+    CObject GetConditionedObject<T>(IReadOnlyCollection<CObject> targets, Func<CObject, T> getCurrentValueFunc, Func<T, T, bool> conditionFunc, T initValue) where T : struct, IComparable
+    {
+        CObject tempTarget = null;
+        T previousValue = initValue;
+        T currentValue = default;
+
+        foreach (var item in targets)
         {
-            unit = cUnit;
-            distance = num;
+            currentValue = getCurrentValueFunc(item);
+            if (conditionFunc(currentValue, previousValue))
+            {
+                previousValue = currentValue;
+                tempTarget = item;
+            }
         }
-    }
-    List<UnitDistance> heapList = new List<UnitDistance>();
-    void AddHeapList(CObject unit, float distance, List<UnitDistance> values)
-    {
-        UnitDistance sData = new UnitDistance(unit, distance);
-        values.Add(sData);
-        HeapCompare(values.Count - 1, values);
-    }
-    void HeapCompare(int i, List<UnitDistance> values)
-    {
-        if (values[i].distance >= values[i / 2].distance || i < 2)
-            return;
-
-        HeapSwap(i, i / 2, values);
-        HeapCompare(i / 2, values);
-    }
-    void HeapSwap(int index1, int index2, List<UnitDistance> values)
-    {
-        (values[index1], values[index2]) = (values[index2], values[index1]);
-    }
-
-    public CObject GetNearest<T>(in Dictionary<GameObject, T> units, Vector3 targetPos, Predicate<T> predicate, float range) where T : CObject
-    {
-        List<UnitDistance> heap = new List<UnitDistance>();
-        heap.Add(new UnitDistance());
-
-        var list = from unit in units.Values
-                   where predicate(unit)
-                   select unit;
-
-        foreach (CObject item in list)
-        {
-            AddHeapList(item, Vector3.Distance(item.transform.position, targetPos), heap);
-        }
-
-        if (list.Count() < 1 || heap[1].distance > range)
-            return null;
-
-        return heap[1].unit;
+        return tempTarget;
     }
     #endregion
     #region 전투
-    public void SetOtheronBattle(Dictionary<GameObject, CUnit> dicUnits)
+    public void SetOtheronBattle(IReadOnlyCollection<CObject> cUnitList)
     {
-        foreach (CUnit unit in dicUnits.Values)
+        foreach (CUnit unit in cUnitList)
         {
             unit.unitMove.OnBattle(true);
         }
     }
-    public void NewTargetting<T>(Dictionary<GameObject, T> values, UnitMove finder, Predicate<T> del, float range = 1000) where T : CObject
+    public void NewTargetting(IReadOnlyCollection<CObject> values, UnitMove finder, float maxValue = float.MaxValue)
     {
-        if (values.Count <= 0)
-            return;
+        if (values.Count <= 0) return;
 
-        CObject cunit = GetNearest(values, finder.transform.position, del, range);
-        if (cunit == null)
-            return;
-        finder.AutoTargeting(cunit);
+        CObject cunit = GetNearestNDetected(values, finder.transform.position, maxValue);
+        if (cunit == null) return;
+
+        finder.AutoTargeting(objectManager.GetNode(cunit));
     }
-
-    public void DamageCalculate(CUnit Attacker, CObject Target, int skill, in SkillData.Skill skillData = null, in System.Action action = null)
+    public void DamageCalculate(CUnit Attacker, CObject Target, int skill, in SkillData.Skill skillData = null, in Action action = null)
     {
         if (Target == default || !Target.enabled || Target.curstat.HP <= 0)
             return;
@@ -628,8 +567,9 @@ public class GameManager : MonoBehaviour
 
             if (Target.curstat.curHP <= 0)
             {
-                onDie.eventAction?.Invoke(Target.gameObject.layer, Target.transform.position);
+                int tempLayer = Target.gameObject.layer;
                 Target.Death(Attacker.transform.position);
+                onDie.eventAction?.Invoke(tempLayer, Target.transform.position);
             }
 
 
@@ -640,25 +580,26 @@ public class GameManager : MonoBehaviour
                 Target.SetMentality(false, Attacker);
             }
         }
-
-
-
     }
+
 
     #endregion 전투
     #region 키보드 입력
-    public void ArmySelect(string numbering)
+    public void ArmySelect(in string numbering)
     {
         playerNavi.HeroClear();
+        IReadOnlyList<LinkedList<CObject>> linkedListArray = objectManager.ObjectList;
+        CUnit tempUnit;
 
-        Unselect(dicPlayerCharacter);
-        Unselect(dicObjects);
-        Unselect(dicNpcCharacter);
+        foreach (var item in linkedListArray)
+        {
+            DragFalse(item);
+        }
 
         foreach (Character item in playerNavi.PlayerCharacter[GetConvert(numbering)])
         {
-            CUnit cUnit = item.cUnit;
-            cUnit.Selected(true);
+            tempUnit = item.cUnit;
+            tempUnit.Selected(true);
         }
 
         if (playerNavi.lists.Count > 0)
@@ -670,14 +611,7 @@ public class GameManager : MonoBehaviour
     {
         return keyboardConverter[key];
     }
-    public void Unselect<T>(Dictionary<GameObject, T> values) where T : CObject
-    {
-        foreach (var item in values.Values)
-        {
-            item.Selected(false);
-        }
-    }
-    public void Formation(string key)
+    public void Formation(in string key)
     {
         playerNavi.MakeFormation(GetConvert(key));
 
@@ -700,7 +634,7 @@ public class GameManager : MonoBehaviour
     }
     void TimeTurningAccel(bool isTimeDelay)
     {
-        foreach (CUnit item in dicPlayerCharacter.Values)
+        foreach (CUnit item in objectManager.ObjectList[(int)ObjectManager.CObjectType.Hero])
         {
             item.unitMove.SetTurnSpeed(isTimeDelay);
         }
@@ -722,27 +656,26 @@ public class GameManager : MonoBehaviour
         timeUIEvent[1]();
         TimeTurningAccel(false);
     }
-    public void UnitStop(string key)
+    public void UnitStop(in string key)
     {
         playerNavi.SimpleKey(GetConvert(key));
     }
-    public void OrderAdd(string key)
+    public void OrderAdd(in string key)
     {
         playerNavi.QueueOrder(GetConvert(key));
     }
     public void TeamAdd(in string key)
     {
-        string str = GetConvert(key);
-        playerNavi.HeroClear();
+        IReadOnlyList<LinkedList<CObject>> linkedListArray = objectManager.ObjectList;
+        CUnit tempUnit;
 
-        var list = from item in dicPlayerCharacter.Values
-                   where item.selected || playerNavi.PlayerCharacter[str].Contains(item.unitMove as Character)
-                   select item;
+        DragFalse(linkedListArray[(int)ObjectManager.CObjectType.Monster]);
+        DragFalse(linkedListArray[(int)ObjectManager.CObjectType.FieldObject]);
 
-
-        foreach (var item in list)
+        foreach (var item in playerNavi.PlayerCharacter[GetConvert(key)])
         {
-            item.Selected(true);
+            tempUnit = item.cUnit;
+            tempUnit.Selected(true);
         }
 
         onHeroSelect.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
@@ -754,7 +687,7 @@ public class GameManager : MonoBehaviour
         if (playerNavi.lists.Count > 0)
             onRegroup.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
     }
-    public void ScreenToPoint(Vector3 vec)
+    public void ScreenToPoint(in Vector3 vec)
     {
         Vector3 destination = Quaternion.AngleAxis(-50, Vector3.right) * Vector3.up;
 
@@ -807,74 +740,47 @@ public class GameManager : MonoBehaviour
     public void CheckObjectLoadComplete()
     {
         objectCount++;
-        int allObjects = dicObjects.Count + dicNpcCharacter.Count + dicPlayerCharacter.Count;
-        Debug.Log("allCount : " + allObjects + "  objectsCount : " + objectCount + "\ndicobj" + dicObjects.Count);
+        int objectTypeLength = (int)ObjectManager.CObjectType.Max;
+        int allObjects = 0;
+
+        IReadOnlyList<LinkedList<CObject>> objectListArray = objectManager.ObjectList;
+
+
+        for (int i = 0; i < objectTypeLength; i++)
+        {
+            allObjects += objectListArray[i].Count;
+        }
+
         if (objectCount != allObjects)
             return;
 
-        Debug.Log("실행");
-
-        ForInverse(dicObjects);
-        ForInverse(dicNpcCharacter);
-        ForInverse(dicPlayerCharacter);
+        for (int i = 0; i < objectTypeLength; i++)
+        {
+            ForInverse(objectListArray[i]);
+        }
 
         CheckCloseEye();
     }
-    void ForInverse<T>(in Dictionary<GameObject, T> collections) where T : CObject
+    void ForInverse(LinkedList<CObject> values)
     {
-        int length = collections.Count;
-
-
-        foreach (var item in collections.Values.ToArray())
+        LinkedListNode<CObject> tempNode = values.Last;
+        LinkedListNode<CObject> prevNode;
+        while (tempNode != null)
         {
-            item.OnInitEnd?.Invoke();
+            prevNode = tempNode.Previous;
+            tempNode.Value.OnInitEnd?.Invoke();
+            tempNode = prevNode;
         }
-
     }
     void CheckCloseEye()
     {
-        if (dicPlayerCharacter.Count == playerDetected)
-            CloseEyes(dicNpcCharacter);
+        IReadOnlyCollection<CObject> tempHeroList = objectManager.ObjectList[(int)ObjectManager.CObjectType.Hero];
+        IReadOnlyCollection<CObject> tempMonsterList = objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster];
 
-        if (dicNpcCharacter.Count == nPCDetected)
-            CloseEyes(dicPlayerCharacter);
-    }
-    public void ApproachDictionary(GameObject unknownObject, out CObject dicCobject)
-    {
-        CObject tempObject;
-        switch (unknownObject.layer)
-        {
-            case 7:
-                {
-                    dicPlayerCharacter.TryGetValue(unknownObject, out CUnit tempUnit);
-                    tempObject = tempUnit;
-                    break;
+        if (tempHeroList.Count == playerDetected)
+            CloseEyes(tempMonsterList);
 
-                }
-
-            case 9:
-                {
-                    while (!dicObjects.TryGetValue(unknownObject, out tempObject))
-                    {
-                        Debug.Log(unknownObject.name);
-                        unknownObject = unknownObject.transform.parent.gameObject;
-                    }
-                    break;
-                }
-
-            case 10:
-                {
-                    dicPlayerCharacter.TryGetValue(unknownObject, out CUnit tempUnit);
-                    tempObject = tempUnit;
-                    break;
-                }
-
-            default:
-                Debug.Log("dictionary에 접근 실패");
-                tempObject = new CObject();
-                break;
-        }
-
-        dicCobject = tempObject;
+        if (tempMonsterList.Count == nPCDetected)
+            CloseEyes(tempHeroList);
     }
 }

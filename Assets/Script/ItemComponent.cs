@@ -43,7 +43,7 @@ public class ItemComponent : MonoBehaviour
     }
     protected virtual void VirtualEnable()
     {
-        GameManager.manager.battleClearManager.NewItem(this);
+        GameManager.manager.objectManager.NewNoneObject(ObjectManager.AdditionalType.Item, this);
     }
 
     IEnumerator CircleRepeat()
@@ -111,7 +111,7 @@ public class ItemComponent : MonoBehaviour
     }
     protected virtual void StageOutItem()
     {
-        GameManager.manager.battleClearManager.StageOutItem(this);
+        GameManager.manager.objectManager.OutNoneObject(ObjectManager.AdditionalType.Item, gameObject);
     }
     public void SetIndex(int indexNum)
     {

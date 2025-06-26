@@ -210,6 +210,48 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 60
+--- !u!114 &-1578017454667429888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
+  m_Name: ObjectCircle
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    passTag: ObjectCircle
+    Event: 500
+    filterSettings:
+      RenderQueueType: 1
+      LayerMask:
+        serializedVersion: 2
+        m_Bits: 4096
+      PassNames: []
+    overrideMaterial: {fileID: 0}
+    overrideMaterialPassIndex: 0
+    overrideShader: {fileID: 0}
+    overrideShaderPassIndex: 0
+    overrideMode: 1
+    overrideDepthState: 1
+    depthCompareFunction: 4
+    enableWrite: 1
+    stencilSettings:
+      overrideStencilState: 0
+      stencilReference: 0
+      stencilCompareFunction: 8
+      passOperation: 0
+      failOperation: 0
+      zFailOperation: 0
+    cameraSettings:
+      overrideCamera: 0
+      restoreCamera: 1
+      offset: {x: 0, y: 0, z: 0, w: 0}
+      cameraFieldOfView: 60
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +277,8 @@ MonoBehaviour:
   - {fileID: -5477192574063731647}
   - {fileID: -4453584775100696394}
   - {fileID: 7186832539048245955}
-  m_RendererFeatureMap: 4de32edffd58b4988e59a9e8323fea9de796daffc5730b8aed72adbe10cf796170ebd8b0f7c5e8586179f2f61df5eb2e411c86905f1afdb3b6f8083f3eb031c2c37a30e61dc2bc63
+  - {fileID: -1578017454667429888}
+  m_RendererFeatureMap: 4de32edffd58b4988e59a9e8323fea9de796daffc5730b8aed72adbe10cf796170ebd8b0f7c5e8586179f2f61df5eb2e411c86905f1afdb3b6f8083f3eb031c2c37a30e61dc2bc6300882e557cc119ea
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}

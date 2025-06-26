@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class QuestSpawner : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class QuestSpawner : MonoBehaviour
     Action<QuestManager.QuestData.QuestAct, QuestManager.QuestType, int>[] prepareQuestActions;
     Action<QuestManager.QuestData, Action, int>[] createQuestRequirementsActions;
     Action<QuestManager.QuestData.QuestReward>[] EventClearActions;
-    Action<int, int, QuestUISlot, QuestManager.QuestData>[] createQuestEventActions;
+    Action<QuestManager.QuestData.QuestEvent, QuestUISlot, QuestManager.QuestData>[] createQuestEventActions;
 
     public QuestManager.QuestType[] types;
     [SerializeField] QuestUIViewer questUIViewer;
@@ -67,9 +68,13 @@ public class QuestSpawner : MonoBehaviour
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.NewStage] = (reward) => ClearForStage();
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.StageSet] = (reward) => ClearStageArrive();
 
-        createQuestEventActions = new Action<int, int, QuestUISlot, QuestManager.QuestData>[(int)QuestManager.QuestData.QuestEvent.EventType.Max];
+        createQuestEventActions = new Action<QuestManager.QuestData.QuestEvent, QuestUISlot, QuestManager.QuestData>[(int)QuestManager.QuestData.QuestEvent.EventType.Max];
         createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.FreeMaterial] = QuestEventFreeMaterial;
-        createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.ItemTracking] = QuestEventCountTracking;
+        createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.ItemTracking] = QuestEventItemCountTracking;
+        createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.Accumulated] = QuestEventAccumulatedTracking;
+        createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.CurrentCount] = QuestEventShowCurrentCount;
+        createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.LastUnit] = QuestShowLastEnemy;
+        createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.ShowLayerNum] = QuestShowLayerNum;
     }
     void Start()
     {
@@ -179,7 +184,7 @@ public class QuestSpawner : MonoBehaviour
         //퀘스트 현재 상태 변경
         SetBitSave(type, questNum, QuestSaveData.SaveDataBit.Doing);
 
-        CreateQuestEvent(data, slot);
+
 
         Action completeAction = () =>
         {
@@ -204,6 +209,7 @@ public class QuestSpawner : MonoBehaviour
         //퀘스트 클리어 조건 형성
         CreateQuestRequirements(data, completeAction, nowProgress);
 
+        CreateQuestEvent(data, slot);
 
         GameManager.manager.onEffectedOtherEvent.eventAction?.Invoke(questNum, Vector3.zero);
     }
@@ -282,16 +288,18 @@ public class QuestSpawner : MonoBehaviour
     {
         QuestManager.QuestData.QuestEvent questEvent = questData.questEvent;
         //퀘스트 이벤트 발생
-        createQuestEventActions[(int)questEvent.eventType]?.Invoke(questEvent.eventIndex, questEvent.eventNum, slot, questData);
+        createQuestEventActions[(int)questEvent.eventType]?.Invoke(questEvent, slot, questData);
     }
-    void QuestEventFreeMaterial(int eventIndex, int eventNum, QuestUISlot slot, QuestManager.QuestData questData)
+    void QuestEventFreeMaterial(QuestManager.QuestData.QuestEvent questEvent, QuestUISlot slot, QuestManager.QuestData questData)
     {
+        int eventIndex = questEvent.eventIndex;
+        int eventNum = questEvent.eventNum;
         //자원 무료 사용
         //priceInfoBox 표기값 변경, isBuildable true로 변경
         setBuildingMat.AddQuest((SetBuildingMat.MaterialsType)eventIndex, eventNum);
         slot.hideAction += () => setBuildingMat.RemoveQuest((SetBuildingMat.MaterialsType)eventIndex, eventNum);
     }
-    void QuestEventCountTracking(int eventIndex, int eventNum, QuestUISlot slot, QuestManager.QuestData questData)
+    void QuestEventItemCountTracking(QuestManager.QuestData.QuestEvent questEvent, QuestUISlot slot, QuestManager.QuestData questData)
     {
         //아이템 개수 추적. quest창에 표기.
         QuestManager.QuestData.ItemData tempData;
@@ -317,6 +325,87 @@ public class QuestSpawner : MonoBehaviour
                 slot.AddQuestText("", stringBuilder.ToString());
                 stringBuilder.Clear();
             }
+        }
+    }
+    void QuestEventAccumulatedTracking(QuestManager.QuestData.QuestEvent questEvent, QuestUISlot slot, QuestManager.QuestData questData)
+    {
+        //Accumulated 추적. quest창에 표기.
+        QuestShowCount(questEvent, slot, questData, questData.require.accumulatedTime);
+    }
+
+    void QuestEventShowCurrentCount(QuestManager.QuestData.QuestEvent questEvent, QuestUISlot slot, QuestManager.QuestData questData)
+    {
+        //Accumulated 추적. quest창에 표기.
+        QuestShowCount(questEvent, slot, questData, questData.require.layer);
+    }
+    void QuestShowCount(QuestManager.QuestData.QuestEvent questEvent, QuestUISlot slot, QuestManager.QuestData questData, int length)
+    {
+        slot.GetQuestText(out string originalTitle, out string originalDetail);
+        System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+        AddText();
+
+
+        DisposableAccumulateCount(() =>
+        {
+            slot.SetQuestText(originalTitle, originalDetail);
+            AddText();
+        }, doingActionQuestDictionary[questData]);
+
+        void AddText()
+        {
+            stringBuilder.AppendJoin(' ', "\n<color=#AAAAAA>", questEvent.actionName, "\n<color=#FFA500>" + doingActionQuestDictionary[questData].progress, "</color>회 /</color>", length, "<color=#AAAAAA>회");
+            slot.AddQuestText("", stringBuilder.ToString());
+            stringBuilder.Clear();
+        }
+    }
+    void DisposableAccumulateCount(Action action, QuestPool.QuestActionInstance questInstance)
+    {
+        //dictionary 에 있는 progress 값을 추적하는 함수.
+        questInstance.ActionAdd(action);
+    }
+    void QuestShowLastEnemy(QuestManager.QuestData.QuestEvent questEvent, QuestUISlot slot, QuestManager.QuestData questData)
+    {
+        slot.GetQuestText(out string originalTitle, out string originalDetail);
+        System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+        AddText();
+
+
+        DisposableAccumulateCount(() =>
+        {
+            slot.SetQuestText(originalTitle, originalDetail);
+            AddText();
+        }, doingActionQuestDictionary[questData]);
+
+        void AddText()
+        {
+            stringBuilder.AppendJoin(' ', "\n<color=#AAAAAA>", "남은 적", "\n<color=#FFA500>" + GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster].Count, "</color>마리</color>");
+            slot.AddQuestText("", stringBuilder.ToString());
+            stringBuilder.Clear();
+        }
+    }
+    void QuestShowLayerNum(QuestManager.QuestData.QuestEvent questEvent, QuestUISlot slot, QuestManager.QuestData questData)
+    {
+        slot.GetQuestText(out string originalTitle, out string originalDetail);
+        System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+        AddText(0);
+
+
+        DisposableLayerNum((layerNum) =>
+        {
+            slot.SetQuestText(originalTitle, originalDetail);
+            AddText(layerNum);
+        }, doingActionQuestDictionary[questData]);
+
+        void AddText(int layerNum)
+        {
+            stringBuilder.AppendJoin(' ', "\n<color=#AAAAAA>", questEvent.actionName, "\n<color=#FFA500>" + layerNum, "</color>회 /</color>", doingActionQuestDictionary[questData].layerNum, "<color=#AAAAAA>회");
+            slot.AddQuestText("", stringBuilder.ToString());
+            stringBuilder.Clear();
+        }
+
+        void DisposableLayerNum(Action<int> action, QuestPool.QuestActionInstance questInstance)
+        {
+            questInstance.layerCalled += action;
         }
     }
     #endregion
@@ -348,55 +437,7 @@ public class QuestSpawner : MonoBehaviour
 
     #endregion
     #endregion
-    #region 하이라이트 actions 사용 안 함.
-    //void QuestHighLight(QuestManager.QuestData.QuestHighLight highlight, in Vector3 callPosition, QuestUISlot slot)
-    //{
-    //    float nowScale = Time.timeScale;
-    //    slot.hideAction = () =>
-    //    {
-    //        if (highlight.highLight != QuestManager.QuestData.QuestHighLight.HighLightTarget.None)
-    //        {
-    //            questBackGround.SetOff();
-    //            Time.timeScale = nowScale;
-    //        }
-    //    };
-    //    Action action = () =>
-    //    {
-    //        if (highlight.timeStop)
-    //        {
-    //            Time.timeScale = 0;
-    //            slot.TimeStopHighLight();
-    //        }
-    //    };
-    //    //마을에서 건물 관련 효과 진행중일 때 지연.
-    //    if (highlight.timeStop)
-    //    {
-    //        Time.timeScale = 0;
-    //        slot.TimeStopHighLight();
-    //    }
-    //    //UI 관련 효과가 아닐 경우 action에 더해줌.
-    //    highLightActions[(int)highlight.highLight]?.Invoke(highlight.highLightPosition, callPosition, highlight.size);
-    //}
-    //void HighLightVector(in Vector3 highLightPosition, float highLightSize)
-    //{
-    //    questBackGround.SetHighLight(highLightPosition, highLightSize);
-    //}
-    //void HighLightObject(Vector3 highLightPosition, Vector3 callPosition, float highLightSize)
-    //{
-    //    //카메라 object 주변으로 이동.
-    //    GameManager.manager.ScreenToPoint(callPosition);
-    //    questBackGround.SetHighLight(callPosition + highLightPosition, highLightSize);
-    //}
-    //void HighLightNoFocus(Vector3 highLightPosition, Vector3 callPosition, float highLightSize)
-    //{
-    //    questBackGround.SetHighLight(callPosition, highLightSize);
-    //    questBackGround.SetActiveHole(false);
-    //}
-    //void HighLightUI(Vector3 highLightPosition, Vector3 callPosition, float highLightSize)
-    //{
-    //    questBackGround.SetHighLightUI(highLightPosition, highLightSize);
-    //}
-    #endregion
+
     #region HighLightActions2
     void QuestHighLight2(QuestManager.QuestData.QuestHighLight highlight, in Vector3 callPosition, QuestUISlot slot)
     {

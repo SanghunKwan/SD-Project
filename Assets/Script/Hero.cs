@@ -58,13 +58,15 @@ namespace Unit
             if (isDefaultName)
             {
                 DefaultNameManager.mananger.GetRandomName(out string heroName);
-                stat.NAME = heroName;
                 curstat.NAME = heroName;
 
                 Villige_CheckText();
                 isDefaultName = false;
             }
-
+            else
+            {
+                curstat.NAME = name;
+            }
         }
         protected override IEnumerator DelayGetUI()
         {
@@ -73,7 +75,6 @@ namespace Unit
         }
         public override void Selected(bool asdf)
         {
-            selected = asdf;
             copyUICircle.gameObject.SetActive(asdf);
 
             if (curstat.HP.Equals(curstat.curHP))
@@ -84,11 +85,12 @@ namespace Unit
                 GameManager.manager.onSelected.eventAction?.Invoke(gameObject.layer, transform.position);
                 PlayerNavi.nav.HeroAdd(this);
             }
+            selected = asdf;
         }
         protected override void GetSelecting()
         {
+            GameManager.manager.objectManager.NewObject(ObjectManager.CObjectType.Hero, this);
             GameManager.manager.HereComesNewChallenger(this, keycode);
-            GameManager.manager.battleClearManager.NewHero(this);
         }
         public override void Hit(int skill)
         {
@@ -109,6 +111,16 @@ namespace Unit
             ItemComp_corpse itemComp = gameObject.AddComponent<ItemComp_corpse>();
             itemComp.Init(12, CirclePad, 0.1f, this);
         }
+        protected override void DeathEvent()
+        {
+            GameManager.manager.HeroDeathEvent();
+        }
+
+        public override void DetectbyHit(CUnit Attacker)
+        {
+            GameManager.manager.Search(ObjectManager.CObjectType.Monster, Attacker, unitMove);
+        }
+
 
         public override void PrintDamage(int damage)
         {

@@ -201,12 +201,14 @@ public class QuestManager : JsonLoad
             public EventType eventType;
             public int eventIndex;
             public int eventNum;
+            public string actionName;
 
             public QuestEvent()
             {
                 eventType = EventType.None;
                 eventIndex = 0;
                 eventNum = 0;
+                actionName = string.Empty;
             }
 
             public enum EventType
@@ -214,6 +216,10 @@ public class QuestManager : JsonLoad
                 None,
                 FreeMaterial,
                 ItemTracking,
+                Accumulated,
+                CurrentCount,
+                LastUnit,
+                ShowLayerNum,
                 Max
             }
         }

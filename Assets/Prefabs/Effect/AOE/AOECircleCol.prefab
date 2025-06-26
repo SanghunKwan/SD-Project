@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1328662092314062030}
   - component: {fileID: 4276714508743362644}
   - component: {fileID: 6375734848125096536}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: AOECircleCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}

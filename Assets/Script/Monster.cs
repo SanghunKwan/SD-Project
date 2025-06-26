@@ -75,14 +75,15 @@ namespace Unit
         }
         protected override void GetSelecting()
         {
+            GameManager.manager.objectManager.NewObject(ObjectManager.CObjectType.Monster, this);
             GameManager.manager.HereComesNewEnermy(this);
-            GameManager.manager.battleClearManager.NewMonster(this);
             monsterMove = unitMove as MonsterMove;
         }
 
         protected override void LoadDead(bool isLoaded, in Vector3 vec)
         {
             GameManager.manager.MonsterOut(this, detected);
+            GameManager.manager.objectManager.NewCorpse(this);
             base.LoadDead(isLoaded, vec);
 
             mentalBar.transform.SetParent(ObjectUIPool.pool.transform.GetChild((int)ObjectUIPool.Folder.MentalBar).transform, false);
@@ -138,6 +139,17 @@ namespace Unit
             curstat.curMORALE += add;
             MentalBarRenew();
         }
+        protected override void DeathEvent()
+        {
+            GameManager.manager.MonsterDeathEvent();
+        }
+
+        public override void DetectbyHit(CUnit Attacker)
+        {
+            GameManager.manager.Search(ObjectManager.CObjectType.Hero, Attacker, unitMove);
+        }
+
+
 
         public override void EquipOne(int equipNum)
         {

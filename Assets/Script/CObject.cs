@@ -14,6 +14,7 @@ namespace Unit
         public int id { get { return ID; } }
         protected int initCount;
         protected int initMaxCount = 2;
+        public int stageIndex { get; set; }
         public unit_status stat { get; protected set; }
         public unit_status curstat { get; protected set; }
         public bool selected { get; protected set; } = false;
@@ -21,8 +22,6 @@ namespace Unit
         public CapsuleCollider ObjectCollider { get; protected set; }
         public float uiradius { get; protected set; }
         public float uiheight { get; protected set; }
-
-        public DropInfo DropInfo { get; protected set; }
 
         Vector2 nowPosition;
         protected Image copyBar;
@@ -63,6 +62,7 @@ namespace Unit
 
             LateRepeat = CorLateUpdate();
             StartCoroutine(LateRepeat);
+            stageIndex = transform.parent.GetSiblingIndex();
         }
         protected virtual IEnumerator DelayGetUI()
         {
@@ -83,6 +83,7 @@ namespace Unit
 
             copyUICircle.Padding = CirclePad;
             CheckInitCount();
+            //copyBar, hpBarScript, copyUICircle 리턴.
         }
         IEnumerator DelayRegist()
         {
@@ -97,14 +98,13 @@ namespace Unit
         {
             //start가 delayUI보다 늦게 실행되서 버그가 생김.
             if (stat == null)
-            {
                 stat = Data.Instance.GetInfo(ID);
-                stat.NAME = name;
-            }
+
             if (curstat == null)
             {
                 curstat = new unit_status();
                 curstat.Clone(stat);
+                curstat.NAME = name;
                 curstat.curHP = curstat.HP;
                 curstat.curMORALE = curstat.MORALE;
             }
@@ -113,7 +113,6 @@ namespace Unit
             OnUICompleteAction?.Invoke(ref tempStat);
             OnUICompleteAction = null;
 
-            DropInfo = DropManager.instance.GetDropInfo(ID);
             if (hpbarScript)
             {
                 hpbarScript.GetStatus(curstat, BarOffset);
@@ -148,10 +147,9 @@ namespace Unit
             selected = false;
             drag = false;
             mouseOnCollider = false;
-        }
-        protected virtual void DisableVirtual()
-        {
-            obstacle.enabled = true;
+
+            //copyBar, hpBarScript, copyUICircle 리턴.
+            ReturnUIAfterDeath();
         }
         protected void GetColliderSize(CapsuleCollider collider)
         {
@@ -161,15 +159,14 @@ namespace Unit
 
         protected virtual void GetSelecting()
         {
-            GameManager.manager.HereComesNewObject(this);
-            GameManager.manager.battleClearManager.NewObject(this);
+            GameManager.manager.objectManager.NewObject(ObjectManager.CObjectType.FieldObject, this);
         }
         protected void SetNowPosition()
         {
             nowPosition = Camera.main.WorldToScreenPoint(transform.position);
 
         }
-        public void DragBoxCollide(float[] rec, bool dragging)
+        public void DragBoxCollide(in float[] rec, bool dragging)
         {
             drag = dragging;
             maxX = rec[1] + uiradius;
@@ -180,14 +177,19 @@ namespace Unit
         public bool selecting()
         {
             return mouseOnCollider ||
-                   drag
+                   (drag
                 && nowPosition.x <= maxX && nowPosition.x >= minX
-                && nowPosition.y <= maxY && nowPosition.y >= minY;
-
+                && nowPosition.y <= maxY && nowPosition.y >= minY);
         }
-        public void DragEnd(bool ctrl = true, bool shift = false)
+        public bool DragEnd(bool ctrl, bool shift)
         {
             Selected((selecting() || shift || ctrl) && !(selecting() && ctrl));
+            drag = false;
+            return selected;
+        }
+        public void DragFalse()
+        {
+            Selected(false);
             drag = false;
         }
         public virtual void Selected(bool asdf)
@@ -282,27 +284,35 @@ namespace Unit
         {
             ItemDrop();
             LoadDead();
+            DeathEvent();
         }
+
         protected virtual void LoadDead(bool isLoaded = false, in Vector3 vec = new Vector3())
         {
-            GameManager.manager.ObjectOut(this);
+            GameManager.manager.objectManager.OutObject(ObjectManager.CObjectType.FieldObject, gameObject);
             GetComponent<Animator>().SetTrigger("Death");
             StartCoroutine(Delete());
             ReturnUIAfterDeath();
             StopCoroutine(LateRepeat);
         }
+
         public void DelayAfterResigter()
         {
             OnInitEnd += () => LoadDead(true);
         }
         protected void ReturnUIAfterDeath()
         {
-            copyBar.transform.SetParent(ObjectUIPool.pool.transform.GetChild(0).transform, false);
-            copyUICircle.transform.SetParent(ObjectUIPool.pool.transform.GetChild(1).transform, false);
-            copyBar.gameObject.SetActive(false);
-            copyUICircle.gameObject.SetActive(false);
+            if (!gameObject.scene.isLoaded ||
+                copyBar == null || copyUICircle == null) return;
+
+            ObjectUIPool.pool.BackPooling(copyBar.gameObject, ObjectUIPool.Folder.HPBar);
+            ObjectUIPool.pool.BackPooling(copyUICircle.gameObject, ObjectUIPool.Folder.UICircle);
             copyBar = null;
             copyUICircle = null;
+        }
+        protected virtual void DeathEvent()
+        {
+
         }
         public virtual void DetectbyHit(CUnit Attacker)
         {
@@ -331,55 +341,23 @@ namespace Unit
             obstacle.enabled = false;
             yield return new WaitForSeconds(0.5f);
             gameObject.SetActive(false);
-
+            Destroy(gameObject);
         }
         protected void ItemDrop()
         {
-            StartCoroutine(DropRepeatAndDelay());
-
-
+            ObjectManager manager = GameManager.manager.objectManager;
+            //아이템 데이터 생성
+            SaveData.YetDroppedItem items =
+            manager.CreateItemList(DropManager.instance.GetDropInfo(ID), transform.position, ObjectCollider.radius, stageIndex);
+            manager.AddYetDroppedItem(items);
+            //아이템 생성 후 아이템 데이터 삭제
+            DropManager.instance.pool.CallItems(items);
         }
-        IEnumerator DropRepeatAndDelay()
-        {
-            for (int i = 0; i < DropInfo.MaxNum; i++)
-            {
-                if (Random.Range(0, 100) > 100 - DropInfo.Percentage)
-                {
-                    GameObject item = DropManager.instance.pool.CallItem((int)DropInfo.material);
-                    item.SetActive(true);
 
-                    item.transform.position = transform.position
-                        + Quaternion.Euler(0, 360 * i / DropInfo.MaxNum, 0) * Vector3.right * (ObjectCollider.radius + 0.5f);
-                    DropManager.instance.pool.CheckPosition(item);
-                    item.transform.Rotate(0, 360 * i / DropInfo.MaxNum, 0);
-
-                    yield return new WaitForSeconds(0.1f);
-                }
-
-            }
-            if (Random.Range(0, 100) > 100 - DropInfo.PercentageEquips)
-            {
-                //무기 드랍 코드 수정 필요
-                GameObject item = DropManager.instance.pool.CallItem((int)Materials.WeaponLevel2);
-                item.SetActive(true);
-
-                item.transform.position = transform.position;
-                DropManager.instance.pool.CheckPosition(item);
-                yield return new WaitForSeconds(0.1f);
-            }
-            else
-            {
-                //소모품 드랍 코드 수정 필요
-                GameObject item = DropManager.instance.pool.CallItem(Random.Range((int)Materials.Berry, (int)Materials.GreenFruit + 1));
-                item.SetActive(true);
-
-                item.transform.position = transform.position;
-                DropManager.instance.pool.CheckPosition(item);
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
         public void GetStatusEffect(int[] ints, Vector3 vec)
         {
+            if (!enabled) return;
+
             for (int i = 0; i < (int)SkillData.EFFECTINDEX.MAX; i++)
             {
                 dots[i] += ints[i];
