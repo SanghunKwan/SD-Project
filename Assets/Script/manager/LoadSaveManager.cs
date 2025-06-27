@@ -171,7 +171,7 @@ namespace SaveData
         }
         public HeroData(Hero hero) : this()
         {
-            InitData(hero);
+            InitData(hero, true);
         }
         public HeroData(in string getName, int getLevel, unit_status statData, QuirkSaveData quirkData, QuirkDefaultData diseaseData)
         {
@@ -191,20 +191,22 @@ namespace SaveData
         {
             InitData(hero);
         }
-        void InitData(Hero hero)
+        void InitData(Hero hero, bool overrideKeycode = false)
         {
             name = hero.name;
             lv = hero.lv;
             quirks.SetData(hero.quirks, 5);
             disease.SetData(hero.disease, 4);
-            keycode = hero.keycode;
             Array.Copy(hero.EquipsNum, equipNum, 3);
             Array.Copy(hero.FieldEquipsNum, fieldEquipNum, 3);
             Array.Copy(hero.SkillsNum, skillNum, 4);
             villigeAction = (int)hero.VilligeAction;
             workBuilding = (int)hero.BuildingAction;
             unitData.SetData(hero);
+            if (overrideKeycode)
+                keycode = hero.keycode;
         }
+
     }
     [Serializable]
     public class BuildingData
