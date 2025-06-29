@@ -3,16 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundWindow : InitObject
+public class SoundWindow : InitObject, IWindowSet
 {
     [SerializeField] SoundManager soundManager;
     [SerializeField] SoundSlider[] soundSliders;
-    Action<SoundType>[] soundAction = new Action<SoundType>[2];
     SettingWindow settingWindow;
-    public Action noSave;
-    public bool isResistered { get; private set; } = false;
-    public Action Sliderinit { get; set; }
 
+    Action<SoundType>[] soundAction = new Action<SoundType>[2];
+
+    Dictionary<SoundType, Action> changedValues;
 
     public enum SoundType
     {
@@ -24,13 +23,29 @@ public class SoundWindow : InitObject
         MAX
     }
 
-    private void Awake()
+    public override void Init()
     {
+        changedValues = new Dictionary<SoundType, Action>((int)SoundType.MAX);
+
         soundAction[0] = SoundCal;
         soundAction[1] = (sType) => CalAndAllo(sType, soundManager.saved[0] / 10000);
 
+        foreach (var item in soundSliders)
+        {
+            item.Init();
+        }
+
         settingWindow = transform.parent.GetComponent<SettingWindow>();
-        noSave += () => isResistered = false;
+        settingWindow.LoadSaveDataActions += LoadSaveDataSound;
+    }
+    void LoadSaveDataSound(SaveData.PlaySetting playSetting)
+    {
+        for (int i = 0; i < soundSliders.Length; i++)
+        {
+            soundSliders[i].InputValue(playSetting.soundWindowSet[i]);
+        }
+
+        changedValues.Clear();
     }
     public void ValueChanged(SoundType type, int nNum)
     {
@@ -38,6 +53,8 @@ public class SoundWindow : InitObject
         soundManager.saved[nType] = nNum;
         soundAction[nType >> (nType / 2)](type);
         settingWindow.isChanged = true;
+
+        CanRevert(type, () => soundSliders[nType].NoSaveRevertValue());
 
     }
     void SoundCal(SoundType type)
@@ -55,22 +72,34 @@ public class SoundWindow : InitObject
         float value = soundManager.saved[(int)type] * cal;
         soundManager.VolumeChange(type, value);
     }
-    private void OnEnable()
-    {
-        if (isResistered)
-            return;
 
-        settingWindow.setBack += noSave;
-        settingWindow.setApply += () => isResistered = false;
-        Sliderinit();
-        isResistered = true;
+
+
+    public void SaveValue()
+    {
+        SaveData.PlaySetting settings = GameManager.manager.settingLoader.PlaySetting;
+        foreach (var item in changedValues.Keys)
+        {
+            soundSliders[(int)item].SaveValue(settings);
+        }
+
+        changedValues.Clear();
     }
 
-    public override void Init()
+    public void RevertValue()
     {
-        foreach (var item in soundSliders)
+        foreach (var item in changedValues.Values)
         {
-            item.Init();
+            item();
         }
+
+        changedValues.Clear();
+    }
+
+    void CanRevert(SoundType type, in Action revertAction)
+    {
+        if (changedValues.ContainsKey(type)) return;
+
+        changedValues.Add(type, revertAction);
     }
 }

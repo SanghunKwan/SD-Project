@@ -1,0 +1,18 @@
+{
+    "soundWindowSet": [
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0
+    ],
+    "viewWindowSet": [
+        false
+    ],
+    "keyWindowSet": [
+        {
+            "index": 17,
+            "keyboardName": "Z"
+        }
+    ]
+}

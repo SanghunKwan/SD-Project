@@ -579,8 +579,6 @@ namespace SaveData
         {
             data = new BitSaveData[] { stagePerformOneData, villigePerformOneData, floorQuestData, villigeQuestData };
         }
-
-
         public SaveDataBit GetQuestState(QuestManager.QuestType type, int questNum)
         {
             return data[(int)type].GetQuestState(questNum);
@@ -609,10 +607,12 @@ namespace SaveData
         {
             camPosition = new Vector3();
             ResetPosition();
-            enableUpgrades = new int[] { 1, 1, 1, 1, 1, 1, 1 };
+            enableUpgrades = new int[7];
             canSummonHero = null;
             canSummonHeroCount = 2;
             isEnter = true;
+
+            Array.Fill(enableUpgrades, 1);
         }
         public void SaveData()
         {
@@ -623,6 +623,7 @@ namespace SaveData
             camPosition.Set(0.25f, 10f, -9.38f);
         }
     }
+
     [Serializable]
     public class SummonHeroData
     {
@@ -658,15 +659,58 @@ namespace SaveData
 
         }
     }
+    #endregion 세이브 데이터
+
+
+    #region 세팅 세이브 데이터
+    [Serializable]
+    public class PlaySetting
+    {
+        public float[] soundWindowSet;
+        public bool[] viewWindowSet;
+        public KeySet[] keyWindowSet;
+
+        public PlaySetting()
+        {
+            soundWindowSet = new float[(int)SoundWindow.SoundType.MAX];
+            viewWindowSet = new bool[(int)ViewWindow.ToggleType.Max];
+
+            Array.Fill(soundWindowSet, 100);
+            Array.Fill(viewWindowSet, false);
+        }
+    }
+
+    [Serializable]
+    public class KeySet
+    {
+        /// <summary>
+        /// 저장한 keybuttonInput의 index
+        /// </summary>
+        public int index;
+        /// <summary>
+        /// displayName
+        /// </summary>
+        public string keyboardName;
+
+        public KeySet(KeyButtonInput keyButtonInput)
+        {
+            index = keyButtonInput.buttonIndex;
+            keyboardName = keyButtonInput.originalStr;
+        }
+    }
 }
-#endregion
+#endregion 세팅 세이브 데이터
 public class LoadSaveManager : JsonSaveLoad
 {
 
     #region 데이터 체크
     public bool IsValidData(int index)
     {
-        return SaveDataExist(index);
+        return SaveDataExist(index, SaveFileType.save);
+    }
+    public bool IsValidSettingData()
+    {
+        return SaveDataExist(SaveFileType.setting);
     }
     public void DataNowFloor(int index, out int floor, out int day)
     {
@@ -676,21 +720,30 @@ public class LoadSaveManager : JsonSaveLoad
     #region 데이터 관리
     public void LoadData(int index, out SaveDataInfo info)
     {
-        info = LoadSave<SaveDataInfo>(index);
+        info = LoadSave<SaveDataInfo>(SavePath(index, SaveFileType.save));
+    }
+    public void LoadData(out PlaySetting setting)
+    {
+        setting = LoadSave<PlaySetting>(SavePath(SaveFileType.setting));
     }
     public void DeleteSaveFile(int index)
     {
         DeleteSave(GetSaveFileName(index));
     }
+    public void DeleteSettingFile()
+    {
+        DeleteSave(GetSaveSettingFileName());
+    }
     public void OverrideSaveFile(int index, SaveDataInfo info)
     {
         SaveData(info, GetSaveFileName(index));
     }
-
-    string GetSaveFileName(int index)
+    public void OverrideSettingFile(PlaySetting setting)
     {
-        return "save" + (index + 1).ToString();
+        SaveData(setting, GetSaveSettingFileName());
     }
+    string GetSaveFileName(int index) => SaveFileType.save.ToString() + (index + 1).ToString();
+    string GetSaveSettingFileName() => SaveFileType.setting.ToString();
     #endregion
     [ContextMenu("json파일 생성")]
     public void SDF()

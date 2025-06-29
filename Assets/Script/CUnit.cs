@@ -136,9 +136,12 @@ namespace Unit
             }
             hpbarScript.BarUpdate();
         }
+        public void SetViewRendererType(bool isUsingLineRenderer)
+        {
+            if (view == null) return;
 
-
-
+            view.SetRendererType(isUsingLineRenderer);
+        }
 
 
         public abstract void EquipOne(int equipNum);

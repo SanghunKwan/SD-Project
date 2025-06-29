@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using TMPro;
 
-public class DescriptionWindow : MonoBehaviour
+public class DescriptionWindow : MonoBehaviour, IWindowSet
 {
     [SerializeField] SettingDescManager settingDescManager;
     AddressableManager addressableManager;
@@ -79,4 +79,11 @@ public class DescriptionWindow : MonoBehaviour
         playButton.gameObject.SetActive(true);
     }
 
+    public void SaveValue()
+    {
+    }
+
+    public void RevertValue()
+    {
+    }
 }

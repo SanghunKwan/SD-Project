@@ -8,7 +8,8 @@ public class MonsterView : View
     protected override void OnEnable()
     {
         base.OnEnable();
-        filter.GetComponent<MeshRenderer>().material = enermyMaterial;
+        meshRenderer.material = enermyMaterial;
+        lineRenderer.material = enermyMaterial;
         filter.gameObject.layer = 11;
     }
     protected override float HeadTurn()

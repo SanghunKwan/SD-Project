@@ -338,7 +338,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     #region click
     public void Use(int slotIndex)
     {
-        int index = (Convert.ToInt32(Input.GetKey(GameManager.manager.shiftCode)) * (int)InventoryType.Max) + (int)type;
+        int index = (Convert.ToInt32(Input.GetKey(GameManager.manager.modifiers[(int)GameManager.ModifiersNum.Shift])) * (int)InventoryType.Max) + (int)type;
         useAction[index](slotIndex);
     }
     void VilligeUse(int slotIndex, InventoryType opersiteType, int moveCount = 0)

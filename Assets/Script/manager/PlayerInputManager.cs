@@ -20,6 +20,8 @@ public class PlayerInputManager : MonoBehaviour
         input = GetComponent<PlayerInput>();
         manager = this;
     }
+    public bool IsDefaultInput => input.defaultActionMap == KeymapType.PlayerInput.ToString();
+    InputActionMap EditableMap => input.actions.FindActionMap(KeymapType.PlayerOwn.ToString());
 
     public void SetKeyMap(KeymapType keymap)
     {
@@ -35,6 +37,18 @@ public class PlayerInputManager : MonoBehaviour
     }
     public void KeyActionChange(int index, in string actionName, in string keyboardName)
     {
-        input.currentActionMap[actionName].ApplyBindingOverride(index, keyboardName);
+        EditableMap[actionName].ApplyBindingOverride(index, keyboardName);
     }
+    public void ResetOwnMap()
+    {
+        foreach (var action in input.actions.FindActionMap(KeymapType.PlayerInput.ToString()))
+        {
+            for (int i = 0; i < action.bindings.Count; i++)
+            {
+                EditableMap[action.name].ApplyBindingOverride(i, action.bindings[i]);
+            }
+        }
+    }
+
+
 }

@@ -15,7 +15,7 @@ public class BlackScreen : MonoBehaviour, IPointerClickHandler
     [SerializeField] KeyWindow keyWindow;
     private void OnEnable()
     {
-        InputSystem.onAnyButtonPress.CallOnce(OnAnyButtonPressed);
+        InputSystem.onAnyButtonPress.CallOnce(SetAnyButtonPressed);
     }
     public void GetActionClick(Action apiAction)
     {
@@ -36,7 +36,7 @@ public class BlackScreen : MonoBehaviour, IPointerClickHandler
         action();
     }
 
-    public void OnAnyButtonPressed(InputControl control)
+    public void SetAnyButtonPressed(InputControl control)
     {
 #if PLATFORM_STANDALONE_WIN
         if (control.device != Keyboard.current.device || control.displayName == "Esc")
@@ -54,9 +54,7 @@ public class BlackScreen : MonoBehaviour, IPointerClickHandler
 
     public void OnAnyKeyEnd(InputAction.CallbackContext callback)
     {
-        Debug.Log("end");
-        if (!callback.canceled && buttonDelayReady)
-            return;
+        if (!callback.canceled && buttonDelayReady) return;
 
         onButtonDelay();
         buttonDelayReady = false;

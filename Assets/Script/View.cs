@@ -10,6 +10,8 @@ public class View : MonoBehaviour
     public int ViewRange { private get; set; }
     List<Vector3> meshvector = new List<Vector3>();
     [SerializeField] protected MeshFilter filter;
+    protected LineRenderer lineRenderer;
+    protected MeshRenderer meshRenderer;
     [SerializeField] int Detailtime = 10;
     [SerializeField] protected GameObject Head;
     RayInfo rayinfo = new();
@@ -24,9 +26,13 @@ public class View : MonoBehaviour
         filterObject.transform.SetParent(filterObject.transform.parent.parent);
         filterObject.SetActive(true);
         filter = filterObject.GetComponent<MeshFilter>();
+        lineRenderer = filterObject.GetComponent<LineRenderer>();
+        meshRenderer = filterObject.GetComponent<MeshRenderer>();
         filter.mesh = new Mesh();
         filter.mesh.name = "ViewAngleMesh";
+        lineRenderer.startWidth = lineRenderer.endWidth = 0.1f;
 
+        SetRendererType(GameManager.manager.settingLoader.PlaySetting.viewWindowSet[(int)ViewWindow.ToggleType.IsViewLineRenderer]);
     }
     private void Start()
     {
@@ -176,10 +182,12 @@ public class View : MonoBehaviour
     }
     void ViewRender()
     {
-        if (filter == default)
-            return;
+        if (filter == default) return;
+
         filter.mesh.Clear();
-        Vector3[] vertices = new Vector3[meshvector.Count];
+        int count = lineRenderer.enabled ? meshvector.Count + 1 : meshvector.Count;
+
+        Vector3[] vertices = new Vector3[count];
         int[] triangles = new int[(meshvector.Count - 2) * 3];
 
         vertices[0] = transform.position;
@@ -191,10 +199,19 @@ public class View : MonoBehaviour
             triangles[i * 3] = 0;
             triangles[i * 3 + 1] = i + 1;
             triangles[i * 3 + 2] = i + 2;
-
         }
-        filter.mesh.vertices = vertices;
-        filter.mesh.triangles = triangles;
+
+        if (lineRenderer.enabled)
+        {
+            vertices[^1] = transform.position;
+            lineRenderer.positionCount = count;
+            lineRenderer.SetPositions(vertices);
+        }
+        else
+        {
+            filter.mesh.vertices = vertices;
+            filter.mesh.triangles = triangles;
+        }
     }
 
     void OnDisable()
@@ -202,10 +219,18 @@ public class View : MonoBehaviour
         if (!Application.isPlaying || filter == default)
             return;
 
-        filter.GetComponent<MeshRenderer>().material = defaultMaterial;
+        meshRenderer.material = defaultMaterial;
+        lineRenderer.material = defaultMaterial;
         filter.gameObject.layer = 6;
         filter.transform.SetParent(ViewRendererPool.pool.transform.GetChild(0));
         filter.gameObject.SetActive(false);
         filter = null;
+        lineRenderer = null;
+    }
+
+    public void SetRendererType(bool isLineRenderer)
+    {
+        lineRenderer.enabled = isLineRenderer;
+        meshRenderer.enabled = !isLineRenderer;
     }
 }

@@ -24,8 +24,6 @@ public class GameManager : MonoBehaviour
     int nPCDetected;
     int objectCount;
 
-    int keyDictionaryCount;
-
 
     public static bool isReady { get; private set; }
 
@@ -35,13 +33,20 @@ public class GameManager : MonoBehaviour
 
 
     Dictionary<string, string> keyboardConverter = new Dictionary<string, string>();
-    public KeyCode shiftCode { get; private set; } = KeyCode.LeftShift;
+    public KeyCode[] modifiers { get; set; } = new KeyCode[3] { KeyCode.LeftShift, KeyCode.LeftControl, KeyCode.Space };
 
     Action[] inputSpace = new Action[3];
     Action[] inputSpaceUp = new Action[3];
 
     public Action callConstructionUI;
     public Action onBattleClearManagerRegistered { get; set; }
+
+    public enum ModifiersNum
+    {
+        Shift,
+        Ctrl,
+        Space
+    }
     #region actionEvent
     public class ActionEvent
     {
@@ -71,8 +76,8 @@ public class GameManager : MonoBehaviour
         Skill,
         SpecialMove,
         Building,
-
     }
+
     public ActionEvent onCry { get; private set; } = new ActionEvent();
     public ActionEvent onAttack { get; private set; } = new ActionEvent();
     public ActionEvent onBackAttack { get; private set; } = new ActionEvent();
@@ -120,6 +125,7 @@ public class GameManager : MonoBehaviour
     public BattleClearManager battleClearManager { get; private set; }
     public QuestManager questManager { get; set; }
     public ObjectManager objectManager { get; set; }
+    public SettingLoader settingLoader { get; set; }
     #endregion
 
     private void Awake()
@@ -176,8 +182,54 @@ public class GameManager : MonoBehaviour
     }
     void ConverterSame(in string str)
     {
-        keyboardConverter.Add(str, str);
+        ConverterKeyAdd(str, str);
     }
+    public void ChangeModifier(in string codeName, ModifiersNum num)
+    {
+        KeyCode newCode;
+        switch (codeName)
+        {
+            case "leftctrl":
+                newCode = KeyCode.LeftControl;
+                break;
+            case "rightctrl":
+                newCode = KeyCode.RightControl;
+                break;
+            case "enter":
+                newCode = KeyCode.Return;
+                break;
+            case "printscreen":
+                newCode = KeyCode.Print;
+                break;
+            default:
+                if (codeName.Contains("numpad"))
+                {
+                    string strNumPad = codeName.Replace("num", "key");
+                    Enum.TryParse(strNumPad, true, out newCode);
+                }
+                else
+                {
+                    Enum.TryParse(codeName, true, out newCode);
+                    if (newCode == KeyCode.None)
+                        Debug.Log("할당 실패" + codeName);
+                }
+                break;
+        }
+        modifiers[(int)num] = newCode;
+    }
+    public string GetConvert(in string key)
+    {
+        return keyboardConverter[key];
+    }
+    public void ConverterKeyDelete(in string key)
+    {
+        keyboardConverter.Remove(key);
+    }
+    public void ConverterKeyAdd(in string key, in string value)
+    {
+        keyboardConverter.Add(key, value);
+    }
+
     #region 오브젝트 활성화/비활성화 체크
     public void HereComesNewChallenger(CUnit unit, string keycode)
     {
@@ -305,44 +357,11 @@ public class GameManager : MonoBehaviour
 
         bool GetShift()
         {
-            return Input.GetKey(shiftCode);
+            return Input.GetKey(modifiers[(int)ModifiersNum.Shift]);
         }
     }
-    public void ChangeShift(in string newShift)
-    {
-        KeyCode newCode;
-        switch (newShift)
-        {
-            case "leftctrl":
-                newCode = KeyCode.LeftControl;
-                break;
-            case "rightctrl":
-                newCode = KeyCode.RightControl;
-                break;
-            case "enter":
-                newCode = KeyCode.Return;
-                break;
-            case "printscreen":
-                newCode = KeyCode.Print;
-                break;
-            default:
-                if (newShift.Contains("numpad"))
-                {
-                    string strNumPad = newShift.Replace("num", "key");
-                    Enum.TryParse(strNumPad, true, out newCode);
-                }
-                else
-                {
-                    Enum.TryParse(newShift, true, out newCode);
-                    if (newCode == KeyCode.None)
-                        Debug.Log("할당 실패" + newShift);
-                }
-                break;
-        }
 
 
-        shiftCode = newCode;
-    }
     public void DragUnitPosition(Vector3 vector3, Vector2 recSize, bool dragging)
     {
         float[] rec = new float[4] { vector3.x,
@@ -607,10 +626,7 @@ public class GameManager : MonoBehaviour
 
         onHeroSelect.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
     }
-    public string GetConvert(in string key)
-    {
-        return keyboardConverter[key];
-    }
+
     public void Formation(in string key)
     {
         playerNavi.MakeFormation(GetConvert(key));
@@ -717,20 +733,7 @@ public class GameManager : MonoBehaviour
         isReady = false;
     }
 
-    public void ConverterChange(in string key, in string value)
-    {
-        keyboardConverter.Add(key, value);
-        Debug.Log(keyboardConverter.Count.ToString() + "  " + key + "  " + value);
-    }
-    public string GetEmptyKey()
-    {
-        return "empty" + keyDictionaryCount++.ToString();
-    }
-    public void KeyConverterKeyDelete(in string oldStr, out string value)
-    {
-        value = keyboardConverter[oldStr];
-        keyboardConverter.Remove(oldStr);
-    }
+
     public bool IsOnOneRight(CObject obj, Vector3 vec)
     {
         Quaternion dir = Quaternion.Euler(0, -obj.transform.eulerAngles.y, 0);
@@ -782,5 +785,16 @@ public class GameManager : MonoBehaviour
 
         if (tempMonsterList.Count == nPCDetected)
             CloseEyes(tempHeroList);
+    }
+    public void SetViewRendererType(bool isLineRenderer)
+    {
+        if (objectManager == null) return;
+        if (nPCDetected != objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster].Count)
+            foreach (CUnit item in objectManager.ObjectList[(int)ObjectManager.CObjectType.Hero])
+                item.SetViewRendererType(isLineRenderer);
+
+        if (playerDetected != objectManager.ObjectList[(int)ObjectManager.CObjectType.Hero].Count)
+            foreach (CUnit item in objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster])
+                item.SetViewRendererType(isLineRenderer);
     }
 }

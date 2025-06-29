@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,21 +10,29 @@ public class SoundSlider : InitObject
     [SerializeField] SoundWindow.SoundType type;
     float BaseValue;
 
-    void SliderSetting()
+
+    public override void Init()
+    {
+        slider = GetComponent<Slider>();
+        inputField = transform.GetChild(4).GetComponent<InputField>();
+        soundWindow = transform.parent.GetComponent<SoundWindow>();
+
+        ComponentInit();
+    }
+
+    void ComponentInit()
     {
         slider.onValueChanged.AddListener((fNum) => SliderValueChanged(fNum));
-    }
-    void InputFieldSetting()
-    {
+
         inputField.onSubmit.AddListener((str) => InputSubmit(str));
-        inputField.onEndEdit.AddListener((str) => inputField.text = slider.value.ToString());
-    }
+        inputField.onEndEdit.AddListener((str) => SynchronizeInputField());
 
-
-    void InitInWindow()
-    {
-        ((Text)inputField.placeholder).text = slider.value.ToString();
         BaseValue = slider.value;
+        SynchronizeInputField();
+    }
+    public void InputValue(float value)
+    {
+        slider.value = value;
     }
 
     private void SliderValueChanged(float fNum)
@@ -32,23 +41,23 @@ public class SoundSlider : InitObject
         inputField.text = nNum.ToString();
         soundWindow.ValueChanged(type, nNum);
     }
+    void SynchronizeInputField()
+    {
+        inputField.text = slider.value.ToString();
+    }
     public void InputSubmit(string str)
     {
-        slider.value = int.Parse(str);
+        InputValue(float.Parse(str));
     }
-    void NoSave()
+    public void NoSaveRevertValue()
     {
         slider.value = BaseValue;
+        SynchronizeInputField();
+    }
+    public void SaveValue(SaveData.PlaySetting setting)
+    {
+        BaseValue = slider.value;
+        setting.soundWindowSet[(int)type] = BaseValue;
     }
 
-    public override void Init()
-    {
-        slider = GetComponent<Slider>();
-        inputField = transform.GetChild(4).GetComponent<InputField>();
-        soundWindow = transform.parent.GetComponent<SoundWindow>();
-        SliderSetting();
-        InputFieldSetting();
-        soundWindow.noSave += NoSave;
-        soundWindow.Sliderinit += InitInWindow;
-    }
 }

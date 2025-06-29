@@ -273,6 +273,7 @@ MonoBehaviour:
   video: 0
   mainMenuImage: 3
   stageSettlementImage: 0
+  villigeWindowImage: 0
   m_image: {fileID: 49833741}
 --- !u!1 &62187565
 GameObject:
@@ -2357,6 +2358,7 @@ MonoBehaviour:
   video: 0
   mainMenuImage: 3
   stageSettlementImage: 0
+  villigeWindowImage: 0
   m_image: {fileID: 946518602}
 --- !u!114 &948305726 stripped
 MonoBehaviour:
@@ -2546,6 +2548,7 @@ MonoBehaviour:
   video: 0
   mainMenuImage: 2
   stageSettlementImage: 0
+  villigeWindowImage: 0
   m_image: {fileID: 980114227}
 --- !u!1 &1021768557
 GameObject:
@@ -2630,6 +2633,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 907856174}
     m_Modifications:
+    - target: {fileID: 1623840319562428231, guid: bf2152f0fa267c64a9ff6ed7e28f9a05, type: 3}
+      propertyPath: loadSaveManager
+      value: 
+      objectReference: {fileID: 822635194}
     - target: {fileID: 1795083794724863817, guid: bf2152f0fa267c64a9ff6ed7e28f9a05, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2797,8 +2804,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNavi: {fileID: 1366657599}
   monNavi: {fileID: 385649841}
-  playerDetected: 0
-  nPCDetected: 0
 --- !u!4 &1119370401
 Transform:
   m_ObjectHideFlags: 0
@@ -3069,6 +3074,7 @@ MonoBehaviour:
   video: 0
   mainMenuImage: 2
   stageSettlementImage: 0
+  villigeWindowImage: 0
   m_image: {fileID: 1210046966}
 --- !u!1 &1239784781
 GameObject:
@@ -3868,6 +3874,7 @@ MonoBehaviour:
   video: 0
   mainMenuImage: 2
   stageSettlementImage: 0
+  villigeWindowImage: 0
   m_image: {fileID: 1593364781}
 --- !u!1 &1653163979
 GameObject:
@@ -4192,6 +4199,7 @@ MonoBehaviour:
   video: 0
   mainMenuImage: 1
   stageSettlementImage: 0
+  villigeWindowImage: 0
   m_image: {fileID: 1697625587}
 --- !u!1 &1778811429
 GameObject:
@@ -4887,6 +4895,7 @@ MonoBehaviour:
   video: 0
   mainMenuImage: 3
   stageSettlementImage: 0
+  villigeWindowImage: 0
   m_image: {fileID: 2078978890}
 --- !u!1 &2142519884
 GameObject:

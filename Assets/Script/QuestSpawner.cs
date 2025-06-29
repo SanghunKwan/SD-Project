@@ -317,7 +317,7 @@ public class QuestSpawner : MonoBehaviour
 
         void AddText()
         {
-
+            
             for (int i = 0; i < length; i++)
             {
                 tempData = questData.require.itemDatas[i];

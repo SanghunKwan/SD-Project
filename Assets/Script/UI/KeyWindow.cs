@@ -5,51 +5,76 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class KeyWindow : InitObject
+public class KeyWindow : InitObject, IWindowSet
 {
     [SerializeField] BlackScreen blackScreen;
 
-    Action<string> textChange;
     SettingWindow settingWindow;
 
-    public Action changekeyRemove { get; set; }
-    public Action setBack { get; set; }
-    public Action changeSave { get; set; }
-    public Action keyInit { get; set; }
-
     Action<InputControl> inputSave;
-    Action<string> eventTextChanged = (str) => { };
+    public Action<string> EventTextChanged { get; set; }
     public bool isResistered { get; private set; } = false;
 
     [SerializeField] InitObject[] keyButtonInputs;
 
-    private void Awake()
-    {
-        settingWindow = transform.parent.GetComponent<SettingWindow>();
-        changeSave += () => isResistered = false;
-        setBack += () => isResistered = false;
+    PlayerInputManager manager;
 
-    }
-    public void ScreenEffectStart(Action cancel, Action<InputControl> save, Action<string> strChange)
+    HashSet<KeyButtonInput> changedKeys;
+    HashSet<KeyButtonInput> changedButtons;
+
+
+    public override void Init()
     {
-        textChange = strChange;
+        manager = PlayerInputManager.manager;
+        settingWindow = transform.parent.GetComponent<SettingWindow>();
+
+        changedKeys = new HashSet<KeyButtonInput>(10);
+        for (int i = 0; i < keyButtonInputs.Length; i++)
+        {
+            ((KeyButtonInput)keyButtonInputs[i]).Init(i);
+        }
+
+        settingWindow.LoadSaveDataActions += LoadKeys;
+    }
+    void LoadKeys(SaveData.PlaySetting playInfo)
+    {
+        if (playInfo.keyWindowSet == null) return;
+
+        changedButtons = new HashSet<KeyButtonInput>(playInfo.keyWindowSet.Length);
+        KeyButtonInput tempObj;
+        foreach (var item in playInfo.keyWindowSet)
+        {
+            tempObj = (KeyButtonInput)keyButtonInputs[item.index];
+            tempObj.SetSave(item.keyboardName);
+            changedButtons.Add(tempObj);
+        }
+        LoadComplete();
+    }
+
+
+    public void ScreenEffectStart(Action cancel, Action<InputControl> save)
+    {
         inputSave = save;
         blackScreen.GetActionClick(() =>
         {
-            PlayerInputManager.manager.SetKeyMap(PlayerInputManager.KeymapType.BuildingOrder);
+            manager.SetKeyMap(PlayerInputManager.KeymapType.BuildingOrder);
             cancel();
         });
 
-        PlayerInputManager.manager.SetKeyMap(PlayerInputManager.KeymapType.NewKeyInput);
+        manager.SetKeyMap(PlayerInputManager.KeymapType.NewKeyInput);
     }
 
     public void ChangeKey(InputControl control)
     {
-        PlayerInputManager.manager.ChangeDefaultKey(PlayerInputManager.KeymapType.PlayerOwn);
+        if (manager.IsDefaultInput)
+        {
+            manager.ResetOwnMap();
+            manager.ChangeDefaultKey(PlayerInputManager.KeymapType.PlayerOwn);
+        }
+        manager.SetDefaultKeyMap();
 
         blackScreen.Escape();
 
-        textChange(control.displayName);
         inputSave(control);
 
     }
@@ -59,51 +84,79 @@ public class KeyWindow : InitObject
     {
         return (Keyboard) =>
         {
-            PlayerInputManager.manager.SetDefaultKeyMap();
+            manager.SetDefaultKeyMap();
             for (int i = 0; i < byTransform.Length; i++)
             {
-                PlayerInputManager.manager.KeyActionChange(byTransform[i].bindingOrder, byTransform[i].actionName.ToString(), Keyboard);
+                manager.KeyActionChange(byTransform[i].bindingOrder, byTransform[i].actionName.ToString(), Keyboard);
             }
 
             for (int i = 0; i < byInt.Length; i++)
             {
-                PlayerInputManager.manager.KeyActionChange(byInt[i].bindingOrder, byInt[i].actionName.ToString(), Keyboard);
+                manager.KeyActionChange(byInt[i].bindingOrder, byInt[i].actionName.ToString(), Keyboard);
             }
-            PlayerInputManager.manager.SetKeyMap(PlayerInputManager.KeymapType.BuildingOrder);
+            manager.SetKeyMap(PlayerInputManager.KeymapType.PlayerInput);
         };
-    }
-    public event Action<string> OnKeyTextChanged
-    {
-        add
-        {
-            eventTextChanged += value;
-        }
-        remove
-        {
-            eventTextChanged -= value;
-        }
     }
     public void SomethingInput(in string str)
     {
         settingWindow.isChanged = true;
-        eventTextChanged.Invoke(str);
+        EventTextChanged?.Invoke(str);
     }
-    private void OnEnable()
-    {
-        if (isResistered)
-            return;
-        settingWindow.setBack += setBack;
-        settingWindow.beforeApply += changekeyRemove;
-        settingWindow.setApply += changeSave;
-        keyInit();
-        isResistered = true;
-    }
+    public void AddChangeKeys(KeyButtonInput keybuttonInput) => changedKeys.Add(keybuttonInput);
 
-    public override void Init()
+
+    void ApplyChanged()
     {
-        foreach (var item in keyButtonInputs)
+        foreach (var item in changedKeys)
         {
-            item.Init();
+            item.DeleteOriginalKey();
         }
+        foreach (var item in changedKeys)
+        {
+            item.OverrideValue();
+        }
+    }
+    void LoadComplete()
+    {
+        ApplyChanged();
+        TranslateKeys();
+    }
+    public void SaveValue()
+    {
+        //바뀐 키들을 순회하며 매니저에 저장.
+        //playerInputManager 에 덮어씌우기.
+        ApplyChanged();
+        TranslateKeys();
+        SaveKeys();
+    }
+    public void SaveKeys()
+    {
+        SaveData.PlaySetting setting = GameManager.manager.settingLoader.PlaySetting;
+        setting.keyWindowSet = new SaveData.KeySet[changedButtons.Count];
+
+        int index = 0;
+        foreach (var item in changedButtons)
+        {
+            setting.keyWindowSet[index] = new SaveData.KeySet(item);
+            index++;
+        }
+    }
+    void TranslateKeys()
+    {
+        foreach (var item in changedKeys)
+        {
+            changedButtons.Add(item);
+        }
+
+        changedKeys.Clear();
+    }
+    public void RevertValue()
+    {
+        foreach (var item in changedKeys)
+        {
+            item.RevertValue();
+        }
+        changedKeys.Clear();
+        //바뀐 키들을 순회하며 원래 키로 되돌림.
     }
 }

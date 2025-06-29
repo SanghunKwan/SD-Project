@@ -12,6 +12,19 @@ public class KeyButtonInput : InitObject
     TextMeshProUGUI text;
     [SerializeField] KeyWindow keyWindow;
 
+    [SerializeField] BindingOrderActionNameInit[] bindingOrderActionNameInits;
+    [SerializeField] BindingOrderNumActionName[] bindingOrderNumActionNames;
+
+    [SerializeField] KeyType keyType;
+
+    static Action<string>[] gameManagerKeyDeleteActions;
+    static Action<string, string>[] gameManagerKeyAddActions;
+
+    public int buttonIndex { get; private set; }
+
+    public string originalStr { get; private set; }
+    string dictionaryValue;
+
     [Serializable]
     public class BindingOrderActionNameInit
     {
@@ -31,8 +44,7 @@ public class KeyButtonInput : InitObject
         public ActionNameType actionName;
         public int bindingOrder;
     }
-    [SerializeField] BindingOrderActionNameInit[] bindingOrderActionNameInits;
-    [SerializeField] BindingOrderNumActionName[] bindingOrderNumActionNames;
+
     public enum ActionNameType
     {
         ArmySelect,
@@ -54,33 +66,30 @@ public class KeyButtonInput : InitObject
         QWERFormation,
         Max
     }
-    [SerializeField] KeyType keyType;
-    Action<string, string>[] keyChangeActions = new Action<string, string>[(int)KeyType.Max];
-    Func<string, string>[] keyRemoveActions = new Func<string, string>[(int)KeyType.Max];
-    Action keyRemove = () => { };
-    Action save = () => { };
-    string cancelStr;
-    string tempStr;
 
+    public void Init(int index)
+    {
+        buttonIndex = index;
+        Init();
+    }
     public override void Init()
     {
         button = GetComponent<Button>();
         text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
-        keyWindow.keyInit += Initialize;
-    }
-    private void Awake()
-    {
         button.onClick.AddListener(SetKeyReady);
 
         BindingOrderSet();
         SetActions();
 
-        keyWindow.setBack += noSave;
-        keyWindow.changekeyRemove += KeyRemove;
-        keyWindow.changeSave += Save;
-
+        originalStr = dictionaryValue = text.text;
+        keyWindow.EventTextChanged += CheckSameText2Blank;
     }
+    private void OnEnable()
+    {
+        originalStr = text.text;
+    }
+
     void BindingOrderSet()
     {
         for (int i = 0; i < bindingOrderActionNameInits.Length; i++)
@@ -90,121 +99,81 @@ public class KeyButtonInput : InitObject
     }
     void SetActions()
     {
-        keyChangeActions[0] = (value, str2) => { GameManager.manager.ConverterChange(tempStr, value); };
-        keyChangeActions[1] = (value, str2) => { GameManager.manager.ConverterChange(tempStr, value); };
-        keyChangeActions[2] = (value, str2) => { };
-        keyChangeActions[3] = (value, str2) => { GameManager.manager.ChangeShift(str2); };
-        keyChangeActions[4] = (value, str2) => { };
-        keyChangeActions[5] = (value, str2) => { GameManager.manager.ConverterChange(tempStr, value); };
+        if (gameManagerKeyDeleteActions != null) return;
 
-        keyRemoveActions[0] = (str) => { GameManager.manager.KeyConverterKeyDelete(str, out string value); return value; };
-        keyRemoveActions[1] = (str) => { GameManager.manager.KeyConverterKeyDelete(str, out string value); return value; };
-        keyRemoveActions[2] = (str) => { return string.Empty; };
-        keyRemoveActions[3] = (str) => { return string.Empty; };
-        keyRemoveActions[4] = (str) => { return string.Empty; };
-        keyRemoveActions[5] = (str) => { GameManager.manager.KeyConverterKeyDelete(str, out string value); return value; };
+        GameManager manager = GameManager.manager;
 
-        keyWindow.OnKeyTextChanged += TextKeyWindowChange;
-    }
+        gameManagerKeyDeleteActions = new Action<string>[(int)KeyType.Max];
+        gameManagerKeyAddActions = new Action<string, string>[(int)KeyType.Max];
 
+        gameManagerKeyDeleteActions[0] = (originalStr) => { manager.ConverterKeyDelete(originalStr); };
+        gameManagerKeyDeleteActions[1] = (originalStr) => { manager.ConverterKeyDelete(originalStr); };
+        gameManagerKeyDeleteActions[2] = (originalStr) => { };
+        gameManagerKeyDeleteActions[3] = (originalStr) => { };
+        gameManagerKeyDeleteActions[4] = (originalStr) => { };
+        gameManagerKeyDeleteActions[5] = (originalStr) => { manager.ConverterKeyDelete(originalStr); };
 
-    void SetKeyOnoff(bool onoff)
-    {
-        button.interactable = onoff;
-        text.gameObject.SetActive(onoff);
+        gameManagerKeyAddActions[0] = (text, dictionaryValue) => { manager.ConverterKeyAdd(text, dictionaryValue); };
+        gameManagerKeyAddActions[1] = (text, dictionaryValue) => { manager.ConverterKeyAdd(text, dictionaryValue); };
+        gameManagerKeyAddActions[2] = (text, dictionaryValue) => { manager.ChangeModifier(text.ToLower(), GameManager.ModifiersNum.Ctrl); };
+        gameManagerKeyAddActions[3] = (text, dictionaryValue) => { manager.ChangeModifier(text.ToLower(), GameManager.ModifiersNum.Shift); };
+        gameManagerKeyAddActions[4] = (text, dictionaryValue) => { manager.ChangeModifier(text.ToLower(), GameManager.ModifiersNum.Space); };
+        gameManagerKeyAddActions[5] = (text, dictionaryValue) => { manager.ConverterKeyAdd(text, dictionaryValue); };
 
     }
 
     void SetKeyReady()
     {
         SetKeyOnoff(false);
-        keyWindow.ScreenEffectStart(SetKeyCancel, SetSave, (str) => text.text = str);
+        keyWindow.ScreenEffectStart(SetKeyCancel, SetSave);
     }
-    public void SetKeyCancel()
+    void SetKeyOnoff(bool onoff)
+    {
+        button.interactable = onoff;
+        text.gameObject.SetActive(onoff);
+
+    }
+    void SetKeyCancel()
     {
         SetKeyOnoff(true);
-    }
-    void SetKeyComplete(in string value, in string controlName, in string newdisplay)
-    {
-        keyChangeActions[(int)keyType](value, controlName);
-    }
-    void SetKeyDelete(out string value)
-    {
-        value = keyRemoveActions[(int)keyType](cancelStr);
-    }
-    private void noSave()
-    {
-        text.text = cancelStr;
-        tempStr = cancelStr;
-        save = () => { };
-        keyRemove = () => { };
-    }
-    void Initialize()
-    {
-        cancelStr = text.text;
-        tempStr = cancelStr;
-
-        if (cancelStr.StartsWith("empty"))
-        {
-            text.text = " ";
-        }
-    }
-    void Save()
-    {
-        save();
-        save = () => { };
-    }
-    void KeyRemove()
-    {
-        keyRemove();
-        keyRemove = () => { };
     }
     public void SetSave(InputControl control)
     {
         keyWindow.SomethingInput(control.displayName);
-        tempStr = control.displayName;
-        text.text = tempStr;
+        keyWindow.AddChangeKeys(this);
 
-        string value = string.Empty;
-        keyRemove = () => { SetKeyDelete(out value); };
-        save = () => { SaveChange()(control, value); };
+        text.text = control.displayName;
     }
-    Action<InputControl, string> SaveChange()
+    public void SetSave(in string controlDisplayName)
     {
-        return (control, value) =>
-            {
-                SetKeyComplete(value, control.name, control.displayName);
-                keyWindow.GetKeyInfo(bindingOrderActionNameInits, bindingOrderNumActionNames)
-                                                    ("<Keyboard>/" + control.displayName.ToLower());
-                cancelStr = control.displayName;
-            };
-    }
+        keyWindow.SomethingInput(controlDisplayName);
+        keyWindow.AddChangeKeys(this);
 
-    void TextKeyWindowChange(string str)
+        text.text = controlDisplayName;
+    }
+    void CheckSameText2Blank(string str)
     {
-        if (tempStr == str)
-        {
-            tempStr = GameManager.manager.GetEmptyKey();
-            text.text = " ";
+        if (text.text != str) return;
 
-            string value = string.Empty;
-
-            keyRemove = () => SetKeyDelete(out value);
-            save = () => SaveChangeBlank()(tempStr, value);
-        }
+        text.text = " ";
+        keyWindow.AddChangeKeys(this);
     }
-    Action<string, string> SaveChangeBlank()
+
+    public void RevertValue()
     {
-        return (str, value) =>
-        {
-            SetKeyComplete(value, "할당실패", "할당실패");
-            cancelStr = str;
-            text.text = " ";
-        };
+        text.text = originalStr;
     }
-    private void OnDisable()
+    public void DeleteOriginalKey()
     {
-        text.text = cancelStr;
+        //기존 키값 삭제.
+        gameManagerKeyDeleteActions[(int)keyType](originalStr);
     }
-
+    public void OverrideValue()
+    {
+        //dictionary 새로운 key 값 저장.
+        gameManagerKeyAddActions[(int)keyType](text.text, dictionaryValue);
+        keyWindow.GetKeyInfo(bindingOrderActionNameInits, bindingOrderNumActionNames)
+                                                    ("<Keyboard>/" + text.text.ToLower());
+        originalStr = text.text;
+    }
 }
