@@ -6,6 +6,8 @@ public class KeyboardInput : MonoBehaviour
 {
     [SerializeField] menuWindow menuWindow;
     [SerializeField] WindowManager windowManager;
+
+
     public void OnSelect(InputAction.CallbackContext inputAction)
     {
         if (inputAction.phase == InputActionPhase.Started)
@@ -31,6 +33,9 @@ public class KeyboardInput : MonoBehaviour
     {
         if (inputAction.phase == InputActionPhase.Started)
             GameManager.manager.Formation(inputAction.control.displayName);
+
+        PlayerInputManager input = GetComponent<PlayerInputManager>();
+        input.ASDF();
     }
     public void OnTimeDelay(InputAction.CallbackContext inputAction)
     {

@@ -25,6 +25,8 @@ public class KeyButtonInput : InitObject
     public string originalStr { get; private set; }
     string dictionaryValue;
 
+    public bool IsChange2Original => dictionaryValue == text.text;
+
     [Serializable]
     public class BindingOrderActionNameInit
     {
@@ -172,6 +174,7 @@ public class KeyButtonInput : InitObject
     {
         //dictionary 새로운 key 값 저장.
         gameManagerKeyAddActions[(int)keyType](text.text, dictionaryValue);
+
         keyWindow.GetKeyInfo(bindingOrderActionNameInits, bindingOrderNumActionNames)
                                                     ("<Keyboard>/" + text.text.ToLower());
         originalStr = text.text;

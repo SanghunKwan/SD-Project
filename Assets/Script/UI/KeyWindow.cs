@@ -66,17 +66,9 @@ public class KeyWindow : InitObject, IWindowSet
 
     public void ChangeKey(InputControl control)
     {
-        if (manager.IsDefaultInput)
-        {
-            manager.ResetOwnMap();
-            manager.ChangeDefaultKey(PlayerInputManager.KeymapType.PlayerOwn);
-        }
-        manager.SetDefaultKeyMap();
-
         blackScreen.Escape();
 
         inputSave(control);
-
     }
 
     public Action<string> GetKeyInfo(KeyButtonInput.BindingOrderActionNameInit[] byTransform,
@@ -84,7 +76,6 @@ public class KeyWindow : InitObject, IWindowSet
     {
         return (Keyboard) =>
         {
-            manager.SetDefaultKeyMap();
             for (int i = 0; i < byTransform.Length; i++)
             {
                 manager.KeyActionChange(byTransform[i].bindingOrder, byTransform[i].actionName.ToString(), Keyboard);
@@ -94,7 +85,6 @@ public class KeyWindow : InitObject, IWindowSet
             {
                 manager.KeyActionChange(byInt[i].bindingOrder, byInt[i].actionName.ToString(), Keyboard);
             }
-            manager.SetKeyMap(PlayerInputManager.KeymapType.PlayerInput);
         };
     }
     public void SomethingInput(in string str)
@@ -120,6 +110,8 @@ public class KeyWindow : InitObject, IWindowSet
     {
         ApplyChanged();
         TranslateKeys();
+        manager.ChangeDefaultKey(PlayerInputManager.KeymapType.PlayerOwn);
+        manager.SetDefaultKeyMap();
     }
     public void SaveValue()
     {
@@ -128,6 +120,7 @@ public class KeyWindow : InitObject, IWindowSet
         ApplyChanged();
         TranslateKeys();
         SaveKeys();
+
     }
     public void SaveKeys()
     {
@@ -140,12 +133,21 @@ public class KeyWindow : InitObject, IWindowSet
             setting.keyWindowSet[index] = new SaveData.KeySet(item);
             index++;
         }
+
+        if (index > 0)
+        {
+            manager.ChangeDefaultKey(PlayerInputManager.KeymapType.PlayerOwn);
+            manager.SetDefaultKeyMap();
+        }
     }
     void TranslateKeys()
     {
         foreach (var item in changedKeys)
         {
-            changedButtons.Add(item);
+            if (item.IsChange2Original)
+                changedButtons.Remove(item);
+            else
+                changedButtons.Add(item);
         }
 
         changedKeys.Clear();
