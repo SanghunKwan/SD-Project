@@ -114,7 +114,7 @@ namespace Unit
         }
         protected override IEnumerator EndKnockBack(Vector3 vec, float speed)
         {
-            speed *= 2;
+            speed *= 5;
             unitMove.TempNavStop();
             yield return base.EndKnockBack(vec, speed);
             unitMove.TempNavReStart();

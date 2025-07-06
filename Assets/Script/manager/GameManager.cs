@@ -13,12 +13,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerNavi playerNavi;
     [SerializeField] MonNavi monNavi;
 
-    //»õ·Î¿î À¯´Ö ¸Å´ÏÀú »ı¼ºÇØ¼­ °ü¸®ÇÏµµ·Ï ÇÒ °Í.
+    //ìƒˆë¡œìš´ ìœ ë‹› ë§¤ë‹ˆì € ìƒì„±í•´ì„œ ê´€ë¦¬í•˜ë„ë¡ í•  ê²ƒ.
     //dictionary<gameObject, linkedListNode>
     //linkedlist<cobject>
-    //µÎ Á¾·ù·Î °ü¸®ÇÏ°í, À¯´Ö »ç¸Á ½Ã node¸¦ »èÁ¦ÇØ¼­ null Ã¼Å©¸¦ ÇÒ ¼ö ÀÖµµ·Ï ±¸Çö.
-    //±âÁ¸ ±â´ÉÀº dic°ú linkedlist¸¦ ³ª´²¼­ Á¢±Ù.
-    //battleClearManagerÀÇ List¸¦ linkedList¿¡ ÅëÇÕÇØ¼­ °ü¸®.
+    //ë‘ ì¢…ë¥˜ë¡œ ê´€ë¦¬í•˜ê³ , ìœ ë‹› ì‚¬ë§ ì‹œ nodeë¥¼ ì‚­ì œí•´ì„œ null ì²´í¬ë¥¼ í•  ìˆ˜ ìˆë„ë¡ êµ¬í˜„.
+    //ê¸°ì¡´ ê¸°ëŠ¥ì€ dicê³¼ linkedlistë¥¼ ë‚˜ëˆ ì„œ ì ‘ê·¼.
+    //battleClearManagerì˜ Listë¥¼ linkedListì— í†µí•©í•´ì„œ ê´€ë¦¬.
 
     int playerDetected;
     int nPCDetected;
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
 
     public PointerEventData pointerEventData { get; set; }
 
-    #region ÇÏÀ§ managers
+    #region í•˜ìœ„ managers
     public SoundManager soundManager { get; set; }
     public WindowManager windowManager { get; set; }
     public StorageManager storageManager { get; set; }
@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour
                 {
                     Enum.TryParse(codeName, true, out newCode);
                     if (newCode == KeyCode.None)
-                        Debug.Log("ÇÒ´ç ½ÇÆĞ" + codeName);
+                        Debug.Log("í• ë‹¹ ì‹¤íŒ¨" + codeName);
                 }
                 break;
         }
@@ -230,7 +230,7 @@ public class GameManager : MonoBehaviour
         keyboardConverter.Add(key, value);
     }
 
-    #region ¿ÀºêÁ§Æ® È°¼ºÈ­/ºñÈ°¼ºÈ­ Ã¼Å©
+    #region ì˜¤ë¸Œì íŠ¸ í™œì„±í™”/ë¹„í™œì„±í™” ì²´í¬
     public void HereComesNewChallenger(CUnit unit, string keycode)
     {
         playerNavi.SetTeam(unit.unitMove, keycode);
@@ -312,8 +312,8 @@ public class GameManager : MonoBehaviour
         }
         playerDetected = 0;
     }
-    #endregion ¿ÀºêÁ§Æ® È°¼ºÈ­/ºñÈ°¼ºÈ­ Ã¼Å©
-    #region view Å¸°Ù È®ÀÎ
+    #endregion ì˜¤ë¸Œì íŠ¸ í™œì„±í™”/ë¹„í™œì„±í™” ì²´í¬
+    #region view íƒ€ê²Ÿ í™•ì¸
     public void Search(ObjectManager.CObjectType objectType, GameObject foundObject, UnitMove founder)
     {
         Search(objectType, (CUnit)objectManager.ObjectDictionary[(int)objectType][foundObject].Value, founder);
@@ -337,7 +337,7 @@ public class GameManager : MonoBehaviour
         if (detectedNum == detectedList.Count)
         {
             CloseEyes(detectingList);
-            //¸ğµÎ ¹ß°¢µÇ¾ú´Ù´Â ¾Ë¸².
+            //ëª¨ë‘ ë°œê°ë˜ì—ˆë‹¤ëŠ” ì•Œë¦¼.
         }
     }
 
@@ -349,8 +349,8 @@ public class GameManager : MonoBehaviour
             item.FindAll();
         }
     }
-    #endregion view Å¸°Ù È®ÀÎ
-    #region ¸¶¿ì½º ÀÔ·Â
+    #endregion view íƒ€ê²Ÿ í™•ì¸
+    #region ë§ˆìš°ìŠ¤ ì…ë ¥
     public void OrderUnit(RaycastHit hit)
     {
         playerNavi.SmartOrder(hit, (OrderType)Convert.ToInt32(GetShift()));
@@ -408,9 +408,9 @@ public class GameManager : MonoBehaviour
 
         if (count % 2 == 0)
         {
-            //´õºí Å¬¸¯
+            //ë”ë¸” í´ë¦­
             if (playerNavi.lists.Count > 0)
-                //player navÀÇ °°Àº ÆÀ¿ø È£Ãâ.
+                //player navì˜ ê°™ì€ íŒ€ì› í˜¸ì¶œ.
                 foreach (var item in playerNavi.PlayerCharacter[((Hero)playerNavi.lists[0].cUnit).keycode])
                 {
                     item.cUnit.Selected(true);
@@ -441,8 +441,8 @@ public class GameManager : MonoBehaviour
         }
         bool ModifierCtrl<T>(T item) where T : CObject
         {
-            //¼±ÅÃµÇÁö ¾ÊÀº À¯´Ö ´©¸¦ ¶§´Â shift¿Í °°À½.
-            //¼±ÅÃµÈ À¯´Ö ´©¸¦ ¶§´Â ÇØ´ç À¯´Ö Á¦¿Ü.
+            //ì„ íƒë˜ì§€ ì•Šì€ ìœ ë‹› ëˆ„ë¥¼ ë•ŒëŠ” shiftì™€ ê°™ìŒ.
+            //ì„ íƒëœ ìœ ë‹› ëˆ„ë¥¼ ë•ŒëŠ” í•´ë‹¹ ìœ ë‹› ì œì™¸.
             // (selecting || shift || ctrl) && default true
             //                              && !(selecting && ctrl)
             return Keyboard.current.ctrlKey.isPressed && item.selected;
@@ -468,7 +468,7 @@ public class GameManager : MonoBehaviour
                        move.z * Screen.height / (Camera.main.orthographicSize * 2) * Mathf.Sin(Mathf.Deg2Rad * 40));
 
         screenMove(conversionVector3);
-        Debug.Log("ÀÌµ¿");
+        Debug.Log("ì´ë™");
     }
     #endregion
     #region heap
@@ -492,13 +492,13 @@ public class GameManager : MonoBehaviour
             float.MaxValue);
     }
     /// <summary>
-    /// Á¶°Ç¿¡ ¸Â´Â ¿ÀºêÁ§Æ®¸¦ Ã£´Â ÇÔ¼ö.
+    /// ì¡°ê±´ì— ë§ëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ëŠ” í•¨ìˆ˜.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="targets">¼øÈ¸ÇÒ ¹è¿­</param>
-    /// <param name="getCurrentValueFunc">¹è¿­¿¡¼­ ÇÊ¿äÇÑ °ª °è»ê ÇÔ¼ö</param>
-    /// <param name="conditionFunc">ÀÌÀü °ª°ú ÇöÀç °ª ºñ±³ ÇÔ¼ö</param>
-    /// <param name="initValue">ÀÌÀü°ª ÃÊ±âÈ­(ÃÖ¼Ò È¤Àº ÃÖ´ë)</param>
+    /// <param name="targets">ìˆœíšŒí•  ë°°ì—´</param>
+    /// <param name="getCurrentValueFunc">ë°°ì—´ì—ì„œ í•„ìš”í•œ ê°’ ê³„ì‚° í•¨ìˆ˜</param>
+    /// <param name="conditionFunc">ì´ì „ ê°’ê³¼ í˜„ì¬ ê°’ ë¹„êµ í•¨ìˆ˜</param>
+    /// <param name="initValue">ì´ì „ê°’ ì´ˆê¸°í™”(ìµœì†Œ í˜¹ì€ ìµœëŒ€)</param>
     /// <returns></returns>
     CObject GetConditionedObject<T>(IReadOnlyCollection<CObject> targets, Func<CObject, T> getCurrentValueFunc, Func<T, T, bool> conditionFunc, T initValue) where T : struct, IComparable
     {
@@ -518,7 +518,7 @@ public class GameManager : MonoBehaviour
         return tempTarget;
     }
     #endregion
-    #region ÀüÅõ
+    #region ì „íˆ¬
     public void SetOtheronBattle(IReadOnlyCollection<CObject> cUnitList)
     {
         foreach (CUnit unit in cUnitList)
@@ -602,8 +602,8 @@ public class GameManager : MonoBehaviour
     }
 
 
-    #endregion ÀüÅõ
-    #region Å°º¸µå ÀÔ·Â
+    #endregion ì „íˆ¬
+    #region í‚¤ë³´ë“œ ì…ë ¥
     public void ArmySelect(in string numbering)
     {
         playerNavi.HeroClear();
@@ -718,8 +718,8 @@ public class GameManager : MonoBehaviour
     {
         callConstructionUI();
     }
-    #endregion Å°º¸µå ÀÔ·Â
-    #region Manager ÇÒ´ç
+    #endregion í‚¤ë³´ë“œ ì…ë ¥
+    #region Manager í• ë‹¹
     public void SetBattleClearManager(BattleClearManager newBattleClearManager)
     {
         battleClearManager = newBattleClearManager;
@@ -796,5 +796,17 @@ public class GameManager : MonoBehaviour
         if (playerDetected != objectManager.ObjectList[(int)ObjectManager.CObjectType.Hero].Count)
             foreach (CUnit item in objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster])
                 item.SetViewRendererType(isLineRenderer);
+    }
+
+    public void SetCanvasMask(bool isOn, int layerIndex)
+    {
+        if (isOn)
+        {
+            Camera.main.cullingMask &= ~(1 << layerIndex);
+        }
+        else
+        {
+            Camera.main.cullingMask |= (1 << layerIndex);
+        }
     }
 }

@@ -14,6 +14,8 @@ public class ViewWindow : InitObject, IWindowSet
     public enum ToggleType
     {
         IsViewLineRenderer,
+        IsHeroCanvasLayerOff,
+        IsEnemyCanvasLayerOff,
 
         Max
     }
@@ -36,12 +38,15 @@ public class ViewWindow : InitObject, IWindowSet
 
     public void OnViewLineRendererToggleChanged(bool isOn)
     {
-        settingWindow.isChanged = true;
         GameManager.manager.SetViewRendererType(isOn);
 
-        CanRevert(ToggleType.IsViewLineRenderer,
-            () =>
-            toggles[(int)ToggleType.IsViewLineRenderer].isOn = !isOn);
+        OnToggleChanged(ToggleType.IsViewLineRenderer, isOn);
+    }
+    public void OnToggleChanged(ToggleType type, bool isOn)
+    {
+        settingWindow.isChanged = true;
+
+        CanRevert(type, () => toggles[(int)type].isOn = !isOn);
     }
     void CanRevert(ToggleType type, in Action revertAction)
     {
@@ -49,6 +54,19 @@ public class ViewWindow : InitObject, IWindowSet
 
         changedToggles.Add(type, revertAction);
     }
+    public void OnHeroCanvasLayerToggleChanged(bool isOn)
+    {
+        GameManager.manager.SetCanvasMask(isOn, 6);
+
+        OnToggleChanged(ToggleType.IsHeroCanvasLayerOff, isOn);
+    }
+    public void OnEnemyCanvasLayerToggleChanged(bool isOn)
+    {
+        GameManager.manager.SetCanvasMask(isOn, 11);
+
+        OnToggleChanged(ToggleType.IsEnemyCanvasLayerOff, isOn);
+    }
+
 
     public void RevertValue()
     {

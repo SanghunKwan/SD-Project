@@ -97,6 +97,7 @@ public class KeyWindow : InitObject, IWindowSet
 
     void ApplyChanged()
     {
+        Debug.Log("apply ½ÇÇà");
         foreach (var item in changedKeys)
         {
             item.DeleteOriginalKey();

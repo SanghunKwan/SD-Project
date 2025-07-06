@@ -389,7 +389,7 @@ namespace Unit
         }
         protected virtual IEnumerator EndKnockBack(Vector3 vec, float speed)
         {
-            speed /= 2;
+            speed /= 5;
             while (speed > 0)
             {
                 transform.position += vec * speed / 30;

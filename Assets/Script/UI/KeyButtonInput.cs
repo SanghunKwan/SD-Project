@@ -17,8 +17,8 @@ public class KeyButtonInput : InitObject
 
     [SerializeField] KeyType keyType;
 
-    static Action<string>[] gameManagerKeyDeleteActions;
-    static Action<string, string>[] gameManagerKeyAddActions;
+    static Action<GameManager, string>[] gameManagerKeyDeleteActions;
+    static Action<GameManager, string, string>[] gameManagerKeyAddActions;
 
     public int buttonIndex { get; private set; }
 
@@ -103,24 +103,22 @@ public class KeyButtonInput : InitObject
     {
         if (gameManagerKeyDeleteActions != null) return;
 
-        GameManager manager = GameManager.manager;
+        gameManagerKeyDeleteActions = new Action<GameManager, string>[(int)KeyType.Max];
+        gameManagerKeyAddActions = new Action<GameManager, string, string>[(int)KeyType.Max];
 
-        gameManagerKeyDeleteActions = new Action<string>[(int)KeyType.Max];
-        gameManagerKeyAddActions = new Action<string, string>[(int)KeyType.Max];
+        gameManagerKeyDeleteActions[0] = (gameManager, originalStr) => { gameManager.ConverterKeyDelete(originalStr); };
+        gameManagerKeyDeleteActions[1] = (gameManager, originalStr) => { gameManager.ConverterKeyDelete(originalStr); };
+        gameManagerKeyDeleteActions[2] = (gameManager, originalStr) => { };
+        gameManagerKeyDeleteActions[3] = (gameManager, originalStr) => { };
+        gameManagerKeyDeleteActions[4] = (gameManager, originalStr) => { };
+        gameManagerKeyDeleteActions[5] = (gameManager, originalStr) => { gameManager.ConverterKeyDelete(originalStr); };
 
-        gameManagerKeyDeleteActions[0] = (originalStr) => { manager.ConverterKeyDelete(originalStr); };
-        gameManagerKeyDeleteActions[1] = (originalStr) => { manager.ConverterKeyDelete(originalStr); };
-        gameManagerKeyDeleteActions[2] = (originalStr) => { };
-        gameManagerKeyDeleteActions[3] = (originalStr) => { };
-        gameManagerKeyDeleteActions[4] = (originalStr) => { };
-        gameManagerKeyDeleteActions[5] = (originalStr) => { manager.ConverterKeyDelete(originalStr); };
-
-        gameManagerKeyAddActions[0] = (text, dictionaryValue) => { manager.ConverterKeyAdd(text, dictionaryValue); };
-        gameManagerKeyAddActions[1] = (text, dictionaryValue) => { manager.ConverterKeyAdd(text, dictionaryValue); };
-        gameManagerKeyAddActions[2] = (text, dictionaryValue) => { manager.ChangeModifier(text.ToLower(), GameManager.ModifiersNum.Ctrl); };
-        gameManagerKeyAddActions[3] = (text, dictionaryValue) => { manager.ChangeModifier(text.ToLower(), GameManager.ModifiersNum.Shift); };
-        gameManagerKeyAddActions[4] = (text, dictionaryValue) => { manager.ChangeModifier(text.ToLower(), GameManager.ModifiersNum.Space); };
-        gameManagerKeyAddActions[5] = (text, dictionaryValue) => { manager.ConverterKeyAdd(text, dictionaryValue); };
+        gameManagerKeyAddActions[0] = (gameManager, text, dictionaryValue) => { gameManager.ConverterKeyAdd(text, dictionaryValue); };
+        gameManagerKeyAddActions[1] = (gameManager, text, dictionaryValue) => { gameManager.ConverterKeyAdd(text, dictionaryValue); };
+        gameManagerKeyAddActions[2] = (gameManager, text, dictionaryValue) => { gameManager.ChangeModifier(text.ToLower(), GameManager.ModifiersNum.Ctrl); };
+        gameManagerKeyAddActions[3] = (gameManager, text, dictionaryValue) => { gameManager.ChangeModifier(text.ToLower(), GameManager.ModifiersNum.Shift); };
+        gameManagerKeyAddActions[4] = (gameManager, text, dictionaryValue) => { gameManager.ChangeModifier(text.ToLower(), GameManager.ModifiersNum.Space); };
+        gameManagerKeyAddActions[5] = (gameManager, text, dictionaryValue) => { gameManager.ConverterKeyAdd(text, dictionaryValue); };
 
     }
 
@@ -168,12 +166,12 @@ public class KeyButtonInput : InitObject
     public void DeleteOriginalKey()
     {
         //기존 키값 삭제.
-        gameManagerKeyDeleteActions[(int)keyType](originalStr);
+        gameManagerKeyDeleteActions[(int)keyType](GameManager.manager, originalStr);
     }
     public void OverrideValue()
     {
         //dictionary 새로운 key 값 저장.
-        gameManagerKeyAddActions[(int)keyType](text.text, dictionaryValue);
+        gameManagerKeyAddActions[(int)keyType](GameManager.manager, text.text, dictionaryValue);
 
         keyWindow.GetKeyInfo(bindingOrderActionNameInits, bindingOrderNumActionNames)
                                                     ("<Keyboard>/" + text.text.ToLower());

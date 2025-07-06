@@ -35,10 +35,7 @@ public class MonsterMove : UnitMove
     protected override void Start()
     {
         action2 = new Action[] { Wandering, Warden, Patrol };
-        MaxSpeed = 1;
         base.Start();
-
-
 
         if (!isLoaded && waitType.Equals(WaitingTypeNum.Patrol))
             SetPatrolPosition();
