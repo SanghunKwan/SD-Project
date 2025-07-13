@@ -40,6 +40,7 @@ public abstract class UnitSpawner : MonoBehaviour
             newObject.GetStatusEffect(data.dots, data.dotsDirection);
             stat.Clone(data.cur_status);
             newObject.Selected(data.selected);
+
             if (data.isDead)
                 newObject.DelayAfterResigter();
         };
@@ -72,6 +73,9 @@ public abstract class UnitSpawner : MonoBehaviour
             newObject.alloBuilding((AddressableManager.BuildingImage)data.workBuilding);
         else
             newObject.alloBuilding((ActionAlert.ActionType)data.villigeAction);
+
+        if (data.needGetName)
+            newObject.isDefaultName = true;
     }
 
     public Hero SpawnHeroData(HeroData data, int heroIndex)

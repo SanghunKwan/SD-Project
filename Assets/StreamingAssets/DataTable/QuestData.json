@@ -4,7 +4,7 @@
       "num": 0,
       "questType": 0,
       "name": "유닛 선택하기",
-      "detail": "유닛을 좌클릭하여 선택",
+      "detail": "유닛을 좌클릭 또는 드래그 앤 드롭하여 선택",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -51,7 +51,7 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "클릭"
+        "actionName": "유닛 선택"
 
       },
       "follow": {
@@ -83,7 +83,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 1
+        "size": 1,
+        "actionName": "ArmySet"
       },
       "trigger": 0,
       "require": {
@@ -149,7 +150,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 1
+        "size": 1,
+        "actionName": "ArmySelect"
       },
       "trigger": 0,
       "require": {
@@ -199,8 +201,8 @@
     {
       "num": 3,
       "questType": 0,
-      "name": "유닛 이동하기",
-      "detail": "유닛을 선택한 상태에서 우클릭",
+      "name": "시체에게 이동하기",
+      "detail": "유닛을 선택한 상태로 우클릭 혹은 F키로 현재 마우스 위치로 이동",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -209,25 +211,31 @@
       },
       "highLight": {
         "timeStop": false,
-        "highLight": 1,
+        "highLight": 2,
         "highLightPosition": {
-          "x": 4.0,
+          "x": 0.0,
           "y": 0.0,
           "z": 0.0
         },
-        "size": 1
+        "size": 1,
+        "actionName": "SimpleAct"
       },
       "trigger": 0,
       "require": {
-        "type": 0,
+        "type": 1,
         "layer": 7,
         "spot": {
-          "x": 4.0,
+          "x": 0.0,
           "y": 0.0,
           "z": 0.0
         },
         "radius": 1.0,
-        "itemDatas": [],
+        "itemDatas": [
+          {
+            "itemCode": 12,
+            "itemCount": 1
+          }
+        ],
         "actionType": 0,
         "actCondition": 0,
         "accumulatedTime": 1,
@@ -235,13 +243,19 @@
       },
       "act": {
         "spot": {
-          "x": 0.0,
+          "x": -8.0,
           "y": 0.0,
-          "z": 0.0
+          "z": -5.0
         },
-        "radius": 10.0,
-        "layer": 7,
-        "whatCause": 4
+        "radius": 5.0,
+        "layer": 16,
+        "id": 12,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 2,
+        "eventIndex": 0,
+        "eventNum": 0
       },
       "follow": {
         "datas": [
@@ -272,7 +286,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 1
+        "size": 1,
+        "actionName": "SimpleAct"
       },
       "trigger": 0,
       "require": {
@@ -297,11 +312,11 @@
       },
       "act": {
         "spot": {
-          "x": -5.0,
+          "x": -10.0,
           "y": 0.0,
           "z": -6.0
         },
-        "radius": 5.0,
+        "radius": 2.0,
         "layer": 15,
         "whatCause": 0
       },
@@ -314,17 +329,26 @@
         "datas": [
           {
             "type": 0,
-            "questNum": 5
+            "questNum": 18
           }
         ],
         "needCallNextQuest": true
+      },
+      "questHappening": {
+        "type": 1,
+        "vec": {
+          "x": -10.0,
+          "y": 0.0,
+          "z": -5.0
+        },
+        "index": 4
       }
     },
     {
       "num": 5,
       "questType": 0,
       "name": "아이템 사용하기",
-      "detail": "유닛을 선택한 상태에서 우클릭시 사용",
+      "detail": "유닛을 선택한 상태에서 아이템을 우클릭하여 사용",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -405,7 +429,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 2
+        "size": 2,
+        "actionName": "SimpleAct"
       },
       "trigger": 0,
       "require": {
@@ -1166,6 +1191,138 @@
           }
         ],
         "needCallNextQuest": false
+      }
+    },
+    {
+      "num": 18,
+      "questType": 0,
+      "name": "아이템 정보 확인하기",
+      "detail": "아이템 슬롯에 마우스를 1.5초 놓거나 좌클릭하여 정보 확인.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1650.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 7
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 0,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 1.0,
+        "itemDatas": [
+          {
+          }
+        ],
+        "actionType": 34,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 30.0,
+        "layer": 7,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "아이템 정보 확인"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 0,
+            "questNum": 5
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 19,
+      "questType": 0,
+      "name": "적 발견하기",
+      "detail": "적이 시야 범위 내에 들어오면 발견하여 전투태세에 돌입합니다.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1650.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 7
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 0,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 1.0,
+        "itemDatas": [
+          {
+          }
+        ],
+        "actionType": 34,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 30.0,
+        "layer": 7,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "아이템 정보 확인"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 0,
+            "questNum": 5
+          }
+        ],
+        "needCallNextQuest": true
       }
     }
   ],

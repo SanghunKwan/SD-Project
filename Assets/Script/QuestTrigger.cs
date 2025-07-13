@@ -60,10 +60,24 @@ public class QuestTrigger : MonoBehaviour
 
         ObjectManager.CObjectType type = GetObjectType(other.layer);
 
-        if (type != ObjectManager.CObjectType.Max && GameManager.manager.objectManager.ObjectDictionary[(int)type].ContainsKey(other))
-            return id != GameManager.manager.objectManager.ObjectDictionary[(int)type][other].Value.id;
+        if (type == ObjectManager.CObjectType.Max)
+        {
+            //item일 경우
+            int tempType = (int)ObjectManager.AdditionalType.Item;
 
-        else return false;
+            if (GameManager.manager.objectManager.NoneObjectDictionary[tempType].ContainsKey(other))
+            {
+                return id != ((ItemComponent)GameManager.manager.objectManager.NoneObjectDictionary[tempType][other].Value).Index;
+            }
+            return true;
+        }
+        else
+        {
+            if (GameManager.manager.objectManager.ObjectDictionary[(int)type].ContainsKey(other))
+                return id != GameManager.manager.objectManager.ObjectDictionary[(int)type][other].Value.id;
+            else
+                return true;
+        }
     }
     ObjectManager.CObjectType GetObjectType(int layerNum)
     {
@@ -80,7 +94,7 @@ public class QuestTrigger : MonoBehaviour
 
             default:
                 {
-                    Debug.Log("dictionary에 접근 실패");
+                    Debug.Log("CObjectType 아님");
                     return ObjectManager.CObjectType.Max;
                 }
         }

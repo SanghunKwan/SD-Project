@@ -22,7 +22,8 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "size": 1.0
+                "size": 1.0,
+                "actionName": ""
             },
             "trigger": 0,
             "require": {
@@ -68,6 +69,15 @@
                 "eventIndex": 0,
                 "eventNum": 0,
                 "actionName": ""
+            },
+            "questHappening": {
+                "type": 0,
+                "vec": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "index": 0
             }
         }
     ],
@@ -94,7 +104,8 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "size": 1.0
+                "size": 1.0,
+                "actionName": ""
             },
             "trigger": 0,
             "require": {
@@ -140,6 +151,15 @@
                 "eventIndex": 0,
                 "eventNum": 0,
                 "actionName": ""
+            },
+            "questHappening": {
+                "type": 0,
+                "vec": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "index": 0
             }
         }
     ],
@@ -166,7 +186,8 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "size": 1.0
+                "size": 1.0,
+                "actionName": ""
             },
             "trigger": 0,
             "require": {
@@ -212,6 +233,15 @@
                 "eventIndex": 0,
                 "eventNum": 0,
                 "actionName": ""
+            },
+            "questHappening": {
+                "type": 0,
+                "vec": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "index": 0
             }
         }
     ],
@@ -238,7 +268,8 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "size": 1.0
+                "size": 1.0,
+                "actionName": ""
             },
             "trigger": 0,
             "require": {
@@ -284,6 +315,15 @@
                 "eventIndex": 0,
                 "eventNum": 0,
                 "actionName": ""
+            },
+            "questHappening": {
+                "type": 0,
+                "vec": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "index": 0
             }
         }
     ]

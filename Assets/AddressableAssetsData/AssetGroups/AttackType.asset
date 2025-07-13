@@ -29,6 +29,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - RangeSkill
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 34dcd2a6645e76a419a575cd2a3d2fc2
+    m_Address: Assets/AddData/WeaponType_Icon/08_Mage_Staff.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MagicSkill
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
   m_SchemaSet:

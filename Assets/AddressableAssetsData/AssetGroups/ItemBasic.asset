@@ -23,6 +23,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - MeleeBase
     - RangeBase
+    - MagicBase
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 04d3d690da96abc44ab122ec87c67a04
     m_Address: Assets/AddData/Equips_Icon/11_Beast_Hide_nobg.png
@@ -30,6 +31,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - MeleeBase
     - RangeBase
+    - MagicBase
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d4f172d57e087124f9b9c2e124d6979c
     m_Address: Assets/AddData/Equips_Icon/SwordWood.png
@@ -42,6 +44,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - RangeBase
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 960243c7785727646aeb8b8bc37dc11a
+    m_Address: Assets/AddData/Equips_Icon/WandWood.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MagicBase
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}

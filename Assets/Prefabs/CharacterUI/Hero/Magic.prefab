@@ -186,7 +186,7 @@ MonoBehaviour:
   meshResolution: 1
   filter: {fileID: 3436178122997081757, guid: 57e71e843ad690c498d2f6a5595d812e, type: 3}
   Detailtime: 1
-  Head: {fileID: 0}
+  Head: {fileID: 8453417224747441016}
   defaultMaterial: {fileID: 2100000, guid: 95c04c5084391c44ea53e4b1d7b7a68f, type: 2}
 --- !u!114 &5983662283031617189
 MonoBehaviour:
@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c91ce829739d4045ae279bcc98c4942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onFieldDead: 0
   materials:
   - {fileID: 2100000, guid: ecf0cba63ada48d479e9a29da764c0e1, type: 2}
   - {fileID: 2100000, guid: d6ab43c564c49a24a86348494556b149, type: 2}
@@ -211,6 +212,7 @@ MonoBehaviour:
   overlappedCorpse: 0
   num: 2
   species: 1
+  inStageIndex: -1
 --- !u!114 &426054067307806279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa79dcf1c8fef848bef8a9f85452fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetEnermy: {fileID: 0}
   targetMove: {fileID: 0}
   isCounter: 0
   isHold: 0
@@ -451,5 +452,10 @@ Transform:
 --- !u!4 &802946792492448082 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5135780539386017764, guid: 6df9ef3a54e712140bc52605fea9e161, type: 3}
+  m_PrefabInstance: {fileID: 5503775783224250038}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8453417224747441016 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4121291495704090062, guid: 6df9ef3a54e712140bc52605fea9e161, type: 3}
   m_PrefabInstance: {fileID: 5503775783224250038}
   m_PrefabAsset: {fileID: 0}

@@ -28,6 +28,9 @@ namespace Unit
         protected UICircle copyUICircle;
         private NavMeshObstacle obstacle;
 
+        [SerializeField] protected bool onFieldDead;
+        public bool fieldDead => onFieldDead;
+
         [SerializeField] protected Material[] materials = new Material[3];
 
         [SerializeField] bool mouseOnCollider = false;
@@ -118,6 +121,9 @@ namespace Unit
                 hpbarScript.GetStatus(curstat, BarOffset);
             }
             CheckInitCount();
+
+            if (onFieldDead)
+                OnInitEnd += () => LoadDead(true);
         }
         protected void CheckInitCount()
         {
@@ -298,7 +304,8 @@ namespace Unit
 
         public void DelayAfterResigter()
         {
-            OnInitEnd += () => LoadDead(true);
+            onFieldDead = true;
+
         }
         protected void ReturnUIAfterDeath()
         {

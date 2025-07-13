@@ -153,6 +153,7 @@ namespace SaveData
         public int[] skillNum;
         public int villigeAction;
         public int workBuilding;
+        public bool needGetName;
         public UnitData unitData;
 
         public HeroData()
@@ -167,6 +168,7 @@ namespace SaveData
             skillNum = new int[4] { 1, 1, 1, 1 };
             villigeAction = 0;
             workBuilding = 0;
+            needGetName = false;
             unitData = new UnitData();
         }
         public HeroData(Hero hero) : this()
@@ -185,6 +187,7 @@ namespace SaveData
             skillNum = new int[4] { 1, 1, 1, 1 };
             villigeAction = 0;
             workBuilding = 0;
+            needGetName = false;
             unitData = new UnitData(statData);
         }
         public void SetHeroData(Hero hero)
@@ -202,11 +205,15 @@ namespace SaveData
             Array.Copy(hero.SkillsNum, skillNum, 4);
             villigeAction = (int)hero.VilligeAction;
             workBuilding = (int)hero.BuildingAction;
+            needGetName = false;
             unitData.SetData(hero);
             if (overrideKeycode)
                 keycode = hero.keycode;
         }
-
+        public void SetDefaultName()
+        {
+            needGetName = true;
+        }
     }
     [Serializable]
     public class BuildingData

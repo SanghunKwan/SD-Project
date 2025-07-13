@@ -53,26 +53,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 34dcd2a6645e76a419a575cd2a3d2fc2
-    m_Address: Assets/AddData/WeaponType_Icon/08_Mage_Staff.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7f0a5ed94469e964e95858e9cb605a47
-    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Beam.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 797d9d99418ba9644a2d18a0e24c0540
     m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Blackhole.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9e9163991bc88c244bb9122b6d5928df
-    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Buff.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - default

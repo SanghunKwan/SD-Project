@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c91ce829739d4045ae279bcc98c4942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onFieldDead: 0
   materials:
   - {fileID: 2100000, guid: ecf0cba63ada48d479e9a29da764c0e1, type: 2}
   - {fileID: 2100000, guid: d6ab43c564c49a24a86348494556b149, type: 2}
@@ -211,6 +212,7 @@ MonoBehaviour:
   overlappedCorpse: 0
   num: 1
   species: 1
+  inStageIndex: -1
 --- !u!114 &426054067307806279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa79dcf1c8fef848bef8a9f85452fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetEnermy: {fileID: 0}
   targetMove: {fileID: 0}
   isCounter: 0
   isHold: 0

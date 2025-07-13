@@ -5668,6 +5668,7 @@ MonoBehaviour:
   heroes:
   - {fileID: 5470614714861533334, guid: a0ed5b738cf9d4a4e9c2b838681784c9, type: 3}
   - {fileID: 5983662283031617189, guid: 044424bf73b74854588fcd84ccc50151, type: 3}
+  - {fileID: 5983662283031617189, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
   objectTransform: {fileID: 1842580190}
   monNavi: {fileID: 1747327119}
   stagePoolTransform: {fileID: 613401352}
@@ -6400,7 +6401,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2d08d53678d58574ca468b8a7dde0fd9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 81920aa416133d64284f9dadafa4f5e8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6430,7 +6431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b19b799443b1cd4a9531a395951be87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  label: 12
+  label: 14
   Type: 6
   previewImage: 0
   equipsImage: 0

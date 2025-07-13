@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour
     public ActionEvent onVilligeExpeditionFloorDelete { get; private set; } = new ActionEvent();
     public ActionEvent onGetMaterials { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeBuildingWindowClose { get; private set; } = new ActionEvent();
+    public ActionEvent onItemDescriptionPopUp { get; private set; } = new ActionEvent();
     #endregion
 
 

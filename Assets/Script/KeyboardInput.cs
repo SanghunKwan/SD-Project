@@ -35,7 +35,6 @@ public class KeyboardInput : MonoBehaviour
             GameManager.manager.Formation(inputAction.control.displayName);
 
         PlayerInputManager input = GetComponent<PlayerInputManager>();
-        input.ASDF();
     }
     public void OnTimeDelay(InputAction.CallbackContext inputAction)
     {

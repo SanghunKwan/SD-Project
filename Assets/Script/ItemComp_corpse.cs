@@ -25,6 +25,8 @@ public class ItemComp_corpse : ItemComponent
     }
     protected override void VirtualEnable()
     {
+        base.VirtualEnable();
+
         Action action = () =>
         {
             unitState.Death(false, true);

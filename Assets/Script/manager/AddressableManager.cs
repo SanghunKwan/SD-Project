@@ -82,8 +82,10 @@ public class AddressableManager : MonoBehaviour
         MeleeNormal,
         RangeBase,
         MeleeBase,
+        MagicBase,
         RangeSkill,
         MeleeSkill,
+        MagicSkill,
         StageSettlement,
         VilligeWindowImage
     }

@@ -30,6 +30,7 @@ public class InventoryDescription : InitObject
             gameObject.SetActive(true);
             animator.SetTrigger(trigger[1]);
             animator.ResetTrigger(trigger[0]);
+            GameManager.manager.onItemDescriptionPopUp.eventAction?.Invoke(0, transform.position);
         }
         else
         {

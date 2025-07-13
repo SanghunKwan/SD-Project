@@ -44,6 +44,24 @@ public class StorageManager : MonoBehaviour
     public void AddCorpse(GameObject itemFinder, Hero deadHeroData)
     {
         int heroIndex = deadHeroData.heroInStageIndex;
+        if (heroIndex < 0)
+        {
+            //spawnedHeroCorpse
+            //saveData 영웅 목록에 hero를 heroData로 바꿔 저장.
+            int allHeroCount = gameManager.battleClearManager.SaveDataInfo.hero.Length;
+            heroIndex = gameManager.battleClearManager.SaveDataInfo.stageData.heros.Length;
+            //saveData의 마지막에 추가.
+            Array.Resize(ref gameManager.battleClearManager.SaveDataInfo.stageData.heros, heroIndex + 1);
+            Array.Resize(ref gameManager.battleClearManager.SaveDataInfo.hero, allHeroCount + 1);
+            //heroIndex를 수정.
+            SaveData.HeroData heroData = new SaveData.HeroData(deadHeroData);
+            heroData.unitData.objectData.isDead = true;
+            heroData.SetDefaultName();
+            gameManager.battleClearManager.SaveDataInfo.hero[allHeroCount] = heroData;
+
+            gameManager.battleClearManager.SaveDataInfo.stageData.heros[heroIndex] = allHeroCount;
+        }
+
 
         m_inventoryComponents[(int)InventoryComponent.InventoryType.Stage].inventoryStorage.
             AddCorpse(gameManager.battleClearManager.SaveDataInfo.hero[heroIndex], heroIndex);

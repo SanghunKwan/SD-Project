@@ -29,7 +29,12 @@ namespace Unit
         public int[] FieldEquipsNum { get; private set; } = { 0, 0, 0 };
         public int[] SkillsNum { get; private set; } = { 1, 1, 1, 1 };
         public int lv { get; private set; } = 1;
-        public int heroInStageIndex { get; set; }
+        [SerializeField] int inStageIndex;
+        public int heroInStageIndex
+        {
+            get => inStageIndex;
+            set => inStageIndex = value;
+        }
 
         public ActionAlert.ActionType VilligeAction { get; private set; } = ActionAlert.ActionType.walking;
         public AddressableManager.BuildingImage BuildingAction { get; private set; }
@@ -59,6 +64,7 @@ namespace Unit
             {
                 DefaultNameManager.mananger.GetRandomName(out string heroName);
                 curstat.NAME = heroName;
+                name = heroName;
 
                 Villige_CheckText();
                 isDefaultName = false;

@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b19b799443b1cd4a9531a395951be87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  label: 12
+  label: 14
   Type: 6
   previewImage: 0
   equipsImage: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   video: 0
   mainMenuImage: 0
   stageSettlementImage: 0
+  villigeWindowImage: 0
   m_image: {fileID: 7611582955442393496}
 --- !u!95 &7771986556477689860
 Animator:

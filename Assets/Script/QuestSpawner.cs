@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 using UnityEngine.UIElements;
 
 public class QuestSpawner : MonoBehaviour
@@ -19,6 +21,7 @@ public class QuestSpawner : MonoBehaviour
     Action<QuestManager.QuestData, Action, int>[] createQuestRequirementsActions;
     Action<QuestManager.QuestData.QuestReward>[] EventClearActions;
     Action<QuestManager.QuestData.QuestEvent, QuestUISlot, QuestManager.QuestData>[] createQuestEventActions;
+    Action<QuestManager.QuestData.QuestHappening>[] prepareQuestHappenings;
 
     public QuestManager.QuestType[] types;
     [SerializeField] QuestUIViewer questUIViewer;
@@ -47,6 +50,10 @@ public class QuestSpawner : MonoBehaviour
             = new Action<QuestManager.QuestData.QuestAct, QuestManager.QuestType, int>[(int)QuestManager.QuestTrigger.Max];
         prepareQuestActions[(int)QuestManager.QuestTrigger.Location] = PrepareQuestbyLocation;
         prepareQuestActions[(int)QuestManager.QuestTrigger.UnitSpecificAct] = PrepareQuestbySpecificAction;
+
+        prepareQuestHappenings = new Action<QuestManager.QuestData.QuestHappening>[(int)QuestManager.QuestData.QuestHappening.QuestHappeningType.Max];
+        prepareQuestHappenings[(int)QuestManager.QuestData.QuestHappening.QuestHappeningType.ItemSpawn] = PrepareHappening;
+
 
         highLightActions2 = new HighLightActions[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.Max];
         highLightActions2[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.Vector] = HighLightVector;
@@ -125,6 +132,7 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeExpeditionFloorSelect] = GameManager.manager.onVilligeExpeditionFloorSelect;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeExpeditionFloorDelete] = GameManager.manager.onVilligeExpeditionFloorDelete;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.GetMaterials] = GameManager.manager.onGetMaterials;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.ItemDescriptionPopUp] = GameManager.manager.onItemDescriptionPopUp;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
@@ -317,7 +325,7 @@ public class QuestSpawner : MonoBehaviour
 
         void AddText()
         {
-            
+
             for (int i = 0; i < length; i++)
             {
                 tempData = questData.require.itemDatas[i];
@@ -443,12 +451,34 @@ public class QuestSpawner : MonoBehaviour
     {
         float nowScale = Time.timeScale;
 
+        InputActionMap map = PlayerInputManager.manager.input.currentActionMap;
+
         Action action = () =>
         {
             if (highlight.timeStop)
             {
                 Time.timeScale = 0;
                 slot.TimeStopHighLight();
+            }
+
+            if (highlight.highLight != QuestManager.QuestData.QuestHighLight.HighLightTarget.None)
+            {
+                //다른 키 못 누르게 하는 기능 추가.
+                foreach (var item in map.actions)
+                {
+                    item.Disable();
+                }
+                if (highlight.actionName == string.Empty)
+                {
+                    //활성화 키 없음.
+
+                    //마우스만 활성화.
+                }
+                else
+                {
+                    //필요한 키는 누르게 하는 기능 추가.
+                    map.FindAction(highlight.actionName).Enable();
+                }
             }
         };
         //마을에서 건물 관련 효과 진행중일 때 지연.
@@ -463,6 +493,12 @@ public class QuestSpawner : MonoBehaviour
                 Time.timeScale = nowScale;
 
                 GameManager.manager.onBattleClearManagerRegistered -= action;
+
+                foreach (var item in map.actions)
+                {
+                    item.Enable();
+                }
+
             }
         };
     }
@@ -517,6 +553,8 @@ public class QuestSpawner : MonoBehaviour
         QuestManager.QuestData data = questManager.GetQuestData(type, questNum);
         BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
 
+
+        prepareQuestHappenings[(int)data.questHappening.type]?.Invoke(data.questHappening);
         prepareQuestActions[(int)data.trigger](data.act, type, questNum);
     }
     void PrepareQuestbyLocation(QuestManager.QuestData.QuestAct act, QuestManager.QuestType type, int questNum)
@@ -551,6 +589,12 @@ public class QuestSpawner : MonoBehaviour
     }
 
 
+    public void PrepareHappening(QuestManager.QuestData.QuestHappening happening)
+    {
+        GameObject item = DropManager.instance.pool.CallItem(happening.index, 0);
+        item.transform.position = happening.vec;
+        item.SetActive(true);
+    }
 
     #endregion
 }

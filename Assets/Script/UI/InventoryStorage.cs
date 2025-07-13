@@ -581,7 +581,7 @@ public class InventoryStorage : StorageComponent
         Queue<CorpseData> corpseDataQueue;
         System.Text.StringBuilder text;
         BitArray corpseExist;
-        class CorpseData
+        struct CorpseData
         {
             public HeroData corpseHero;
             public int corpseIndex;

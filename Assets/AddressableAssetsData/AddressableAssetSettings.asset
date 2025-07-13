@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: d49b02cb2125a6547be07b7bded88ba5
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 147279ef3c42733eca080c4791aac818
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -101,8 +101,10 @@ MonoBehaviour:
     - default
     - MeleeSkill
     - RangeSkill
+    - MagicSkill
     - MeleeBase
     - RangeBase
+    - MagicBase
     - MeleeNormal
     - RangeNormal
     - MeleeUpgraded

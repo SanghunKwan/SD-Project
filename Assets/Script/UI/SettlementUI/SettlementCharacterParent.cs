@@ -40,6 +40,7 @@ public class SettlementCharacterParent : SettleCanSkip
         for (int i = 0; i < heroCount; i++)
         {
             heroData = heros[herosIndex[i]];
+            if (heroData.unitData.objectData.isDead) return;
             settlementCharacters[i].gameObject.SetActive(true);
             settlementCharacters[i].SetCharcterNameTag(heroData, i);
 

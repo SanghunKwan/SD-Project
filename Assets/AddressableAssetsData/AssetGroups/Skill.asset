@@ -29,6 +29,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - MeleeSkill
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e9163991bc88c244bb9122b6d5928df
+    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Buff.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MagicSkill
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
   m_SchemaSet:

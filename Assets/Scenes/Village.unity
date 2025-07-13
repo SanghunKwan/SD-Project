@@ -7685,67 +7685,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &574825962
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1522713235}
-    m_Modifications:
-    - target: {fileID: 700476434504372509, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 700476434504372509, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 700476434504372509, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 700476434504372509, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 700476434504372509, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 700476434504372509, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 700476434504372509, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 700476434504372509, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 700476434504372509, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 700476434504372509, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825840512946639052, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_Name
-      value: Magic
-      objectReference: {fileID: 0}
-    - target: {fileID: 5825840512946639052, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
 --- !u!1 &577366866
 GameObject:
   m_ObjectHideFlags: 0
@@ -10289,11 +10228,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 921455171}
   m_CullTransparentMesh: 1
---- !u!4 &933032907 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 700476434504372509, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
-  m_PrefabInstance: {fileID: 574825962}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &940148386
 GameObject:
   m_ObjectHideFlags: 0
@@ -15219,7 +15153,6 @@ Transform:
   - {fileID: 1901500581}
   - {fileID: 1813715210}
   - {fileID: 618232293}
-  - {fileID: 933032907}
   - {fileID: 1930688570}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19104,8 +19037,10 @@ MonoBehaviour:
   label:
   - m_LabelString: MeleeSkill
   - m_LabelString: RangeSkill
+  - m_LabelString: MagicSkill
   - m_LabelString: MeleeBase
   - m_LabelString: RangeBase
+  - m_LabelString: MagicBase
   - m_LabelString: Building
   - m_LabelString: VilligeWindowImage
 --- !u!4 &2022491060
@@ -49855,12 +49790,15 @@ MonoBehaviour:
   profileSprites:
   - {fileID: 21300000, guid: 2288e36e5a5addb48b9708892b776dd9, type: 3}
   - {fileID: 21300000, guid: c6e3240e3d8e64e4abb1546d8a5ad94d, type: 3}
+  - {fileID: 21300000, guid: a01d9bc81ff6da94ca23dc9da00e461a, type: 3}
   profileVec:
   - {x: 0, y: -460}
   - {x: 180, y: -750}
+  - {x: 180, y: -360}
   profileSizeDelta:
   - {x: 2000, y: 2200}
   - {x: 2800, y: 2500}
+  - {x: 2800, y: 2400}
   characterCam: {fileID: 8294772380786181844}
 --- !u!1 &6889999816569652447
 GameObject:

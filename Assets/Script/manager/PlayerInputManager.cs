@@ -49,10 +49,5 @@ public class PlayerInputManager : MonoBehaviour
             }
         }
     }
-    public void ASDF()
-    {
-        Debug.Log(input.currentActionMap.name);
-    }
-
 
 }

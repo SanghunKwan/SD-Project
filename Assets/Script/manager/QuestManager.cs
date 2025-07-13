@@ -25,6 +25,7 @@ public class QuestManager : JsonLoad
             public HighLightTarget highLight;
             public Vector3 highLightPosition;
             public float size;
+            public string actionName;
 
             public QuestHighLight()
             {
@@ -32,6 +33,7 @@ public class QuestManager : JsonLoad
                 highLight = HighLightTarget.Vector;
                 highLightPosition = Vector3.zero;
                 size = 1;
+                actionName = string.Empty;
             }
         }
         [Serializable]
@@ -117,6 +119,8 @@ public class QuestManager : JsonLoad
                 VilligeExpeditionFloorSelect,
                 VilligeExpeditionFloorDelete,
                 GetMaterials,
+                ItemDescriptionPopUp,
+
                 Max
             }
             public enum ActCondition
@@ -223,6 +227,29 @@ public class QuestManager : JsonLoad
                 Max
             }
         }
+        [Serializable]
+        public class QuestHappening
+        {
+            public enum QuestHappeningType
+            {
+                None,
+                ItemSpawn,
+
+
+                Max
+            }
+
+            public QuestHappeningType type;
+            public Vector3 vec;
+            public int index;
+
+            public QuestHappening()
+            {
+                type = QuestHappeningType.None;
+                vec = Vector3.zero;
+                index = 0;
+            }
+        }
 
         public int num;
         public QuestType questType;
@@ -236,6 +263,7 @@ public class QuestManager : JsonLoad
         public QuestAct act;
         public QuestFollow follow;
         public QuestEvent questEvent;
+        public QuestHappening questHappening;
 
         public QuestData()
         {
@@ -249,6 +277,7 @@ public class QuestManager : JsonLoad
             require = new QuestRequirements();
             act = new QuestAct();
             questEvent = new QuestEvent();
+            questHappening = new QuestHappening();
         }
     }
 
@@ -322,7 +351,7 @@ public class QuestManager : JsonLoad
     #region 안 쓰는 기능
     public override void Init()
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 
     #endregion
