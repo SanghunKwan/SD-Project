@@ -87,6 +87,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magic
       objectReference: {fileID: 0}
+    - target: {fileID: 5825840512946639052, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5983662283031617189, guid: de6acce04f2c9464d9ace63e5d0d6bee, type: 3}
       propertyPath: onFieldDead
       value: 1

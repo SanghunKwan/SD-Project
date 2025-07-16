@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class QuestUISlot : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI grade;
     [SerializeField] TextMeshProUGUI title;
     [SerializeField] TextMeshProUGUI detail;
     [SerializeField] Animator animator;
@@ -15,18 +16,31 @@ public class QuestUISlot : MonoBehaviour
 
     Queue<QuestUISlot> viewerQueue;
 
-    int triggerOffNum;
-    int triggerHighLightNum;
+    static int triggerOffNum = Animator.StringToHash("fadeOut");
+    static int triggerHighLightNum = Animator.StringToHash("highLight");
     int animStateNameHash;
 
     public Action hideAction { get; set; }
 
     IEnumerator enumerator;
 
-    private void Awake()
+    public void Call(in Color gradeColor, in Color gradientColorUp, in Color gradientColorDown)
     {
-        triggerOffNum = Animator.StringToHash("fadeOut");
-        triggerHighLightNum = Animator.StringToHash("highLight");
+        gameObject.SetActive(true);
+        animator.Rebind();
+        grade.color = gradeColor;
+        grade.colorGradient = new VertexGradient(gradientColorUp, Color.clear,
+                                                 gradientColorDown, Color.clear);
+    }
+
+    public void InitQuestText(QuestManager.QuestGrade gradeData, in string dataTitle, in string dataDetail)
+    {
+        InitQuestText(gradeData.ToString(), dataTitle, dataDetail);
+    }
+    public void InitQuestText(in string gradeData, in string dataTitle, in string dataDetail)
+    {
+        grade.text = gradeData;
+        SetQuestText(dataTitle, dataDetail);
     }
     public void SetQuestText(in string dataTitle, in string dataDetail)
     {
@@ -108,19 +122,16 @@ public class QuestUISlot : MonoBehaviour
     void SlotSetSize(float normalizedTime)
     {
         float spacing = normalizedTime * 20f;
-
         layoutGroup.spacing = spacing;
-        layoutGroup.padding.top = Mathf.RoundToInt(spacing);
+
+        layoutGroup.padding.top = Mathf.RoundToInt(2f * spacing);
         layoutGroup.padding.bottom = Mathf.RoundToInt(1.5f * spacing);
 
+        grade.rectTransform.sizeDelta = new Vector2(340, normalizedTime * grade.preferredHeight);
         title.rectTransform.sizeDelta = new Vector2(340, normalizedTime * title.preferredHeight);
         detail.rectTransform.sizeDelta = new Vector2(340, normalizedTime * detail.preferredHeight);
     }
     //onenable로 vertical padding spacing * 1.5f로 유지.
     //onFacdOutEnd로 동일하게 유지.
-    public void Call()
-    {
-        gameObject.SetActive(true);
-        animator.Rebind();
-    }
+
 }

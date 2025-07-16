@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static QuestManager;
 
 public class QuestManager : JsonLoad
 {
@@ -120,6 +121,8 @@ public class QuestManager : JsonLoad
                 VilligeExpeditionFloorDelete,
                 GetMaterials,
                 ItemDescriptionPopUp,
+                StageQuestClear,
+                MinimapInput,
 
                 Max
             }
@@ -253,6 +256,8 @@ public class QuestManager : JsonLoad
 
         public int num;
         public QuestType questType;
+        public QuestGrade questGrade;
+
         public string name;
         public string detail;
         public QuestReward reward;
@@ -269,6 +274,7 @@ public class QuestManager : JsonLoad
         {
             num = 1;
             questType = QuestType.FloorQuest;
+            questGrade = QuestGrade.튜토리얼;
             name = "바보들의 대잔치";
             detail = "모든 몬스터 죽이기";
             reward = new QuestReward();
@@ -312,6 +318,12 @@ public class QuestManager : JsonLoad
         VilligePerformOnlyOne,
         FloorQuest,
         VilligeQuest
+    }
+    public enum QuestGrade
+    {
+        튜토리얼,
+        스테이지,
+
     }
     public enum QuestTrigger
     {

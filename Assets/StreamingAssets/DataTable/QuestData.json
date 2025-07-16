@@ -3,6 +3,7 @@
     {
       "num": 0,
       "questType": 0,
+      "questGrade": 0,
       "name": "유닛 선택하기",
       "detail": "유닛을 좌클릭 또는 드래그 앤 드롭하여 선택",
       "reward": {
@@ -67,6 +68,7 @@
     {
       "num": 1,
       "questType": 0,
+      "questGrade": 0,
       "name": "부대지정하기",
       "detail": "ctrl키와 키보드 상단의 숫자키를 이용해 부대지정",
       "reward": {
@@ -119,7 +121,7 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "ctrl + 숫자키"
+        "actionName": "ctrl + 부대 키"
       },
       "follow": {
         "datas": [
@@ -134,6 +136,75 @@
     {
       "num": 2,
       "questType": 0,
+      "questGrade": 0,
+      "name": "영웅 선택 해제하기",
+      "detail": "ctrl을 누르고 선택된 영웅을 누르거나 유닛이 없는 장소를 클릭, 드래그 앤 드롭하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": true,
+        "highLight": 2,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 1
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 1,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 1.0,
+        "itemDatas": [
+          {
+          }
+        ],
+        "actionType": 28,
+        "actCondition": 0,
+        "conditionComparison": 4,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 30.0,
+        "layer": 7,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "영웅 선택 해제"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 0,
+            "questNum": 3
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 3,
+      "questType": 0,
+      "questGrade": 0,
       "name": "부대호출하기",
       "detail": "키보드 상단 숫자키를 눌러 이전에 저장한 부대를 다시 불러오자",
       "reward": {
@@ -186,76 +257,7 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "숫자키"
-      },
-      "follow": {
-        "datas": [
-          {
-            "type": 0,
-            "questNum": 3
-          }
-        ],
-        "needCallNextQuest": true
-      }
-    },
-    {
-      "num": 3,
-      "questType": 0,
-      "name": "시체에게 이동하기",
-      "detail": "유닛을 선택한 상태로 우클릭 혹은 F키로 현재 마우스 위치로 이동",
-      "reward": {
-        "rewardType": 0,
-        "rewardItems": [
-          {}
-        ]
-      },
-      "highLight": {
-        "timeStop": false,
-        "highLight": 2,
-        "highLightPosition": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "size": 1,
-        "actionName": "SimpleAct"
-      },
-      "trigger": 0,
-      "require": {
-        "type": 1,
-        "layer": 7,
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 1.0,
-        "itemDatas": [
-          {
-            "itemCode": 12,
-            "itemCount": 1
-          }
-        ],
-        "actionType": 0,
-        "actCondition": 0,
-        "accumulatedTime": 1,
-        "stageOffsetIndex": 0
-      },
-      "act": {
-        "spot": {
-          "x": -8.0,
-          "y": 0.0,
-          "z": -5.0
-        },
-        "radius": 5.0,
-        "layer": 16,
-        "id": 12,
-        "whatCause": 0
-      },
-      "questEvent": {
-        "eventType": 2,
-        "eventIndex": 0,
-        "eventNum": 0
+        "actionName": "부대 키"
       },
       "follow": {
         "datas": [
@@ -270,6 +272,7 @@
     {
       "num": 4,
       "questType": 0,
+      "questGrade": 0,
       "name": "아이템 획득하기",
       "detail": "유닛이 아이템 위치로 이동하면 자동 획득",
       "reward": {
@@ -323,13 +326,14 @@
       "questEvent": {
         "eventType": 2,
         "eventIndex": 0,
-        "eventNum": 0
+        "eventNum": 0,
+        "actionName": "아이템 정보 확인"
       },
       "follow": {
         "datas": [
           {
             "type": 0,
-            "questNum": 18
+            "questNum": 5
           }
         ],
         "needCallNextQuest": true
@@ -347,6 +351,74 @@
     {
       "num": 5,
       "questType": 0,
+      "questGrade": 0,
+      "name": "아이템 정보 확인하기",
+      "detail": "아이템 슬롯에 마우스를 1.5초 놓거나 좌클릭하여 정보 확인.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1650.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 7
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 0,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 1.0,
+        "itemDatas": [
+          {
+          }
+        ],
+        "actionType": 34,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 30.0,
+        "layer": 7,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "아이템 정보 확인"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 0,
+            "questNum": 6
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 6,
+      "questType": 0,
+      "questGrade": 0,
       "name": "아이템 사용하기",
       "detail": "유닛을 선택한 상태에서 아이템을 우클릭하여 사용",
       "reward": {
@@ -404,15 +476,16 @@
         "datas": [
           {
             "type": 0,
-            "questNum": 6
+            "questNum": 7
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 6,
+      "num": 7,
       "questType": 0,
+      "questGrade": 0,
       "name": "공격해보기",
       "detail": "적 유닛 위에 마우스를 올리고 A키 혹은 적 유닛 우클릭으로 타겟지정",
       "reward": {
@@ -470,102 +543,23 @@
       "follow": {
         "datas": [
           {
-            "type": 0,
-            "questNum": 7
+            "type": 2,
+            "questNum": 2
           },
           {
             "type": 0,
             "questNum": 8
-          },
-          {
-            "type": 0,
-            "questNum": 9
-          },
-          {
-            "type": 0,
-            "questNum": 10
-          },
-          {
-            "type": 0,
-            "questNum": 11
-          },
-          {
-            "type": 2,
-            "questNum": 0
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 7,
-      "questType": 0,
-      "name": "적 클릭하기",
-      "detail": "발각되면 적은 소리를 내 동료를 불러모읍니다.",
-      "reward": {
-        "rewardType": 0,
-        "rewardItems": [
-          {}
-        ]
-      },
-      "highLight": {
-        "timeStop": true,
-        "highLight": 2,
-        "highLightPosition": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "size": 1
-      },
-      "trigger": 1,
-      "require": {
-        "type": 2,
-        "layer": 10,
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 1.0,
-        "itemDatas": [
-          {
-          }
-        ],
-        "actionType": 6,
-        "actCondition": 0,
-        "accumulatedTime": 1,
-        "stageOffsetIndex": 0
-      },
-      "act": {
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 1.0,
-        "layer": 10,
-        "whatCause": 0
-      },
-      "questEvent": {
-        "eventType": 3,
-        "eventIndex": 0,
-        "eventNum": 0,
-        "actionName": "클릭"
-      },
-      "follow": {
-        "datas": [
-          {
-          }
-        ],
-        "needCallNextQuest": false
-      }
-    },
-    {
       "num": 8,
       "questType": 0,
-      "name": "기습",
-      "detail": "기습하는 적을 발견해 공격을 회피하세요.",
+      "questGrade": 0,
+      "name": "미니맵 활용",
+      "detail": "미니맵을 좌클릭하여 화면 전환.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -573,14 +567,14 @@
         ]
       },
       "highLight": {
-        "timeStop": true,
-        "highLight": 2,
+        "timeStop": false,
+        "highLight": 4,
         "highLightPosition": {
           "x": 0.0,
           "y": 0.0,
           "z": 0.0
         },
-        "size": 1
+        "size": 0
       },
       "trigger": 1,
       "require": {
@@ -596,9 +590,9 @@
           {
           }
         ],
-        "actionType": 13,
+        "actionType": 36,
         "actCondition": 0,
-        "accumulatedTime": 2,
+        "accumulatedTime": 1,
         "stageOffsetIndex": 0
       },
       "act": {
@@ -607,23 +601,32 @@
           "y": 0.0,
           "z": 0.0
         },
-        "radius": 1.0,
-        "layer": 10,
-        "whatCause": 2
+        "radius": 0.0,
+        "layer": 1,
+        "whatCause": 35
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "미니맵 좌클릭"
       },
       "follow": {
         "datas": [
           {
+            "type": 0,
+            "questNum": 9
           }
         ],
-        "needCallNextQuest": false
+        "needCallNextQuest": true
       }
     },
     {
       "num": 9,
       "questType": 0,
-      "name": "",
-      "detail": "영웅을 선택하세요.",
+      "questGrade": 0,
+      "name": "미니맵 활용",
+      "detail": "유닛을 선택한 상태에서 미니맵을 이용해 명령 가능.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -632,7 +635,7 @@
       },
       "highLight": {
         "timeStop": false,
-        "highLight": 0,
+        "highLight": 4,
         "highLightPosition": {
           "x": 0.0,
           "y": 0.0,
@@ -640,10 +643,10 @@
         },
         "size": 0
       },
-      "trigger": 1,
+      "trigger": 0,
       "require": {
         "type": 2,
-        "layer": 7,
+        "layer": 1,
         "spot": {
           "x": 0.0,
           "y": 0.0,
@@ -654,135 +657,7 @@
           {
           }
         ],
-        "actionType": 6,
-        "actCondition": 2,
-        "accumulatedTime": 1,
-        "stageOffsetIndex": 8
-      },
-      "act": {
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 1.0,
-        "layer": 8,
-        "whatCause": 13
-      },
-      "questEvent": {
-        "eventType": 3,
-        "eventIndex": 0,
-        "eventNum": 0,
-        "actionName": "영웅 좌클릭"
-      },
-      "follow": {
-        "datas": [
-          {
-          }
-        ],
-        "needCallNextQuest": false
-      }
-    },
-    {
-      "num": 10,
-      "questType": 0,
-      "name": "",
-      "detail": "기습중인 적을 타겟으로 지정하세요.",
-      "reward": {
-        "rewardType": 0,
-        "rewardItems": [
-          {}
-        ]
-      },
-      "highLight": {
-        "timeStop": false,
-        "highLight": 0,
-        "highLightPosition": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "size": 0
-      },
-      "trigger": 1,
-      "require": {
-        "type": 2,
-        "layer": 10,
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 1.0,
-        "itemDatas": [
-          {
-          }
-        ],
-        "actionType": 14,
-        "actCondition": 2,
-        "accumulatedTime": 1,
-        "stageOffsetIndex": 8
-      },
-      "act": {
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 1.0,
-        "layer": 8,
-        "whatCause": 13
-      },
-      "questEvent": {
-        "eventType": 3,
-        "eventIndex": 0,
-        "eventNum": 0,
-        "actionName": "적 우클릭"
-      },
-      "follow": {
-        "datas": [
-          {
-          }
-        ],
-        "needCallNextQuest": false
-      }
-    },
-    {
-      "num": 11,
-      "questType": 0,
-      "name": "목숨의 위기",
-      "detail": "체력이 30% 이하가 되면 자동으로 시간감속이 발동한다. 아이템으로 회복하자.",
-      "reward": {
-        "rewardType": 0,
-        "rewardItems": [
-          {}
-        ]
-      },
-      "highLight": {
-        "timeStop": true,
-        "highLight": 2,
-        "highLightPosition": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "size": 1
-      },
-      "trigger": 1,
-      "require": {
-        "type": 2,
-        "layer": 7,
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 1.0,
-        "itemDatas": [
-          {
-          }
-        ],
-        "actionType": 10,
+        "actionType": 36,
         "actCondition": 0,
         "accumulatedTime": 1,
         "stageOffsetIndex": 0
@@ -793,27 +668,32 @@
           "y": 0.0,
           "z": 0.0
         },
-        "radius": 1.0,
+        "radius": 30.0,
         "layer": 7,
-        "whatCause": 4
+        "whatCause": 0
       },
       "questEvent": {
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "아이템 우클릭"
+        "actionName": "우클릭"
       },
       "follow": {
         "datas": [
           {
+            "type": 0,
+            "questNum": 10
           }
         ],
-        "needCallNextQuest": false
+        "needCallNextQuest": true
       }
     },
+
+
     {
       "num": 12,
       "questType": 0,
+      "questGrade": 0,
       "name": "부대 컨트롤",
       "detail": "드래그앤드롭, shift+클릭\n활용해서 다중 선택",
       "reward": {
@@ -1193,72 +1073,7 @@
         "needCallNextQuest": false
       }
     },
-    {
-      "num": 18,
-      "questType": 0,
-      "name": "아이템 정보 확인하기",
-      "detail": "아이템 슬롯에 마우스를 1.5초 놓거나 좌클릭하여 정보 확인.",
-      "reward": {
-        "rewardType": 0,
-        "rewardItems": [
-          {}
-        ]
-      },
-      "highLight": {
-        "timeStop": false,
-        "highLight": 4,
-        "highLightPosition": {
-          "x": 1650.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "size": 7
-      },
-      "trigger": 0,
-      "require": {
-        "type": 2,
-        "layer": 0,
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 1.0,
-        "itemDatas": [
-          {
-          }
-        ],
-        "actionType": 34,
-        "actCondition": 0,
-        "accumulatedTime": 1,
-        "stageOffsetIndex": 0
-      },
-      "act": {
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 30.0,
-        "layer": 7,
-        "whatCause": 0
-      },
-      "questEvent": {
-        "eventType": 3,
-        "eventIndex": 0,
-        "eventNum": 0,
-        "actionName": "아이템 정보 확인"
-      },
-      "follow": {
-        "datas": [
-          {
-            "type": 0,
-            "questNum": 5
-          }
-        ],
-        "needCallNextQuest": true
-      }
-    },
+
     {
       "num": 19,
       "questType": 0,
@@ -4446,6 +4261,7 @@
     {
       "num": 0,
       "questType": 2,
+      "questGrade": 1,
       "name": "정화",
       "detail": "모든 적 처치",
       "reward": {
@@ -4508,6 +4324,7 @@
     {
       "num": 1,
       "questType": 2,
+      "questGrade": 1,
       "name": "이동",
       "detail": "다른 스테이지로 이동",
       "reward": {
@@ -4569,6 +4386,71 @@
           }
         ],
         "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 2,
+      "questType": 2,
+      "questGrade": 1,
+      "name": "수집",
+      "detail": "재료 아이템 수집",
+      "reward": {
+        "rewardType": 1,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 0,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 1
+      },
+      "trigger": 0,
+      "require": {
+        "type": 1,
+        "layer": 0,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 1.0,
+        "itemDatas": [
+          {
+            "itemCode": 4,
+            "itemCount": 3
+          }
+        ],
+        "actionType": 5,
+        "actCondition": 1,
+        "accumulatedTime": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 30.0,
+        "layer": 7,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 2,
+        "eventIndex": 0,
+        "eventNum": 0
+      },
+      "follow": {
+        "datas": [
+          {
+          }
+        ],
+        "needCallNextQuest": false
       }
     }
   ],

@@ -41,10 +41,12 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     void ActionLeft(RaycastHit hit)
     {
         GameManager.manager.ScreenToPoint(hit.point);
+        GameManager.manager.onMinimapInput.eventAction?.Invoke(0, hit.point);
     }
     void ActionRight(RaycastHit hit)
     {
         GameManager.manager.OrderUnit(hit);
+        GameManager.manager.onMinimapInput.eventAction?.Invoke(1, hit.point);
     }
     void RegisterStageClearEvent()
     {

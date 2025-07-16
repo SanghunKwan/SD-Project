@@ -62,7 +62,8 @@ public class StagePoolManager : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             GameObject go = folder.GetChild(i).gameObject;
-            data.objectDatas[i] = new ObjectData(manager.ObjectDictionary[2][go].Value);
+            if (manager.ObjectDictionary[2].ContainsKey(go))
+                data.objectDatas[i] = new ObjectData(manager.ObjectDictionary[2][go].Value);
         }
 
         //monster&corpse
@@ -93,9 +94,10 @@ public class StagePoolManager : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             GameObject go = folder.GetChild(i).gameObject;
-            data.dropItemDatas[i] = new DropItemData((ItemComponent)(manager.NoneObjectDictionary[0][go].Value));
+            if (manager.NoneObjectDictionary[0].ContainsKey(go))
+                data.dropItemDatas[i] = new DropItemData((ItemComponent)(manager.NoneObjectDictionary[0][go].Value));
         }
 
-        
+
     }
 }

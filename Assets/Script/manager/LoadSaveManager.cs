@@ -283,7 +283,7 @@ namespace SaveData
         public List<YetDroppedItem> yetDroppedItems;
 
 
-        public StageData() : this(new int[] { 0 }, new int[] { 0 }) { }
+        public StageData() : this(new int[] { 0, 1 }, new int[] { 0 }) { }
         public StageData(in int[] getFloors, in int[] getHeros)
         {
             heros = getHeros;

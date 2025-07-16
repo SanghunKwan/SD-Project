@@ -11,11 +11,14 @@ public class AOEComponent : MonoBehaviour
     int numDef;
 
     System.Action<Collider, Vector3> action;
+    HashSet<Collider> alreadyColliders;
+
     // Start is called before the first frame update
     void Awake()
     {
         aoeCollider = GetComponent<Collider>();
         numDef = AOEManager.manager.numDef;
+        alreadyColliders = new HashSet<Collider>();
     }
 
     // Update is called once per frame
@@ -41,10 +44,15 @@ public class AOEComponent : MonoBehaviour
         uiBase.gameObject.SetActive(false);
         transform.SetParent(AOEManager.manager.transform.GetChild((int)type), false);
         gameObject.SetActive(false);
+        
+        alreadyColliders.Clear();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (alreadyColliders.Contains(other)) return;
+
         action(other, transform.position);
+        alreadyColliders.Add(other);
     }
 }

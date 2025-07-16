@@ -112,7 +112,8 @@ public class BattleClearManager : MonoBehaviour
 
     public void ActivateNextFloor(in QuestSpawner questSpawner, bool needSave = true)
     {
-        if (nowFloorIndex + 1 < lastFloorIndex)
+        int nextFloorIndex = nowFloorIndex + 1;
+        if (nextFloorIndex < lastFloorIndex)
         {
             GetStageComponent(1).gameObject.SetActive(true);
             questSpawner.PrepareQuest(QuestManager.QuestType.FloorQuest, 1);
@@ -123,6 +124,8 @@ public class BattleClearManager : MonoBehaviour
             Debug.Log("마지막 스테이지 클리어!");
             StageEndButton.gameObject.SetActive(true);
         }
+
+        GameManager.manager.onStageQuestClear.eventAction?.Invoke(nextFloorIndex, Vector3.zero);
 
         if (needSave)
             OverrideSaveFile(true);
@@ -290,7 +293,7 @@ public class BattleClearManager : MonoBehaviour
         int length = manager.NoneObjectList[(int)ObjectManager.AdditionalType.Building].Count;
         saveData.building = new BuildingData[length];
         LinkedListNode<MonoBehaviour> node = manager.NoneObjectList[(int)ObjectManager.AdditionalType.Building].Last;
-        
+
         for (int i = 0; i < length; i++)
         {
             saveData.building[i] = new BuildingData((BuildingConstructDelay)node.Value);

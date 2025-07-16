@@ -4,8 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
-using UnityEngine.UIElements;
 
 public class QuestSpawner : MonoBehaviour
 {
@@ -133,6 +131,8 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeExpeditionFloorDelete] = GameManager.manager.onVilligeExpeditionFloorDelete;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.GetMaterials] = GameManager.manager.onGetMaterials;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.ItemDescriptionPopUp] = GameManager.manager.onItemDescriptionPopUp;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.StageQuestClear] = GameManager.manager.onStageQuestClear;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.MinimapInput] = GameManager.manager.onMinimapInput;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
@@ -183,8 +183,8 @@ public class QuestSpawner : MonoBehaviour
         QuestManager.QuestData data = questManager.GetQuestData(type, questNum);
 
         //퀘스트 설명 UI 생성
-        questUIViewer.ShowNewQuest(out QuestUISlot slot);
-        slot.SetQuestText(data.name, data.detail);
+        questUIViewer.ShowNewQuest(data.questGrade, out QuestUISlot slot);
+        slot.InitQuestText(data.questGrade, data.name, data.detail);
 
         //퀘스트 관련 backGround
         QuestHighLight2(data.highLight, callPosition, slot);
@@ -250,17 +250,18 @@ public class QuestSpawner : MonoBehaviour
     }
     void CreateQuestForItem(QuestManager.QuestData data, Action completeAction, int nowProgress)
     {
-        DisposableActionItem(() =>
+        DisposableActionItem(null, () =>
         {
             EventClear(data.reward);
             completeAction();
         },
         data.require.itemDatas);
     }
-    void DisposableActionItem(Action action, QuestManager.QuestData.ItemData[] itemDatas)
+    void DisposableActionItem(Action callAction, Action completeAction, QuestManager.QuestData.ItemData[] itemDatas)
     {
         void Wrapper(int layerNum)
         {
+            callAction?.Invoke();
             int length = itemDatas.Length;
             for (int i = 0; i < length; i++)
             {
@@ -268,7 +269,7 @@ public class QuestSpawner : MonoBehaviour
                     return;
             }
 
-            action();
+            completeAction?.Invoke();
             storage.SubtractListener(Wrapper);
         }
         storage.AddListener(Wrapper);
@@ -321,11 +322,10 @@ public class QuestSpawner : MonoBehaviour
         {
             slot.SetQuestText(originalTitle, originalDetail);
             AddText();
-        }, questData.require.itemDatas);
+        }, null, questData.require.itemDatas);
 
         void AddText()
         {
-
             for (int i = 0; i < length; i++)
             {
                 tempData = questData.require.itemDatas[i];

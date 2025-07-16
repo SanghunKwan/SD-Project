@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
     public ActionEvent onGetMaterials { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeBuildingWindowClose { get; private set; } = new ActionEvent();
     public ActionEvent onItemDescriptionPopUp { get; private set; } = new ActionEvent();
+    public ActionEvent onStageQuestClear { get; private set; } = new ActionEvent();
+    public ActionEvent onMinimapInput { get; private set; } = new ActionEvent();
     #endregion
 
 
@@ -405,7 +407,10 @@ public class GameManager : MonoBehaviour
         }
 
         if (selectedCount < 1)
+        {
+            onHeroSelect.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
             return;
+        }
 
         if (count % 2 == 0)
         {

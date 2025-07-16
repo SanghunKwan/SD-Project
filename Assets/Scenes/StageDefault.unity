@@ -11916,6 +11916,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestUI
       objectReference: {fileID: 0}
+    - target: {fileID: 668202499233317128, guid: 74a73959cc775c34f85782a0a78fd9d5, type: 3}
+      propertyPath: gradientColors.Array.data[1].b
+      value: 0.6901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 668202499233317128, guid: 74a73959cc775c34f85782a0a78fd9d5, type: 3}
+      propertyPath: gradientColors.Array.data[1].g
+      value: 0.6901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 668202499233317128, guid: 74a73959cc775c34f85782a0a78fd9d5, type: 3}
+      propertyPath: gradientColors.Array.data[1].r
+      value: 0.8666667
+      objectReference: {fileID: 0}
     - target: {fileID: 3206450231146780424, guid: 74a73959cc775c34f85782a0a78fd9d5, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -11999,6 +12011,10 @@ PrefabInstance:
     - target: {fileID: 6976708426146038656, guid: 74a73959cc775c34f85782a0a78fd9d5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348867722273841120, guid: 74a73959cc775c34f85782a0a78fd9d5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

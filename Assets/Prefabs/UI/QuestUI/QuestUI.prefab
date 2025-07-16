@@ -325,3 +325,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotPrefab: {fileID: 5735888758169130569, guid: ceac485abc204274ba575c2ec2c4696c, type: 3}
   ContentsTransform: {fileID: 731056582264668961}
+  gradeColors:
+  - {r: 0.3882353, g: 0.40392157, b: 0.8862745, a: 1}
+  - {r: 0.6901961, g: 0.4509804, b: 0.4509804, a: 1}
+  gradientColors:
+  - {r: 0.39607844, g: 0.16862746, b: 0.16862746, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.39215687, b: 0.39215687, a: 1}
+  - {r: 0.25490198, g: 0.25490198, b: 0.25490198, a: 1}
