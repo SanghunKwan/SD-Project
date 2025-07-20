@@ -6,11 +6,18 @@ using UnityEngine;
 
 public class StageFloorComponent : InitObject
 {
+    const float localPlaneLength = 5;
+    const float localLinkOffset = 0.45f;
+
+    float PlaneMagnification;
+
     StageFloorComponent[] nearComponent;
     Transform navMeshParent;
 
     [SerializeField] int stageIndex;
     int directionCount;
+
+
     public enum Direction2Array
     {
         RightUP,
@@ -19,20 +26,33 @@ public class StageFloorComponent : InitObject
         LeftUP,
         Max
     }
+
+
+
+
     public override void Init()
     {
         directionCount = (int)Direction2Array.Max;
 
         navMeshParent = transform.GetChild(0);
+        PlaneMagnification = navMeshParent.localScale.x;
+
         nearComponent = new StageFloorComponent[directionCount];
     }
-    public void NewLink(NavMeshLink link, Direction2Array direction)
+    public void NewLink(NavMeshLink link, StageFloorComponent newStageFloorComponent, Direction2Array direction)
     {
         int iDirection = (int)direction;
 
         link.transform.SetParent(navMeshParent);
         link.transform.SetLocalPositionAndRotation(GetLinkPosition(direction), Quaternion.Euler(0, (iDirection % 2) * 90, 0));
         link.gameObject.SetActive(true);
+        link.width = GetShorterPlaneLength(newStageFloorComponent.stageIndex) * 4;
+    }
+    float GetShorterPlaneLength(int compareStageIndex)
+    {
+        BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
+
+        return Mathf.Min(battleClearManager.planeSize[compareStageIndex], battleClearManager.planeSize[stageIndex]);
     }
     public void NewStage(StageFloorComponent newStageFloorComponent, Direction2Array direction)
     {
@@ -40,7 +60,7 @@ public class StageFloorComponent : InitObject
 
         nearComponent[iDirection] = newStageFloorComponent;
         nearComponent[iDirection].nearComponent[(iDirection + 2) % directionCount] = this;
-        nearComponent[iDirection].transform.localPosition = transform.localPosition + GetStagePosition(direction);
+        nearComponent[iDirection].transform.localPosition = transform.localPosition + GetStagePosition(direction, newStageFloorComponent.stageIndex);
     }
 
     #region Vector3
@@ -49,9 +69,15 @@ public class StageFloorComponent : InitObject
         BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
 
         int iDirection = (int)direction;
-        int arrayIndex = GetStageIndex(stageIndex);
-        float xValue = battleClearManager.linkPosition[iDirection] * battleClearManager.planeSize[arrayIndex] / 3;
-        float zValue = battleClearManager.linkPosition[(iDirection + 1) % directionCount] * battleClearManager.planeSize[arrayIndex] / 3;
+
+        //거리 재설정 필요
+        //스테이지 사이 거리 : planeSize + planeSize + linkLength
+        //링크 위치 : planeSize + 0.5f * linkLength
+
+
+        float linkOffset = localPlaneLength + (localLinkOffset / PlaneMagnification);
+        float xValue = battleClearManager.linkPosition[iDirection] * linkOffset;
+        float zValue = battleClearManager.linkPosition[(iDirection + 1) % directionCount] * linkOffset;
 
         return new Vector3(xValue, 0, zValue);
     }
@@ -59,12 +85,13 @@ public class StageFloorComponent : InitObject
     {
         return GameManager.manager.battleClearManager.PoolStageIndex(stageIndex);
     }
-    Vector3 GetStagePosition(Direction2Array direction)
+    Vector3 GetStagePosition(Direction2Array direction, int nextStageIndex)
     {
         BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
 
         int iDirection = (int)direction;
-        Vector2 value = 1.414f * battleClearManager.planeSize[stageIndex] * battleClearManager.stagePosition[iDirection];
+        float offset = (1.41421356f * (battleClearManager.planeSize[stageIndex] + battleClearManager.planeSize[nextStageIndex] + localLinkOffset));
+        Vector2 value = offset * battleClearManager.stagePosition[iDirection];
 
         return new Vector3(value.x, 0, value.y);
     }

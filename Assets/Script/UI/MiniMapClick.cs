@@ -12,7 +12,7 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     Texture2D texture2D;
     Camera miniMapCam;
 
-    bool outMIniMap = false;
+    bool outMiniMap = false;
     bool isColorChanged = false;
     bool isDragStartInMinimap;
 
@@ -90,6 +90,7 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     }
     void MoveScreen(PointerEventData eventData)
     {
+        if (!PlayerInputManager.manager.minimapInputEnable) return;
 
         Vector3 onImagePosition = new Vector3(eventData.position.x / rawImage.rectTransform.sizeDelta.x,
                                                   eventData.position.y / rawImage.rectTransform.sizeDelta.y, 0);
@@ -106,9 +107,10 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (outMIniMap)
+        if (outMiniMap)
             clickdrag.OnBeginDrag(eventData);
-        isDragStartInMinimap = outMIniMap;
+
+        isDragStartInMinimap = outMiniMap;
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -119,13 +121,9 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
         else
         {
             GetPixel(eventData.position, out float colora);
-            outMIniMap = false;
+            outMiniMap = false;
 
-            if (colora < 0.1f)
-            {
-
-            }
-            else
+            if (colora >= 0.1f)
             {
                 MoveScreen(eventData);
                 clickdrag.MiniMapClick = true;
@@ -134,7 +132,7 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (outMIniMap)
+        if (outMiniMap)
         {
             clickdrag.OnEndDrag(eventData);
         }
@@ -145,12 +143,12 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
         GetPixel(eventData.position, out float colora);
         if (colora < 0.1f)
         {
-            outMIniMap = true;
+            outMiniMap = true;
         }
         else
         {
             MoveScreen(eventData);
-            outMIniMap = false;
+            outMiniMap = false;
             clickdrag.MiniMapClick = true;
         }
     }
@@ -162,8 +160,7 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
         bool wasColor = isColorChanged;
         isColorChanged = colorA > 0.1f;
 
-        if (wasColor == isColorChanged)
-            return;
+        if (wasColor == isColorChanged) return;
 
         if (isColorChanged)
             rawImage.color *= 0.9f;
@@ -173,7 +170,7 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        outMIniMap = true;
+        outMiniMap = true;
         clickdrag.MiniMapClick = false;
     }
 }

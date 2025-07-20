@@ -424,7 +424,6 @@ public class GameManager : MonoBehaviour
         }
 
         onHeroSelect.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
-        Debug.Log(playerNavi.lists.Count);
 
 
         bool DragEffect(IReadOnlyCollection<CObject> values, ref int selectedCount)

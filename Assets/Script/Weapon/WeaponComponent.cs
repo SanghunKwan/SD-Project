@@ -20,19 +20,24 @@ public abstract class WeaponComponent : MonoBehaviour
 
     public void Hit(Collider other, Vector3 vec, SkillData.Skill skill, CObject target)
     {
-        if (other.gameObject.layer == 1 << 16 || (other.CompareTag(tag) && !skill.frendlyFire && target.ObjectCollider != other))
+        if (other.gameObject.layer == 16 || (other.CompareTag(tag) && !skill.frendlyFire && target.ObjectCollider != other))
             return;
-        CObject cTarget = other.GetComponent<CObject>();
+
+        ObjectManager manager = GameManager.manager.objectManager;
+
+        CObject cTarget = manager.ObjectDictionary[(int)manager.GetCObjectType(other.gameObject.layer)][other.gameObject].Value;
 
         GameManager.manager.DamageCalculate(unitMove.cUnit, cTarget, (int)UnitMove.Skill.Skill, skill,
             () => cTarget.GetStatusEffect(skill.effect_IndexEnum, vec));
     }
     public void HitExceptTarget(Collider other, Vector3 vec, SkillData.Skill skill, CObject target)
     {
-        if (other.gameObject.layer == 1 << 16 || target.ObjectCollider == other || (other.CompareTag(tag) && !skill.frendlyFire))
+        if (other.gameObject.layer == 16 || target.ObjectCollider == other || (other.CompareTag(tag) && !skill.frendlyFire))
             return;
 
-        CObject cTarget = other.GetComponent<CObject>();
+        ObjectManager manager = GameManager.manager.objectManager;
+
+        CObject cTarget = manager.ObjectDictionary[(int)manager.GetCObjectType(other.gameObject.layer)][other.gameObject].Value;
 
         GameManager.manager.DamageCalculate(unitMove.cUnit, cTarget, (int)UnitMove.Skill.Skill, skill,
             () => cTarget.GetStatusEffect(skill.effect_IndexEnum, vec));

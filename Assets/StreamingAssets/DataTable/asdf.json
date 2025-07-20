@@ -24,7 +24,8 @@
                     "z": 0.0
                 },
                 "size": 1.0,
-                "actionName": ""
+                "actionName": 0,
+                "mouseFlags": 0
             },
             "trigger": 0,
             "require": {
@@ -107,7 +108,8 @@
                     "z": 0.0
                 },
                 "size": 1.0,
-                "actionName": ""
+                "actionName": 0,
+                "mouseFlags": 0
             },
             "trigger": 0,
             "require": {
@@ -190,7 +192,8 @@
                     "z": 0.0
                 },
                 "size": 1.0,
-                "actionName": ""
+                "actionName": 0,
+                "mouseFlags": 0
             },
             "trigger": 0,
             "require": {
@@ -273,7 +276,8 @@
                     "z": 0.0
                 },
                 "size": 1.0,
-                "actionName": ""
+                "actionName": 0,
+                "mouseFlags": 0
             },
             "trigger": 0,
             "require": {

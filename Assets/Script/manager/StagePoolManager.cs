@@ -56,7 +56,8 @@ public class StagePoolManager : MonoBehaviour
 
         //objects
         folder = tr.GetChild(0).GetChild(index);
-        length = folder.childCount;
+
+        length = nowFloorIndex;
         data.objectDatas = new ObjectData[length];
 
         for (int i = 0; i < length; i++)

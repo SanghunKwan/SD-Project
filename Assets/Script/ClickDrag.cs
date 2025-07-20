@@ -17,18 +17,23 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     bool suburbUpdate = false;
     public bool MiniMapClick { private get; set; } = false;
 
+
+
     Vector3 move;
     Vector3 movey;
-    Action pointerDown = () => { };
+
 
     Camera camMain;
-    [SerializeField] GameObject QuestBackGround;
 
     [Header("cameraMoveRange")]
     public float cameraMaxX;
     public float cameraMinX;
     public float cameraMaxY;
     public float cameraMinY;
+
+
+    public Action pointerDown { get; set; }
+
 
     void Start()
     {
@@ -37,6 +42,8 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (!IsFieldButtonEnable(eventData.button)) return;
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             copyRec.gameObject.SetActive(true);
@@ -45,8 +52,14 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
             copyRec.rectTransform.localPosition = dragStart;
         }
     }
+    bool IsFieldButtonEnable(PointerEventData.InputButton button)
+    {
+        return PlayerInputManager.manager.fieldInputEnable[(int)button];
+    }
     public void OnDrag(PointerEventData eventData)
     {
+        if (!IsFieldButtonEnable(eventData.button)) return;
+
         if (eventData.button == PointerEventData.InputButton.Left && !suburbUpdate)
         {
             Dragging(eventData);
@@ -74,6 +87,8 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!IsFieldButtonEnable(eventData.button)) return;
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Select(1);
@@ -87,21 +102,22 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.dragging || pointerEventData == null)
-            return;
+        if (eventData.dragging || pointerEventData == null) return;
 
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (IsFieldButtonEnable(eventData.button))
         {
-            dragStart = Data.Instance.UItoCanvas(eventData.position);
-            Dragging(eventData);
-            Select(eventData.clickCount);
-            InputEffect.e.PrintEffect(eventData.pointerCurrentRaycast.worldPosition, 0);
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                dragStart = Data.Instance.UItoCanvas(eventData.position);
+                Dragging(eventData);
+                Select(eventData.clickCount);
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                RightClick(eventData);
+            }
         }
-        else if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            RightClick(eventData);
-            InputEffect.e.PrintEffect(eventData.pointerCurrentRaycast.worldPosition, 0);
-        }
+        InputEffect.e.PrintEffect(eventData.pointerCurrentRaycast.worldPosition, 0);
     }
 
     public void OnPointerMove(PointerEventData eventData)
@@ -111,37 +127,33 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     void Update()
     {
-        if (pointerEventData == null || QuestBackGround.activeSelf)
-            return;
+        if (pointerEventData == null || MiniMapClick || !PlayerInputManager.manager.screenMoveInputEnable) return;
 
         suburbUpdate = false;
 
-        if (MiniMapClick)
-            return;
-
         if (camMain.transform.position.x < cameraMaxX && pointerEventData.position.x > Screen.width - suburb)
         {
-            move = Vector3.right * Time.unscaledDeltaTime * speed;
+            move = speed * Time.unscaledDeltaTime * Vector3.right;
             camMain.transform.position += move;
             suburbUpdate = true;
         }
         else if (camMain.transform.position.x > cameraMinX && pointerEventData.position.x < suburb)
         {
-            move = Vector3.left * Time.unscaledDeltaTime * speed;
+            move = speed * Time.unscaledDeltaTime * Vector3.left;
             camMain.transform.position += move;
             suburbUpdate = true;
         }
 
         if (camMain.transform.position.z < cameraMaxY && pointerEventData.position.y > Screen.height - suburb)
         {
-            movey = -Vector3.back * Time.unscaledDeltaTime * speed;
+            movey = speed * Time.unscaledDeltaTime * -Vector3.back;
             camMain.transform.position += movey;
             suburbUpdate = true;
 
         }
         else if (camMain.transform.position.z > cameraMinY && pointerEventData.position.y < suburb)
         {
-            movey = Vector3.back * Time.unscaledDeltaTime * speed;
+            movey = speed * Time.unscaledDeltaTime * Vector3.back;
             camMain.transform.position += movey;
             suburbUpdate = true;
         }
@@ -198,9 +210,5 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     public void OnPointerDown(PointerEventData eventData)
     {
         pointerDown();
-    }
-    public void SetDown(Action action)
-    {
-        pointerDown = action;
     }
 }

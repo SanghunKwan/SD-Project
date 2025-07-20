@@ -451,7 +451,7 @@ public class QuestSpawner : MonoBehaviour
     {
         float nowScale = Time.timeScale;
 
-        InputActionMap map = PlayerInputManager.manager.input.currentActionMap;
+        PlayerInputManager manager = PlayerInputManager.manager;
 
         Action action = () =>
         {
@@ -463,22 +463,8 @@ public class QuestSpawner : MonoBehaviour
 
             if (highlight.highLight != QuestManager.QuestData.QuestHighLight.HighLightTarget.None)
             {
-                //다른 키 못 누르게 하는 기능 추가.
-                foreach (var item in map.actions)
-                {
-                    item.Disable();
-                }
-                if (highlight.actionName == string.Empty)
-                {
-                    //활성화 키 없음.
-
-                    //마우스만 활성화.
-                }
-                else
-                {
-                    //필요한 키는 누르게 하는 기능 추가.
-                    map.FindAction(highlight.actionName).Enable();
-                }
+                manager.SetKeyMapEnable(highlight.actionName);
+                manager.SetMouseInputEnable(highlight.mouseFlags);
             }
         };
         //마을에서 건물 관련 효과 진행중일 때 지연.
@@ -494,11 +480,8 @@ public class QuestSpawner : MonoBehaviour
 
                 GameManager.manager.onBattleClearManagerRegistered -= action;
 
-                foreach (var item in map.actions)
-                {
-                    item.Enable();
-                }
-
+                manager.SetKeyMapEnable(PlayerInputManager.KeyMapActionFlags.All);
+                manager.SetMouseInputEnable(PlayerInputManager.MouseInputEnableFlags.All);
             }
         };
     }

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static QuestManager;
 
 public class QuestManager : JsonLoad
 {
@@ -26,7 +25,8 @@ public class QuestManager : JsonLoad
             public HighLightTarget highLight;
             public Vector3 highLightPosition;
             public float size;
-            public string actionName;
+            public PlayerInputManager.KeyMapActionFlags actionName;
+            public PlayerInputManager.MouseInputEnableFlags mouseFlags;
 
             public QuestHighLight()
             {
@@ -34,7 +34,8 @@ public class QuestManager : JsonLoad
                 highLight = HighLightTarget.Vector;
                 highLightPosition = Vector3.zero;
                 size = 1;
-                actionName = string.Empty;
+                actionName = PlayerInputManager.KeyMapActionFlags.None;
+                mouseFlags = PlayerInputManager.MouseInputEnableFlags.None;
             }
         }
         [Serializable]

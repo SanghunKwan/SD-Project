@@ -7,10 +7,7 @@ using System;
 public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     int SlotNum;
-    int prevSlotNum;
     bool isOnItem;
-    bool isPlus;
-    bool isNotLine;
 
     bool isDragActive;
     Action<Vector2>[] clicks;
@@ -27,7 +24,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     private void Start()
     {
         SetClicks();
-        GameObject.FindWithTag("CanvasWorld").transform.GetChild(0).GetComponent<ClickDrag>().SetDown(() => inventoryComponent.ActiveDescription(false));
+        GameObject.FindWithTag("CanvasWorld").transform.GetChild(0).GetComponent<ClickDrag>().pointerDown = () => inventoryComponent.ActiveDescription(false);
         inventoryComponent = transform.parent.parent.GetComponent<InventoryComponent>();
         SlotNum = transform.GetSiblingIndex();
     }
@@ -50,8 +47,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     #region input ¿Ã∫•∆Æ
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (!IsSlotExist)
-            return;
+        if (!IsSlotExist || !PlayerInputManager.manager.inventoryInputEnable[(int)eventData.button]) return;
 
         isDragActive = true;
         dragImage = inventoryComponent.GetDragImage(SlotNum);

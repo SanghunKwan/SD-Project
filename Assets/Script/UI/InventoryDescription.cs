@@ -11,6 +11,7 @@ public class InventoryDescription : InitObject
     TextMeshProUGUI text;
     Animator animator;
     int[] trigger;
+    System.Action textDelay;
 
     public override void Init()
     {
@@ -41,12 +42,16 @@ public class InventoryDescription : InitObject
             animator.SetTrigger(trigger[0]);
         }
     }
-    public void SetText(in string str)
+    public void SetText(string str)
     {
-        text.text = str;
+        textDelay = () => text.text = str;
     }
     public void SetPosition(Vector2 vector)
     {
         image.rectTransform.position = vector;
+    }
+    public void OnDescriptionEnabled()
+    {
+        textDelay?.Invoke();
     }
 }

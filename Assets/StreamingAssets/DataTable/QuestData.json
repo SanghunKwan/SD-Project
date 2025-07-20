@@ -20,7 +20,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 1.0
+        "size": 1.0,
+        "mouseFlags": 1
       },
       "trigger": 0,
       "require": {
@@ -53,7 +54,6 @@
         "eventIndex": 0,
         "eventNum": 0,
         "actionName": "유닛 선택"
-
       },
       "follow": {
         "datas": [
@@ -86,7 +86,7 @@
           "z": 0.0
         },
         "size": 1,
-        "actionName": "ArmySet"
+        "actionName": 4
       },
       "trigger": 0,
       "require": {
@@ -153,7 +153,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 1
+        "size": 1,
+        "mouseFlags": 7
       },
       "trigger": 0,
       "require": {
@@ -222,7 +223,7 @@
           "z": 0.0
         },
         "size": 1,
-        "actionName": "ArmySelect"
+        "actionName": 1
       },
       "trigger": 0,
       "require": {
@@ -274,7 +275,7 @@
       "questType": 0,
       "questGrade": 0,
       "name": "아이템 획득하기",
-      "detail": "유닛이 아이템 위치로 이동하면 자동 획득",
+      "detail": "유닛을 선택한 상태에서 우클릭 또는 F를 눌러 현재 마우스 위치로 이동.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -290,7 +291,8 @@
           "z": 0.0
         },
         "size": 1,
-        "actionName": "SimpleAct"
+        "actionName": 65,
+        "mouseFlags": 2
       },
       "trigger": 0,
       "require": {
@@ -315,9 +317,9 @@
       },
       "act": {
         "spot": {
-          "x": -10.0,
+          "x": -1.0,
           "y": 0.0,
-          "z": -6.0
+          "z": -3.0
         },
         "radius": 2.0,
         "layer": 15,
@@ -327,7 +329,7 @@
         "eventType": 2,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "아이템 정보 확인"
+        "actionName": "아이템 위치로 이동"
       },
       "follow": {
         "datas": [
@@ -341,9 +343,9 @@
       "questHappening": {
         "type": 1,
         "vec": {
-          "x": -10.0,
+          "x": -1.0,
           "y": 0.0,
-          "z": -5.0
+          "z": -3.0
         },
         "index": 4
       }
@@ -368,7 +370,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 7
+        "size": 7,
+        "mouseFlags": 8
       },
       "trigger": 0,
       "require": {
@@ -435,7 +438,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 7
+        "size": 7,
+        "mouseFlags": 16
       },
       "trigger": 0,
       "require": {
@@ -470,7 +474,7 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "우클릭"
+        "actionName": "아이템 사용"
       },
       "follow": {
         "datas": [
@@ -503,7 +507,8 @@
           "z": 0.0
         },
         "size": 2,
-        "actionName": "SimpleAct"
+        "actionName": 65,
+        "mouseFlags": 3
       },
       "trigger": 0,
       "require": {
@@ -526,11 +531,11 @@
       },
       "act": {
         "spot": {
-          "x": 10.0,
+          "x": 2.0,
           "y": 0.0,
-          "z": -10.0
+          "z": -3.0
         },
-        "radius": 10.0,
+        "radius": 5.0,
         "layer": 9,
         "whatCause": 0
       },
@@ -538,7 +543,7 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "공격"
+        "actionName": "오브젝트 공격"
       },
       "follow": {
         "datas": [
@@ -559,7 +564,7 @@
       "questType": 0,
       "questGrade": 0,
       "name": "미니맵 활용",
-      "detail": "미니맵을 좌클릭하여 화면 전환.",
+      "detail": "미니맵을 좌클릭하여 화면 전환",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -574,7 +579,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 0
+        "size": 0,
+        "mouseFlags": 64
       },
       "trigger": 1,
       "require": {
@@ -641,7 +647,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 0
+        "size": 0,
+        "mouseFlags": 64
       },
       "trigger": 0,
       "require": {
@@ -676,7 +683,7 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "우클릭"
+        "actionName": "미니맵 우클릭"
       },
       "follow": {
         "datas": [
@@ -710,7 +717,9 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 3.0
+        "size": 3.0,
+        "actionName": 65,
+        "mouseFlags": 64
       },
       "trigger": 0,
       "require": {

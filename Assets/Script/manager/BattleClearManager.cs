@@ -102,7 +102,7 @@ public class BattleClearManager : MonoBehaviour
             stageFloorComponents[i] = battleClearPool.MakeStage(PoolStageIndex(floors[i]));
             randomDirection = stageFloorComponents[i - 1].GetEmptyDirection();
             stageFloorComponents[i - 1].NewStage(stageFloorComponents[i], randomDirection);
-            stageFloorComponents[i - 1].NewLink(battleClearPool.MakeLink(), randomDirection);
+            stageFloorComponents[i - 1].NewLink(battleClearPool.MakeLink(), stageFloorComponents[i], randomDirection);
         }
     }
     public int PoolStageIndex(int nowFloor)
@@ -159,7 +159,7 @@ public class BattleClearManager : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             stageData.floorUnitDatas[i] = new FloorUnitData();
-            onStageSave?.Invoke(saveData.stageData.floorUnitDatas[i], i);
+            onStageSave?.Invoke(stageData.floorUnitDatas[i], i);
         }
         //형변환 수정 예정.
         //삭제된 cobject Transform 이동 예정.

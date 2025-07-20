@@ -108,6 +108,8 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     }
     public void SetDescription(int slotIndex, in Vector2 vector)
     {
+        if (!PlayerInputManager.manager.inventoryInputEnable[(int)PointerEventData.InputButton.Left]) return;
+
         inventoryDescription.SetPosition(vector);
         ActiveDescription(true);
         inventoryDescription.SetText(InventoryManager.i.info.items[itemSlots[slotIndex].slotdata.itemCode].description +
@@ -336,6 +338,8 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     #region click
     public void Use(int slotIndex)
     {
+        if (!PlayerInputManager.manager.inventoryInputEnable[(int)PointerEventData.InputButton.Right]) return;
+
         int index = (Convert.ToInt32(Input.GetKey(GameManager.manager.modifiers[(int)GameManager.ModifiersNum.Shift])) * (int)InventoryType.Max) + (int)type;
         useAction[index](slotIndex);
     }
