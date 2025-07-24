@@ -1,8 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
+
 
 public class StageFloorComponent : InitObject
 {
@@ -20,19 +20,32 @@ public class StageFloorComponent : InitObject
 
     public enum Direction2Array
     {
-        RightUP,
-        RightDown,
-        LeftDown,
-        LeftUP,
+        RightUP,                    //00
+        RightDown,                  //01
+        LeftDown,                   //10
+        LeftUP,                     //11
+
         Max
     }
+    enum DirectionFlags
+    {
+        None = 0,
 
+        RightUP = 1 << 0,           //0001
+        RightDown = 1 << 1,         //0010
+        LeftDown = 1 << 2,          //0100
+        LeftUP = 1 << 3,            //1000
+
+        Max = 4,
+
+        All = (1 << Max) - 1
+    }
 
 
 
     public override void Init()
     {
-        directionCount = (int)Direction2Array.Max;
+        directionCount = (int)DirectionFlags.Max;
 
         navMeshParent = transform.GetChild(0);
         PlaneMagnification = navMeshParent.localScale.x;
@@ -99,37 +112,142 @@ public class StageFloorComponent : InitObject
     #region GetEmptyDirection
     public Direction2Array GetEmptyDirection()
     {
-        GetEmptyIndex(out int[] emptyIndex);
-        return (Direction2Array)emptyIndex[UnityEngine.Random.Range(0, emptyIndex.Length)];
+        DirectionFlags unlinkedFlags = DirectionFlags.All ^ CurrentLinkedDirection();
+
+        //unlinkedFlags에서 못 가는 곳 제외.
+        unlinkedFlags = CheckUndirectlyLinkedStages(unlinkedFlags);
+
+        return GetRandomDirectionByReservoir(unlinkedFlags);
     }
-    void GetEmptyIndex(out int[] emptyIndex)
+    Direction2Array GetRandomDirectionByReservoir(DirectionFlags flags)
     {
-        int bit = 0;
-        int count = 0;
-        int index = 0;
-        for (int i = 0; i < directionCount; i++)
-        {
-            if (nearComponent[i] != null)
-                continue;
+        //reservoir sampling 알고리즘을 사용하여 flags에서 랜덤으로 활성화된 방향을 반환.
 
-            bit += (1 << i);
-            count++;
-        }
-        emptyIndex = new int[count];
-        for (int i = 0; i < directionCount; i++)
+        //기본값으로 가장 낮은 비트 값 활성화.
+        int intFlags = (int)flags;
+        int selectedDirection = intFlags & (-intFlags); // flags의 최하위 비트값을 선택.
+
+        // 다음 값들을 순회함.
+        int reservoirSeen = 1; //기본값 카운트
+        int length = (int)DirectionFlags.All; // length = (1 << DirectionFlags.Max)
+        for (int i = selectedDirection; i < length; i <<= 1)
         {
-            if ((bit & 1) == 0)
+            if ((i & intFlags) != 0)
             {
-                bit >>= 1;
-                continue;
-            }
+                reservoirSeen++;
+                if (Random.Range(0, reservoirSeen) != 0) continue;
 
-            emptyIndex[index] = i;
+                selectedDirection = i; // 현재 방향을 선택.
+            }
+        }
+
+        return (Direction2Array)GetSmallestBitIndex(selectedDirection); // 선택된 방향의 인덱스를 반환.
+    }
+    int GetSmallestBitIndex(int bit)
+    {
+        int index = 0;
+        while ((bit & 1) == 0)
+        {
             bit >>= 1;
             index++;
         }
+
+        return index;
+    }
+    DirectionFlags CheckUndirectlyLinkedStages(DirectionFlags unlinkedFlags)
+    {
+        //비트가 1인 곳은 순회해서 갈 수 있는지 확인.
+        int intFlag = (int)unlinkedFlags;
+        int length = (int)DirectionFlags.Max;
+        for (int i = 0; i < length; i++)
+        {
+            //비트가 1인 곳만 확인.
+            if (((intFlag >> i) & 1) == 0) continue;
+
+            RecursiveCallStagesLink((Direction2Array)i);
+        }
+
+        return DirectionFlags.None;
+    }
+    void RecursiveCallStagesLink(Direction2Array direction)
+    {
+        //방향을 저장해두었다가 반대 방향으로 이동했을 때 스테이지가 있으면 이동 불가.
+
+        //stack에 방향을 저장하고, 스택에서 꺼내서 확인하기.
+        //위 과정을 재귀적으로 진행.
+
+        Stack<Direction2Array> directionStack = new Stack<Direction2Array>();
+        directionStack.Push(GetOppositeDirection(direction));
+        StageFloorComponent tempFloorComponent = this;
+
+        RecursiveCall(ref tempFloorComponent, 0, directionStack);
+
+        if (IsDrawBackStageExist(directionStack, tempFloorComponent))
+        {
+            //스테이지가 존재하는 경우, 이동 불가.
+        }
+    }
+    Direction2Array GetOppositeDirection(Direction2Array direction)
+    {
+        //return (Direction2Array)(((int)(direction + 2)) % ((int)Direction2Array.Max));
+        return (Direction2Array)((int)direction ^ 2);
     }
 
+    void RecursiveCall(ref StageFloorComponent stageFloorComponent, int depth,
+                       Stack<Direction2Array> directionStack)
+    {
+        if (depth <= 0) return;
+
+        //stageFloorComponent에서 이동할 수 있는 방향 체크.
+        //recursiveCall을 호출했을 때 이동해온 방향은 무시.
+        DirectionFlags canRecursiveStage = GetRecursiveStages(CurrentLinkedDirection(),
+                                                              directionStack.Peek());
+        
+        //이동할 수 있는 방향으로 재귀 호출.
+        
+
+
+
+    }
+
+    bool IsDrawBackStageExist(IReadOnlyCollection<Direction2Array> directionStack,
+                              StageFloorComponent tempFloorComponent)
+    {
+        int intDirection;
+        foreach (var item in directionStack)
+        {
+            intDirection = (int)item;
+            if (tempFloorComponent.nearComponent[intDirection] == null)
+                return false;
+            else
+                tempFloorComponent = nearComponent[intDirection];
+        }
+        return true;
+    }
+
+
+    DirectionFlags CurrentLinkedDirection()
+    {
+        //1인 비트는 연결됨.
+        int flag = (int)DirectionFlags.None;
+
+        int count = (int)DirectionFlags.Max;
+        for (int i = 0; i < count; i++)
+        {
+            if (nearComponent[i] == null) continue;
+
+            flag |= (1 << i);
+        }
+        return (DirectionFlags)flag;
+    }
+    DirectionFlags GetRecursiveStages(DirectionFlags currentLinkedDirections,
+                                      Direction2Array earlierDirection)
+    {
+        //currentLinkedDirections에서 earlierDirection 방향 제외.
+        int disableFlag = 1 << ((int)earlierDirection);
+
+        return currentLinkedDirections & (~(DirectionFlags)disableFlag);
+    }
 
     #endregion
 }
