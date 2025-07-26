@@ -1,290 +1,290 @@
 {
-    "day": 0,
-    "nextScene": 1,
-    "floorData": {
-        "topFloor": 1,
-        "floorLooks": [
-            0
-        ],
-        "floorAngles": [
-            27.0
-        ]
-    },
-    "hero": [
-        {
-            "name": "디스마스",
-            "lv": 1,
-            "quirks": {
-                "quirks": [
-                    6,
-                    2,
-                    0,
-                    0,
-                    0
-                ],
-                "length": 2,
-                "willChange": false,
-                "willChangeIndex": 0
-            },
-            "disease": {
-                "quirks": [
-                    0,
-                    0,
-                    0,
-                    0
-                ],
-                "length": 0
-            },
-            "keycode": "=",
-            "equipNum": [
-                1,
-                1,
-                2
-            ],
-            "fieldEquipNum": [
-                0,
-                0,
-                1
-            ],
-            "skillNum": [
-                1,
-                1,
-                1,
-                1
-            ],
-            "villigeAction": 0,
-            "workBuilding": 0,
-            "needGetName": false,
-            "unitData": {
-                "detected": false,
-                "attackMove": false,
-                "ishold": false,
-                "destination": {
-                    "x": 0.13516950607299806,
-                    "y": 0.5000000596046448,
-                    "z": -9.131143569946289
-                },
-                "depart": {
-                    "x": 0.5991473197937012,
-                    "y": 0.06666666269302368,
-                    "z": -8.876163482666016
-                },
-                "objectData": {
-                    "position": {
-                        "x": 0.40601491928100588,
-                        "y": 0.06666666269302368,
-                        "z": -8.980266571044922
-                    },
-                    "dotsDirection": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "quaternion": {
-                        "x": 0.0,
-                        "y": 0.9891240000724793,
-                        "z": 0.0,
-                        "w": -0.14708426594734193
-                    },
-                    "selected": true,
-                    "isDead": false,
-                    "cur_status": {
-                        "ID": 301,
-                        "NAME": "playerMelee",
-                        "SPECIES": 1,
-                        "HP": 27,
-                        "ATK": 10,
-                        "DEF": 0,
-                        "DOG": 11,
-                        "MORALE": 0,
-                        "SPEED": 6,
-                        "ViewAngle": 95,
-                        "ViewRange": 7,
-                        "type": 0,
-                        "Accuracy": 90,
-                        "AtkSpeed": 1.399999976158142,
-                        "Range": 1,
-                        "Mentality": 33,
-                        "Stress": 8,
-                        "curHP": 27,
-                        "curMORALE": 0
-                    },
-                    "dots": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ]
-                }
-            }
-        }
+  "day": 0,
+  "nextScene": 1,
+  "floorData": {
+    "topFloor": 1,
+    "floorLooks": [
+      0
     ],
-    "building": [],
-    "items": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    ],
-    "stageData": {
-        "heros": [
-            0
+    "floorAngles": [
+      27.0
+    ]
+  },
+  "hero": [
+    {
+      "name": "디스마스",
+      "lv": 1,
+      "quirks": {
+        "quirks": [
+          6,
+          2,
+          0,
+          0,
+          0
         ],
-        "floors": [
+        "length": 2,
+        "willChange": false,
+        "willChangeIndex": 0
+      },
+      "disease": {
+        "quirks": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "length": 0
+      },
+      "keycode": "=",
+      "equipNum": [
+        1,
+        1,
+        2
+      ],
+      "fieldEquipNum": [
+        0,
+        0,
+        1
+      ],
+      "skillNum": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "villigeAction": 0,
+      "workBuilding": 0,
+      "needGetName": false,
+      "unitData": {
+        "detected": false,
+        "attackMove": false,
+        "ishold": false,
+        "destination": {
+          "x": 0.13516950607299806,
+          "y": 0.5000000596046448,
+          "z": -9.131143569946289
+        },
+        "depart": {
+          "x": 0.5991473197937012,
+          "y": 0.06666666269302368,
+          "z": -8.876163482666016
+        },
+        "objectData": {
+          "position": {
+            "x": 0.40601491928100588,
+            "y": 0.06666666269302368,
+            "z": -8.980266571044922
+          },
+          "dotsDirection": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "quaternion": {
+            "x": 0.0,
+            "y": 0.9891240000724793,
+            "z": 0.0,
+            "w": -0.14708426594734193
+          },
+          "selected": true,
+          "isDead": false,
+          "cur_status": {
+            "ID": 301,
+            "NAME": "playerMelee",
+            "SPECIES": 1,
+            "HP": 27,
+            "ATK": 10,
+            "DEF": 0,
+            "DOG": 11,
+            "MORALE": 0,
+            "SPEED": 6,
+            "ViewAngle": 95,
+            "ViewRange": 7,
+            "type": 0,
+            "Accuracy": 90,
+            "AtkSpeed": 1.399999976158142,
+            "Range": 1,
+            "Mentality": 33,
+            "Stress": 8,
+            "curHP": 27,
+            "curMORALE": 0
+          },
+          "dots": [
             0,
-            1
-        ],
-        "nowFloorIndex": 0,
-        "isClear": true,
-        "isEnter": false,
-        "inventoryData": {
-            "itemDatas": [
-                {
-                    "itemIndex": 4,
-                    "itemCount": 2,
-                    "slotIndex": 0
-                },
-                {
-                    "itemIndex": 9,
-                    "itemCount": 1,
-                    "slotIndex": 1
-                },
-                {
-                    "itemIndex": 8,
-                    "itemCount": 1,
-                    "slotIndex": 2
-                }
-            ],
-            "corpseIndex": []
-        },
-        "floorUnitDatas": [
-            {
-                "monsterData": [],
-                "objectDatas": [],
-                "dropItemDatas": [
-                    {
-                        "position": {
-                            "x": 3.200000047683716,
-                            "y": 0.0,
-                            "z": 3.25
-                        },
-                        "index": 8,
-                        "stageIndex": 0
-                    },
-                    {
-                        "position": {
-                            "x": -4.163900375366211,
-                            "y": 0.0,
-                            "z": 5.349999904632568
-                        },
-                        "index": 8,
-                        "stageIndex": 0
-                    },
-                    {
-                        "position": {
-                            "x": 2.2183496952056886,
-                            "y": 0.0,
-                            "z": 9.583462715148926
-                        },
-                        "index": 8,
-                        "stageIndex": 0
-                    },
-                    {
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "index": 0,
-                        "stageIndex": 0
-                    },
-                    {
-                        "position": {
-                            "x": 2.329133987426758,
-                            "y": -0.0009405379532836378,
-                            "z": -9.743070602416993
-                        },
-                        "index": 4,
-                        "stageIndex": 0
-                    },
-                    {
-                        "position": {
-                            "x": 1.439134120941162,
-                            "y": -0.0009405379532836378,
-                            "z": -10.633070945739746
-                        },
-                        "index": 4,
-                        "stageIndex": 0
-                    },
-                    {
-                        "position": {
-                            "x": 0.5491341352462769,
-                            "y": -0.0009405379532836378,
-                            "z": -9.743070602416993
-                        },
-                        "index": 4,
-                        "stageIndex": 0
-                    }
-                ]
-            }
-        ],
-        "yetDroppedItems": []
-    },
-    "questSaveData": {
-        "stagePerformOneData": {
-            "bits": [
-                196607
-            ],
-            "nowQuestList": []
-        },
-        "villigePerformOneData": {
-            "bits": [
-                1,
-                0
-            ],
-            "nowQuestList": []
-        },
-        "floorQuestData": {
-            "bits": [
-                32
-            ],
-            "nowQuestList": []
-        },
-        "villigeQuestData": {
-            "bits": [
-                0
-            ],
-            "nowQuestList": []
-        },
-        "isLoaded": true
-    },
-    "playInfo": {
-        "camPosition": {
-            "x": -0.9893288612365723,
-            "y": 10.0,
-            "z": -18.245214462280275
-        },
-        "enableUpgrades": [
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
-        ],
-        "canSummonHeroCount": 2,
-        "canSummonHero": [],
-        "isEnter": true
+            0,
+            0,
+            0
+          ]
+        }
+      }
     }
+  ],
+  "building": [],
+  "items": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "stageData": {
+    "heros": [
+      0
+    ],
+    "floors": [
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "nowFloorIndex": 0,
+    "isClear": true,
+    "isEnter": false,
+    "inventoryData": {
+      "itemDatas": [
+        {
+          "itemIndex": 4,
+          "itemCount": 2,
+          "slotIndex": 0
+        },
+        {
+          "itemIndex": 9,
+          "itemCount": 1,
+          "slotIndex": 1
+        },
+        {
+          "itemIndex": 8,
+          "itemCount": 1,
+          "slotIndex": 2
+        }
+      ],
+      "corpseIndex": []
+    },
+    "floorUnitDatas": [
+      {
+        "monsterData": [],
+        "objectDatas": [],
+        "dropItemDatas": [
+          {
+            "position": {
+              "x": 3.200000047683716,
+              "y": 0.0,
+              "z": 3.25
+            },
+            "index": 8,
+            "stageIndex": 0
+          },
+          {
+            "position": {
+              "x": -4.163900375366211,
+              "y": 0.0,
+              "z": 5.349999904632568
+            },
+            "index": 8,
+            "stageIndex": 0
+          },
+          {
+            "position": {
+              "x": 2.2183496952056886,
+              "y": 0.0,
+              "z": 9.583462715148926
+            },
+            "index": 8,
+            "stageIndex": 0
+          },
+          {
+            "position": {
+              "x": 2.329133987426758,
+              "y": -0.0009405379532836378,
+              "z": -9.743070602416993
+            },
+            "index": 4,
+            "stageIndex": 0
+          },
+          {
+            "position": {
+              "x": 1.439134120941162,
+              "y": -0.0009405379532836378,
+              "z": -10.633070945739746
+            },
+            "index": 4,
+            "stageIndex": 0
+          },
+          {
+            "position": {
+              "x": 0.5491341352462769,
+              "y": -0.0009405379532836378,
+              "z": -9.743070602416993
+            },
+            "index": 4,
+            "stageIndex": 0
+          }
+        ]
+      }
+    ],
+    "yetDroppedItems": []
+  },
+  "questSaveData": {
+    "stagePerformOneData": {
+      "bits": [
+        196607
+      ],
+      "nowQuestList": []
+    },
+    "villigePerformOneData": {
+      "bits": [
+        1,
+        0
+      ],
+      "nowQuestList": []
+    },
+    "floorQuestData": {
+      "bits": [
+        32
+      ],
+      "nowQuestList": []
+    },
+    "villigeQuestData": {
+      "bits": [
+        0
+      ],
+      "nowQuestList": []
+    },
+    "isLoaded": true
+  },
+  "playInfo": {
+    "camPosition": {
+      "x": -0.9893288612365723,
+      "y": 10.0,
+      "z": -18.245214462280275
+    },
+    "enableUpgrades": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "canSummonHeroCount": 2,
+    "canSummonHero": [],
+    "isEnter": true
+  }
 }
