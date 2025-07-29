@@ -86,7 +86,6 @@ public abstract class UnitSpawner : MonoBehaviour
         NewSpawnedObjectSet(newHero, data.unitData.objectData);
         NewSpawnedUnitSet(newHero, data.unitData);
         NewSpawnedHeroSet(newHero, data);
-        newHero.heroInStageIndex = heroIndex;
 
 
         return newHero;

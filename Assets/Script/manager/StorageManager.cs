@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Unit;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class StorageManager : MonoBehaviour
 {
@@ -43,7 +42,7 @@ public class StorageManager : MonoBehaviour
     }
     public void AddCorpse(GameObject itemFinder, Hero deadHeroData)
     {
-        int heroIndex = deadHeroData.heroInStageIndex;
+        int heroIndex = deadHeroData.stageIndex;
         if (heroIndex < 0)
         {
             //spawnedHeroCorpse

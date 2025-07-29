@@ -29,12 +29,6 @@ namespace Unit
         public int[] FieldEquipsNum { get; private set; } = { 0, 0, 0 };
         public int[] SkillsNum { get; private set; } = { 1, 1, 1, 1 };
         public int lv { get; private set; } = 1;
-        [SerializeField] int inStageIndex;
-        public int heroInStageIndex
-        {
-            get => inStageIndex;
-            set => inStageIndex = value;
-        }
 
         public ActionAlert.ActionType VilligeAction { get; private set; } = ActionAlert.ActionType.walking;
         public AddressableManager.BuildingImage BuildingAction { get; private set; }

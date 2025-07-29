@@ -394,6 +394,7 @@ namespace SaveData
         public bool isDead;
         public unit_status cur_status;
         public int[] dots;
+
         public ObjectData()
         {
             position = 2 * Vector3.forward;
@@ -407,6 +408,7 @@ namespace SaveData
         {
             position = cObject.transform.position;
             quaternion = cObject.transform.rotation;
+            dotsDirection = cObject.dotsDirection;
             selected = cObject.selected;
             cur_status = new unit_status();
             cur_status.Clone(cObject.curstat);
@@ -416,17 +418,21 @@ namespace SaveData
         }
         public ObjectData(unit_status stat)
         {
+            //마을 소환.
             position = new Vector3(-7.8f, 0, 0);
             quaternion = Quaternion.Euler(0, 180, 0);
+            //dotsDirection = Vector3.zero;
             selected = false;
             isDead = false;
             cur_status = stat;
+            //stageIndex = 0;
             dots = new int[(int)SkillData.EFFECTINDEX.MAX] { 0, 0, 0, 0 };
         }
         public void SetData(CObject cObject)
         {
             position = cObject.transform.position;
             quaternion = cObject.transform.rotation;
+            dotsDirection = cObject.dotsDirection;
             selected = cObject.selected;
             cur_status.Clone(cObject.curstat);
             isDead = cur_status.curHP <= 0;

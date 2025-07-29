@@ -177,7 +177,7 @@ public class BattleClearManager : MonoBehaviour
 
         foreach (Hero item in manager.ObjectList[0])
         {
-            hero = saveData.hero[stageData.heros[item.heroInStageIndex]];
+            hero = saveData.hero[stageData.heros[item.stageIndex]];
             hero.SetHeroData(item);
             if (needPositionReset)
             {

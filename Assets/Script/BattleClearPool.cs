@@ -24,7 +24,10 @@ public class BattleClearPool : MonoBehaviour
         linkpool = new NavMeshLink[poolNum];
 
         for (int i = 0; i < poolNum; i++)
+        {
             linkpool[i] = Instantiate(link, transform.GetChild(2));
+            Debug.Log(i + "¹ø »ý»ê");
+        }
 
     }
     void MakePoolObject<T>(int folderIndex, in T[] array, int poolStorageCount) where T : Object
