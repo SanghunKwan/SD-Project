@@ -60,20 +60,20 @@
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": 2.510218620300293,
+                    "x": -3.4288668632507326,
                     "y": 0.5000000596046448,
-                    "z": -11.679162979125977
+                    "z": -4.000782489776611
                 },
                 "depart": {
-                    "x": 1.9829673767089844,
+                    "x": -1.3848514556884766,
                     "y": 0.06666666269302368,
-                    "z": -9.06531810760498
+                    "z": -7.030411720275879
                 },
                 "objectData": {
                     "position": {
-                        "x": 2.011658191680908,
+                        "x": -1.5243709087371827,
                         "y": 0.06666666269302368,
-                        "z": -9.091697692871094
+                        "z": -6.938381195068359
                     },
                     "dotsDirection": {
                         "x": 0.0,
@@ -82,9 +82,9 @@
                     },
                     "quaternion": {
                         "x": 0.0,
-                        "y": 0.8556028008460999,
+                        "y": 0.707804262638092,
                         "z": 0.0,
-                        "w": 0.5176330804824829
+                        "w": -0.7064086198806763
                     },
                     "selected": true,
                     "isDead": false,
@@ -150,19 +150,9 @@
         "inventoryData": {
             "itemDatas": [
                 {
-                    "itemIndex": 11,
-                    "itemCount": 1,
-                    "slotIndex": 0
-                },
-                {
                     "itemIndex": 4,
                     "itemCount": 2,
-                    "slotIndex": 1
-                },
-                {
-                    "itemIndex": 10,
-                    "itemCount": 1,
-                    "slotIndex": 2
+                    "slotIndex": 0
                 }
             ],
             "corpseIndex": []
@@ -925,9 +915,9 @@
                     },
                     {
                         "position": {
-                            "x": 0.0,
+                            "x": 1.430875301361084,
                             "y": 0.0,
-                            "z": 2.0
+                            "z": -9.725932121276856
                         },
                         "dotsDirection": {
                             "x": 0.0,
@@ -936,31 +926,31 @@
                         },
                         "quaternion": {
                             "x": 0.0,
-                            "y": 1.0,
+                            "y": 0.0,
                             "z": 0.0,
-                            "w": -4.371138828673793e-8
+                            "w": 1.0000001192092896
                         },
                         "selected": false,
                         "isDead": false,
                         "cur_status": {
-                            "ID": 301,
-                            "NAME": "playerMelee",
-                            "SPECIES": 1,
-                            "HP": 27,
-                            "ATK": 7,
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (11)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
                             "DEF": 0,
-                            "DOG": 10,
+                            "DOG": -90,
                             "MORALE": 0,
-                            "SPEED": 5,
-                            "ViewAngle": 90,
-                            "ViewRange": 6,
-                            "type": 0,
-                            "Accuracy": 85,
-                            "AtkSpeed": 1.5,
-                            "Range": 1,
-                            "Mentality": 30,
-                            "Stress": 5,
-                            "curHP": 27,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
                             "curMORALE": 0
                         },
                         "dots": [
@@ -1207,6 +1197,53 @@
                     },
                     {
                         "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 2.0
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 1.0,
+                            "z": 0.0,
+                            "w": -4.371138828673793e-8
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 301,
+                            "NAME": "playerMelee",
+                            "SPECIES": 1,
+                            "HP": 27,
+                            "ATK": 7,
+                            "DEF": 0,
+                            "DOG": 10,
+                            "MORALE": 0,
+                            "SPEED": 5,
+                            "ViewAngle": 90,
+                            "ViewRange": 6,
+                            "type": 0,
+                            "Accuracy": 85,
+                            "AtkSpeed": 1.5,
+                            "Range": 1,
+                            "Mentality": 30,
+                            "Stress": 5,
+                            "curHP": 27,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
                             "x": 4.586856842041016,
                             "y": 0.0,
                             "z": -14.764204025268555
@@ -1283,29 +1320,20 @@
                     },
                     {
                         "position": {
-                            "x": 2.3323135375976564,
-                            "y": -0.0009405038435943425,
-                            "z": -9.741134643554688
+                            "x": -1.922324299812317,
+                            "y": -0.002453283639624715,
+                            "z": -6.3524489402771
                         },
                         "index": 4,
                         "stageIndex": 0
                     },
                     {
                         "position": {
-                            "x": 1.4423136711120606,
-                            "y": -0.0009405038435943425,
-                            "z": -10.631134986877442
+                            "x": -1.0323243141174317,
+                            "y": -0.002453283639624715,
+                            "z": -5.462449073791504
                         },
-                        "index": 4,
-                        "stageIndex": 0
-                    },
-                    {
-                        "position": {
-                            "x": 0.5523136854171753,
-                            "y": -0.0009405038435943425,
-                            "z": -9.741134643554688
-                        },
-                        "index": 4,
+                        "index": 6,
                         "stageIndex": 0
                     }
                 ]
@@ -1318,7 +1346,17 @@
             "bits": [
                 196607
             ],
-            "nowQuestList": []
+            "nowQuestList": [
+                {
+                    "questIndex": 8,
+                    "nowProgress": 0,
+                    "callPosition": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                }
+            ]
         },
         "villigePerformOneData": {
             "bits": [
@@ -1343,9 +1381,9 @@
     },
     "playInfo": {
         "camPosition": {
-            "x": 3.5477213859558107,
+            "x": -0.9893288612365723,
             "y": 10.0,
-            "z": -21.822982788085939
+            "z": -18.245214462280275
         },
         "enableUpgrades": [
             1,

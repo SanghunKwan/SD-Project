@@ -151,7 +151,6 @@ public class QuestPool : MonoBehaviour
             layerCalled?.Invoke(objectLayerNum);
             if (!CompareSymbols(objectLayerNum))
                 return;
-
             actionCalled?.Invoke();
 
             if (progress >= maxCount)

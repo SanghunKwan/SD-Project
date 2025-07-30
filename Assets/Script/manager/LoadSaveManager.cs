@@ -544,9 +544,7 @@ namespace SaveData
             }
             public SaveDataBit GetQuestState(int questNum)
             {
-                Debug.Log(questNum);
                 long questState = bits[GetBitsIndex(questNum)];
-                Debug.Log(questState);
 
                 return (SaveDataBit)((questState >> GetNumShift(questNum)) & 3);
             }

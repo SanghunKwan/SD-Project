@@ -72,7 +72,10 @@ public class BattleClearManager : MonoBehaviour
     {
         loadSaveManager.LoadData(StageManager.instance.saveDataIndex, out saveData);
         GameManager.manager.SetBattleClearManager(this);
-        GameManager.manager.onPlayerEnterStage.eventAction += (num, vec) => { if (num == -1) nowFloorIndex++; };
+        GameManager.manager.onPlayerEnterStage.eventAction += (num, vec) =>
+                                                           {
+                                                               if (num == -1) nowFloorIndex++;
+                                                           };
         SetStage(saveData.nextScene);
     }
 
@@ -141,6 +144,7 @@ public class BattleClearManager : MonoBehaviour
     {
         RenewalSavedataInStage(isClear);
         OverrideSaveDataFileHeroInventory();
+        OverrideInProgressQuest();
         OverrideSaveDataPlayInfo();
         OverrideSummonHeroList();
     }

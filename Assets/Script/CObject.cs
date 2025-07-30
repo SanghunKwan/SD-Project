@@ -132,7 +132,6 @@ namespace Unit
             if (initCount == initMaxCount)
             {
                 GameManager.manager.CheckObjectLoadComplete();
-                Debug.Log("name : " + name + "     count : " + initCount);
             }
         }
         protected IEnumerator CorLateUpdate()

@@ -277,13 +277,13 @@ public class QuestSpawner : MonoBehaviour
 
     void CreateQuestForAction(QuestManager.QuestData data, Action completeAction, int nowProgress)
     {
-        Action complete = () =>
+        void complete()
         {
             completeAction();
             EventClear(data.reward);
             questPool.ReturnQuestActInstance(doingActionQuestDictionary[data]);
             doingActionQuestDictionary.Remove(data);
-        };
+        }
 
         QuestPool.QuestActionInstance instance = questPool.GetQuestActInstance(nowProgress, data, complete, actionEvent);
 

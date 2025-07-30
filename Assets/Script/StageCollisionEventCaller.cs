@@ -9,7 +9,7 @@ public class StageCollisionEventCaller : MonoBehaviour
         if (other.gameObject.layer != 7)
             return;
 
-        int stageIndex = transform.parent.parent.GetSiblingIndex();
+        int stageIndex = transform.GetSiblingIndex();
         GameManager.manager.objectManager.GetNode(other.gameObject).Value.stageIndex = stageIndex;
         GameManager.manager.onPlayerEnterStage.eventAction?.Invoke(
             GameManager.manager.battleClearManager.nowFloorIndex - stageIndex, transform.position);

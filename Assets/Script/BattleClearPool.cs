@@ -26,7 +26,7 @@ public class BattleClearPool : MonoBehaviour
         for (int i = 0; i < poolNum; i++)
         {
             linkpool[i] = Instantiate(link, transform.GetChild(2));
-            Debug.Log(i + "번 생산");
+            //Debug.Log(i + "번 생산");
         }
 
     }
