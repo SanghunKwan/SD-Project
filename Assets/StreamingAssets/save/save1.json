@@ -60,20 +60,20 @@
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": -3.4288668632507326,
+                    "x": 2.5157527923583986,
                     "y": 0.5000000596046448,
-                    "z": -4.000782489776611
+                    "z": -10.282569885253907
                 },
                 "depart": {
-                    "x": -1.3848514556884766,
+                    "x": 1.9270458221435547,
                     "y": 0.06666666269302368,
-                    "z": -7.030411720275879
+                    "z": -9.027180671691895
                 },
                 "objectData": {
                     "position": {
-                        "x": -1.5243709087371827,
+                        "x": 1.9981179237365723,
                         "y": 0.06666666269302368,
-                        "z": -6.938381195068359
+                        "z": -9.062586784362793
                     },
                     "dotsDirection": {
                         "x": 0.0,
@@ -82,9 +82,9 @@
                     },
                     "quaternion": {
                         "x": 0.0,
-                        "y": 0.707804262638092,
+                        "y": 0.8822868466377258,
                         "z": 0.0,
-                        "w": -0.7064086198806763
+                        "w": 0.47071218490600588
                     },
                     "selected": true,
                     "isDead": false,
@@ -153,6 +153,16 @@
                     "itemIndex": 4,
                     "itemCount": 2,
                     "slotIndex": 0
+                },
+                {
+                    "itemIndex": 10,
+                    "itemCount": 1,
+                    "slotIndex": 1
+                },
+                {
+                    "itemIndex": 6,
+                    "itemCount": 1,
+                    "slotIndex": 2
                 }
             ],
             "corpseIndex": []
@@ -915,9 +925,9 @@
                     },
                     {
                         "position": {
-                            "x": 1.430875301361084,
+                            "x": 0.0,
                             "y": 0.0,
-                            "z": -9.725932121276856
+                            "z": 2.0
                         },
                         "dotsDirection": {
                             "x": 0.0,
@@ -926,31 +936,31 @@
                         },
                         "quaternion": {
                             "x": 0.0,
-                            "y": 0.0,
+                            "y": 1.0,
                             "z": 0.0,
-                            "w": 1.0000001192092896
+                            "w": -4.371138828673793e-8
                         },
                         "selected": false,
                         "isDead": false,
                         "cur_status": {
-                            "ID": 104,
-                            "NAME": "Object_Tree1 (11)",
-                            "SPECIES": 100,
-                            "HP": 30,
-                            "ATK": 0,
+                            "ID": 301,
+                            "NAME": "playerMelee",
+                            "SPECIES": 1,
+                            "HP": 27,
+                            "ATK": 7,
                             "DEF": 0,
-                            "DOG": -90,
+                            "DOG": 10,
                             "MORALE": 0,
-                            "SPEED": 0,
-                            "ViewAngle": 0,
-                            "ViewRange": 0,
-                            "type": 100,
-                            "Accuracy": 0,
-                            "AtkSpeed": 0.0,
-                            "Range": 0,
-                            "Mentality": 1,
-                            "Stress": 0,
-                            "curHP": 30,
+                            "SPEED": 5,
+                            "ViewAngle": 90,
+                            "ViewRange": 6,
+                            "type": 0,
+                            "Accuracy": 85,
+                            "AtkSpeed": 1.5,
+                            "Range": 1,
+                            "Mentality": 30,
+                            "Stress": 5,
+                            "curHP": 27,
                             "curMORALE": 0
                         },
                         "dots": [
@@ -1197,53 +1207,6 @@
                     },
                     {
                         "position": {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 2.0
-                        },
-                        "dotsDirection": {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "quaternion": {
-                            "x": 0.0,
-                            "y": 1.0,
-                            "z": 0.0,
-                            "w": -4.371138828673793e-8
-                        },
-                        "selected": false,
-                        "isDead": false,
-                        "cur_status": {
-                            "ID": 301,
-                            "NAME": "playerMelee",
-                            "SPECIES": 1,
-                            "HP": 27,
-                            "ATK": 7,
-                            "DEF": 0,
-                            "DOG": 10,
-                            "MORALE": 0,
-                            "SPEED": 5,
-                            "ViewAngle": 90,
-                            "ViewRange": 6,
-                            "type": 0,
-                            "Accuracy": 85,
-                            "AtkSpeed": 1.5,
-                            "Range": 1,
-                            "Mentality": 30,
-                            "Stress": 5,
-                            "curHP": 27,
-                            "curMORALE": 0
-                        },
-                        "dots": [
-                            0,
-                            0,
-                            0,
-                            0
-                        ]
-                    },
-                    {
-                        "position": {
                             "x": 4.586856842041016,
                             "y": 0.0,
                             "z": -14.764204025268555
@@ -1320,20 +1283,20 @@
                     },
                     {
                         "position": {
-                            "x": -1.922324299812317,
-                            "y": -0.002453283639624715,
-                            "z": -6.3524489402771
+                            "x": 2.3289246559143068,
+                            "y": -0.0009405011660419405,
+                            "z": -9.743169784545899
                         },
                         "index": 4,
                         "stageIndex": 0
                     },
                     {
                         "position": {
-                            "x": -1.0323243141174317,
-                            "y": -0.002453283639624715,
-                            "z": -5.462449073791504
+                            "x": 0.9939246773719788,
+                            "y": -0.0009405011660419405,
+                            "z": -10.513932228088379
                         },
-                        "index": 6,
+                        "index": 4,
                         "stageIndex": 0
                     }
                 ]

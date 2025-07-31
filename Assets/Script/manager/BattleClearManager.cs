@@ -21,6 +21,7 @@ public class BattleClearManager : MonoBehaviour
     public float[] planeSize { get { return m_planeSize; } }
 
     public StageFloorComponent[] stageFloorComponents { get; private set; }
+    public HashSet<Hero>[] herosInStages;
 
     SaveDataInfo saveData;
     public SaveDataInfo SaveDataInfo { get { return saveData; } }
@@ -42,6 +43,7 @@ public class BattleClearManager : MonoBehaviour
     public Func<StageFloorComponent> onVilligeFloorComponentSet { get; set; }
 
     Queue<int> stageHeroDeleting;
+
 
     public HashSet<QuestTrigger> doingQuestTrigger { get; private set; }
     public HashSet<QuestPool.QuestActionInstance> doingQuestActionInstance { get; private set; }
