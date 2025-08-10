@@ -166,7 +166,7 @@ public class QuestManager : JsonLoad
             {
                 Item,
                 NewStage,
-                StageSet,
+
                 Max
             }
             public RewardType rewardType;

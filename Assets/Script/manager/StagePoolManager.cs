@@ -1,4 +1,5 @@
 using SaveData;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unit;
@@ -8,8 +9,6 @@ public class StagePoolManager : MonoBehaviour
 {
     public int[] stageFloors { get; private set; }
     public int startFloorIndex { get; private set; }
-    public int floorIndexAdd { get; private set; }
-    public int nowFloorIndex { get { return startFloorIndex + floorIndexAdd; } }
     public bool isLoaded { get; private set; }
 
 
@@ -35,15 +34,14 @@ public class StagePoolManager : MonoBehaviour
         }
         GameManager.manager.battleClearManager.SetActiveNewStageObjects = SpawnFloorByIndex;
         GameManager.manager.battleClearManager.onStageSave = SaveStageObjects;
+        GameManager.manager.battleClearManager.HasStageAliveMonsters = HasAliveMonsters;
     }
-    void SpawnFloorByIndex(int floorIndex)
+    void SpawnFloorByIndex(int floorIndex, bool isOn)
     {
-        floorIndexAdd = floorIndex - startFloorIndex;
-
         int length = transform.childCount;
         for (int i = 0; i < length; i++)
         {
-            transform.GetChild(i).GetChild(floorIndexAdd).gameObject.SetActive(true);
+            transform.GetChild(i).GetChild(floorIndex).gameObject.SetActive(isOn);
         }
     }
 
@@ -98,7 +96,18 @@ public class StagePoolManager : MonoBehaviour
             if (manager.NoneObjectDictionary[0].ContainsKey(go))
                 data.dropItemDatas[i] = new DropItemData((ItemComponent)(manager.NoneObjectDictionary[0][go].Value));
         }
+    }
 
+    bool HasAliveMonsters(int floorIndex)
+    {
+        Transform monsterParentTransform = transform.GetChild(1).GetChild(floorIndex);
+        int length = monsterParentTransform.childCount;
 
+        for (int i = 0; i < length; i++)
+        {
+            if (monsterParentTransform.GetChild(i).gameObject.layer != 16)
+                return true;
+        }
+        return false;
     }
 }

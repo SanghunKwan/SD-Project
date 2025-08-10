@@ -38,6 +38,7 @@ namespace Unit
         protected override void Start()
         {
             base.Start();
+            stageIndex = 0;
 
             for (int i = 0; i < triggerHashes.Length; i++)
             {
@@ -71,21 +72,21 @@ namespace Unit
         protected override IEnumerator DelayGetUI()
         {
             initMaxCount = 5;
-            return base.DelayGetUI();
+            yield return base.DelayGetUI();
         }
-        public override void Selected(bool asdf)
+        public override void Selected(bool isOn)
         {
-            copyUICircle.gameObject.SetActive(asdf);
+            copyUICircle.gameObject.SetActive(isOn);
 
             if (curstat.HP.Equals(curstat.curHP))
                 copyBar.gameObject.SetActive(false);
 
-            if (asdf)
+            if (isOn)
             {
                 GameManager.manager.onSelected.eventAction?.Invoke(gameObject.layer, transform.position);
                 PlayerNavi.nav.HeroAdd(this);
             }
-            selected = asdf;
+            selected = isOn;
         }
         protected override void GetSelecting()
         {

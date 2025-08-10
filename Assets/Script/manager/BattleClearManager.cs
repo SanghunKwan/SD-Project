@@ -11,7 +11,6 @@ public class BattleClearManager : MonoBehaviour
     [SerializeField] int[] m_linkPosition;
     public int[] linkPosition { get { return m_linkPosition; } }
 
-    public int nowFloorIndex { get; private set; }
     int lastFloorIndex;
 
     [SerializeField] Vector2[] m_stagePosition;
@@ -20,8 +19,7 @@ public class BattleClearManager : MonoBehaviour
     [SerializeField] float[] m_planeSize;
     public float[] planeSize { get { return m_planeSize; } }
 
-    public StageFloorComponent[] stageFloorComponents { get; private set; }
-    public HashSet<Hero>[] herosInStages;
+    HashSet<CObject>[] herosInStages;
 
     SaveDataInfo saveData;
     public SaveDataInfo SaveDataInfo { get { return saveData; } }
@@ -37,22 +35,42 @@ public class BattleClearManager : MonoBehaviour
 
 
     Action[] setStageByNextScene;
-    public Action<int> SetActiveNewStageObjects { get; set; }
-    public Action onStageChanged { get; set; }
-    public Action<FloorUnitData, int> onStageSave { get; set; }
-    public Func<StageFloorComponent> onVilligeFloorComponentSet { get; set; }
 
     Queue<int> stageHeroDeleting;
 
 
-    public HashSet<QuestTrigger> doingQuestTrigger { get; private set; }
-    public HashSet<QuestPool.QuestActionInstance> doingQuestActionInstance { get; private set; }
 
 
     public enum OBJECTNUM
     {
         BONEWALL,
     }
+    enum CheckDirection
+    {
+        NONE = 0,
+
+        Before = 1 << 0,
+        Next = 1 << 1,
+
+        Count = 2,
+        All = 1 << Count - 1
+    }
+
+
+    public int nowFloorIndex { get; private set; }
+
+    public StageFloorComponent[] stageFloorComponents { get; private set; }
+
+    public Action<int, bool> SetActiveNewStageObjects { get; set; }
+    public Func<int, bool> HasStageAliveMonsters { get; set; }
+    public Action onStageChanged { get; set; }
+    public Action<FloorUnitData, int> onStageSave { get; set; }
+    public Func<StageFloorComponent> onVilligeFloorComponentSet { get; set; }
+
+    public HashSet<QuestTrigger> doingQuestTrigger { get; private set; }
+    public HashSet<QuestPool.QuestActionInstance> doingQuestActionInstance { get; private set; }
+
+
     private void Awake()
     {
         battleClearPool = GetComponent<BattleClearPool>();
@@ -76,7 +94,13 @@ public class BattleClearManager : MonoBehaviour
         GameManager.manager.SetBattleClearManager(this);
         GameManager.manager.onPlayerEnterStage.eventAction += (num, vec) =>
                                                            {
-                                                               if (num == -1) nowFloorIndex++;
+                                                               if (num == -1)
+                                                               {
+                                                                   //nowFloorIndex++;
+                                                                   //Debug.Log("-1일 때가 있네?");
+
+                                                                   Debug.Log("이전 스테이지로 이동");
+                                                               }
                                                            };
         SetStage(saveData.nextScene);
     }
@@ -96,16 +120,21 @@ public class BattleClearManager : MonoBehaviour
     }
     void CallStages(in int[] floors)
     {
-        lastFloorIndex = floors.Length;
-        stageFloorComponents = new StageFloorComponent[lastFloorIndex];
+        int length = floors.Length;
+        lastFloorIndex = length - 1;
+        stageFloorComponents = new StageFloorComponent[length];
+        herosInStages = new HashSet<CObject>[length];
 
         stageFloorComponents[0] = battleClearPool.MakeStage(PoolStageIndex(floors[0]));
         stageFloorComponents[0].gameObject.SetActive(true);
+
+        herosInStages[0] = new HashSet<CObject>();
         StageFloorComponent.Direction2Array randomDirection;
-        for (int i = 1; i < lastFloorIndex; i++)
+        for (int i = 1; i < length; i++)
         {
             stageFloorComponents[i] = battleClearPool.MakeStage(PoolStageIndex(floors[i]));
             randomDirection = stageFloorComponents[i - 1].GetEmptyDirection();
+            herosInStages[i] = new HashSet<CObject>();
             stageFloorComponents[i - 1].NewStage(stageFloorComponents[i], randomDirection);
             stageFloorComponents[i - 1].NewLink(battleClearPool.MakeLink(), stageFloorComponents[i], randomDirection);
         }
@@ -118,7 +147,7 @@ public class BattleClearManager : MonoBehaviour
     public void ActivateNextFloor(in QuestSpawner questSpawner, bool needSave = true)
     {
         int nextFloorIndex = nowFloorIndex + 1;
-        if (nextFloorIndex < lastFloorIndex)
+        if (nextFloorIndex <= lastFloorIndex)
         {
             GetStageComponent(1).gameObject.SetActive(true);
             questSpawner.PrepareQuest(QuestManager.QuestType.FloorQuest, 1);
@@ -352,10 +381,6 @@ public class BattleClearManager : MonoBehaviour
         saveData.playInfo.SaveData();
     }
     #endregion
-    public void ActiveStageObject()
-    {
-        SetActiveNewStageObjects(nowFloorIndex);
-    }
     public StageFloorComponent GetStageComponent(int offsetIndex)
     {
         return stageFloorComponents[nowFloorIndex + offsetIndex];
@@ -364,5 +389,57 @@ public class BattleClearManager : MonoBehaviour
     {
         if (saveData.stageData.isClear)
             ActivateNextFloor(questSpawner, false);
+    }
+    public void AddStageHero(int lastIndex, int currentIndex, CObject hero)
+    {
+        HashSet<CObject> lastStageHashSet = herosInStages[lastIndex];
+        HashSet<CObject> currentStageHashSet = herosInStages[currentIndex];
+        lastStageHashSet.Remove(hero);
+        currentStageHashSet.Add(hero);
+
+        nowFloorIndex = Mathf.Max(currentIndex, nowFloorIndex);
+
+        if (lastStageHashSet.Count == 0)
+        {
+            //lastStage에 영웅이 없고
+            //현재 스테이지에 살아있는 몬스터가 없으면
+            //lastStage의 오브젝트 비활성화
+            if (!HasStageAliveMonsters(lastIndex))
+            {
+                SetActiveNewStageObjects(lastIndex, false);
+            }
+
+            //lastStage , lastStage +1, lastStage -1 floor 비활성화
+            //단, 스테이지에 영웅이 없는 경우에만.
+            SetActiveBySurroundingStage(lastIndex);
+            if (lastIndex < lastFloorIndex)
+                SetActiveBySurroundingStage(lastIndex + 1, CheckDirection.Next);
+            if (lastIndex > 0)
+                SetActiveBySurroundingStage(lastIndex - 1, CheckDirection.Before);
+        }
+
+
+        //currentStage에 영웅이 생기면
+        //currentStage 오브젝트 활성화
+        stageFloorComponents[currentIndex].gameObject.SetActive(true);
+        SetActiveNewStageObjects(currentIndex, true);
+        //currentStage +1, currentStage -1 floor 활성화
+
+        if (currentIndex < lastFloorIndex && nowFloorIndex != currentIndex)
+            stageFloorComponents[currentIndex + 1].gameObject.SetActive(true);
+        if (currentIndex > 0)
+            stageFloorComponents[currentIndex - 1].gameObject.SetActive(true);
+
+
+    }
+
+    void SetActiveBySurroundingStage(int stageIndex, CheckDirection checkDirection = CheckDirection.All)
+    {
+        stageFloorComponents[stageIndex].gameObject.SetActive(AreSurroundingStagesHaveHeros(stageIndex, checkDirection));
+    }
+    bool AreSurroundingStagesHaveHeros(int stageIndex, CheckDirection checkDirection)
+    {
+        return ((checkDirection & CheckDirection.Before) != 0 && stageIndex > 0 && herosInStages[stageIndex - 1].Count > 0) ||
+               ((checkDirection & CheckDirection.Next) != 0 && (stageIndex < lastFloorIndex) && herosInStages[stageIndex + 1].Count > 0);
     }
 }

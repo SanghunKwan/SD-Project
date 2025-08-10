@@ -40,8 +40,6 @@ public class StageFloorComponent : InitObject
         All = (1 << Max) - 1
     }
 
-
-
     public override void Init()
     {
         navMeshParent = transform.GetChild(0);
@@ -49,6 +47,7 @@ public class StageFloorComponent : InitObject
 
         nearComponent = new StageFloorComponent[(int)DirectionFlags.Max];
     }
+
     public void NewLink(NavMeshLink link, StageFloorComponent newStageFloorComponent, Direction2Array direction)
     {
         int iDirection = (int)direction;

@@ -65,7 +65,7 @@ namespace Unit
 
             LateRepeat = CorLateUpdate();
             StartCoroutine(LateRepeat);
-            stageIndex = transform.parent.GetSiblingIndex();
+
         }
         protected virtual IEnumerator DelayGetUI()
         {
@@ -99,6 +99,7 @@ namespace Unit
 
         protected virtual void Start()
         {
+            stageIndex = transform.parent.GetSiblingIndex();
             //start가 delayUI보다 늦게 실행되서 버그가 생김.
             if (stat == null)
                 stat = Data.Instance.GetInfo(ID);
@@ -155,7 +156,11 @@ namespace Unit
 
             //copyBar, hpBarScript, copyUICircle 리턴.
             ReturnUIAfterDeath();
+
         }
+
+
+
         protected void GetColliderSize(CapsuleCollider collider)
         {
             uiradius = collider.radius * charactertoUImultiply;
@@ -164,7 +169,10 @@ namespace Unit
 
         protected virtual void GetSelecting()
         {
-            GameManager.manager.objectManager.NewObject(ObjectManager.CObjectType.FieldObject, this);
+            ObjectManager objectManager = GameManager.manager.objectManager;
+            if (fieldDead || objectManager.ObjectDictionary[(int)ObjectManager.CObjectType.FieldObject].ContainsKey(gameObject)) return;
+
+            objectManager.NewObject(ObjectManager.CObjectType.FieldObject, this);
         }
         protected void SetNowPosition()
         {
@@ -197,13 +205,13 @@ namespace Unit
             Selected(false);
             drag = false;
         }
-        public virtual void Selected(bool asdf)
+        public virtual void Selected(bool isOn)
         {
-            selected = asdf;
-            copyBar.gameObject.SetActive(asdf);
-            copyUICircle.gameObject.SetActive(asdf);
+            selected = isOn;
+            copyBar.gameObject.SetActive(isOn);
+            copyUICircle.gameObject.SetActive(isOn);
 
-            if (asdf)
+            if (isOn)
                 GameManager.manager.onSelected.eventAction?.Invoke(gameObject.layer, transform.position);
         }
         protected void MaterialChange()
@@ -342,12 +350,10 @@ namespace Unit
         IEnumerator Delete()
         {
             ObjectCollider.enabled = false;
+            Destroy(gameObject, 2);
             yield return new WaitForSeconds(1.5f);
             obstacle = GetComponent<NavMeshObstacle>();
             obstacle.enabled = false;
-            yield return new WaitForSeconds(0.5f);
-            gameObject.SetActive(false);
-            Destroy(gameObject);
         }
         protected void ItemDrop()
         {

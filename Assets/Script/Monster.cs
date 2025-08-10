@@ -75,6 +75,9 @@ namespace Unit
         }
         protected override void GetSelecting()
         {
+            ObjectManager objectManager = GameManager.manager.objectManager;
+            if (fieldDead || objectManager.ObjectDictionary[(int)ObjectManager.CObjectType.Monster].ContainsKey(gameObject)) return;
+
             GameManager.manager.objectManager.NewObject(ObjectManager.CObjectType.Monster, this);
             GameManager.manager.HereComesNewEnermy(this);
             monsterMove = unitMove as MonsterMove;

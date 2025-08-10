@@ -4337,7 +4337,7 @@
       "name": "이동",
       "detail": "다른 스테이지로 이동",
       "reward": {
-        "rewardType": 2,
+        "rewardType": 0,
         "rewardItems": [
           {}
         ]

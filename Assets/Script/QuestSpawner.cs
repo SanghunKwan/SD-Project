@@ -71,7 +71,6 @@ public class QuestSpawner : MonoBehaviour
         EventClearActions = new Action<QuestManager.QuestData.QuestReward>[(int)QuestManager.QuestData.QuestReward.RewardType.Max];
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.Item] = ClearForItem;
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.NewStage] = (reward) => ClearForStage();
-        EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.StageSet] = (reward) => ClearStageArrive();
 
         createQuestEventActions = new Action<QuestManager.QuestData.QuestEvent, QuestUISlot, QuestManager.QuestData>[(int)QuestManager.QuestData.QuestEvent.EventType.Max];
         createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.FreeMaterial] = QuestEventFreeMaterial;
@@ -435,12 +434,6 @@ public class QuestSpawner : MonoBehaviour
         GameManager.manager.battleClearManager.ActivateNextFloor(this);
 
         //새로운 스테이지 floor 활성화
-    }
-    void ClearStageArrive()
-    {
-        GameManager.manager.battleClearManager.ActiveStageObject();
-
-        //새로운 스테이지 오브젝트 활성화
     }
 
     #endregion

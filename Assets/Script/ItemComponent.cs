@@ -43,7 +43,14 @@ public class ItemComponent : MonoBehaviour
     }
     protected virtual void VirtualEnable()
     {
-        GameManager.manager.objectManager.NewNoneObject(ObjectManager.AdditionalType.Item, this);
+        ObjectManager objectManager = GameManager.manager.objectManager;
+        if (objectManager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item].ContainsKey(gameObject)) return;
+
+        objectManager.NewNoneObject(ObjectManager.AdditionalType.Item, this);
+    }
+    void OnDisable()
+    {
+
     }
 
     IEnumerator CircleRepeat()

@@ -24,6 +24,6 @@ public class StageCollisionEventCaller : MonoBehaviour
         gameManager.onPlayerEnterStage.eventAction?.Invoke(
             battleClearManager.nowFloorIndex - stageIndex, transform.position);
 
-        //battleClearManager.herosInStages[beforeIndex].Add(heroObject);
+        battleClearManager.AddStageHero(beforeIndex, stageIndex, heroObject);
     }
 }
