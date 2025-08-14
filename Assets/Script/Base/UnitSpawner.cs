@@ -58,7 +58,7 @@ public abstract class UnitSpawner : MonoBehaviour
         newObject.unitMove.ChangeHold(data.ishold);
         newObject.unitMove.LoadDepart(data.depart);
     }
-    void NewSpawnedHeroSet(Hero newObject, HeroData data)
+    void NewSpawnedHeroSet(Hero newObject, HeroData data, int heroIndex)
     {
         newObject.LoadTeamString(data.keycode);
         newObject.SetLevel(data.lv);
@@ -68,6 +68,7 @@ public abstract class UnitSpawner : MonoBehaviour
         newObject.SetData(newObject.EquipsNum, data.equipNum);
         newObject.SetData(newObject.SkillsNum, data.skillNum);
         newObject.SetData(newObject.FieldEquipsNum, data.fieldEquipNum);
+        newObject.SetVilligeIndex(heroIndex);
 
         if ((ActionAlert.ActionType)data.villigeAction == ActionAlert.ActionType.buildingWork)
             newObject.alloBuilding((AddressableManager.BuildingImage)data.workBuilding);
@@ -85,7 +86,7 @@ public abstract class UnitSpawner : MonoBehaviour
                                            PlayerNavi.nav.transform);
         NewSpawnedObjectSet(newHero, data.unitData.objectData);
         NewSpawnedUnitSet(newHero, data.unitData);
-        NewSpawnedHeroSet(newHero, data);
+        NewSpawnedHeroSet(newHero, data, heroIndex);
 
 
         return newHero;

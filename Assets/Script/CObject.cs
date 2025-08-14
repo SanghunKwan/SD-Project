@@ -207,9 +207,14 @@ namespace Unit
         }
         public virtual void Selected(bool isOn)
         {
-            selected = isOn;
+            if (!gameObject.activeInHierarchy)
+            {
+                selected = false;
+                return;
+            }
             copyBar.gameObject.SetActive(isOn);
             copyUICircle.gameObject.SetActive(isOn);
+            selected = isOn;
 
             if (isOn)
                 GameManager.manager.onSelected.eventAction?.Invoke(gameObject.layer, transform.position);

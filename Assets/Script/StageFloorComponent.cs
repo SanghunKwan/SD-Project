@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class StageFloorComponent : InitObject
 {
-    const float localPlaneLength = 5;
+    public const float localPlaneLength = 5;
     const float localLinkOffset = 0.45f;
 
-    float PlaneMagnification;
+    public float PlaneMagnification { get; private set; }
 
     StageFloorComponent[] nearComponent;
     Transform navMeshParent;

@@ -416,11 +416,15 @@ public class GameManager : MonoBehaviour
         {
             //더블 클릭
             if (playerNavi.lists.Count > 0)
+            {
+                string tempKey = ((Hero)playerNavi.lists[0].cUnit).keycode;
+                playerNavi.HeroClear();
                 //player nav의 같은 팀원 호출.
-                foreach (var item in playerNavi.PlayerCharacter[((Hero)playerNavi.lists[0].cUnit).keycode])
+                foreach (var item in playerNavi.PlayerCharacter[tempKey])
                 {
                     item.cUnit.Selected(true);
                 }
+            }
         }
 
         onHeroSelect.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);

@@ -33,6 +33,7 @@ namespace Unit
         public ActionAlert.ActionType VilligeAction { get; private set; } = ActionAlert.ActionType.walking;
         public AddressableManager.BuildingImage BuildingAction { get; private set; }
         public bool isDefaultName { private get; set; }
+        public int villigeHeroIndex { get; private set; }
 
 
         protected override void Start()
@@ -229,6 +230,10 @@ namespace Unit
             TeamChange(newTeam);
             PlayerNavi.nav.SetTeam(unitMove, newTeam);
             PlayerNavi.nav.HeroClear(this, "=");
+        }
+        public void SetVilligeIndex(int heroIndex)
+        {
+            villigeHeroIndex = heroIndex;
         }
         #endregion
         public void alloBuilding(ActionAlert.ActionType type)

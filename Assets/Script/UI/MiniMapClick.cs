@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerMoveHandler, IPointerExitHandler
 {
+    static readonly Vector3 camHeightCorrectionValue = new Vector3(0, 50, -59.59f);
+
+
+
     RawImage rawImage;
     ClickDrag clickdrag;
     Texture2D texture2D;
@@ -52,8 +56,14 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     {
         GameManager.manager.battleClearManager.onStageChanged = MinimapReload;
     }
-    public void MinimapReload()
+    public void MinimapReload(Vector3 newCenter, float orthographicSize)
     {
+        miniMapCam.transform.position = newCenter + camHeightCorrectionValue;
+        miniMapCam.orthographicSize = orthographicSize;
+
+
+
+
         StartCoroutine(DelayDrawPixel());
     }
     IEnumerator DelayDrawPixel()

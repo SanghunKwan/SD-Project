@@ -8,6 +8,8 @@ using SaveData;
 [RequireComponent(typeof(BattleClearPool))]
 public class BattleClearManager : MonoBehaviour
 {
+    const float diagonalCorrection = 1.414f;
+
     [SerializeField] int[] m_linkPosition;
     public int[] linkPosition { get { return m_linkPosition; } }
 
@@ -63,7 +65,7 @@ public class BattleClearManager : MonoBehaviour
 
     public Action<int, bool> SetActiveNewStageObjects { get; set; }
     public Func<int, bool> HasStageAliveMonsters { get; set; }
-    public Action onStageChanged { get; set; }
+    public Action<Vector3, float> onStageChanged { get; set; }
     public Action<FloorUnitData, int> onStageSave { get; set; }
     public Func<StageFloorComponent> onVilligeFloorComponentSet { get; set; }
 
@@ -151,7 +153,8 @@ public class BattleClearManager : MonoBehaviour
         {
             GetStageComponent(1).gameObject.SetActive(true);
             questSpawner.PrepareQuest(QuestManager.QuestType.FloorQuest, 1);
-            onStageChanged?.Invoke();
+
+            onStageChanged?.Invoke(GetBoundingBoxCenter(out float maxSize), maxSize);
         }
         else
         {
@@ -212,7 +215,7 @@ public class BattleClearManager : MonoBehaviour
 
         foreach (Hero item in manager.ObjectList[0])
         {
-            hero = saveData.hero[stageData.heros[item.stageIndex]];
+            hero = saveData.hero[stageData.heros[item.villigeHeroIndex]];
             hero.SetHeroData(item);
             if (needPositionReset)
             {
@@ -442,4 +445,30 @@ public class BattleClearManager : MonoBehaviour
         return ((checkDirection & CheckDirection.Before) != 0 && stageIndex > 0 && herosInStages[stageIndex - 1].Count > 0) ||
                ((checkDirection & CheckDirection.Next) != 0 && (stageIndex < lastFloorIndex) && herosInStages[stageIndex + 1].Count > 0);
     }
+
+    Vector3 GetBoundingBoxCenter(out float orthoSize)
+    {
+        float maxX, minX, maxZ, minZ;
+        maxX = minX = maxZ = minZ = 0;
+
+        int length = nowFloorIndex + 1;
+        for (int i = 0; i <= length; i++)
+        {
+            CompareRecPosition(ref maxX, ref minX, ref maxZ, ref minZ, stageFloorComponents[i]);
+        }
+        orthoSize = MathF.Max(maxX - minX, (maxZ - minZ) * Mathf.Cos(50 * Mathf.Deg2Rad)) / 3;
+        Debug.Log("camSize : " + (maxX - minX) + ":" + (maxZ - minZ) * (Mathf.Cos(50 * Mathf.Deg2Rad)));
+        return new Vector3((maxX + minX) * 0.5f, 0, (maxZ + minZ) * 0.5f);
+    }
+    void CompareRecPosition(ref float maxX, ref float minX, ref float maxZ, ref float minZ, StageFloorComponent stage)
+    {
+        Vector3 position = stage.transform.position;
+        float diagonalHalf = StageFloorComponent.localPlaneLength * stage.PlaneMagnification * diagonalCorrection;
+
+        maxX = MathF.Max(maxX, position.x + diagonalHalf);
+        maxZ = MathF.Max(maxZ, position.z + diagonalHalf);
+        minX = MathF.Min(minX, position.x - diagonalHalf);
+        minZ = MathF.Min(minZ, position.z - diagonalHalf);
+    }
+
 }

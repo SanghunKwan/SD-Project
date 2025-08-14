@@ -42,7 +42,7 @@ public class StorageManager : MonoBehaviour
     }
     public void AddCorpse(GameObject itemFinder, Hero deadHeroData)
     {
-        int heroIndex = deadHeroData.stageIndex;
+        int heroIndex = deadHeroData.villigeHeroIndex;
         if (heroIndex < 0)
         {
             //spawnedHeroCorpse
