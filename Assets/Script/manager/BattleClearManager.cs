@@ -1,9 +1,9 @@
+using SaveData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unit;
 using UnityEngine;
-using SaveData;
 
 [RequireComponent(typeof(BattleClearPool))]
 public class BattleClearManager : MonoBehaviour
@@ -109,7 +109,7 @@ public class BattleClearManager : MonoBehaviour
 
     public CObject CallObject(OBJECTNUM num, Transform trans)
     {
-        CObject obj = transform.GetChild((int)num).GetChild(0).GetComponent<CObject>();
+        CObject obj = transform.GetChild(0).GetChild((int)num).GetChild(0).GetComponent<CObject>();
         obj.gameObject.SetActive(true);
         obj.transform.position = trans.position;
         obj.transform.SetParent(transform);
@@ -126,19 +126,26 @@ public class BattleClearManager : MonoBehaviour
         lastFloorIndex = length - 1;
         stageFloorComponents = new StageFloorComponent[length];
         herosInStages = new HashSet<CObject>[length];
+        herosInStages[0] = new HashSet<CObject>();
 
         stageFloorComponents[0] = battleClearPool.MakeStage(PoolStageIndex(floors[0]));
         stageFloorComponents[0].gameObject.SetActive(true);
 
-        herosInStages[0] = new HashSet<CObject>();
+        //활성화되어 있는 스테이지
+        nowFloorIndex = saveData.stageData.nowFloorIndex;
+
         StageFloorComponent.Direction2Array randomDirection;
         for (int i = 1; i < length; i++)
         {
             stageFloorComponents[i] = battleClearPool.MakeStage(PoolStageIndex(floors[i]));
-            randomDirection = stageFloorComponents[i - 1].GetEmptyDirection();
+
+            bool active = i <= nowFloorIndex;
+            randomDirection = active ? saveData.stageData.additionalFloorsDirections[i - 1]
+                                                        : stageFloorComponents[i - 1].GetEmptyDirection();
             herosInStages[i] = new HashSet<CObject>();
             stageFloorComponents[i - 1].NewStage(stageFloorComponents[i], randomDirection);
             stageFloorComponents[i - 1].NewLink(battleClearPool.MakeLink(), stageFloorComponents[i], randomDirection);
+            stageFloorComponents[i].gameObject.SetActive(active);
         }
     }
     public int PoolStageIndex(int nowFloor)
@@ -173,6 +180,7 @@ public class BattleClearManager : MonoBehaviour
         stageFloorComponents = new StageFloorComponent[1];
         stageFloorComponents[0] = onVilligeFloorComponentSet();
     }
+
     #region 데이터 갱신
     void OverrideSaveFile(bool isClear)
     {
@@ -192,6 +200,14 @@ public class BattleClearManager : MonoBehaviour
         //saveData.questSaveData
         saveData.questSaveData.isLoaded = true;
         //퀘스트 내용은 실시간 동기화
+
+        //스테이지 방향 저장.
+        stageData.additionalFloorsDirections = new StageFloorComponent.Direction2Array[nowFloorIndex];
+        for (int i = 0; i < nowFloorIndex; i++)
+        {
+            stageData.additionalFloorsDirections[i]
+                            = stageFloorComponents[i].GetDirectionToNear(stageFloorComponents[i + 1]);
+        }
 
         stageData.floorUnitDatas = new FloorUnitData[length];
         for (int i = 0; i < length; i++)
@@ -213,25 +229,47 @@ public class BattleClearManager : MonoBehaviour
         ObjectManager manager = GameManager.manager.objectManager;
         HeroData hero;
 
+        int[] stageHeroIndexes = saveData.stageData.heros;
+
         foreach (Hero item in manager.ObjectList[0])
         {
-            hero = saveData.hero[stageData.heros[item.villigeHeroIndex]];
-            hero.SetHeroData(item);
-            if (needPositionReset)
+            hero = OverrideHero(item);
+        }
+
+        if (needPositionReset)
+        {
+            foreach (var item in stageHeroIndexes)
             {
+                hero = saveData.hero[item];
+
                 hero.unitData.objectData.position = newPosition;
                 hero.unitData.destination = newPosition + Vector3.back * 2;
                 hero.unitData.objectData.quaternion = Quaternion.Euler(0, 180, 0);
                 hero.unitData.objectData.selected = false;
+
+                if (!hero.unitData.objectData.isDead) continue;
+
+                if (hero.inInventory)
+                {
+                    //시체 회수 성공.
+                    hero.unitData.objectData.cur_status.curHP = 1;
+                    hero.unitData.objectData.isDead = false;
+                    hero.inInventory = false;
+                }
+                else
+                {
+                    //시체 회수 실패
+                }
             }
         }
-
         SetInventoryData(stageData, InventoryComponent.InventoryType.Stage);
     }
 
     public void OverrideSaveDataBeforeSettle()
     {
         OverrideSaveDataFileHeroInventory(true, new Vector3(5, 0, 2));
+
+
 
         DeleteSaveDataFileStageUnitDropItems();
         DeletePlayInfoCamPosition();
@@ -383,6 +421,13 @@ public class BattleClearManager : MonoBehaviour
     {
         saveData.playInfo.SaveData();
     }
+    public HeroData OverrideHero(Hero hero)
+    {
+        HeroData data = saveData.hero[saveData.stageData.heros[hero.stageHeroIndex]];
+
+        data.SetHeroData(hero);
+        return data;
+    }
     #endregion
     public StageFloorComponent GetStageComponent(int offsetIndex)
     {
@@ -456,8 +501,7 @@ public class BattleClearManager : MonoBehaviour
         {
             CompareRecPosition(ref maxX, ref minX, ref maxZ, ref minZ, stageFloorComponents[i]);
         }
-        orthoSize = MathF.Max(maxX - minX, (maxZ - minZ) * Mathf.Cos(50 * Mathf.Deg2Rad)) / 3;
-        Debug.Log("camSize : " + (maxX - minX) + ":" + (maxZ - minZ) * (Mathf.Cos(50 * Mathf.Deg2Rad)));
+        orthoSize = MathF.Max(maxX - minX, maxZ - minZ) * 0.5f / diagonalCorrection;
         return new Vector3((maxX + minX) * 0.5f, 0, (maxZ + minZ) * 0.5f);
     }
     void CompareRecPosition(ref float maxX, ref float minX, ref float maxZ, ref float minZ, StageFloorComponent stage)
@@ -471,4 +515,11 @@ public class BattleClearManager : MonoBehaviour
         minZ = MathF.Min(minZ, position.z - diagonalHalf);
     }
 
+    public void AddNewHeroToSaveData(HeroData newHero)
+    {
+        Array.Resize(ref saveData.hero, saveData.hero.Length + 1);
+        Array.Resize(ref saveData.stageData.heros, saveData.stageData.heros.Length + 1);
+        saveData.hero[^1] = newHero;
+        saveData.stageData.heros[^1] = saveData.hero.Length - 1;
+    }
 }

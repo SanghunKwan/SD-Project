@@ -7,14 +7,16 @@ using UnityEngine.UI;
 
 public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerMoveHandler, IPointerExitHandler
 {
-    static readonly Vector3 camHeightCorrectionValue = new Vector3(0, 50, -59.59f);
+    public static readonly Vector3 camHeightCorrectionValue = new Vector3(0, 50, -59.59f);
 
+    static readonly int animTwinkleHash = Animator.StringToHash("twinkle");
 
 
     RawImage rawImage;
     ClickDrag clickdrag;
     Texture2D texture2D;
     Camera miniMapCam;
+    Animator effectAnim;
 
     bool outMiniMap = false;
     bool isColorChanged = false;
@@ -27,9 +29,10 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     void Start()
     {
         rawImage = GetComponent<RawImage>();
-        clickdrag = transform.parent.GetComponent<ClickDrag>();
+        clickdrag = transform.parent.parent.GetComponent<ClickDrag>();
         StartCoroutine(DelayDrawPixel());
         miniMapCam = GameObject.FindGameObjectWithTag("Add_Cam").GetComponent<Camera>();
+        effectAnim = transform.parent.GetComponent<Animator>();
 
         action = new Action<RaycastHit>[]
         {
@@ -54,13 +57,13 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     }
     void RegisterStageClearEvent()
     {
-        GameManager.manager.battleClearManager.onStageChanged = MinimapReload;
+        GameManager.manager.battleClearManager.onStageChanged += MinimapReload;
     }
     public void MinimapReload(Vector3 newCenter, float orthographicSize)
     {
         miniMapCam.transform.position = newCenter + camHeightCorrectionValue;
         miniMapCam.orthographicSize = orthographicSize;
-
+        effectAnim.SetTrigger(animTwinkleHash);
 
 
 
@@ -81,8 +84,8 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 
     void GetPixel(Vector2 vector2, out float colora)
     {
-        colora = texture2D.GetPixelBilinear((vector2.x / rawImage.rectTransform.sizeDelta.x),
-                                             (vector2.y / rawImage.rectTransform.sizeDelta.y)).a;
+        colora = texture2D.GetPixelBilinear((vector2.x / rawImage.rectTransform.rect.width),
+                                             (vector2.y / rawImage.rectTransform.rect.height)).a;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -91,7 +94,7 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
         if (colora < 0.1f)
         {
             clickdrag.OnPointerClick(eventData);
-            clickdrag.MiniMapClick = false;
+            clickdrag.miniMapClick = false;
         }
         else
         {
@@ -102,9 +105,8 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     {
         if (!PlayerInputManager.manager.minimapInputEnable) return;
 
-        Vector3 onImagePosition = new Vector3(eventData.position.x / rawImage.rectTransform.sizeDelta.x,
-                                                  eventData.position.y / rawImage.rectTransform.sizeDelta.y, 0);
-
+        Vector3 onImagePosition = new Vector3(eventData.position.x / rawImage.rectTransform.rect.width,
+                                                  eventData.position.y / rawImage.rectTransform.rect.height, 0);
 
         if (Physics.Raycast(miniMapCam.ViewportPointToRay(onImagePosition), out RaycastHit hit, float.MaxValue, 1 << 8))
         {
@@ -136,7 +138,7 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
             if (colora >= 0.1f)
             {
                 MoveScreen(eventData);
-                clickdrag.MiniMapClick = true;
+                clickdrag.miniMapClick = true;
             }
         }
     }
@@ -159,7 +161,7 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
         {
             MoveScreen(eventData);
             outMiniMap = false;
-            clickdrag.MiniMapClick = true;
+            clickdrag.miniMapClick = true;
         }
     }
 
@@ -181,6 +183,6 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     public void OnPointerExit(PointerEventData eventData)
     {
         outMiniMap = true;
-        clickdrag.MiniMapClick = false;
+        clickdrag.miniMapClick = false;
     }
 }

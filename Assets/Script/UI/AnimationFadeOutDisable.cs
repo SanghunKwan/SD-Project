@@ -24,5 +24,10 @@ public class AnimationFadeOutDisable : MonoBehaviour
         for (int i = 0; i < count; i++)
             transform.GetChild(1).GetChild(i).gameObject.SetActive(onoff);
     }
+
+    public void OnDescriptionEnabled()
+    {
+
+    }
     #endregion
 }

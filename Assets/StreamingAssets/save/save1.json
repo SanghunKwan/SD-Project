@@ -55,25 +55,26 @@
             "villigeAction": 0,
             "workBuilding": 0,
             "needGetName": false,
+            "inInventory": false,
             "unitData": {
                 "detected": false,
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": 2.5157527923583986,
+                    "x": 1.5124311447143555,
                     "y": 0.5000000596046448,
-                    "z": -10.282569885253907
+                    "z": -11.919804573059082
                 },
                 "depart": {
-                    "x": 1.9270458221435547,
+                    "x": 0.6058883666992188,
                     "y": 0.06666666269302368,
-                    "z": -9.027180671691895
+                    "z": -9.897181510925293
                 },
                 "objectData": {
                     "position": {
-                        "x": 1.9981179237365723,
+                        "x": 0.6127290725708008,
                         "y": 0.06666666269302368,
-                        "z": -9.062586784362793
+                        "z": -9.91528034210205
                     },
                     "dotsDirection": {
                         "x": 0.0,
@@ -82,9 +83,9 @@
                     },
                     "quaternion": {
                         "x": 0.0,
-                        "y": 0.8822868466377258,
+                        "y": 1.0,
                         "z": 0.0,
-                        "w": 0.47071218490600588
+                        "w": 0.00015609338879585266
                     },
                     "selected": true,
                     "isDead": false,
@@ -144,23 +145,24 @@
             0,
             1
         ],
+        "additionalFloorsDirections": [],
         "nowFloorIndex": 0,
         "isClear": true,
         "isEnter": false,
         "inventoryData": {
             "itemDatas": [
                 {
-                    "itemIndex": 4,
-                    "itemCount": 2,
+                    "itemIndex": 7,
+                    "itemCount": 1,
                     "slotIndex": 0
                 },
                 {
-                    "itemIndex": 10,
-                    "itemCount": 1,
+                    "itemIndex": 4,
+                    "itemCount": 3,
                     "slotIndex": 1
                 },
                 {
-                    "itemIndex": 6,
+                    "itemIndex": 9,
                     "itemCount": 1,
                     "slotIndex": 2
                 }
@@ -1283,18 +1285,9 @@
                     },
                     {
                         "position": {
-                            "x": 2.3289246559143068,
-                            "y": -0.0009405011660419405,
-                            "z": -9.743169784545899
-                        },
-                        "index": 4,
-                        "stageIndex": 0
-                    },
-                    {
-                        "position": {
-                            "x": 0.9939246773719788,
-                            "y": -0.0009405011660419405,
-                            "z": -10.513932228088379
+                            "x": 2.343459129333496,
+                            "y": -0.002453249879181385,
+                            "z": -9.770115852355957
                         },
                         "index": 4,
                         "stageIndex": 0
@@ -1344,9 +1337,9 @@
     },
     "playInfo": {
         "camPosition": {
-            "x": -0.9893288612365723,
+            "x": 1.1564810276031495,
             "y": 10.0,
-            "z": -18.245214462280275
+            "z": -19.66774559020996
         },
         "enableUpgrades": [
             1,

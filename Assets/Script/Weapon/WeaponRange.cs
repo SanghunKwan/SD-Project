@@ -70,7 +70,9 @@ public class WeaponRange : WeaponComponent
 
     protected override IEnumerator GoblinSurprise()
     {
-        PlayerSurpriseReact();
+        if (((Monster)unitMove.cUnit).monsterCheck)
+            PlayerSurpriseReact();
+
         yield return Ambush();
     }
 

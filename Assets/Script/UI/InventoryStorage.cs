@@ -195,7 +195,8 @@ public class InventoryStorage : StorageComponent
 
         if (AllocateSlot(item, out int emptyIndex))
         {
-            ItemCountChangeBySlot(emptyIndex, addNum, item);
+            SetNewItemSlot(emptyIndex, item);
+            SlotOperateWithCodeIndex(emptyIndex, ref addNum, item);
         }
         else
         {
@@ -331,9 +332,7 @@ public class InventoryStorage : StorageComponent
         int itemCode = slot.itemCode;
         int itemCount = count - slot.itemCount;
         int needSlots = brunchArray.Length;
-        Debug.Log(itemCode.ToString() + "    " + count.ToString() + "    " + itemCount.ToString());
-
-        BaseChangeItemCount(itemCode, itemCount);
+        //Debug.Log(itemCode.ToString() + "    " + count.ToString() + "    " + itemCount.ToString());
 
         if (count == 0 && m_type != InventoryComponent.InventoryType.Store)
         {
@@ -350,19 +349,18 @@ public class InventoryStorage : StorageComponent
 
             onCountChanged(temp, i);
         }
+
+        BaseChangeItemCount(itemCode, itemCount);
     }
     public void BaseChangeItemCount(int itemCode, int itemCount)
     {
         base.ItemCountChange(itemCode, itemCount);
     }
-    public void ItemCountChangeBySlot(int slotIndex, int addNum, in Item item)
+    public void ItemSlotChange(int slotIndex, int addNum, in Item item)
     {
-        SetNewItemSlot(slotIndex, item);
-
-        int refAddNum = addNum;
-        SlotOperateWithCodeIndex(slotIndex, ref refAddNum, item);
+        SetNewItemSlot(slotIndex, item, addNum);
     }
-    void SetNewItemSlot(int slotIndex, in Item item)
+    void SetNewItemSlot(int slotIndex, in Item item, int count = 0)
     {
         Slot slot = slots[slotIndex];
         int beforeIndex = itemCode2slotData[item.itemCode].itemCode;
@@ -370,7 +368,7 @@ public class InventoryStorage : StorageComponent
         itemCode2slotData[item.itemCode].itemCode = slotIndex;
         itemCode2slotData[item.itemCode].slotNeedMore.Add(slotIndex);
         LinkIndex(beforeIndex, slotIndex);
-        slot.SetSlot(item.itemCode, 0);
+        slot.SetSlot(item.itemCode, count);
         int tempIndex;
 
         for (int i = 0; i < length; i++)
@@ -378,7 +376,7 @@ public class InventoryStorage : StorageComponent
             tempIndex = slotIndex + (figure2step[(int)item.figure] * i);
             slot.SetBrunchIndex(tempIndex);
             slots[tempIndex].brunchIndex = slot.brunchIndex;
-            slots[tempIndex].SetSlot(item.itemCode, 0);
+            slots[tempIndex].SetSlot(item.itemCode, count);
         }
     }
     public void LinkIndex(int beforeIndex, int emptyIndex)
@@ -394,8 +392,10 @@ public class InventoryStorage : StorageComponent
     public void LoadItem(int slotIndex, int itemIndex, int itemCount)
     {
         Item item = InventoryManager.i.info.items[itemIndex];
-        ItemCountChangeBySlot(slotIndex, itemCount, item);
-        BaseChangeItemCount(itemIndex, itemCount);
+
+        SetNewItemSlot(slotIndex, item);
+        SlotOperateWithCodeIndex(slotIndex, ref itemCount, item);
+
         EmptySlotIndexRemove(slotIndex, item.needSlots, item.figure);
     }
     #endregion
@@ -433,7 +433,9 @@ public class InventoryStorage : StorageComponent
     public bool IsEnoughSpace(int slotIndex, int offset)
     {
         int[] tempArray = slots[slotIndex].brunchIndex.ToArray();
+
         int[] offsetArray = (int[])tempArray.Clone();
+
         int length = tempArray.Length;
         for (int i = 0; i < length; i++)
         {
@@ -446,6 +448,8 @@ public class InventoryStorage : StorageComponent
         int length = brunchArray1.Length;
         int originBrunch;
         int offsetBrunch;
+
+        if (brunchArray2[0] < 0) return false;
         int brunchDifference = (brunchArray1[0] / slotLine1) - (brunchArray2[0] / slotLine2);
 
         for (int i = 0; i < length; i++)
@@ -458,6 +462,7 @@ public class InventoryStorage : StorageComponent
         }
         return true;
     }
+
     public bool IsEnoughSpaceWithOthers(in InventoryStorage inventory1, int slotIndex1, in InventoryStorage inventory2, int slotIndex2)
     {
         int[] tempArray = inventory1.slots[slotIndex1].brunchIndex.ToArray();
@@ -505,8 +510,9 @@ public class InventoryStorage : StorageComponent
             return;
 
         int newIndex = emptySlotList.BinarySearch(codeIndex);
-        Debug.Log(emptySlotList.Count);
-        emptySlotList.Insert(~newIndex, codeIndex);
+        Debug.Log(emptySlotList.Count + " : " + newIndex + " : " + ~newIndex + " : " + codeIndex);
+        if (newIndex < 0)
+            emptySlotList.Insert(~newIndex, codeIndex);
         itemCode2slotData[codeIndex].slotNeedMore.Remove(newIndex);
     }
     public void CheckCodetoSlot(int slotIndex)
@@ -566,7 +572,7 @@ public class InventoryStorage : StorageComponent
         int length = slots.Length;
         for (int i = 0; i < length; i++)
         {
-            if (slots[i].itemCode == 0 || slots[i].brunchIndex[0] - i != 0)
+            if (slots[i].itemCode == 0 || slots[i].brunchIndex[0] != i)
                 continue;
 
             datas.Enqueue(new ItemData(i, slots[i]));
@@ -581,6 +587,9 @@ public class InventoryStorage : StorageComponent
         Queue<CorpseData> corpseDataQueue;
         System.Text.StringBuilder text;
         BitArray corpseExist;
+
+
+
         struct CorpseData
         {
             public HeroData corpseHero;
@@ -592,6 +601,8 @@ public class InventoryStorage : StorageComponent
             }
         }
 
+        public int CorpseCount => corpseDataQueue.Count;
+        public int DequeueCorpseData => corpseDataQueue.Dequeue().corpseIndex;
 
         public CorpseManager()
         {
@@ -607,15 +618,16 @@ public class InventoryStorage : StorageComponent
         }
         public void LoseCorpse()
         {
-            corpseExist[corpseDataQueue.Dequeue().corpseIndex] = false;
+            corpseExist[DequeueCorpseData] = false;
         }
+
 
         public string Victims()
         {
             text.Clear();
             text.Append("<size=40><color=#9A9191>Èñ»ýÀÚ : ");
 
-            foreach (var item in corpseDataQueue.ToArray())
+            foreach (var item in corpseDataQueue)
             {
                 text.Append(item.corpseHero.name).Append(", ");
             }
@@ -627,10 +639,6 @@ public class InventoryStorage : StorageComponent
         public bool CorpseExist(int heroInStageIndex)
         {
             return corpseExist[heroInStageIndex];
-        }
-        public int CorpseCount()
-        {
-            return corpseDataQueue.Count;
         }
     }
     public void AddCorpse(HeroData deadHeroData, int heroInStageIndex)
@@ -660,14 +668,17 @@ public class InventoryStorage : StorageComponent
     }
     public int[] GetHeroCorpseIndexs()
     {
-        int length = corpseManager.CorpseCount();
-        int arrayIndex = 0;
+        int length = corpseManager.CorpseCount;
+        int heroInStageIndex = 0;
 
         int[] corpseIndex = new int[length];
         for (int i = 0; i < length; i++)
         {
-            if (corpseManager.CorpseExist(i))
-                corpseIndex[arrayIndex++] = i;
+            while (!corpseManager.CorpseExist(heroInStageIndex))
+            {
+                heroInStageIndex++;
+            }
+            corpseIndex[i] = heroInStageIndex;
         }
         return corpseIndex;
     }

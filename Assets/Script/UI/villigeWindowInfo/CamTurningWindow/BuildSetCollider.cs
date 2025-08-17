@@ -55,7 +55,7 @@ public class BuildSetCollider : MonoBehaviour, IPointerEnterHandler, IPointerExi
         isVilligeInteractExist = !buildingSetWindow.buildingComponent.IsDataNull(transform.parent.GetSiblingIndex(), out _)
                                  && eventData.button != PointerEventData.InputButton.Left;
 
-        if (!isVilligeInteractExist)
+        if (!isVilligeInteractExist || PlayerInputManager.manager.inventoryInputEnable[(int)eventData.button])
             return;
 
         buildingSetWindow.buildingComponent.saveVilligeInteract[transform.parent.GetSiblingIndex()].BeginDragOffset(eventData, image);
@@ -66,14 +66,14 @@ public class BuildSetCollider : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!isVilligeInteractExist)
+        if (!isVilligeInteractExist || PlayerInputManager.manager.inventoryInputEnable[(int)eventData.button])
             return;
 
         villigeInteract.now_villigeInteract.OnDrag(eventData);
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!isVilligeInteractExist)
+        if (!isVilligeInteractExist || PlayerInputManager.manager.inventoryInputEnable[(int)eventData.button])
             return;
 
         villigeInteract.now_villigeInteract.OnEndDrag(eventData);
@@ -82,7 +82,8 @@ public class BuildSetCollider : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left
-                || buildingSetWindow.buildingComponent.saveVilligeInteract[transform.parent.GetSiblingIndex()] == null)
+                || buildingSetWindow.buildingComponent.saveVilligeInteract[transform.parent.GetSiblingIndex()] == null
+                || PlayerInputManager.manager.inventoryInputEnable[(int)eventData.button])
             return;
         buildingSetWindow.buildingComponent.saveVilligeInteract[transform.parent.GetSiblingIndex()].OnPointerClick(eventData);
     }

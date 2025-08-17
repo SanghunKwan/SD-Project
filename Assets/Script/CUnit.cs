@@ -29,7 +29,7 @@ namespace Unit
     public abstract class CUnit : CObject
     {
         View view;
-        protected bool monsterCheck;
+        public bool monsterCheck { get; protected set; }
         public bool detected { get; protected set; } = false;
 
         public int overlappedCorpse;

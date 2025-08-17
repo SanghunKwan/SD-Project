@@ -68,7 +68,7 @@ public abstract class UnitSpawner : MonoBehaviour
         newObject.SetData(newObject.EquipsNum, data.equipNum);
         newObject.SetData(newObject.SkillsNum, data.skillNum);
         newObject.SetData(newObject.FieldEquipsNum, data.fieldEquipNum);
-        newObject.SetVilligeIndex(heroIndex);
+        newObject.SetStageIndex(heroIndex);
 
         if ((ActionAlert.ActionType)data.villigeAction == ActionAlert.ActionType.buildingWork)
             newObject.alloBuilding((AddressableManager.BuildingImage)data.workBuilding);
@@ -81,14 +81,28 @@ public abstract class UnitSpawner : MonoBehaviour
 
     public Hero SpawnHeroData(HeroData data, int heroIndex)
     {
+        Transform instTransform = PlayerNavi.nav.transform;
+
+        if (data.inInventory)
+        {
+            instTransform = DropManager.instance.pool.transform.GetChild(11);
+        }
+
         Hero newHero = Instantiate(heroes[(data.unitData.objectData.cur_status.ID - 1) % 100],
                                            data.unitData.objectData.position, data.unitData.objectData.quaternion,
-                                           PlayerNavi.nav.transform);
+                                           instTransform);
         NewSpawnedObjectSet(newHero, data.unitData.objectData);
         NewSpawnedUnitSet(newHero, data.unitData);
         NewSpawnedHeroSet(newHero, data, heroIndex);
 
-
+        if (data.inInventory)
+        {
+            newHero.ObjectCollider.enabled = false;
+            newHero.OnInitEnd += () =>
+            {
+                newHero.gameObject.SetActive(false);
+            };
+        }
         return newHero;
     }
 }

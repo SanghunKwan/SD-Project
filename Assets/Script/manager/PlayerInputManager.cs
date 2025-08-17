@@ -51,13 +51,19 @@ public class PlayerInputManager : MonoBehaviour
         MinimapClick = 1 << 6, //6:미니맵 클릭
         ScreenMove = 1 << 7, //7:화면 이동
 
-        Max = 8,
+        WindowLeftClick = 1 << 8,//8:마을UI 좌클릭
+        WindowRightClick = 1 << 9,//9:마을UI 우클릭
+        WindowRightClickMiddleClick = 1 << 10, //10:마을UI 중앙클릭
+
+        Max = 11,
         All = (1 << Max) - 1 //모든 마우스 입력 활성화 플래그
     }
     #endregion enums
 
     public bool[] fieldInputEnable { get; private set; } //0:좌클릭, 1:우클릭, 2:중앙클릭
     public bool[] inventoryInputEnable { get; private set; } //0:좌클릭, 1:우클릭, 2:중앙클릭
+
+    public bool[] windowInputEnable { get; private set; }   //0:좌클릭, 1:우클릭, 2:중앙클릭
 
     public bool minimapInputEnable { get; private set; }
     public bool screenMoveInputEnable { get; private set; }
@@ -76,6 +82,7 @@ public class PlayerInputManager : MonoBehaviour
         //초기값은 모두 활성화
         fieldInputEnable = new bool[3] { true, true, true };
         inventoryInputEnable = new bool[3] { true, true, true };
+        windowInputEnable = new bool[3] { true, true, true };
 
         minimapInputEnable = true;
         screenMoveInputEnable = true;
@@ -100,6 +107,12 @@ public class PlayerInputManager : MonoBehaviour
             => SetInventoryInputEnable(PointerEventData.InputButton.Middle, isOn);
         mouseToggleActions[6] = (isOn) => SetMinimapClickEnable(isOn);
         mouseToggleActions[7] = (isOn) => SetScreenMoveEnable(isOn);
+        mouseToggleActions[8] = (isOn)
+            => SetWindowInputEnable(PointerEventData.InputButton.Left, isOn);
+        mouseToggleActions[9] = (isOn)
+           => SetWindowInputEnable(PointerEventData.InputButton.Right, isOn);
+        mouseToggleActions[10] = (isOn)
+           => SetWindowInputEnable(PointerEventData.InputButton.Middle, isOn);
     }
     void SetCurrentMapInputActions()
     {
@@ -176,6 +189,11 @@ public class PlayerInputManager : MonoBehaviour
     public void SetInventoryInputEnable(PointerEventData.InputButton button, bool isOn)
     {
         inventoryInputEnable[(int)button] = isOn;
+    }
+
+    public void SetWindowInputEnable(PointerEventData.InputButton button, bool isOn)
+    {
+        windowInputEnable[(int)button] = isOn;
     }
 
     public void SetScreenMoveEnable(bool isOn)

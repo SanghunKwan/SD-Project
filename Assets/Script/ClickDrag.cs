@@ -8,6 +8,10 @@ using System;
 
 public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler, IPointerMoveHandler, IPointerDownHandler
 {
+    public const float ConstSin40 = 0.6428f;
+    const float ConstSpareLength = 15;
+    const float ConstCamPositionCorrectionValue = 11.9175f;
+
     [SerializeField] Image rectangle;
     [SerializeField] Image copyRec;
     [SerializeField] float speed;
@@ -15,7 +19,7 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     Vector3 dragStart;
     PointerEventData pointerEventData;
     bool suburbUpdate = false;
-    public bool MiniMapClick { private get; set; } = false;
+    public bool miniMapClick { private get; set; } = false;
 
 
 
@@ -32,6 +36,7 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     public float cameraMinY;
 
 
+
     public Action pointerDown { get; set; }
 
 
@@ -39,7 +44,25 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     {
         copyRec = Instantiate(rectangle, transform.parent);
         camMain = Camera.main;
+
+        if (GameManager.manager.battleClearManager == null)
+            GameManager.manager.onBattleClearManagerRegistered += RegisterStageClearEvent;
+        else
+            RegisterStageClearEvent();
     }
+
+    void RegisterStageClearEvent()
+    {
+        GameManager.manager.battleClearManager.onStageChanged += RenewCamaraPositionLimit;
+    }
+    void RenewCamaraPositionLimit(Vector3 center, float orthographicSize)
+    {
+        cameraMaxX = center.x + orthographicSize + ConstSpareLength;
+        cameraMinX = center.x - orthographicSize - ConstSpareLength;
+        cameraMaxY = center.z + orthographicSize + ConstSpareLength - ConstCamPositionCorrectionValue;
+        cameraMinY = center.z - orthographicSize - ConstSpareLength - ConstCamPositionCorrectionValue;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!IsFieldButtonEnable(eventData.button)) return;
@@ -127,7 +150,7 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     void Update()
     {
-        if (pointerEventData == null || MiniMapClick || !PlayerInputManager.manager.screenMoveInputEnable) return;
+        if (pointerEventData == null || miniMapClick || !PlayerInputManager.manager.screenMoveInputEnable) return;
 
         suburbUpdate = false;
 
@@ -180,7 +203,7 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     {
         Vector3 vector3 = new Vector3(move.x, move.z, move.y);
 
-        Vector3 moveScreenRatio = vector3 * Screen.height / (camMain.orthographicSize * 2) * Mathf.Sin(Mathf.Deg2Rad * 40);
+        Vector3 moveScreenRatio = vector3 * Screen.height / (camMain.orthographicSize * 2) * ConstSin40;
 
 
         dragStart -= moveScreenRatio;
@@ -209,6 +232,6 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        pointerDown();
+        pointerDown?.Invoke();
     }
 }

@@ -434,7 +434,7 @@ public abstract class UnitMove : MonoBehaviour
     {
         if (!(EnermySearch && canOrder)) return;
 
-        if (!isCounter)
+        if ((!isCounter) && (!gameObject.fieldDead))
         {
             isCounter = true;
             SetTarget(GameManager.manager.objectManager.GetNode(gameObject));
@@ -521,11 +521,16 @@ public abstract class UnitMove : MonoBehaviour
         {
             unit_State.Death(true, isLoaded);
         }
+
+        if (gameObject.activeSelf)
+        {
+            Stop();
+            QueueClear();
+        }
+
         enabled = false;
-        Stop();
         nav.enabled = false;
         weapon.enabled = false;
-        QueueClear();
 
         if (FearCor != null)
         {

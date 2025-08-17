@@ -1,0 +1,3590 @@
+{
+    "day": 0,
+    "nextScene": 1,
+    "floorData": {
+        "topFloor": 1,
+        "floorLooks": [
+            0
+        ],
+        "floorAngles": [
+            27.0
+        ]
+    },
+    "hero": [
+        {
+            "name": "디스마스",
+            "lv": 1,
+            "quirks": {
+                "quirks": [
+                    6,
+                    2,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 2,
+                "willChange": false,
+                "willChangeIndex": 0
+            },
+            "disease": {
+                "quirks": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 0
+            },
+            "keycode": "=",
+            "equipNum": [
+                1,
+                1,
+                2
+            ],
+            "fieldEquipNum": [
+                0,
+                0,
+                1
+            ],
+            "skillNum": [
+                1,
+                1,
+                1,
+                1
+            ],
+            "villigeAction": 0,
+            "workBuilding": 0,
+            "needGetName": false,
+            "inInventory": false,
+            "unitData": {
+                "detected": false,
+                "attackMove": false,
+                "ishold": false,
+                "destination": {
+                    "x": -30.44556427001953,
+                    "y": 0.5000000596046448,
+                    "z": 26.978010177612306
+                },
+                "depart": {
+                    "x": -29.564002990722658,
+                    "y": 0.06666666269302368,
+                    "z": 25.311763763427736
+                },
+                "objectData": {
+                    "position": {
+                        "x": -29.564002990722658,
+                        "y": 0.06666666269302368,
+                        "z": 25.311763763427736
+                    },
+                    "dotsDirection": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "quaternion": {
+                        "x": 0.0,
+                        "y": 0.5337910056114197,
+                        "z": 0.0,
+                        "w": -0.8456164598464966
+                    },
+                    "selected": true,
+                    "isDead": false,
+                    "cur_status": {
+                        "ID": 301,
+                        "NAME": "playerMelee",
+                        "SPECIES": 1,
+                        "HP": 27,
+                        "ATK": 10,
+                        "DEF": 0,
+                        "DOG": 11,
+                        "MORALE": 0,
+                        "SPEED": 6,
+                        "ViewAngle": 95,
+                        "ViewRange": 7,
+                        "type": 0,
+                        "Accuracy": 90,
+                        "AtkSpeed": 1.399999976158142,
+                        "Range": 1,
+                        "Mentality": 33,
+                        "Stress": 8,
+                        "curHP": 27,
+                        "curMORALE": 0
+                    },
+                    "dots": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Unnamed",
+            "lv": 1,
+            "quirks": {
+                "quirks": [
+                    7,
+                    6,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 2,
+                "willChange": false,
+                "willChangeIndex": 0
+            },
+            "disease": {
+                "quirks": [
+                    2,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 1
+            },
+            "keycode": "=",
+            "equipNum": [
+                1,
+                1,
+                1
+            ],
+            "fieldEquipNum": [
+                0,
+                0,
+                0
+            ],
+            "skillNum": [
+                1,
+                1,
+                1,
+                1
+            ],
+            "villigeAction": 0,
+            "workBuilding": 0,
+            "needGetName": true,
+            "inInventory": true,
+            "unitData": {
+                "detected": false,
+                "attackMove": false,
+                "ishold": false,
+                "destination": {
+                    "x": -7.800000190734863,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "depart": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "objectData": {
+                    "position": {
+                        "x": -29.920663833618165,
+                        "y": 0.06666667014360428,
+                        "z": 25.920669555664064
+                    },
+                    "dotsDirection": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "quaternion": {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0,
+                        "w": -4.371138828673793e-8
+                    },
+                    "selected": false,
+                    "isDead": true,
+                    "cur_status": {
+                        "ID": 303,
+                        "NAME": "playerMagic",
+                        "SPECIES": 1,
+                        "HP": 18,
+                        "ATK": 7,
+                        "DEF": 0,
+                        "DOG": 5,
+                        "MORALE": 0,
+                        "SPEED": 4,
+                        "ViewAngle": 90,
+                        "ViewRange": 6,
+                        "type": 2,
+                        "Accuracy": 60,
+                        "AtkSpeed": 1.5,
+                        "Range": 4,
+                        "Mentality": 30,
+                        "Stress": 15,
+                        "curHP": 0,
+                        "curMORALE": 0
+                    },
+                    "dots": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        }
+    ],
+    "building": [],
+    "items": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "stageData": {
+        "heros": [
+            0,
+            1
+        ],
+        "floors": [
+            0,
+            1
+        ],
+        "additionalFloorsDirections": [
+            3
+        ],
+        "nowFloorIndex": 1,
+        "isClear": true,
+        "isEnter": false,
+        "inventoryData": {
+            "itemDatas": [
+                {
+                    "itemIndex": 4,
+                    "itemCount": 3,
+                    "slotIndex": 0
+                },
+                {
+                    "itemIndex": 7,
+                    "itemCount": 1,
+                    "slotIndex": 1
+                },
+                {
+                    "itemIndex": 6,
+                    "itemCount": 1,
+                    "slotIndex": 2
+                },
+                {
+                    "itemIndex": 12,
+                    "itemCount": 1,
+                    "slotIndex": 3
+                }
+            ],
+            "corpseIndex": [
+                1
+            ]
+        },
+        "floorUnitDatas": [
+            {
+                "monsterData": [],
+                "objectDatas": [
+                    {
+                        "position": {
+                            "x": -2.552802562713623,
+                            "y": 0.0,
+                            "z": 12.738802909851075
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (5)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -6.4191203117370609,
+                            "y": 0.0,
+                            "z": -9.083858489990235
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (6)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -8.003707885742188,
+                            "y": 0.0,
+                            "z": 3.1069111824035646
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (7)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 3.6492748260498049,
+                            "y": 0.0,
+                            "z": 14.839851379394532
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (8)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 17.521759033203126,
+                            "y": 0.0,
+                            "z": 1.1120657920837403
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (9)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 12.662232398986817,
+                            "y": 0.0,
+                            "z": -6.312055587768555
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 1.3749117851257325,
+                            "y": 0.0,
+                            "z": 8.708703994750977
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (1)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 4.906610012054443,
+                            "y": 0.0,
+                            "z": 11.273300170898438
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (2)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 4.092858791351318,
+                            "y": 0.0,
+                            "z": -13.277848243713379
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (3)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 0.2331857681274414,
+                            "y": 0.0,
+                            "z": 8.477287292480469
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (4)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -4.719962120056152,
+                            "y": 0.0,
+                            "z": -7.815550804138184
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (5)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 7.5761871337890629,
+                            "y": 0.0,
+                            "z": -7.219289302825928
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (6)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -5.728826999664307,
+                            "y": 0.0,
+                            "z": -7.413105487823486
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (7)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -3.535651445388794,
+                            "y": 0.0,
+                            "z": -7.927760124206543
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (8)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 4.014125347137451,
+                            "y": 0.0,
+                            "z": 7.720287322998047
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (9)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -3.474700927734375,
+                            "y": 0.0,
+                            "z": 11.541299819946289
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (10)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 2.0
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 1.0,
+                            "z": 0.0,
+                            "w": -4.371138828673793e-8
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 301,
+                            "NAME": "playerMelee",
+                            "SPECIES": 1,
+                            "HP": 27,
+                            "ATK": 7,
+                            "DEF": 0,
+                            "DOG": 10,
+                            "MORALE": 0,
+                            "SPEED": 5,
+                            "ViewAngle": 90,
+                            "ViewRange": 6,
+                            "type": 0,
+                            "Accuracy": 85,
+                            "AtkSpeed": 1.5,
+                            "Range": 1,
+                            "Mentality": 30,
+                            "Stress": 5,
+                            "curHP": 27,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -4.060215950012207,
+                            "y": 0.0,
+                            "z": -14.508854866027832
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (12)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 7.989376544952393,
+                            "y": 0.0,
+                            "z": -3.197018623352051
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (13)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 13.391532897949219,
+                            "y": 0.0,
+                            "z": -3.7788896560668947
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (14)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -18.818897247314454,
+                            "y": 0.0,
+                            "z": 0.7804408073425293
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (15)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -0.30713844299316409,
+                            "y": 0.0,
+                            "z": 16.447757720947267
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (16)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 4.586856842041016,
+                            "y": 0.0,
+                            "z": -14.764204025268555
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1 (18)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                ],
+                "dropItemDatas": [
+                    {
+                        "position": {
+                            "x": 3.200000047683716,
+                            "y": 0.0,
+                            "z": 3.25
+                        },
+                        "index": 8,
+                        "stageIndex": 0
+                    },
+                    {
+                        "position": {
+                            "x": -4.163900375366211,
+                            "y": 0.0,
+                            "z": 5.349999904632568
+                        },
+                        "index": 8,
+                        "stageIndex": 0
+                    },
+                    {
+                        "position": {
+                            "x": 2.2183496952056886,
+                            "y": 0.0,
+                            "z": 9.583462715148926
+                        },
+                        "index": 8,
+                        "stageIndex": 0
+                    }
+                ]
+            },
+            {
+                "monsterData": [
+                    {
+                        "waitingTypeNum": 0,
+                        "standType": 0,
+                        "originTransform": {
+                            "x": -35.23835754394531,
+                            "y": 0.0,
+                            "z": 36.80232620239258
+                        },
+                        "patrolDestination": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "unitData": {
+                            "detected": false,
+                            "attackMove": false,
+                            "ishold": false,
+                            "destination": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "depart": {
+                                "x": -32.94422912597656,
+                                "y": 0.06666666269302368,
+                                "z": 37.73362731933594
+                            },
+                            "objectData": {
+                                "position": {
+                                    "x": -36.671051025390628,
+                                    "y": 0.06666666269302368,
+                                    "z": 38.89447784423828
+                                },
+                                "dotsDirection": {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0
+                                },
+                                "quaternion": {
+                                    "x": 0.0,
+                                    "y": 0.59271240234375,
+                                    "z": 0.0,
+                                    "w": -0.8054143190383911
+                                },
+                                "selected": false,
+                                "isDead": false,
+                                "cur_status": {
+                                    "ID": 0,
+                                    "NAME": "WanderingGoblinMelee",
+                                    "SPECIES": 0,
+                                    "HP": 24,
+                                    "ATK": 4,
+                                    "DEF": 0,
+                                    "DOG": 18,
+                                    "MORALE": 30,
+                                    "SPEED": 4,
+                                    "ViewAngle": 90,
+                                    "ViewRange": 5,
+                                    "type": 0,
+                                    "Accuracy": 70,
+                                    "AtkSpeed": 1.5,
+                                    "Range": 1,
+                                    "Mentality": 10,
+                                    "Stress": 3,
+                                    "curHP": 24,
+                                    "curMORALE": 30
+                                },
+                                "dots": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "waitingTypeNum": 0,
+                        "standType": 0,
+                        "originTransform": {
+                            "x": -33.8403205871582,
+                            "y": 0.0,
+                            "z": 36.71479415893555
+                        },
+                        "patrolDestination": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "unitData": {
+                            "detected": false,
+                            "attackMove": false,
+                            "ishold": false,
+                            "destination": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "depart": {
+                                "x": -33.00233459472656,
+                                "y": 0.06666666269302368,
+                                "z": 35.563209533691409
+                            },
+                            "objectData": {
+                                "position": {
+                                    "x": -32.04348373413086,
+                                    "y": 0.06666666269302368,
+                                    "z": 37.4835090637207
+                                },
+                                "dotsDirection": {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0
+                                },
+                                "quaternion": {
+                                    "x": 0.0,
+                                    "y": 0.2325122058391571,
+                                    "z": 0.0,
+                                    "w": 0.9725934267044067
+                                },
+                                "selected": false,
+                                "isDead": false,
+                                "cur_status": {
+                                    "ID": 0,
+                                    "NAME": "WanderingGoblinMelee (1)",
+                                    "SPECIES": 0,
+                                    "HP": 24,
+                                    "ATK": 4,
+                                    "DEF": 0,
+                                    "DOG": 18,
+                                    "MORALE": 30,
+                                    "SPEED": 4,
+                                    "ViewAngle": 90,
+                                    "ViewRange": 5,
+                                    "type": 0,
+                                    "Accuracy": 70,
+                                    "AtkSpeed": 1.5,
+                                    "Range": 1,
+                                    "Mentality": 10,
+                                    "Stress": 3,
+                                    "curHP": 24,
+                                    "curMORALE": 30
+                                },
+                                "dots": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "waitingTypeNum": 0,
+                        "standType": 0,
+                        "originTransform": {
+                            "x": -41.84797668457031,
+                            "y": 0.0,
+                            "z": 23.64859390258789
+                        },
+                        "patrolDestination": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "unitData": {
+                            "detected": false,
+                            "attackMove": false,
+                            "ishold": false,
+                            "destination": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "depart": {
+                                "x": -42.914222717285159,
+                                "y": 0.06666666269302368,
+                                "z": 19.99892234802246
+                            },
+                            "objectData": {
+                                "position": {
+                                    "x": -38.29203796386719,
+                                    "y": 0.06666666269302368,
+                                    "z": 18.691017150878908
+                                },
+                                "dotsDirection": {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0
+                                },
+                                "quaternion": {
+                                    "x": 0.0,
+                                    "y": 0.7977938652038574,
+                                    "z": 0.0,
+                                    "w": 0.6029303073883057
+                                },
+                                "selected": false,
+                                "isDead": false,
+                                "cur_status": {
+                                    "ID": 0,
+                                    "NAME": "WanderingGoblinMelee (3)",
+                                    "SPECIES": 0,
+                                    "HP": 24,
+                                    "ATK": 4,
+                                    "DEF": 0,
+                                    "DOG": 18,
+                                    "MORALE": 30,
+                                    "SPEED": 4,
+                                    "ViewAngle": 90,
+                                    "ViewRange": 5,
+                                    "type": 0,
+                                    "Accuracy": 70,
+                                    "AtkSpeed": 1.5,
+                                    "Range": 1,
+                                    "Mentality": 10,
+                                    "Stress": 3,
+                                    "curHP": 24,
+                                    "curMORALE": 30
+                                },
+                                "dots": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "waitingTypeNum": 0,
+                        "standType": 0,
+                        "originTransform": {
+                            "x": -36.182655334472659,
+                            "y": 0.0,
+                            "z": 12.63599967956543
+                        },
+                        "patrolDestination": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "unitData": {
+                            "detected": false,
+                            "attackMove": false,
+                            "ishold": false,
+                            "destination": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "depart": {
+                                "x": -34.91465377807617,
+                                "y": 0.06666666269302368,
+                                "z": 13.447308540344239
+                            },
+                            "objectData": {
+                                "position": {
+                                    "x": -35.30329513549805,
+                                    "y": 0.06666666269302368,
+                                    "z": 13.955337524414063
+                                },
+                                "dotsDirection": {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0
+                                },
+                                "quaternion": {
+                                    "x": 0.0,
+                                    "y": 0.02536115050315857,
+                                    "z": 0.0,
+                                    "w": 0.9996784329414368
+                                },
+                                "selected": false,
+                                "isDead": false,
+                                "cur_status": {
+                                    "ID": 0,
+                                    "NAME": "WanderingGoblinMelee (4)",
+                                    "SPECIES": 0,
+                                    "HP": 24,
+                                    "ATK": 4,
+                                    "DEF": 0,
+                                    "DOG": 18,
+                                    "MORALE": 30,
+                                    "SPEED": 4,
+                                    "ViewAngle": 90,
+                                    "ViewRange": 5,
+                                    "type": 0,
+                                    "Accuracy": 70,
+                                    "AtkSpeed": 1.5,
+                                    "Range": 1,
+                                    "Mentality": 10,
+                                    "Stress": 3,
+                                    "curHP": 24,
+                                    "curMORALE": 30
+                                },
+                                "dots": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "waitingTypeNum": 1,
+                        "standType": 0,
+                        "originTransform": {
+                            "x": -38.961585998535159,
+                            "y": 0.0,
+                            "z": 31.15512466430664
+                        },
+                        "patrolDestination": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "unitData": {
+                            "detected": false,
+                            "attackMove": false,
+                            "ishold": false,
+                            "destination": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "depart": {
+                                "x": -38.961585998535159,
+                                "y": 0.0,
+                                "z": 31.15512466430664
+                            },
+                            "objectData": {
+                                "position": {
+                                    "x": -38.961585998535159,
+                                    "y": 0.06666666269302368,
+                                    "z": 31.15512466430664
+                                },
+                                "dotsDirection": {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0
+                                },
+                                "quaternion": {
+                                    "x": 0.0,
+                                    "y": 0.3826834261417389,
+                                    "z": 0.0,
+                                    "w": 0.9238795638084412
+                                },
+                                "selected": false,
+                                "isDead": false,
+                                "cur_status": {
+                                    "ID": 1,
+                                    "NAME": "WardenGoblinRange",
+                                    "SPECIES": 0,
+                                    "HP": 16,
+                                    "ATK": 2,
+                                    "DEF": 0,
+                                    "DOG": 22,
+                                    "MORALE": 25,
+                                    "SPEED": 5,
+                                    "ViewAngle": 70,
+                                    "ViewRange": 8,
+                                    "type": 1,
+                                    "Accuracy": 80,
+                                    "AtkSpeed": 1.5,
+                                    "Range": 5,
+                                    "Mentality": 10,
+                                    "Stress": 4,
+                                    "curHP": 16,
+                                    "curMORALE": 25
+                                },
+                                "dots": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "objectDatas": [
+                    {
+                        "position": {
+                            "x": -44.411834716796878,
+                            "y": 0.0,
+                            "z": 25.28249740600586
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -55.734214782714847,
+                            "y": 0.0,
+                            "z": 31.303014755249025
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (1)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -46.06420135498047,
+                            "y": 0.0,
+                            "z": 27.304784774780275
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (2)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -5.277498245239258,
+                            "y": 0.0,
+                            "z": 34.14481735229492
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (3)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -33.898651123046878,
+                            "y": 0.0,
+                            "z": 3.530057907104492
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (4)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -45.44648742675781,
+                            "y": 0.0,
+                            "z": 11.604070663452149
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (5)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -24.992782592773439,
+                            "y": 0.0,
+                            "z": 20.03380584716797
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (6)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -32.014991760253909,
+                            "y": 0.0,
+                            "z": 1.739004135131836
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (7)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -47.999420166015628,
+                            "y": 0.0,
+                            "z": 34.29985809326172
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (8)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -18.229167938232423,
+                            "y": 0.0,
+                            "z": 9.348030090332032
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (9)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -13.649504661560059,
+                            "y": 0.0,
+                            "z": 43.33205032348633
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (10)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -3.4164772033691408,
+                            "y": 0.0,
+                            "z": 34.51873016357422
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (11)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -52.19184112548828,
+                            "y": 0.0,
+                            "z": 27.314529418945314
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (12)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -26.597152709960939,
+                            "y": 0.0,
+                            "z": 43.15974807739258
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (13)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -27.023502349853517,
+                            "y": 0.0,
+                            "z": 19.063793182373048
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (14)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -25.453737258911134,
+                            "y": 0.0,
+                            "z": 0.08150672912597656
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (15)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -13.101910591125489,
+                            "y": 0.0,
+                            "z": 38.951297760009769
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 101,
+                            "NAME": "Object_GrayRock (16)",
+                            "SPECIES": 100,
+                            "HP": 40,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 40,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -3.4776229858398439,
+                            "y": 0.0,
+                            "z": 29.893220901489259
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -30.890256881713868,
+                            "y": 0.0,
+                            "z": 31.418359756469728
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (1)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": 3.0583324432373049,
+                            "y": 0.0,
+                            "z": 30.032215118408204
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (2)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -16.254613876342775,
+                            "y": 0.0,
+                            "z": 43.48140335083008
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (3)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -18.398990631103517,
+                            "y": 0.0,
+                            "z": 15.228349685668946
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (4)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -1.2377490997314454,
+                            "y": 0.0,
+                            "z": 27.307510375976564
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (5)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -36.826053619384769,
+                            "y": 0.0,
+                            "z": 8.028966903686524
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (6)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -28.40272331237793,
+                            "y": 0.0,
+                            "z": 32.034423828125
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (7)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -36.558258056640628,
+                            "y": 0.0,
+                            "z": 37.74079132080078
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (8)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -12.605852127075196,
+                            "y": 0.0,
+                            "z": 26.450580596923829
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (9)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -18.505970001220704,
+                            "y": 0.0,
+                            "z": 23.68292999267578
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (10)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -36.060279846191409,
+                            "y": 0.0,
+                            "z": 35.79713439941406
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (11)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -45.91764831542969,
+                            "y": 0.0,
+                            "z": 16.07017707824707
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (12)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -38.460426330566409,
+                            "y": 0.0,
+                            "z": 33.623985290527347
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (13)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -16.215251922607423,
+                            "y": 0.0,
+                            "z": 24.89712905883789
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (14)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -26.44104766845703,
+                            "y": 0.0,
+                            "z": 5.219316482543945
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (15)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -31.57357406616211,
+                            "y": 0.0,
+                            "z": 43.90487289428711
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (16)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -32.84007263183594,
+                            "y": 0.0,
+                            "z": 52.91093444824219
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (17)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    {
+                        "position": {
+                            "x": -17.344440460205079,
+                            "y": 0.0,
+                            "z": 24.388572692871095
+                        },
+                        "dotsDirection": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "quaternion": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "w": 1.0000001192092896
+                        },
+                        "selected": false,
+                        "isDead": false,
+                        "cur_status": {
+                            "ID": 104,
+                            "NAME": "Object_Tree1(Clone) (18)",
+                            "SPECIES": 100,
+                            "HP": 30,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "DOG": -90,
+                            "MORALE": 0,
+                            "SPEED": 0,
+                            "ViewAngle": 0,
+                            "ViewRange": 0,
+                            "type": 100,
+                            "Accuracy": 0,
+                            "AtkSpeed": 0.0,
+                            "Range": 0,
+                            "Mentality": 1,
+                            "Stress": 0,
+                            "curHP": 30,
+                            "curMORALE": 0
+                        },
+                        "dots": [
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                ],
+                "dropItemDatas": [
+                    {
+                        "position": {
+                            "x": -29.604934692382814,
+                            "y": 0.0,
+                            "z": -1.1986141204833985
+                        },
+                        "index": 1,
+                        "stageIndex": 1
+                    },
+                    {
+                        "position": {
+                            "x": -38.70627975463867,
+                            "y": 0.0,
+                            "z": 47.85773468017578
+                        },
+                        "index": 4,
+                        "stageIndex": 1
+                    },
+                    {
+                        "position": {
+                            "x": -51.6173095703125,
+                            "y": 0.0,
+                            "z": 31.965744018554689
+                        },
+                        "index": 1,
+                        "stageIndex": 1
+                    },
+                    {
+                        "position": {
+                            "x": -20.3123779296875,
+                            "y": 0.0,
+                            "z": 9.398052215576172
+                        },
+                        "index": 4,
+                        "stageIndex": 1
+                    },
+                    {
+                        "position": {
+                            "x": -31.046470642089845,
+                            "y": 0.0,
+                            "z": 45.97871017456055
+                        },
+                        "index": 8,
+                        "stageIndex": 1
+                    },
+                    {
+                        "position": {
+                            "x": -20.317596435546876,
+                            "y": 0.0,
+                            "z": 7.745382308959961
+                        },
+                        "index": 1,
+                        "stageIndex": 1
+                    }
+                ]
+            }
+        ],
+        "yetDroppedItems": []
+    },
+    "questSaveData": {
+        "stagePerformOneData": {
+            "bits": [
+                16777215
+            ],
+            "nowQuestList": []
+        },
+        "villigePerformOneData": {
+            "bits": [
+                1,
+                0
+            ],
+            "nowQuestList": []
+        },
+        "floorQuestData": {
+            "bits": [
+                172
+            ],
+            "nowQuestList": []
+        },
+        "villigeQuestData": {
+            "bits": [
+                0
+            ],
+            "nowQuestList": []
+        },
+        "isLoaded": true
+    },
+    "playInfo": {
+        "camPosition": {
+            "x": -28.997522354125978,
+            "y": 10.0,
+            "z": 15.007261276245118
+        },
+        "enableUpgrades": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        "canSummonHeroCount": 2,
+        "canSummonHero": [],
+        "isEnter": true
+    }
+}

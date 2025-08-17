@@ -221,17 +221,17 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
             ResetDrag(slotIndex);
             return;
         }
-
-        int offset = nowSlotIndex - slotIndex;
         InventoryStorage.Slot slot = new InventoryStorage.Slot(inventoryStorage.slots[slotIndex]);
+        int brunchStartIndex = slot.brunchIndex[0];
+        int offset = nowSlotIndex - slotIndex;
+
         Action callChangedSlots = () => { };
 
         int[] brunchIndexList = slot.brunchIndex.ToArray();
-        int length = brunchIndexList.Length;
 
-        if (inventoryStorage.IsEnoughSpace(slotIndex, offset))
+        if (inventoryStorage.IsEnoughSpace(brunchStartIndex, offset))
         {
-            ItemRemove(slotIndex, this);
+            ItemRemove(brunchStartIndex, this);
             CheckBeforeItems(brunchIndexList, offset, slot.itemCode, slot.itemCount, ref callChangedSlots);
         }
         else
@@ -253,7 +253,8 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
             if (CanBackUpItem(brunchOffset, ref memorySlot, ref callSavedItems, ref callChangedSlots))
                 ItemRemove(brunchOffset, nowInventoryComponent);
         }
-        nowInventoryComponent.inventoryStorage.LoadItem(nowSlotIndex, itemCode, itemCount);
+        StorageComponent.Item item = InventoryManager.i.info.items[itemCode];
+        nowInventoryComponent.inventoryStorage.ItemSlotChange(brunchIndexList[0] + offset, itemCount, item);
         callSavedItems();
     }
 

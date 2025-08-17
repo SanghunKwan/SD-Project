@@ -1687,6 +1687,7 @@ MonoBehaviour:
   - {fileID: 5020115076198567939, guid: f757ce15fe6d3994f8ff2b145a35f800, type: 3}
   - {fileID: 5020115076198567939, guid: 35378cc5b7196f94d94de94d3ac71c73, type: 3}
   - {fileID: 4711506474602217707, guid: a7ad3aa314792a44f9b58b3c4ab09ea1, type: 3}
+  - {fileID: 4711506474602217707, guid: 7fbebe7def535cf49a9535ed61221feb, type: 3}
   init: 10
 --- !u!224 &297873107
 RectTransform:
@@ -4111,7 +4112,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 16640
+    m_Bits: 18752
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: fd14b7e8b2e2f374db4117b11b645dc5, type: 2}
   m_TargetDisplay: 1
@@ -4433,6 +4434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aoeCol:
   - {fileID: 1270356680015883331, guid: 43ca7a7e6f6af574bac76cb171ef2e2d, type: 3}
+  - {fileID: 1328662092314062030, guid: 2d6ece6663b94a5479742a757a305660, type: 3}
   inItCount: 10
 --- !u!4 &782581400
 Transform:
@@ -9872,6 +9874,38 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 2839561611264631977, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839561611264631977, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839561611264631977, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839561611264631977, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839561611264631977, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839561611264631977, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839561611264631977, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839561611264631977, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3277090820823984046, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
       propertyPath: menuWindow
       value: 
@@ -9880,6 +9914,10 @@ PrefabInstance:
       propertyPath: windowManager
       value: 
       objectReference: {fileID: 1392294032}
+    - target: {fileID: 4279505983938910217, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6008178286360093358, guid: 75d5b9f83ccf9f342a74c98b058b4469, type: 3}
       propertyPath: QuestBackGround
       value: 
@@ -11822,6 +11860,7 @@ MonoBehaviour:
   - {fileID: 9017484664307500583, guid: 2d1e27d40174ce04b8def03d22311f9d, type: 3}
   - {fileID: 7155335147208632822, guid: 9c44ddd61f02b994899c82ad1f8187ad, type: 3}
   - {fileID: 5607819269926399345, guid: 168c30d7ba6b401469ed760a59e02b95, type: 3}
+  - {fileID: 1828176872806910, guid: fa32d888d65330349bb72306b943a1f6, type: 3}
   projectileEffects:
   - {fileID: -1587646221649928178, guid: 8aa676f38acbef4468cb9b1808ba39e1, type: 3}
   inItCount: 5

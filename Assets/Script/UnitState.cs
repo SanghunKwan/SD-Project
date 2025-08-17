@@ -219,7 +219,9 @@ public class UnitState : MonoBehaviour
 
         if (!isLoadedDead)
             VoicePlay(voiceType.DieVoice);
-        StopHeadShake();
+        
+        if (gameObject.activeSelf)
+            StopHeadShake();
 
         if (backAttack) basic_Ani.SetTrigger("BackDeath");
     }

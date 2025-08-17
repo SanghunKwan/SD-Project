@@ -24,8 +24,8 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     private void Start()
     {
         SetClicks();
-        GameObject.FindWithTag("CanvasWorld").transform.GetChild(0).GetComponent<ClickDrag>().pointerDown = () => inventoryComponent.ActiveDescription(false);
         inventoryComponent = transform.parent.parent.GetComponent<InventoryComponent>();
+        GameObject.FindWithTag("CanvasWorld").transform.GetChild(0).GetComponent<ClickDrag>().pointerDown = () => inventoryComponent.ActiveDescription(false);
         SlotNum = transform.GetSiblingIndex();
     }
     void SetClicks()
@@ -62,8 +62,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!isDragActive)
-            return;
+        if (!isDragActive) return;
 
         Destroy(dragImage.gameObject);
         isDragActive = false;
@@ -73,8 +72,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!IsSlotExist || isDragActive)
-            return;
+        if ((!IsSlotExist) || isDragActive) return;
 
         clicks[(int)eventData.button](eventData.position);
     }
@@ -83,8 +81,7 @@ public class InventoryInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         isOnItem = true;
         inventoryComponent.OnPointerEnter(SlotNum);
 
-        if (!IsSlotExist || eventData.dragging)
-            return;
+        if ((!IsSlotExist) || eventData.dragging) return;
 
         StartWaiting(1.5f, CheckOnSlot);
     }

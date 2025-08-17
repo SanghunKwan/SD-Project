@@ -26,7 +26,6 @@ public class ItemComp_corpse : ItemComponent
     protected override void VirtualEnable()
     {
         base.VirtualEnable();
-
         Action action = () =>
         {
             unitState.Death(false, true);
@@ -47,9 +46,7 @@ public class ItemComp_corpse : ItemComponent
 
     protected override void InventoryAddItem(in GameObject itemFinder)
     {
+        GameManager.manager.battleClearManager.OverrideHero(hero);
         GameManager.manager.storageManager.AddCorpse(itemFinder, hero);
-    }
-    protected override void StageOutItem()
-    {
     }
 }

@@ -50,7 +50,8 @@ public class ItemComponent : MonoBehaviour
     }
     void OnDisable()
     {
-
+        if (uiCircle != null)
+            ObjectUIPool.pool.BackPooling(uiCircle.gameObject, ObjectUIPool.Folder.UIItemCircle);
     }
 
     IEnumerator CircleRepeat()
@@ -89,6 +90,7 @@ public class ItemComponent : MonoBehaviour
     {
         if (other.gameObject.layer == 7)
         {
+            GameManager.manager.objectManager.OutNoneObject(ObjectManager.AdditionalType.Item, gameObject);
             InventoryAddItem(other.gameObject);
             uiCircle.transform.SetParent(ObjectUIPool.pool.transform.GetChild((int)ObjectUIPool.Folder.UIItemCircle));
             uiCircle.gameObject.SetActive(false);
@@ -114,11 +116,6 @@ public class ItemComponent : MonoBehaviour
             yield return null;
         }
         DropManager.instance.pool.ReturnItem(index, gameObject);
-        StageOutItem();
-    }
-    protected virtual void StageOutItem()
-    {
-        GameManager.manager.objectManager.OutNoneObject(ObjectManager.AdditionalType.Item, gameObject);
     }
     public void SetIndex(int indexNum)
     {

@@ -39,7 +39,7 @@ public class SummonHeroNameTag : HandImage, IPointerClickHandler, IDragHandler, 
         int quirkCount = Random.Range(1, newQuirkCount + 1);
         int typeAddNum = Random.Range(0, 2);
         if (GameManager.manager.battleClearManager.SaveDataInfo.day == 1)
-            typeAddNum = index; 
+            typeAddNum = index;
         //첫날은 근접과 활이 무조건 나옴.
 
         DefaultNameManager.mananger.GetRandomName(out string name);
@@ -66,7 +66,8 @@ public class SummonHeroNameTag : HandImage, IPointerClickHandler, IDragHandler, 
     {
         scrollRect.OnBeginDrag(eventData);
         //좌클릭 시 기능 없음.
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left
+            || !PlayerInputManager.manager.windowInputEnable[(int)eventData.button])
             return;
 
         //우클릭 시 이동
@@ -85,7 +86,8 @@ public class SummonHeroNameTag : HandImage, IPointerClickHandler, IDragHandler, 
     public void OnDrag(PointerEventData eventData)
     {
         scrollRect.OnDrag(eventData);
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left
+            || !PlayerInputManager.manager.windowInputEnable[(int)eventData.button])
             return;
 
         GameObject dragObject = eventData.pointerCurrentRaycast.gameObject;
@@ -102,7 +104,8 @@ public class SummonHeroNameTag : HandImage, IPointerClickHandler, IDragHandler, 
     public void OnEndDrag(PointerEventData eventData)
     {
         scrollRect.OnEndDrag(eventData);
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left
+            || !PlayerInputManager.manager.windowInputEnable[(int)eventData.button])
             return;
 
         //우클릭 시 좌표 이동
@@ -112,7 +115,7 @@ public class SummonHeroNameTag : HandImage, IPointerClickHandler, IDragHandler, 
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.dragging)
+        if (eventData.dragging || !PlayerInputManager.manager.windowInputEnable[(int)eventData.button])
             return;
 
         GameManager.manager.onVilligeSummonInteract.eventAction?.Invoke((int)heroData.unitData.objectData.cur_status.type, Vector3.zero);

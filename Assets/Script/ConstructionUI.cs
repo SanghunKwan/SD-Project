@@ -17,6 +17,7 @@ public class ConstructionUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!PlayerInputManager.manager.windowInputEnable[(int)eventData.button]) return;
 
         ToggleScroll();
     }

@@ -124,6 +124,7 @@ public class QuestManager : JsonLoad
                 ItemDescriptionPopUp,
                 StageQuestClear,
                 MinimapInput,
+                DoubleSelectGroup,
 
                 Max
             }
@@ -145,6 +146,7 @@ public class QuestManager : JsonLoad
             public float radius;
             public int layer;
             public int id;
+            public int stageOffsetIndex;
             public UnitActType whatCause;
             public ConditionComparison conditionComparison;
 
@@ -155,6 +157,7 @@ public class QuestManager : JsonLoad
                 radius = 1;
                 layer = 7;
                 id = 0;
+                stageOffsetIndex = 0;
                 whatCause = UnitActType.LowHP;
                 conditionComparison = ConditionComparison.Equal;
             }
@@ -166,6 +169,7 @@ public class QuestManager : JsonLoad
             {
                 Item,
                 NewStage,
+                StageQuest,
 
                 Max
             }
@@ -238,6 +242,8 @@ public class QuestManager : JsonLoad
             {
                 None,
                 ItemSpawn,
+                NextStageQuestChange,
+                CorpseSpawn,
 
 
                 Max

@@ -40,6 +40,7 @@ public class StageFloorComponent : InitObject
         All = (1 << Max) - 1
     }
 
+
     public override void Init()
     {
         navMeshParent = transform.GetChild(0);
@@ -321,6 +322,15 @@ public class StageFloorComponent : InitObject
         }
 
         return index;
+    }
+
+    #endregion
+    #region 외부 호출
+    public Direction2Array GetDirectionToNear(StageFloorComponent stageFloorComponent)
+    {
+        int index = System.Array.IndexOf(nearComponent, stageFloorComponent);
+
+        return (index == -1) ? Direction2Array.Max : (Direction2Array)index;
     }
 
     #endregion

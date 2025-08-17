@@ -1,0 +1,486 @@
+{
+    "day": 2,
+    "nextScene": 1,
+    "floorData": {
+        "topFloor": 2,
+        "floorLooks": [
+            0
+        ],
+        "floorAngles": [
+            27.0
+        ]
+    },
+    "hero": [
+        {
+            "name": "디스마스",
+            "lv": 1,
+            "quirks": {
+                "quirks": [
+                    6,
+                    2,
+                    4,
+                    0,
+                    0
+                ],
+                "length": 3,
+                "willChange": false,
+                "willChangeIndex": 0
+            },
+            "disease": {
+                "quirks": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 0
+            },
+            "keycode": "=",
+            "equipNum": [
+                1,
+                1,
+                1
+            ],
+            "fieldEquipNum": [
+                0,
+                0,
+                0
+            ],
+            "skillNum": [
+                1,
+                1,
+                1,
+                1
+            ],
+            "villigeAction": 3,
+            "workBuilding": 2,
+            "needGetName": false,
+            "inInventory": false,
+            "unitData": {
+                "detected": false,
+                "attackMove": false,
+                "ishold": false,
+                "destination": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "depart": {
+                    "x": 0.9999995231628418,
+                    "y": 0.06666666269302368,
+                    "z": -11.0
+                },
+                "objectData": {
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 2.0
+                    },
+                    "dotsDirection": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "quaternion": {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0,
+                        "w": -4.371138828673793e-8
+                    },
+                    "selected": false,
+                    "isDead": false,
+                    "cur_status": {
+                        "ID": 301,
+                        "NAME": "디스마스",
+                        "SPECIES": 1,
+                        "HP": 27,
+                        "ATK": 7,
+                        "DEF": 0,
+                        "DOG": 11,
+                        "MORALE": 0,
+                        "SPEED": 6,
+                        "ViewAngle": 95,
+                        "ViewRange": 8,
+                        "type": 0,
+                        "Accuracy": 85,
+                        "AtkSpeed": 1.5,
+                        "Range": 1,
+                        "Mentality": 33,
+                        "Stress": 5,
+                        "curHP": 27,
+                        "curMORALE": 0
+                    },
+                    "dots": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        },
+        {
+            "name": "로버트",
+            "lv": 1,
+            "quirks": {
+                "quirks": [
+                    7,
+                    6,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 2,
+                "willChange": false,
+                "willChangeIndex": 0
+            },
+            "disease": {
+                "quirks": [
+                    2,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 1
+            },
+            "keycode": "=",
+            "equipNum": [
+                1,
+                1,
+                1
+            ],
+            "fieldEquipNum": [
+                0,
+                0,
+                0
+            ],
+            "skillNum": [
+                1,
+                1,
+                1,
+                1
+            ],
+            "villigeAction": 0,
+            "workBuilding": 0,
+            "needGetName": false,
+            "inInventory": false,
+            "unitData": {
+                "detected": false,
+                "attackMove": false,
+                "ishold": false,
+                "destination": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "depart": {
+                    "x": 5.055218696594238,
+                    "y": 0.06666666269302368,
+                    "z": 0.3194599151611328
+                },
+                "objectData": {
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 2.0
+                    },
+                    "dotsDirection": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "quaternion": {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0,
+                        "w": -4.371138828673793e-8
+                    },
+                    "selected": false,
+                    "isDead": false,
+                    "cur_status": {
+                        "ID": 303,
+                        "NAME": "로버트",
+                        "SPECIES": 1,
+                        "HP": 18,
+                        "ATK": 7,
+                        "DEF": 0,
+                        "DOG": 6,
+                        "MORALE": 0,
+                        "SPEED": 5,
+                        "ViewAngle": 86,
+                        "ViewRange": 6,
+                        "type": 2,
+                        "Accuracy": 51,
+                        "AtkSpeed": 1.2999999523162842,
+                        "Range": 4,
+                        "Mentality": 30,
+                        "Stress": 15,
+                        "curHP": 1,
+                        "curMORALE": 0
+                    },
+                    "dots": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        },
+        {
+            "name": "플러머",
+            "lv": 1,
+            "quirks": {
+                "quirks": [
+                    6,
+                    7,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 2,
+                "willChange": false,
+                "willChangeIndex": 0
+            },
+            "disease": {
+                "quirks": [
+                    2,
+                    0,
+                    0,
+                    0
+                ],
+                "length": 1
+            },
+            "keycode": "=",
+            "equipNum": [
+                1,
+                1,
+                1
+            ],
+            "fieldEquipNum": [
+                0,
+                0,
+                0
+            ],
+            "skillNum": [
+                1,
+                1,
+                1,
+                1
+            ],
+            "villigeAction": 0,
+            "workBuilding": 0,
+            "needGetName": false,
+            "inInventory": false,
+            "unitData": {
+                "detected": false,
+                "attackMove": false,
+                "ishold": false,
+                "destination": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "depart": {
+                    "x": -7.800000190734863,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "objectData": {
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 2.0
+                    },
+                    "dotsDirection": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "quaternion": {
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.0,
+                        "w": -4.371138828673793e-8
+                    },
+                    "selected": false,
+                    "isDead": false,
+                    "cur_status": {
+                        "ID": 301,
+                        "NAME": "플러머",
+                        "SPECIES": 1,
+                        "HP": 27,
+                        "ATK": 7,
+                        "DEF": 0,
+                        "DOG": 11,
+                        "MORALE": 0,
+                        "SPEED": 6,
+                        "ViewAngle": 86,
+                        "ViewRange": 6,
+                        "type": 0,
+                        "Accuracy": 73,
+                        "AtkSpeed": 1.2999999523162842,
+                        "Range": 1,
+                        "Mentality": 30,
+                        "Stress": 5,
+                        "curHP": 27,
+                        "curMORALE": 0
+                    },
+                    "dots": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        }
+    ],
+    "building": [
+        {
+            "workHero": [
+                -1,
+                -1,
+                -1
+            ],
+            "dayRemaining": 0,
+            "timeNormalized": 1.0013213157653809,
+            "objectData": {
+                "position": {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": -6.0
+                },
+                "dotsDirection": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "quaternion": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0,
+                    "w": 1.0
+                },
+                "selected": false,
+                "isDead": false,
+                "cur_status": {
+                    "ID": 203,
+                    "NAME": "Tent(Clone)",
+                    "SPECIES": 200,
+                    "HP": 20,
+                    "ATK": 0,
+                    "DEF": 0,
+                    "DOG": -90,
+                    "MORALE": 0,
+                    "SPEED": 0,
+                    "ViewAngle": 0,
+                    "ViewRange": 0,
+                    "type": 200,
+                    "Accuracy": 0,
+                    "AtkSpeed": 0.0,
+                    "Range": 0,
+                    "Mentality": 1,
+                    "Stress": 0,
+                    "curHP": 20,
+                    "curMORALE": 0
+                },
+                "dots": [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            }
+        }
+    ],
+    "items": [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+    ],
+    "stageData": {
+        "heros": [
+            1,
+            0,
+            2
+        ],
+        "floors": [
+            2
+        ],
+        "additionalFloorsDirections": [],
+        "nowFloorIndex": 0,
+        "isClear": false,
+        "isEnter": true,
+        "inventoryData": {
+            "itemDatas": [
+                {
+                    "itemIndex": 6,
+                    "itemCount": 1,
+                    "slotIndex": 0
+                }
+            ],
+            "corpseIndex": []
+        },
+        "floorUnitDatas": [],
+        "yetDroppedItems": []
+    },
+    "questSaveData": {
+        "stagePerformOneData": {
+            "bits": [
+                21508390911
+            ],
+            "nowQuestList": []
+        },
+        "villigePerformOneData": {
+            "bits": [
+                17179869183,
+                0
+            ],
+            "nowQuestList": []
+        },
+        "floorQuestData": {
+            "bits": [
+                1
+            ],
+            "nowQuestList": []
+        },
+        "villigeQuestData": {
+            "bits": [
+                0
+            ],
+            "nowQuestList": []
+        },
+        "isLoaded": true
+    },
+    "playInfo": {
+        "camPosition": {
+            "x": 0.25,
+            "y": 10.0,
+            "z": -9.380000114440918
+        },
+        "enableUpgrades": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        "canSummonHeroCount": 2,
+        "canSummonHero": [],
+        "isEnter": true
+    }
+}

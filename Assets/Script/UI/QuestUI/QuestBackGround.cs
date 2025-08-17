@@ -20,6 +20,10 @@ public class QuestBackGround : MonoBehaviour
     }
 
     #region ±â´É
+    public void DefaultPositionHighLight()
+    {
+
+    }
     public void SetHighLight(in Vector3 position, float circleSize)
     {
         Vector3 vec = mainCam.WorldToScreenPoint(position + (circleSize * 0.5f * Vector3.up));

@@ -41,7 +41,9 @@ public class WeaponMelee : WeaponComponent
 
     protected override IEnumerator GoblinSurprise()
     {
-        PlayerSurpriseReact();
+        if (((Monster)unitMove.cUnit).monsterCheck)
+            PlayerSurpriseReact();
+
         unitState.Ambush();
         unitMove.SkillAniStart(1 / 4f, ActingState.Concentrate);
 

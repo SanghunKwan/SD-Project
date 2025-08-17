@@ -152,7 +152,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!eventData.dragging && hero != null)
+        if (!eventData.dragging && hero != null && PlayerInputManager.manager.windowInputEnable[(int)eventData.button])
             clicks[(int)eventData.button](eventData);
     }
 
@@ -184,7 +184,8 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
         base.OnDrag(eventData);
         if (eventData.button == PointerEventData.InputButton.Left
             || eventData.pointerCurrentRaycast.gameObject is null
-            || hero == null)
+            || hero == null
+            || (!PlayerInputManager.manager.windowInputEnable[(int)eventData.button]))
             return;
 
         copyHand.rectTransform.position = eventData.position - offset;
@@ -208,7 +209,8 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public override void OnEndDrag(PointerEventData eventData)
     {
         base.OnEndDrag(eventData);
-        if (eventData.button == PointerEventData.InputButton.Left || hero == null)
+        if (eventData.button == PointerEventData.InputButton.Left || hero == null
+            || (!PlayerInputManager.manager.windowInputEnable[(int)eventData.button]))
             return;
 
         onHand.gameObject.SetActive(false);
@@ -258,7 +260,8 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public void BeginDragOffset(PointerEventData eventData, Image rectImage)
     {
         base.OnBeginDrag(eventData);
-        if (eventData.button == PointerEventData.InputButton.Left || hero == null)
+        if (eventData.button == PointerEventData.InputButton.Left || hero == null
+             || (!PlayerInputManager.manager.windowInputEnable[(int)eventData.button]))
             return;
 
         GameManager.manager.onVilligeHeroInteractDrag.eventAction?.Invoke(0, hero.transform.position);

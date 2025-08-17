@@ -88,13 +88,13 @@ public class StagePoolManager : MonoBehaviour
         //items
         folder = tr.GetChild(2).GetChild(index);
         length = folder.childCount;
-        data.dropItemDatas = new DropItemData[length];
-
+        data.dropItemDatas = new List<DropItemData>(length);
         for (int i = 0; i < length; i++)
         {
             GameObject go = folder.GetChild(i).gameObject;
             if (manager.NoneObjectDictionary[0].ContainsKey(go))
-                data.dropItemDatas[i] = new DropItemData((ItemComponent)(manager.NoneObjectDictionary[0][go].Value));
+                data.dropItemDatas.Add(new DropItemData((ItemComponent)(manager.NoneObjectDictionary[0][go].Value)));
+            //data.dropItemDatas[i] = new DropItemData((ItemComponent)(manager.NoneObjectDictionary[0][go].Value));
         }
     }
 

@@ -2,8 +2,8 @@ using SaveData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unit;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class QuestSpawner : MonoBehaviour
 {
@@ -29,14 +29,18 @@ public class QuestSpawner : MonoBehaviour
 
     [SerializeField] StorageComponent storage;
     [SerializeField] SetBuildingMat setBuildingMat;
+    UnitSpawner unitSpawner;
 
     Dictionary<QuestManager.QuestData, QuestPool.QuestActionInstance> doingActionQuestDictionary;
+
+    int nextStageQuest;
 
     // Start is called before the first frame update
     private void Awake()
     {
         questBackGround = backGroundTransform.Find("QuestBackGround").GetComponent<QuestBackGround>();
         questPool = GetComponent<QuestPool>();
+        unitSpawner = transform.parent.GetChild(0).GetComponent<StageUnitSpawner>();
 
         doingActionQuestDictionary = new Dictionary<QuestManager.QuestData, QuestPool.QuestActionInstance>();
 
@@ -50,7 +54,9 @@ public class QuestSpawner : MonoBehaviour
         prepareQuestActions[(int)QuestManager.QuestTrigger.UnitSpecificAct] = PrepareQuestbySpecificAction;
 
         prepareQuestHappenings = new Action<QuestManager.QuestData.QuestHappening>[(int)QuestManager.QuestData.QuestHappening.QuestHappeningType.Max];
-        prepareQuestHappenings[(int)QuestManager.QuestData.QuestHappening.QuestHappeningType.ItemSpawn] = PrepareHappening;
+        prepareQuestHappenings[(int)QuestManager.QuestData.QuestHappening.QuestHappeningType.ItemSpawn] = HappenItemSpawn;
+        prepareQuestHappenings[(int)QuestManager.QuestData.QuestHappening.QuestHappeningType.NextStageQuestChange] = HappenStageQuestChange;
+        prepareQuestHappenings[(int)QuestManager.QuestData.QuestHappening.QuestHappeningType.CorpseSpawn] = HappenCorpseSpawn;
 
 
         highLightActions2 = new HighLightActions[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.Max];
@@ -71,6 +77,7 @@ public class QuestSpawner : MonoBehaviour
         EventClearActions = new Action<QuestManager.QuestData.QuestReward>[(int)QuestManager.QuestData.QuestReward.RewardType.Max];
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.Item] = ClearForItem;
         EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.NewStage] = (reward) => ClearForStage();
+        EventClearActions[(int)QuestManager.QuestData.QuestReward.RewardType.StageQuest] = (reward) => ArriveNewStage();
 
         createQuestEventActions = new Action<QuestManager.QuestData.QuestEvent, QuestUISlot, QuestManager.QuestData>[(int)QuestManager.QuestData.QuestEvent.EventType.Max];
         createQuestEventActions[(int)QuestManager.QuestData.QuestEvent.EventType.FreeMaterial] = QuestEventFreeMaterial;
@@ -132,6 +139,7 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.ItemDescriptionPopUp] = GameManager.manager.onItemDescriptionPopUp;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.StageQuestClear] = GameManager.manager.onStageQuestClear;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.MinimapInput] = GameManager.manager.onMinimapInput;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.DoubleSelectGroup] = GameManager.manager.onDoubleSelectGroup;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
@@ -435,6 +443,12 @@ public class QuestSpawner : MonoBehaviour
 
         //새로운 스테이지 floor 활성화
     }
+    void ArriveNewStage()
+    {
+        PrepareQuest(QuestManager.QuestType.FloorQuest, nextStageQuest);
+        nextStageQuest = 0;
+    }
+
 
     #endregion
     #endregion
@@ -500,7 +514,7 @@ public class QuestSpawner : MonoBehaviour
     {
         action += () =>
         {
-            questBackGround.SetHighLight(callPosition, highLightSize);
+            questBackGround.SetHighLightUI(highLightPosition, 0);
             questBackGround.SetActiveHole(false);
         };
         DelayHighLight(action);
@@ -522,7 +536,7 @@ public class QuestSpawner : MonoBehaviour
     #endregion
 
 
-    #region 외부 이벤트 요청
+    #region 퀘스트 준비
     public void PrepareQuest(QuestManager.QuestType type, int questNum)
     {
         //시작 가능한 퀘스트 trigger 생성.
@@ -537,7 +551,7 @@ public class QuestSpawner : MonoBehaviour
     {
         BattleClearManager battleClearManager = GameManager.manager.battleClearManager;
         //collider를 통해 퀘스트 시작 포인트 가져오기
-        questPool.PlacePrepare(act.spot + battleClearManager.GetStageComponent(0).transform.position,
+        questPool.PlacePrepare(act.spot + battleClearManager.GetStageComponent(act.stageOffsetIndex).transform.position,
             act.layer, (vec) => MakeQuest(type, questNum, vec), act.radius, act.id);
     }
     void PrepareQuestbySpecificAction(QuestManager.QuestData.QuestAct act, QuestManager.QuestType type, int questNum)
@@ -563,14 +577,37 @@ public class QuestSpawner : MonoBehaviour
         Debug.Log("actionAdded");
         actionEvent[(int)actType].eventAction += Wrapper;
     }
+    #endregion
 
 
-    public void PrepareHappening(QuestManager.QuestData.QuestHappening happening)
+    void HappenItemSpawn(QuestManager.QuestData.QuestHappening happening)
     {
-        GameObject item = DropManager.instance.pool.CallItem(happening.index, 0);
+        GameObject item = DropManager.instance.pool.CallItem(happening.index,
+                                                        GameManager.manager.battleClearManager.nowFloorIndex);
         item.transform.position = happening.vec;
         item.SetActive(true);
     }
+    void HappenStageQuestChange(QuestManager.QuestData.QuestHappening happening)
+    {
+        nextStageQuest = happening.index;
+    }
+    void HappenCorpseSpawn(QuestManager.QuestData.QuestHappening happening)
+    {
+        //saveData에 영웅 추가.
+        //stageIndex에 추가된 영웅 추가.
+        //UnitSpawner를 이용해 영웅 생성.
+        //해당 영웅 LoadDead.
+        HeroData heroData = new HeroData("Unnamed", 1, Data.Instance.statusList[301 + happening.index],
+                        new QuirkSaveData(2, 5), new QuirkDefaultData(1, 4, QuirkData.manager.diseaseInfo));
+        heroData.unitData.objectData.isDead = true;
+        heroData.unitData.objectData.cur_status.curHP = 0;
+        heroData.unitData.objectData.position = GameManager.manager.battleClearManager.GetStageComponent(1).transform.position + happening.vec;
+        heroData.needGetName = true;
 
-    #endregion
+        unitSpawner.SpawnHeroData(heroData, GameManager.manager.battleClearManager.SaveDataInfo.hero.Length);
+
+        GameManager.manager.battleClearManager.AddNewHeroToSaveData(heroData);
+
+    }
+
 }

@@ -54,6 +54,7 @@
                 "radius": 1.0,
                 "layer": 7,
                 "id": 0,
+                "stageOffsetIndex": 0,
                 "whatCause": 4,
                 "conditionComparison": 1
             },
@@ -138,6 +139,7 @@
                 "radius": 1.0,
                 "layer": 7,
                 "id": 0,
+                "stageOffsetIndex": 0,
                 "whatCause": 4,
                 "conditionComparison": 1
             },
@@ -222,6 +224,7 @@
                 "radius": 1.0,
                 "layer": 7,
                 "id": 0,
+                "stageOffsetIndex": 0,
                 "whatCause": 4,
                 "conditionComparison": 1
             },
@@ -306,6 +309,7 @@
                 "radius": 1.0,
                 "layer": 7,
                 "id": 0,
+                "stageOffsetIndex": 0,
                 "whatCause": 4,
                 "conditionComparison": 1
             },

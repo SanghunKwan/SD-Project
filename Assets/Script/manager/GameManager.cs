@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     Action[] inputSpace = new Action[3];
     Action[] inputSpaceUp = new Action[3];
 
-    public Action callConstructionUI;
+    public Action callConstructionUI { get; set; }
     public Action onBattleClearManagerRegistered { get; set; }
 
     public enum ModifiersNum
@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
     public ActionEvent onItemDescriptionPopUp { get; private set; } = new ActionEvent();
     public ActionEvent onStageQuestClear { get; private set; } = new ActionEvent();
     public ActionEvent onMinimapInput { get; private set; } = new ActionEvent();
+    public ActionEvent onDoubleSelectGroup { get; private set; } = new ActionEvent();
     #endregion
 
 
@@ -644,10 +645,11 @@ public class GameManager : MonoBehaviour
 
     public void InputSpace()
     {
-        if (Time.timeScale <= 0)
-            return;
+        int sceneIndex = StageManager.instance.GetIndexScene();
 
-        inputSpace[StageManager.instance.GetIndexScene()]();
+        if (sceneIndex == 1 && Time.timeScale <= 0) return;
+
+        inputSpace[sceneIndex]();
 
     }
     void TimeDelay()
@@ -718,7 +720,7 @@ public class GameManager : MonoBehaviour
 
         Ray ray = new Ray(vec, destination);
         Vector3 beforePosition = Camera.main.transform.position;
-        Camera.main.transform.position = ray.GetPoint((10 - vec.y) / Mathf.Cos(50 * Mathf.Deg2Rad));
+        Camera.main.transform.position = ray.GetPoint((10 - vec.y) / ClickDrag.ConstSin40);
 
         PointMoveConversionToUI(Camera.main.transform.position - beforePosition);
     }

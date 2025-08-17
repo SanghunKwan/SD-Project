@@ -29,7 +29,16 @@ namespace Unit
         private NavMeshObstacle obstacle;
 
         [SerializeField] protected bool onFieldDead;
-        public bool fieldDead => onFieldDead;
+        public bool fieldDead
+        {
+            get => onFieldDead;
+            set
+            {
+                onFieldDead = value;
+                if (initCount == initMaxCount)
+                    LoadDead();
+            }
+        }
 
         [SerializeField] protected Material[] materials = new Material[3];
 
@@ -301,7 +310,7 @@ namespace Unit
         public void Death(Vector3 vec)
         {
             ItemDrop();
-            LoadDead();
+            fieldDead = true;
             DeathEvent();
         }
 

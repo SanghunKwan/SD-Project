@@ -69,11 +69,10 @@ public class BuildingImg : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
         scrollRect.OnEndDrag(eventData);
         clickdrag.OnPointerUp(eventData);
     }
-    
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.dragging)
-            return;
+        if (eventData.dragging || !PlayerInputManager.manager.windowInputEnable[(int)eventData.button]) return;
 
         InputBuildingConstruct();
     }

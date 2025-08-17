@@ -154,6 +154,7 @@ namespace SaveData
         public int villigeAction;
         public int workBuilding;
         public bool needGetName;
+        public bool inInventory;
         public UnitData unitData;
 
         public HeroData()
@@ -169,6 +170,7 @@ namespace SaveData
             villigeAction = 0;
             workBuilding = 0;
             needGetName = false;
+            inInventory = false;
             unitData = new UnitData();
         }
         public HeroData(Hero hero) : this()
@@ -188,6 +190,7 @@ namespace SaveData
             villigeAction = 0;
             workBuilding = 0;
             needGetName = false;
+            inInventory = false;
             unitData = new UnitData(statData);
         }
         public void SetHeroData(Hero hero)
@@ -206,9 +209,15 @@ namespace SaveData
             villigeAction = (int)hero.VilligeAction;
             workBuilding = (int)hero.BuildingAction;
             needGetName = false;
-            unitData.SetData(hero);
+            ObjectManager manager = GameManager.manager.objectManager;
+
+            inInventory = hero.fieldDead && (manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item] == null
+                          && (!manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item].ContainsKey(hero.gameObject)));
+
             if (overrideKeycode)
                 keycode = hero.keycode;
+
+            unitData.SetData(hero);
         }
         public void SetDefaultName()
         {
@@ -272,7 +281,8 @@ namespace SaveData
     public class StageData
     {
         public int[] heros;
-        public int[] floors = new int[5];
+        public int[] floors;
+        public StageFloorComponent.Direction2Array[] additionalFloorsDirections;
         public int nowFloorIndex;
         public bool isClear;
         public bool isEnter;
@@ -297,6 +307,7 @@ namespace SaveData
         {
             heros = stageData.heros;
             floors = (int[])stageData.floors.Clone();
+            additionalFloorsDirections = (StageFloorComponent.Direction2Array[])stageData.additionalFloorsDirections?.Clone();
             nowFloorIndex = stageData.nowFloorIndex;
             isClear = stageData.isClear;
             isEnter = stageData.isEnter;
@@ -307,7 +318,7 @@ namespace SaveData
     {
         public MonsterData[] monsterData;
         public ObjectData[] objectDatas;
-        public DropItemData[] dropItemDatas;
+        public List<DropItemData> dropItemDatas;
     }
     [Serializable]
     public class MonsterData

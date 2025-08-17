@@ -62,8 +62,9 @@ public class KeyboardInput : MonoBehaviour
         if (inputAction.phase == InputActionPhase.Performed &&
             PlayerNavi.nav.PlayerCharacter[GameManager.manager.GetConvert(inputAction.control.displayName)].Count > 0)
         {
-
-            GameManager.manager.ScreenToPoint(PlayerNavi.nav.getCenter);
+            Vector3 tempCenter = PlayerNavi.nav.getCenter;
+            GameManager.manager.ScreenToPoint(tempCenter);
+            GameManager.manager.onDoubleSelectGroup.eventAction?.Invoke(PlayerNavi.nav.lists.Count, tempCenter);
         }
     }
     public void OnEscape(InputAction.CallbackContext inputAction)

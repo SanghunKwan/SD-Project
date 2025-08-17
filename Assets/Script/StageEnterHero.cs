@@ -21,18 +21,19 @@ public class StageEnterHero : MonoBehaviour
             return;
 
         unitSpawner = GetComponent<UnitSpawner>();
-        WaitforSeconds(waitSeconds, SpawnHeroswithDelay);
+        StartCoroutine(WaitforSeconds(waitSeconds, () => StartCoroutine(SpawnHeroswithDelay())));
+
     }
-    async void WaitforSeconds(int miliSecond, Action action)
+    IEnumerator WaitforSeconds(int miliSecond, Action action)
     {
-        await Task.Delay(miliSecond);
+        yield return new WaitForSeconds(miliSecond * 0.001f);
         action();
     }
-    async void SpawnHeroswithDelay()
+    IEnumerator SpawnHeroswithDelay()
     {
         InputEffect.e.PrintEffect(gatePosition, 8);
 
-        await Task.Delay(500);
+        yield return new WaitForSeconds(0.5f);
         Hero tempHero;
         int length = spawnManager.heroDatas.Length;
         int moveTime = 500;
@@ -47,12 +48,12 @@ public class StageEnterHero : MonoBehaviour
             tempHero = unitSpawner.SpawnHeroData(spawnManager.heroDatas[i], i);
             SetAllLayer(tempHero.transform.GetChild(0).gameObject, 18);
             villigeHeroSpawnAction?.Invoke(spawnManager.competeIndexs[i], tempHero);
-            await Task.Delay(moveTime);
+            yield return new WaitForSeconds(moveTime * 0.001f);
 
             tempHero.unitMove.MoveOrAttack(MoveType.Move, destination);
             destination += Vector3.right;
             SetAllLayer(tempHero.transform.GetChild(0).gameObject, 7);
-            await Task.Delay(spawnCoolTime - moveTime);
+            yield return new WaitForSeconds((spawnCoolTime - moveTime) * 0.001f);
         }
         spawnManager.SetEnter(false);
     }
