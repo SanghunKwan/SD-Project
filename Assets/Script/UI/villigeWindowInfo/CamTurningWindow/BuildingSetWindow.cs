@@ -80,7 +80,7 @@ public class BuildingSetWindow : CamTuringWindow
 
             SetBuildingNameText(typeIndex);
             SetChild(typeIndex);
-
+            
             infoText.text = str;
 
             addressableManager.GetData(AddressableManager.LabelName.Building, upgradeType, out Sprite sprite);

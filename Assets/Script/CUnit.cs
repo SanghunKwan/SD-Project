@@ -134,7 +134,7 @@ namespace Unit
             {
                 curstat.curHP = curstat.HP;
             }
-            hpbarScript.BarUpdate();
+            CallHPUpdate();
         }
         public void SetViewRendererType(bool isUsingLineRenderer)
         {

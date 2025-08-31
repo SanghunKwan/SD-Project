@@ -117,6 +117,9 @@ public class GameManager : MonoBehaviour
     public ActionEvent onStageQuestClear { get; private set; } = new ActionEvent();
     public ActionEvent onMinimapInput { get; private set; } = new ActionEvent();
     public ActionEvent onDoubleSelectGroup { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeHeroInteractClick { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeStatusClick { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeStatusClose { get; private set; } = new ActionEvent();
     #endregion
 
 

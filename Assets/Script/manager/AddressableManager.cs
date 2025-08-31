@@ -100,7 +100,10 @@ public class AddressableManager : MonoBehaviour
         Upgrade,
         Lock,
         Medecine,
-        Healing
+        Healing,
+        fullHp,
+        halfHp,
+        emptyHp
     }
     #endregion
 

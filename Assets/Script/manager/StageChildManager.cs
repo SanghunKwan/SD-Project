@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -22,7 +20,7 @@ public class StageChildManager : StageManager
     }
     async void SettleCall()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 0;
         await Task.Delay(1000);
         settlementScene.SetActive(true);
 

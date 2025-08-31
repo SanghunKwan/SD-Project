@@ -25,8 +25,18 @@ public class SummonHeroWindow : CamTuringWindow
         characterPopulation = characterList.GetComponent<CharacterPopulation>();
         contentsTransform = scrollRect.transform.GetChild(0).GetChild(0);
 
-        playInfo = GameManager.manager.battleClearManager.SaveDataInfo.playInfo;
-        CheckCanSummonHeroData();
+        if (GameManager.manager.battleClearManager != null)
+        {
+            playInfo = GameManager.manager.battleClearManager.SaveDataInfo.playInfo;
+            CheckCanSummonHeroData();
+        }
+        else
+            GameManager.manager.onBattleClearManagerRegistered += () =>
+            {
+                playInfo = GameManager.manager.battleClearManager.SaveDataInfo.playInfo;
+                CheckCanSummonHeroData();
+            };
+
     }
     public void SetOpen(bool onoff)
     {

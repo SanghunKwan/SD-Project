@@ -140,6 +140,9 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.StageQuestClear] = GameManager.manager.onStageQuestClear;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.MinimapInput] = GameManager.manager.onMinimapInput;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.DoubleSelectGroup] = GameManager.manager.onDoubleSelectGroup;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeHeroInteractClick] = GameManager.manager.onVilligeHeroInteractClick;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeStatusClick] = GameManager.manager.onVilligeStatusClick;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeStatusClose] = GameManager.manager.onVilligeStatusClose;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {

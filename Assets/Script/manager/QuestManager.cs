@@ -46,6 +46,7 @@ public class QuestManager : JsonLoad
                 spot,
                 item,
                 repeat,
+
                 Max
             }
 
@@ -125,6 +126,9 @@ public class QuestManager : JsonLoad
                 StageQuestClear,
                 MinimapInput,
                 DoubleSelectGroup,
+                VilligeHeroInteractClick,
+                VilligeStatusClick,
+                VilligeStatusClose,
 
                 Max
             }

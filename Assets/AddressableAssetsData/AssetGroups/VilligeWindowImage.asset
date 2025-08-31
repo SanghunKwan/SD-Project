@@ -18,31 +18,49 @@ MonoBehaviour:
   m_GUID: c805a5e950c78004d97abb0257301342
   m_SerializeEntries:
   - m_GUID: de50d1f4106f65545921a17c92cf0250
-    m_Address: Assets/Package/Clean Vector Icons/1ok_.png
+    m_Address: 1ok_.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - VilligeWindowImage
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5ed54572ef0354241b7f1ec43d869ad3
-    m_Address: Assets/Package/Clean Vector Icons/2arrow_rounded_up_.png
+    m_Address: 2arrow_rounded_up_.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - VilligeWindowImage
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 314683cca5e417b43924e07f86de60c9
-    m_Address: Assets/Package/Clean Vector Icons/3doorlock_close_.png
+    m_Address: 3doorlock_close_.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - VilligeWindowImage
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 667647984c5ed7f498543ddc58a219a4
-    m_Address: Assets/Package/Clean Vector Icons/4medical_.png
+    m_Address: 4medical_.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - VilligeWindowImage
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eefd57e8b57cd814ebc86925f3a4a109
-    m_Address: Assets/Package/Clean Vector Icons/5healing.png
+    m_Address: 5healing.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - VilligeWindowImage
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b86c3d3bd68ffd64ba4503798969c990
+    m_Address: 6.fullHp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - VilligeWindowImage
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1adcaacf9ae66b5498339fb6386f1f66
+    m_Address: 7.halfHp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - VilligeWindowImage
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7afd2c78fbfd7d742bd043bb59ac1e75
+    m_Address: 8.emptyHp
     m_ReadOnly: 0
     m_SerializedLabels:
     - VilligeWindowImage

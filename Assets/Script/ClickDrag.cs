@@ -95,7 +95,8 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     void RightClick(PointerEventData eventData)
     {
         Ray ray = camMain.ScreenPointToRay(eventData.position);
-        int layerMask = 1 << LayerMask.NameToLayer("Character");
+        int layerMask = 1 << LayerMask.NameToLayer("Character") 
+                        | 1 << LayerMask.NameToLayer("invisibleTrigger");
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, ~layerMask))
         {
             GameManager.manager.OrderUnit(hit);

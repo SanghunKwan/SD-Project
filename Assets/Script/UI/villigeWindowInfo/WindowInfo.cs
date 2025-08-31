@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unit;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WindowInfo : tempMenuWindow
+public class WindowInfo : tempMenuWindow, IPointerClickHandler
 {
     public WindowStatus wStatus { get; private set; }
 
@@ -17,6 +18,9 @@ public class WindowInfo : tempMenuWindow
     ActionAlert action;
 
     UpgradePreview[] upgradePreviews;
+
+    CurrentState _currentState;
+
     int upgradePreivewCount = 2;
     IEnumerator turning;
 
@@ -26,27 +30,48 @@ public class WindowInfo : tempMenuWindow
     [SerializeField] Vector2[] profileSizeDelta;
     [SerializeField] Camera characterCam;
 
+    Action heroDisconnectAction;
+
     private void Awake()
     {
-        profileImg = transform.GetChild(0).GetChild(0).GetComponent<Image>();
-        nameChange = transform.GetChild(1).GetComponent<NameChange>();
-        level = transform.GetChild(2).GetComponent<LevelChange>();
-        quirk = transform.GetChild(4).GetComponent<QuirkChange>();
-        disease = transform.GetChild(5).GetComponent<QuirkChange>();
-        action = transform.GetChild(6).GetComponent<ActionAlert>();
+        Transform tr = transform;
+
+        profileImg = tr.GetChild(0).GetChild(0).GetComponent<Image>();
+        nameChange = tr.GetChild(1).GetComponent<NameChange>();
+        level = tr.GetChild(2).GetComponent<LevelChange>();
+        quirk = tr.GetChild(4).GetComponent<QuirkChange>();
+        disease = tr.GetChild(5).GetComponent<QuirkChange>();
+        action = tr.GetChild(6).GetComponent<ActionAlert>();
 
         wStatus = new WindowStatus();
-        wStatus.Init(transform.GetChild(7).GetChild(2), 6, 1);
+        wStatus.Init(tr.GetChild(7).GetChild(2), 6, 1);
 
         upgradePreviews = new UpgradePreview[upgradePreivewCount];
         for (int i = 0; i < upgradePreivewCount; i++)
         {
-            upgradePreviews[i] = transform.GetChild(8 + i).GetComponent<UpgradePreview>();
+            upgradePreviews[i] = tr.GetChild(8 + i).GetComponent<UpgradePreview>();
         }
+
+        _currentState = tr.GetChild(11).GetComponent<CurrentState>();
+        _currentState.InitState();
     }
+
+    protected override void VirtualDisable()
+    {
+        heroDisconnectAction?.Invoke();
+        heroDisconnectAction = null;
+        GameManager.manager.onVilligeStatusClose.eventAction?.Invoke(0, Vector3.zero);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        GameManager.manager.onVilligeStatusClick.eventAction?.Invoke((int)eventData.button, eventData.position);
+    }
+
     //이름 i 버튼 누르면 수정 가능.
     public void VilligeWindowOpen(Hero hero)
     {
+        heroDisconnectAction?.Invoke();
         wStatus.GetStatus(hero);
         wStatus.AlloStatus();
 
@@ -66,6 +91,11 @@ public class WindowInfo : tempMenuWindow
         {
             upgradePreviews[i].ActivePreview(hero);
         }
+
+        Action hpResetAction = () => _currentState.SetHP(hero.curstat.curHP, hero.curstat.HP);
+        hpResetAction();
+        hero.OnHPChange += hpResetAction;
+        heroDisconnectAction = () => hero.OnHPChange -= hpResetAction;
     }
 
     public void SetCam(bool active, Hero hero)
@@ -121,6 +151,8 @@ public class WindowInfo : tempMenuWindow
         {
             upgradePreviews[i].ActivePreview(hero);
         }
+        int hp = nameTag.heroData.unitData.objectData.cur_status.HP;
+        _currentState.SetHP(hp, hp);
     }
     public void SetCam(bool active, Transform heroTransform)
     {
@@ -144,4 +176,15 @@ public class WindowInfo : tempMenuWindow
             StartCoroutine(turning);
         }
     }
+
+    public void OnClickCloseButton()
+    {
+        bool isEnabled = false;
+        foreach (bool enabled in PlayerInputManager.manager.windowInputEnable)
+            isEnabled |= enabled;
+
+        if (isEnabled)
+            OnOffWindow();
+    }
+
 }

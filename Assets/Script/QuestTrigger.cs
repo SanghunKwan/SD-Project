@@ -10,12 +10,14 @@ public class QuestTrigger : MonoBehaviour
     public QuestManager.QuestType type { get; private set; }
     public int questIndex { get; private set; }
     CapsuleCollider capsuleCollider;
+    Transform minimapTransform;
 
     Action<Vector3> triggerAction;
 
     private void Awake()
     {
         capsuleCollider = GetComponent<CapsuleCollider>();
+        minimapTransform = transform.GetChild(0).transform;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,6 +43,7 @@ public class QuestTrigger : MonoBehaviour
         findLayer = layer;
         transform.position = vec;
         capsuleCollider.radius = radius;
+        minimapTransform.localScale = Vector3.one * radius;
         id = nowId;
     }
     public void AddMakeQuestData(in Action<Vector3> addAction, QuestManager.QuestType questType, int questNum)

@@ -21,6 +21,7 @@ public abstract class tempMenuWindow : MonoBehaviour
     protected void OnDisable()
     {
         GameManager.manager.windowManager.CheckCloseWindow();
+        VirtualDisable();
     }
-
+    protected virtual void VirtualDisable() { }
 }

@@ -60,6 +60,7 @@ namespace Unit
         public refAction OnUICompleteAction { get; set; }
         public System.Action OnInitEnd { get; set; }
 
+        public event System.Action OnHPChange;
 
         protected virtual void Awake()
         {
@@ -352,10 +353,15 @@ namespace Unit
         }
         public virtual void Hit(int skill)
         {
-            hpbarScript.BarUpdate();
+            CallHPUpdate();
             if (curstat.curHP < curstat.HP * 0.3f)
                 GameManager.manager.onLowHp.eventAction?.Invoke(gameObject.layer, transform.position);
             //피격 시 리액션
+        }
+        protected void CallHPUpdate()
+        {
+            hpbarScript.BarUpdate();
+            OnHPChange?.Invoke();
         }
         public virtual void Dodge()
         {

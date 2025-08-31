@@ -132,9 +132,12 @@ public class TowerWindow : CamTuringWindow
         highLightImage = stageButtonSet.transform.GetChild(stageButtonSet.transform.childCount - 1).GetComponent<HighLightImage>();
         saveStageView = window2Object.transform.Find("savedStageViewer").GetComponent<SaveStageView>();
 
-        PrintFloorData();
+        if (GameManager.manager.battleClearManager != null)
+            PrintFloorData();
+        else
+            GameManager.manager.onBattleClearManagerRegistered += PrintFloorData;
 
-        triggerId[0] = Animator.StringToHash("fadeIn");
+            triggerId[0] = Animator.StringToHash("fadeIn");
         triggerId[1] = Animator.StringToHash("fadeOut");
         triggerId[2] = Animator.StringToHash("fadeOutQuick");
 

@@ -35,7 +35,15 @@ public class PlayerInputManager : MonoBehaviour
         ActionAdd = 1 << 7,
         Escape = 1 << 8,
 
-        Max = 9,
+        ArmyMax = 9,                            //부대 키입력
+        ArmyAll = (1 << ArmyMax) - 1,           //모든 부대 키입력 활성화 플래그
+
+        Esc = 1 << 9,
+
+        WindowMax = 1,
+        WindowAll = All - ArmyAll,
+
+        Max = WindowMax + ArmyMax,
         All = (1 << Max) - 1 //모든 키입력 활성화 플래그
     }
 
@@ -119,11 +127,17 @@ public class PlayerInputManager : MonoBehaviour
         inputActions = new InputAction[(int)KeyMapActionFlags.Max];
 
         InputActionMap map = input.currentActionMap;
+        InputActionMap additionalMap = input.actions.actionMaps[3];
 
-        int length = inputActions.Length;
-        for (int i = 0; i < length; i++)
+        int armyLength = (int)KeyMapActionFlags.ArmyMax;
+        int windowLength = (int)KeyMapActionFlags.Max;
+        for (int i = 0; i < armyLength; i++)
         {
             inputActions[i] = map.FindAction(((KeyMapActionFlags)(1 << i)).ToString());
+        }
+        for (int i = armyLength; i < windowLength; i++)
+        {
+            inputActions[i] = additionalMap.FindAction(((KeyMapActionFlags)(1 << i)).ToString());
         }
     }
 

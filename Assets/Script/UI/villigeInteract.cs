@@ -118,9 +118,9 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
             bool off = infoWindow.gameObject.activeSelf && infoWindow.wStatus.targetObject == hero;
 
             infoWindow.gameObject.SetActive(!off);
-            infoWindow.VilligeWindowOpen(hero);
             infoWindow.SetCam(!off, hero);
-
+            if (!off)
+                infoWindow.VilligeWindowOpen(hero);
         };
         clicks[(int)PointerEventData.InputButton.Right] = (eventdata) =>
         {
@@ -153,7 +153,11 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!eventData.dragging && hero != null && PlayerInputManager.manager.windowInputEnable[(int)eventData.button])
-            clicks[(int)eventData.button](eventData);
+        {
+            int buttonIndex = (int)eventData.button;
+            clicks[buttonIndex](eventData);
+            GameManager.manager.onVilligeHeroInteractClick.eventAction?.Invoke(buttonIndex, Vector3.zero);
+        }
     }
 
     public override void OnBeginDrag(PointerEventData eventData)
