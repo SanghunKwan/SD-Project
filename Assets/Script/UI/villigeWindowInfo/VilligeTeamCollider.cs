@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class VilligeTeamCollider : villigeBase, IPointerEnterHandler, IPointerExitHandler
+public class VilligeTeamCollider : villigeBase, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     Action<PointerEventData>[] beginDrag = new Action<PointerEventData>[3];
     Action<PointerEventData>[] dragging = new Action<PointerEventData>[3];
@@ -35,7 +35,6 @@ public class VilligeTeamCollider : villigeBase, IPointerEnterHandler, IPointerEx
 
         ActNone();
         ButtonRightAct();
-        ChangeButtonAct(viewPort.teamName);
         DictionaryAddAction();
     }
     void ActNone()
@@ -57,17 +56,13 @@ public class VilligeTeamCollider : villigeBase, IPointerEnterHandler, IPointerEx
         //villigeViewPort로 드래그 시 위치 이동.
         //towerCollider로 드래그 시 0~5까지 등록.
     }
-    void ChangeButtonAct(string str)
-    {
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => Click(str));
-    }
     void DictionaryAddAction()
     {
         dragMoveAction.Add(true, DragMove);
         dragMoveAction.Add(false, (eventdata) => DragNoMove());
     }
     #endregion
+    
     #region 드래그 시작
     public override void OnBeginDrag(PointerEventData eventData)
     {
@@ -141,6 +136,7 @@ public class VilligeTeamCollider : villigeBase, IPointerEnterHandler, IPointerEx
         characterList.EndDrag(viewPort);
     }
     #endregion
+    
     #region 마우스 올려서 강조
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -152,15 +148,22 @@ public class VilligeTeamCollider : villigeBase, IPointerEnterHandler, IPointerEx
     }
     #endregion
     #region 버튼 기능
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Right 
+            && PlayerInputManager.manager.windowInputEnable[(int)eventData.button])
+        Click(viewPort.teamName);
+    }
     public void Click(string str)
     {
+        Vector3 tempCenter = PlayerNavi.nav.getCenter;
         GameManager.manager.ArmySelect(str);
-        GameManager.manager.ScreenToPoint(PlayerNavi.nav.getCenter);
+        GameManager.manager.ScreenToPoint(tempCenter);
+        GameManager.manager.onDoubleSelectGroup.eventAction?.Invoke(PlayerNavi.nav.lists.Count, tempCenter);
     }
     public void ButtonSetInteractive(bool onoff)
     {
         button.interactable = onoff;
     }
-
     #endregion
 }

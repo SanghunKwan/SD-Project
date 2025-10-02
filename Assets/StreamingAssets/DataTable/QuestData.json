@@ -1562,6 +1562,14 @@
           {
             "type": 1,
             "questNum": 4
+          },
+          {
+            "type": 1,
+            "questNum": 5
+          },
+          {
+            "type": 1,
+            "questNum": 6
           }
         ],
         "needCallNextQuest": true
@@ -1569,6 +1577,130 @@
     },
     {
       "num": 4,
+      "questType": 1,
+      "name": "숙소 준비하기",
+      "detail": "퀘스트 클리어하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 0,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 3.0,
+        "actionName": 1023,
+        "mouseFlags": 2047
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 0,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 2,
+        "actCondition": 0,
+        "conditionComparison": 1,
+        "accumulatedTime": 2,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 50.0,
+        "layer": 7,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 11
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 5,
+      "questType": 1,
+      "name": "건물 완성 감지",
+      "detail": "건물 완성 감지.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 0,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 1,
+      "require": {
+        "type": 2,
+        "layer": 2,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 20,
+        "actCondition": 2,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 4
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "id": 0,
+        "layer": 2,
+        "whatCause": 17
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "완성된 건물 좌클릭"
+      },
+      "follow": {
+        "datas": [],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 6,
       "questType": 1,
       "name": "영웅 목록 활용하기",
       "detail": "확인하고 싶은 영웅의 이름표를 좌클릭하여 상태창 열기.",
@@ -1626,14 +1758,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 5
+            "questNum": 7
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 5,
+      "num": 7,
       "questType": 1,
       "name": "영웅 상태 확인하기",
       "detail": "이곳에서 영웅의 현재 체력을 확인할 수 있습니다.",
@@ -1690,14 +1822,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 6
+            "questNum": 8
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 6,
+      "num": 8,
       "questType": 1,
       "name": "영웅 상태 확인하기",
       "detail": "마우스로 상태창의 버튼을 누르거나 키보드 Esc를 눌러 나가기.",
@@ -1755,14 +1887,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 7
+            "questNum": 9
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 7,
+      "num": 9,
       "questType": 1,
       "name": "영웅 목록 활용하기",
       "detail": "선택하고 싶은 영웅의 이름표를 우클릭하여 영웅 선택하기.",
@@ -1820,17 +1952,17 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 8
+            "questNum": 10
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 8,
+      "num": 10,
       "questType": 1,
-      "name": "건물 활성화하기",
-      "detail": "건물 클릭해서 관리창 열기",
+      "name": "영웅 목록 활용하기",
+      "detail": "선택하고 싶은 부대의 마크를 우클릭하거나 키보드로 해당 키 두 번 연속으로 눌러 부대로 시야 이동.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -1839,18 +1971,20 @@
       },
       "highLight": {
         "timeStop": false,
-        "highLight": 2,
+        "highLight": 4,
         "highLightPosition": {
-          "x": 0.0,
-          "y": -0.5,
+          "x": 1670.0,
+          "y": 690.0,
           "z": 0.0
         },
-        "size": 2.0
+        "size": 2.0,
+        "actionName": 9,
+        "mouseFlags": 512
       },
-      "trigger": 1,
+      "trigger": 0,
       "require": {
         "type": 2,
-        "layer": 2,
+        "layer": 1,
         "spot": {
           "x": 0.0,
           "y": 0.0,
@@ -1858,10 +1992,11 @@
         },
         "radius": 0.0,
         "itemDatas": [],
-        "actionType": 20,
-        "actCondition": 0,
+        "actionType": 37,
+        "actCondition": 2,
+        "conditionComparison": 3,
         "accumulatedTime": 1,
-        "stageOffsetIndex": 0
+        "stageOffsetIndex": 4
       },
       "act": {
         "spot": {
@@ -1869,30 +2004,23 @@
           "y": 0.0,
           "z": 0.0
         },
-        "radius": 0.0,
-        "id": 0,
-        "layer": 2,
-        "whatCause": 17
+        "radius": 50.0,
+        "layer": 7,
+        "whatCause": 0
       },
       "questEvent": {
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "클릭"
+        "actionName": "마우스 우클릭 또는 '=' 두 번 누르기."
       },
       "follow": {
-        "datas": [
-          {
-            "type": 1,
-            "questNum": 8
-          }
-        ],
-        "needCallNextQuest": true
+        "datas": [],
+        "needCallNextQuest": false
       }
     },
-
     {
-      "num": 8,
+      "num": 11,
       "questType": 1,
       "name": "건물 활성화하기",
       "detail": "목록의 영웅을 마우스 오른쪽 드래그하기",

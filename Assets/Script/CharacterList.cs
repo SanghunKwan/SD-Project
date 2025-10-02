@@ -388,8 +388,9 @@ public class CharacterList : MonoBehaviour
 
         if (isInteract)
         {
+            string beforeKeyCode = parentPort.characters[0].hero.keycode;
             VilligeInteractsMove(parentPort, trViewPort[defSaveTr.parent.gameObject], parentPort.transform.GetSiblingIndex());
-            CheckCount(parentPort.characters[0].hero.keycode);
+            CheckCount(beforeKeyCode);
         }
         ReArrage();
     }
