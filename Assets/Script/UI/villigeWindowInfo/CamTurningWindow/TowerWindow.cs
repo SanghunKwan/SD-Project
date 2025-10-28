@@ -119,6 +119,11 @@ public class TowerWindow : CamTuringWindow
     SaveStageView saveStageView;
     [SerializeField] InitObject[] needInit;
 
+    bool GetButtonEnable()
+    {
+        bool[] windowEnable = PlayerInputManager.manager.windowInputEnable;
+        return windowEnable[0] && windowEnable[1] && windowEnable[2];
+    }
     public override void Init()
     {
 
@@ -137,7 +142,7 @@ public class TowerWindow : CamTuringWindow
         else
             GameManager.manager.onBattleClearManagerRegistered += PrintFloorData;
 
-            triggerId[0] = Animator.StringToHash("fadeIn");
+        triggerId[0] = Animator.StringToHash("fadeIn");
         triggerId[1] = Animator.StringToHash("fadeOut");
         triggerId[2] = Animator.StringToHash("fadeOutQuick");
 
@@ -260,8 +265,37 @@ public class TowerWindow : CamTuringWindow
         saveStageView.gameObject.SetActive(false);
         missionExplain.anim.SetTrigger(triggerId[2]);
     }
+
+    void WindowClose()
+    {
+        ToggleWindow();
+        missionExplain.gameObject.SetActive(false);
+        missionExplain.AnimationStart();
+    }
+
     public void OnButtonExpedition()
     {
         GameManager.manager.onVilligeButton.eventAction?.Invoke((int)GameManager.ActionButtonNum.VilligeExpeditionBtn, Vector3.zero);
     }
+    public void OnClickExitButton()
+    {
+        if (!GetButtonEnable()) return;
+
+        WindowClose();
+    }
+
+    public void OnClickStep2ExitButton()
+    {
+        if (!GetButtonEnable()) return;
+
+        BackStep();
+        WindowClose();
+    }
+    public void OnClickBackStepButton()
+    {
+        if (!GetButtonEnable()) return;
+
+        BackStep();
+    }
+
 }

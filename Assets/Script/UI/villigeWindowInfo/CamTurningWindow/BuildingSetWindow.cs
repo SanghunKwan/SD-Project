@@ -219,4 +219,13 @@ public class BuildingSetWindow : CamTuringWindow
     {
         buildSetCharacters[index].ChangeTeam(vill.hero.name, vill.hero.keycode);
     }
+
+    public void OnClickExitButton()
+    {
+        bool[] windowEnable = PlayerInputManager.manager.windowInputEnable;
+        
+        if (!(windowEnable[0] && windowEnable[1] && windowEnable[2])) return;
+
+        ToggleWindow();
+    }
 }

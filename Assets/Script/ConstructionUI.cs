@@ -23,13 +23,13 @@ public class ConstructionUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
     void ToggleScroll()
     {
-        scroll.SetActive(!scroll.gameObject.activeSelf);
+        scroll.SetActive(!scroll.activeSelf);
         GameManager.manager.onVilligeButton.eventAction?.Invoke((int)GameManager.ActionButtonNum.VilligeBuildingScrollBtn, Vector3.zero);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (scroll.gameObject.activeSelf)
+        if (scroll.activeSelf)
             return;
 
         ColorSet();
@@ -42,7 +42,7 @@ public class ConstructionUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (scroll.gameObject.activeSelf)
+        if (scroll.activeSelf)
             return;
 
         ButtonColorReset();
@@ -69,7 +69,7 @@ public class ConstructionUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     void GameManagerInputSpace()
     {
         ToggleScroll();
-        dicSetColor[scroll.gameObject.activeSelf]();
+        dicSetColor[scroll.activeSelf]();
 
     }
 }

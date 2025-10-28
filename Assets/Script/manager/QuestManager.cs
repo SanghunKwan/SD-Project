@@ -128,7 +128,7 @@ public class QuestManager : JsonLoad
                 DoubleSelectGroup,
                 VilligeHeroInteractClick,
                 VilligeStatusClick,
-                VilligeStatusClose,
+                VilligeStatusClose = 40,
 
                 Max
             }

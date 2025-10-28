@@ -13,7 +13,6 @@ public class WindowManager : MonoBehaviour
     {
         FindOpenWindow(out tempMenuWindow window);
         window.OnOffWindow();
-
     }
     void FindOpenWindow(out tempMenuWindow window)
     {

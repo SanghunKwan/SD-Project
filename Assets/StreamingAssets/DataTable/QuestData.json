@@ -1565,11 +1565,11 @@
           },
           {
             "type": 1,
-            "questNum": 5
+            "questNum": 6
           },
           {
             "type": 1,
-            "questNum": 6
+            "questNum": 5
           }
         ],
         "needCallNextQuest": true
@@ -1643,8 +1643,8 @@
     {
       "num": 5,
       "questType": 1,
-      "name": "건물 완성 감지",
-      "detail": "건물 완성 감지.",
+      "name": "숙소 준비하기",
+      "detail": "건물이 완성된 후 활성화시킬 수 있습니다.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -1692,7 +1692,7 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "완성된 건물 좌클릭"
+        "actionName": "건물 좌클릭"
       },
       "follow": {
         "datas": [],
@@ -2077,14 +2077,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 5
+            "questNum": 12
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 5,
+      "num": 12,
       "questType": 1,
       "name": "건물 활성화하기",
       "detail": "영웅을 건물 관리자로 배치하여 기능 활성화.",
@@ -2141,14 +2141,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 6
+            "questNum": 13
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 6,
+      "num": 13,
       "questType": 1,
       "name": "영웅 소환하기",
       "detail": "영지의 소환진 클릭해서 관리창 열기",
@@ -2205,14 +2205,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 7
+            "questNum": 14
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 7,
+      "num": 14,
       "questType": 1,
       "name": "영웅 소환하기",
       "detail": "좌클릭으로 영웅의 상세정보 확인",
@@ -2271,80 +2271,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 8
+            "questNum": 15
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 8,
-      "questType": 1,
-      "name": "영웅 소환하기",
-      "detail": "좌클릭으로 영웅의 상세정보 확인",
-      "reward": {
-        "rewardType": 0,
-        "rewardItems": [
-          {}
-        ]
-      },
-      "highLight": {
-        "timeStop": false,
-        "highLight": 4,
-        "highLightPosition": {
-          "x": 1050.0,
-          "y": 600.0,
-          "z": 0.0
-        },
-        "size": 4.0,
-        "mouseFlags": 256
-      },
-      "trigger": 0,
-      "require": {
-        "type": 2,
-        "layer": 1,
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 0.0,
-        "itemDatas": [],
-        "actionType": 23,
-        "actCondition": 0,
-        "conditionComparison": 5,
-        "accumulatedTime": 1,
-        "stageOffsetIndex": 0
-      },
-      "act": {
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 50.0,
-        "id": 0,
-        "layer": 9,
-        "whatCause": 0
-      },
-      "questEvent": {
-        "eventType": 3,
-        "eventIndex": 0,
-        "eventNum": 0,
-        "actionName": "클릭"
-      },
-      "follow": {
-        "datas": [
-          {
-            "type": 1,
-            "questNum": 8
-          }
-        ],
-        "needCallNextQuest": true
-      }
-    },
-    {
-      "num": 8,
+      "num": 15,
       "questType": 1,
       "name": "영웅 소환하기",
       "detail": "우클릭으로 영웅 소환.",
@@ -2365,7 +2299,7 @@
         "size": 4.0,
         "mouseFlags": 512
       },
-      "trigger": 0,
+      "trigger": 1,
       "require": {
         "type": 2,
         "layer": 1,
@@ -2390,8 +2324,8 @@
         },
         "radius": 50.0,
         "id": 0,
-        "layer": 9,
-        "whatCause": 0
+        "layer": 0,
+        "whatCause": 40
       },
       "questEvent": {
         "eventType": 3,
@@ -2403,14 +2337,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 9
+            "questNum": 16
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 9,
+      "num": 16,
       "questType": 1,
       "questGrade": 0,
       "name": "부대 컨트롤",
@@ -2471,14 +2405,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 10
+            "questNum": 17
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 10,
+      "num": 17,
       "questType": 1,
       "name": "부대 컨트롤",
       "detail": "R를 눌러 진형 변경",
@@ -2536,74 +2470,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 11
+            "questNum": 18
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 11,
-      "questType": 1,
-      "name": "부대 컨트롤",
-      "detail": "부대 이동",
-      "reward": {
-        "rewardType": 0,
-        "rewardItems": [
-          {}
-        ]
-      },
-      "highLight": {
-        "timeStop": false,
-        "highLight": 0,
-        "highLightPosition": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "size": 1,
-        "actionName": 64,
-        "mouseFlags": 4
-      },
-      "trigger": 0,
-      "require": {
-        "type": 0,
-        "layer": 7,
-        "spot": {
-          "x": 2.0,
-          "y": 0.0,
-          "z": -4.0
-        },
-        "radius": 3.0,
-        "itemDatas": [],
-        "actionType": 0,
-        "actCondition": 0,
-        "accumulatedTime": 0,
-        "stageOffsetIndex": 0
-      },
-      "act": {
-        "spot": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0
-        },
-        "radius": 20.0,
-        "id": 0,
-        "layer": 7,
-        "whatCause": 4
-      },
-      "follow": {
-        "datas": [
-          {
-            "type": 1,
-            "questNum": 12
-          }
-        ],
-        "needCallNextQuest": true
-      }
-    },
-    {
-      "num": 12,
+      "num": 18,
       "questType": 1,
       "name": "부대 컨트롤",
       "detail": "진형 변경\nQ W E R",
@@ -2662,14 +2536,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 13
+            "questNum": 19
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 13,
+      "num": 19,
       "questType": 1,
       "name": "치유소 건설",
       "detail": "체력, 기벽, 질병을 관리하기 위해 치유소를 지으세요.",
@@ -2740,17 +2614,17 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 14
+            "questNum": 20
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 14,
+      "num": 20,
       "questType": 1,
       "name": "치유소 건설",
-      "detail": "제작 기간이 남는 경우, 원정을 갔다오면 진행도 최대치가 증가합니다.",
+      "detail": "제작에 여러 날이 걸리는 경우, 원정 진행 시 진행도 최대치가 증가합니다.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -2805,19 +2679,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 15
+            "questNum": 21
           }
         ],
         "needCallNextQuest": true
       }
     },
-
-
-
-
-
     {
-      "num": 15,
+      "num": 21,
       "questType": 1,
       "name": "원정준비 마치기",
       "detail": "원정 준비를 끝내고 탑 클릭하기.",
@@ -2837,7 +2706,7 @@
         },
         "size": 8.0,
         "mouseFlags": 2047,
-        "actionName": 511
+        "actionName": 1023
       },
       "trigger": 0,
       "require": {
@@ -2870,20 +2739,20 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "클릭"
+        "actionName": "좌클릭"
       },
       "follow": {
         "datas": [
           {
             "type": 1,
-            "questNum": 16
+            "questNum": 22
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 16,
+      "num": 22,
       "questType": 1,
       "name": "원정준비",
       "detail": "탑 층 클릭하기.",
@@ -2901,7 +2770,8 @@
           "y": 240.0,
           "z": 0.0
         },
-        "size": 2.0
+        "size": 2.0,
+        "mouseFlags": 256
       },
       "trigger": 0,
       "require": {
@@ -2934,20 +2804,20 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "클릭"
+        "actionName": "좌클릭"
       },
       "follow": {
         "datas": [
           {
             "type": 1,
-            "questNum": 17
+            "questNum": 23
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 17,
+      "num": 23,
       "questType": 1,
       "name": "원정준비",
       "detail": "탑 층 선택하기.",
@@ -2965,7 +2835,8 @@
           "y": 120.0,
           "z": 0.0
         },
-        "size": 4.0
+        "size": 4.0,
+        "mouseFlags": 256
       },
       "trigger": 0,
       "require": {
@@ -2998,20 +2869,20 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "클릭"
+        "actionName": "좌클릭"
       },
       "follow": {
         "datas": [
           {
             "type": 1,
-            "questNum": 18
+            "questNum": 24
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 18,
+      "num": 24,
       "questType": 1,
       "name": "원정 설계",
       "detail": "여러 스테이지를 한 번의 원정으로 클리어할 수 있습니다.\n스테이지 선택하기.",
@@ -3029,7 +2900,8 @@
           "y": 300.0,
           "z": 0.0
         },
-        "size": 2.0
+        "size": 2.0,
+        "mouseFlags": 256
       },
       "trigger": 0,
       "require": {
@@ -3062,20 +2934,20 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "클릭"
+        "actionName": "좌클릭"
       },
       "follow": {
         "datas": [
           {
             "type": 1,
-            "questNum": 19
+            "questNum": 25
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 19,
+      "num": 25,
       "questType": 1,
       "name": "원정 설계",
       "detail": "연장 버튼을 눌러 복귀하지 않고 원정을 이어나갈 수 있습니다.",
@@ -3093,7 +2965,8 @@
           "y": 80.0,
           "z": 0.0
         },
-        "size": 3.0
+        "size": 3.0,
+        "mouseFlags": 256
       },
       "trigger": 0,
       "require": {
@@ -3126,20 +2999,20 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "클릭"
+        "actionName": "좌클릭"
       },
       "follow": {
         "datas": [
           {
             "type": 1,
-            "questNum": 20
+            "questNum": 26
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 20,
+      "num": 26,
       "questType": 1,
       "name": "원정 설계",
       "detail": "원정 연장 시 아직 도달하지 못한 층도 포함시킬 수 있습니다.",
@@ -3157,7 +3030,8 @@
           "y": 420.0,
           "z": 0.0
         },
-        "size": 2.0
+        "size": 2.0,
+        "mouseFlags": 256
       },
       "trigger": 0,
       "require": {
@@ -3190,20 +3064,20 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "클릭"
+        "actionName": "좌클릭"
       },
       "follow": {
         "datas": [
           {
             "type": 1,
-            "questNum": 21
+            "questNum": 27
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 21,
+      "num": 27,
       "questType": 1,
       "name": "원정 설계",
       "detail": "층 스택을 눌러 원정에서 제외하기.",
@@ -3221,7 +3095,8 @@
           "y": 830.0,
           "z": 0.0
         },
-        "size": 2.0
+        "size": 2.0,
+        "mouseFlags": 256
       },
       "trigger": 0,
       "require": {
@@ -3255,20 +3130,20 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "클릭"
+        "actionName": "좌클릭"
       },
       "follow": {
         "datas": [
           {
             "type": 1,
-            "questNum": 22
+            "questNum": 28
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 22,
+      "num": 28,
       "questType": 1,
       "name": "원정 설계",
       "detail": "층을 원정에서 제거하여 못 가는 층은 자동으로 제거됩니다.",
@@ -3326,7 +3201,7 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 23
+            "questNum": 29
           }
         ],
         "needCallNextQuest": true
@@ -3334,7 +3209,7 @@
     },
 
     {
-      "num": 23,
+      "num": 29,
       "questType": 1,
       "name": "원정준비",
       "detail": "원정대 구성하기",
@@ -3352,7 +3227,8 @@
           "y": 600.0,
           "z": 0.0
         },
-        "size": 3.0
+        "size": 3.0,
+        "mouseFlags": 512
       },
       "trigger": 0,
       "require": {
@@ -3385,20 +3261,20 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "드래그"
+        "actionName": "오른쪽 드래그"
       },
       "follow": {
         "datas": [
           {
             "type": 1,
-            "questNum": 24
+            "questNum": 30
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 24,
+      "num": 30,
       "questType": 1,
       "name": "원정준비",
       "detail": "영웅 배치하기",
@@ -3416,7 +3292,8 @@
           "y": 580.0,
           "z": 0.0
         },
-        "size": 2.0
+        "size": 2.0,
+        "mouseFlags": 512
       },
       "trigger": 0,
       "require": {
@@ -3455,14 +3332,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 25
+            "questNum": 31
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 25,
+      "num": 31,
       "questType": 1,
       "name": "원정준비",
       "detail": "두 번 더 배치하세요.",
@@ -3480,7 +3357,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "size": 0.0
+        "size": 0.0,
+        "mouseFlags": 512
       },
       "trigger": 0,
       "require": {
@@ -3519,14 +3397,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 26
+            "questNum": 32
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 26,
+      "num": 32,
       "questType": 1,
       "name": "원정준비",
       "detail": "우측으로 드래그하거나 검은 점을 클릭해서 상점 탭으로 이동하세요.",
@@ -3544,7 +3422,8 @@
           "y": 720.0,
           "z": 0.0
         },
-        "size": 2.0
+        "size": 2.0,
+        "mouseFlags": 768
       },
       "trigger": 0,
       "require": {
@@ -3583,14 +3462,14 @@
         "datas": [
           {
             "type": 1,
-            "questNum": 27
+            "questNum": 33
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 27,
+      "num": 33,
       "questType": 1,
       "name": "원정준비",
       "detail": "우클릭하거나 드래그해서 원정에 가져갈 인벤토리에 추가하세요.",
@@ -3643,20 +3522,20 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "우클릭"
+        "actionName": "드래그 혹은 우클릭"
       },
       "follow": {
         "datas": [
           {
             "type": 1,
-            "questNum": 28
+            "questNum": 34
           }
         ],
         "needCallNextQuest": true
       }
     },
     {
-      "num": 28,
+      "num": 34,
       "questType": 1,
       "name": "원정",
       "detail": "원정 버튼을 누르세요.",
@@ -3675,7 +3554,7 @@
           "z": 0.0
         },
         "size": 3.0,
-        "mouseFlags": 56
+        "mouseFlags": 768
       },
       "trigger": 0,
       "require": {
@@ -3708,7 +3587,7 @@
         "eventType": 3,
         "eventIndex": 0,
         "eventNum": 0,
-        "actionName": "클릭"
+        "actionName": "좌클릭"
       },
       "follow": {
         "datas": [

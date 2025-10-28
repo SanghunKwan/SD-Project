@@ -94,6 +94,11 @@ public class BuildingImg : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
         scrollRect.gameObject.SetActive(false);
         onoffButton.ButtonColorReset();
     }
+    
+    void CloseBox()
+    {
+        infoWindow.Close();
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -102,6 +107,11 @@ public class BuildingImg : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        infoWindow.Close();
+        CloseBox();
+    }
+    
+    public void OnDisable()
+    {
+        CloseBox();
     }
 }

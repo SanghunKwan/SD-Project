@@ -128,4 +128,14 @@ public class SummonHeroWindow : CamTuringWindow
         summonNameTag.SetInteractableFalse();
         playInfo.canSummonHero[summonNameTag.transform.GetSiblingIndex()].isSummoned = true;
     }
+
+
+    public void OnClickExitButton()
+    {
+        bool[] bools = PlayerInputManager.manager.windowInputEnable;
+
+        if (!(bools[0] && bools[1] && bools[2])) return;
+
+        ToggleWindow();
+    }
 }

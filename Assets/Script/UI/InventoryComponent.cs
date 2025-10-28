@@ -352,11 +352,11 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
             moveCount = SlotMoveCount(slot, InventoryManager.i.info.items[itemCode]);
 
         //상속 받은 기능에 0 이하가 되면 가려지는 기능이 있음. 상점에 불필요.
-        if (!inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _))
-            return;
-
-        GameManager.manager.storageManager.inventoryComponents(opersiteType).
+        if (inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _))
+        {
+            GameManager.manager.storageManager.inventoryComponents(opersiteType).
             inventoryStorage.ItemCountChange(itemCode, moveCount);
+        }
 
         if (type == InventoryType.Villige)
             GameManager.manager.onItemUseOnExpedition.eventAction?.Invoke(itemCode, Vector3.zero);
@@ -415,6 +415,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         {
             nowInventoryComponent.inventoryStorage.ItemCountChange(slot.itemCode, moveCount);
             inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _);
+            GameManager.manager.onItemUseOnExpedition.eventAction?.Invoke(item.itemCode, Vector3.zero);
         }
         else
         {
@@ -423,6 +424,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
             CheckBeforeItems(brunchSlots, nowSlotIndex - slotIndex, item.itemCode, moveCount, ref action);
             inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _);
             action();
+            GameManager.manager.onItemUseOnStore.eventAction?.Invoke(slot.itemCode, Vector3.zero);
         }
         nowInventoryComponent.OriginImagebySlotArray(slotTarget.brunchIndex.ToArray());
     }
