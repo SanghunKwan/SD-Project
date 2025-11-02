@@ -80,7 +80,7 @@ public class BuildingSetWindow : CamTuringWindow
 
             SetBuildingNameText(typeIndex);
             SetChild(typeIndex);
-            
+
             infoText.text = str;
 
             addressableManager.GetData(AddressableManager.LabelName.Building, upgradeType, out Sprite sprite);
@@ -189,6 +189,9 @@ public class BuildingSetWindow : CamTuringWindow
         int siblingIndex = key.transform.GetSiblingIndex();
         int length = buildSetCharacters.Length;
 
+        if (vill_Interact.teamUIData.CanLoadData(out TeamUI team, out int sibling))
+            team.DeleteSave(sibling);
+
         if (vill_Interact.isCanLoad(out BuildingComponent beforeWork, out int beforeIndex))
         {
             //siblingIndex == 0일 때는 시설 이용자
@@ -223,7 +226,7 @@ public class BuildingSetWindow : CamTuringWindow
     public void OnClickExitButton()
     {
         bool[] windowEnable = PlayerInputManager.manager.windowInputEnable;
-        
+
         if (!(windowEnable[0] && windowEnable[1] && windowEnable[2])) return;
 
         ToggleWindow();

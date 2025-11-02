@@ -2624,7 +2624,7 @@
       "num": 20,
       "questType": 1,
       "name": "치유소 건설",
-      "detail": "제작에 여러 날이 걸리는 경우, 원정 진행 시 진행도 최대치가 증가합니다.",
+      "detail": "건설에 여러 날이 걸리는 경우, 원정 진행 시 진행도 최대치가 증가합니다.",
       "reward": {
         "rewardType": 0,
         "rewardItems": [
@@ -2680,11 +2680,990 @@
           {
             "type": 1,
             "questNum": 21
+          },
+          {
+            "type": 1,
+            "questNum": 22
           }
         ],
         "needCallNextQuest": true
       }
     },
+    {
+      "num": 21,
+      "questType": 1,
+      "name": "작업장 설치",
+      "detail": "장비를 강화하기 위해 작업장을 지으세요.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {
+            "itemCode": 1,
+            "itemCount": 2
+          },
+          {
+            "itemCode": 2,
+            "itemCount": 1
+          },
+          {
+            "itemCode": 4,
+            "itemCount": 2
+          },
+          {
+            "itemCode": 13,
+            "itemCount": 100
+          }
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 0,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 0.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 4,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 16,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 1,
+        "eventIndex": 0,
+        "eventNum": 5
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 34
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 22,
+      "questType": 1,
+      "name": "야외 훈련장 설치",
+      "detail": "기술 숙련도를 강화하기 위해 야외 훈련장를 지으세요.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {
+            "itemCode": 4,
+            "itemCount": 5
+          },
+          {
+            "itemCode": 13,
+            "itemCount": 100
+          }
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 0,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": 0.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 6,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 16,
+        "actCondition": 0,
+        "accumulatedTime": 0,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 1,
+        "eventIndex": 0,
+        "eventNum": 7
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 40
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 34,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "작업장 클릭해서 관리창 열기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 2,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": -0.5,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 1,
+      "require": {
+        "type": 2,
+        "layer": 4,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 20,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "layer": 4,
+        "whatCause": 17
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 35
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 35,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "영웅을 배정하고 업그레이드 창 열기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1210.0,
+          "y": 590.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 6,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 12,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "영웅 배정 후 클릭"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 36
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 36,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "투구 강화 기능 확인하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1005.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 3,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 33,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 37
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 37,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "갑옷 강화 기능 확인하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1235.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 4,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 33,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 38
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 38,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "무기 강화 기능 확인하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1470.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 5,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 33,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 39
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 39,
+      "questType": 1,
+      "name": "강화 조건",
+      "detail": "필드에서 얻은 장비를 마을로 가져오면 강화 해금 가능.\n확인하고 나가기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1505.0,
+          "y": 785.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 4,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 20,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
+      },
+      "follow": {
+        "datas": [
+          {}
+        ],
+        "needCallNextQuest": false
+      }
+    },
+    {
+      "num": 40,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "야외 훈련장 클릭해서 관리창 열기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 2,
+        "highLightPosition": {
+          "x": 0.0,
+          "y": -0.5,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 1,
+      "require": {
+        "type": 2,
+        "layer": 6,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 20,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "layer": 6,
+        "whatCause": 17
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 41
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 41,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "영웅을 배정하고 업그레이드 창 열기",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1210.0,
+          "y": 590.0,
+          "z": 0.0
+        },
+        "size": 3.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 6,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 12,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "영웅 배정하고 클릭"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 42
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 42,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "일반공격 강화 기능 확인하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1005.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 6,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 33,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 43
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 43,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "일반방어 강화 기능 확인하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1235.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 7,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 33,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 44
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 44,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "일반기술 강화 기능 확인하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1470.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 8,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 33,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 45
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 45,
+      "questType": 1,
+      "name": "영웅 관리",
+      "detail": "필살기 강화 기능 확인하기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1470.0,
+          "y": 310.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 9,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 33,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "마우스 이동"
+      },
+      "follow": {
+        "datas": [
+          {
+            "type": 1,
+            "questNum": 46
+          }
+        ],
+        "needCallNextQuest": true
+      }
+    },
+    {
+      "num": 46,
+      "questType": 1,
+      "name": "강화 조건",
+      "detail": "필드에서 얻은 기술서를 마을로 가져오면 강화 해금 가능.\n확인하고 나가기.",
+      "reward": {
+        "rewardType": 0,
+        "rewardItems": [
+          {}
+        ]
+      },
+      "highLight": {
+        "timeStop": false,
+        "highLight": 4,
+        "highLightPosition": {
+          "x": 1505.0,
+          "y": 785.0,
+          "z": 0.0
+        },
+        "size": 2.0
+      },
+      "trigger": 0,
+      "require": {
+        "type": 2,
+        "layer": 6,
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 0.0,
+        "itemDatas": [],
+        "actionType": 20,
+        "actCondition": 0,
+        "accumulatedTime": 1,
+        "stageOffsetIndex": 0
+      },
+      "act": {
+        "spot": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "radius": 20.0,
+        "id": 210,
+        "layer": 9,
+        "whatCause": 0
+      },
+      "questEvent": {
+        "eventType": 3,
+        "eventIndex": 0,
+        "eventNum": 0,
+        "actionName": "클릭"
+      },
+      "follow": {
+        "datas": [
+          {}
+        ],
+        "needCallNextQuest": false
+      }
+    },
+
+
+
     {
       "num": 21,
       "questType": 1,
@@ -3534,6 +4513,9 @@
         "needCallNextQuest": true
       }
     },
+
+
+
     {
       "num": 34,
       "questType": 1,

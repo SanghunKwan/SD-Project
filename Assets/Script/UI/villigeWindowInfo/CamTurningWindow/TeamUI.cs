@@ -49,11 +49,8 @@ public class TeamUI : CheckUICondition
         villigeInteracts[siblingIndex] = villigeInteract;
         SetCondition(siblingIndex);
     }
-    public void DeleteSave(int siblingIndex, bool isSiblingIndexSame = false)
+    public void DeleteSave(int siblingIndex)
     {
-        if (isSiblingIndexSame)
-            return;
-
         villigeInteracts[siblingIndex] = null;
         buildSetCharacters[siblingIndex].ResetTeam();
         SetCondition(siblingIndex);

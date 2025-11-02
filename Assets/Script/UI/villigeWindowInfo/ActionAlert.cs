@@ -12,7 +12,8 @@ public class ActionAlert : MonoBehaviour
         walking,
         training,
         healing,
-        buildingWork
+        TowerPrepare,
+        buildingWork,
     }
     [SerializeField] Color[] colors;
 
@@ -26,6 +27,7 @@ public class ActionAlert : MonoBehaviour
         villigeActions.Add("<color=#ECE7E4>산책중...</color>");
         villigeActions.Add("<color=#DEBA7F>훈련중...</color>");
         villigeActions.Add("<color=#F3776B>치료중...</color>");
+        villigeActions.Add("<color=#B07772>등반 준비중...</color>");
 
         buildingActions.Add("<color=#99D191>무덤관리</color>");
         buildingActions.Add("<color=#99D191>대장간 업무</color>");

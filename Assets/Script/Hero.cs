@@ -245,6 +245,11 @@ namespace Unit
             alloBuilding(ActionAlert.ActionType.buildingWork);
             BuildingAction = type;
         }
+        public void UnalloBuilding()
+        {
+            alloBuilding(ActionAlert.ActionType.walking);
+            unitMove.BuildingWorkEnd();
+        }
         public void Villige_CheckText()
         {
             villigeHero.villigeInteract.CheckText();

@@ -71,11 +71,10 @@ namespace SDUI
                 ResetText();
                 villigeInteract.now_villigeInteract.dragEndEvent -= DragEnd;
             }
-            if (isVilligeInteractExist)
-            {
 
+            if (isVilligeInteractExist)
                 teamUI.DeleteSave(transform.parent.GetSiblingIndex());
-            }
+
             image.color = Color.clear;
             ColliderExit();
         }
@@ -100,14 +99,25 @@ namespace SDUI
         }
         public void DataChange(villigeInteract interact)
         {
+            if (interact.isCanLoad(out BuildingComponent building, out int index))
+                building.ResetData(index);
+
             if (interact.teamUIData.CanLoadData(out TeamUI team, out int sibling))
-                team.DeleteSave(sibling, team == teamUI && sibling == transform.parent.GetSiblingIndex());
+            {
+                if (team == teamUI && sibling == transform.parent.GetSiblingIndex())
+                {
+
+                }
+                else
+                    team.DeleteSave(sibling);
+            }
 
             teamUI.CharacterSave(transform.parent.GetSiblingIndex(), interact);
 
             interact.teamUIData.SaveData(teamUI, transform.parent.GetSiblingIndex());
             interact.ChangeImage(AddressableManager.BuildingImage.Tower);
-            
+            interact.hero.alloBuilding(ActionAlert.ActionType.TowerPrepare);
+
             GameManager.manager.onVilligeBuildingHeroAllocation.eventAction?.Invoke(9, Vector3.zero);
         }
         public void DataErase()
