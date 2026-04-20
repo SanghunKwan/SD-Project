@@ -89,7 +89,7 @@ namespace Unit
             }
             selected = isOn;
         }
-        protected override void GetSelecting()
+        public override void GetSelecting()
         {
             GameManager.manager.objectManager.NewObject(ObjectManager.CObjectType.Hero, this);
             GameManager.manager.HereComesNewChallenger(this, keycode);
@@ -106,6 +106,7 @@ namespace Unit
         }
         protected override void LoadDead(bool isLoaded, in Vector3 vec)
         {
+            Debug.Log("»ç¸Á ÄÚµå  : " + keycode);
             GameManager.manager.ChallengerOut(this, keycode, detected);
             base.LoadDead(isLoaded, vec);
             PrintLowHP(InputEffect.WARNINGANIMTYPE.DIE);
@@ -224,12 +225,6 @@ namespace Unit
             int jobCount = 2;
             curstat.RefreshStatus(stat, ((EquipsNum[equipNum] - 1) * (3 * jobCount)) + equipNum);
             curstat.QuirkDiseaseCalculate(quirks, disease);
-        }
-        public void LoadTeamString(in string newTeam)
-        {
-            TeamChange(newTeam);
-            PlayerNavi.nav.SetTeam(unitMove, newTeam);
-            PlayerNavi.nav.HeroClear(this, "=");
         }
         public void SetStageIndex(int heroIndex)
         {

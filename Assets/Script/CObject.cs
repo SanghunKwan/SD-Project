@@ -71,7 +71,6 @@ namespace Unit
         void OnEnable()
         {
             StartCoroutine(DelayGetUI());
-            StartCoroutine(DelayRegist());
 
             LateRepeat = CorLateUpdate();
             StartCoroutine(LateRepeat);
@@ -97,14 +96,6 @@ namespace Unit
             copyUICircle.Padding = CirclePad;
             CheckInitCount();
             //copyBar, hpBarScript, copyUICircle ¸®ÅÏ.
-        }
-        IEnumerator DelayRegist()
-        {
-            while (GameManager.isReady.Equals(false) || GameManager.manager.battleClearManager == null)
-            {
-                yield return null;
-            }
-            GetSelecting();
         }
 
         protected virtual void Start()
@@ -133,12 +124,10 @@ namespace Unit
             }
             CheckInitCount();
 
-            if (onFieldDead)
-                OnInitEnd += () => LoadDead(true);
         }
         protected void CheckInitCount()
         {
-            initCount++;
+            ++initCount;
 
             if (initCount == initMaxCount)
             {
@@ -177,7 +166,7 @@ namespace Unit
             uiheight = collider.height * charactertoUImultiply * 0.4f;
         }
 
-        protected virtual void GetSelecting()
+        public virtual void GetSelecting()
         {
             ObjectManager objectManager = GameManager.manager.objectManager;
             if (fieldDead || objectManager.ObjectDictionary[(int)ObjectManager.CObjectType.FieldObject].ContainsKey(gameObject)) return;
@@ -328,6 +317,8 @@ namespace Unit
         {
             onFieldDead = true;
 
+            if (initCount != initMaxCount)
+                OnInitEnd += () => LoadDead(true);
         }
         protected void ReturnUIAfterDeath()
         {

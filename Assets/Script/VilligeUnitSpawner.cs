@@ -9,6 +9,7 @@ public class VilligeUnitSpawner : UnitSpawner
     SpawnVilligeManager spawnVilligeManager;
     BuildingPool buildingPool;
     [SerializeField] CharacterList characterList;
+    [SerializeField] GameObject defaultBuilding;
 
     protected override void VirtualStart()
     {
@@ -36,6 +37,7 @@ public class VilligeUnitSpawner : UnitSpawner
             SpawnFromHeroData(villigeHeros.Item1, villigeHeros.Item2);
         }
         characterList.ReArrage();
+        defaultBuilding.SetActive(true);
     }
     void SpawnBuildingData(BuildingData data)
     {
@@ -68,8 +70,8 @@ public class VilligeUnitSpawner : UnitSpawner
     }
     void SpawnFromHeroData(HeroData heroData, int heroIndex)
     {
-        Unit.Hero tempHero;
-        tempHero = SpawnHeroData(heroData, heroIndex);
+        Unit.Hero tempHero = SpawnHeroData(heroData, heroIndex);
+        tempHero.TeamChange(heroData.keycode);
         characterList.MatchingHeroWithInteract(heroIndex, tempHero);
     }
     public villigeInteract SummonHeroFromHeroData(HeroData heroData)
@@ -79,5 +81,10 @@ public class VilligeUnitSpawner : UnitSpawner
         villigeInteract newNametag = characterList.trViewPort[characterList.keyToTeamsNum[heroData.keycode]].characters[^1];
         SpawnFromHeroData(heroData, newNametag.transform.GetSiblingIndex() - 1);
         return newNametag;
+    }
+    protected override void NewSpawnedHeroSet(Unit.Hero newObject, HeroData data, int heroIndex)
+    {
+        newObject.TeamChange(data.keycode);
+        NewSpawnedHeroSetBase(newObject, data, heroIndex);
     }
 }

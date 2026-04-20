@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
     public ActionEvent onVilligeHeroInteractClick { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeStatusClick { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeStatusClose { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeButtonEnabled { get; private set; } = new ActionEvent();
     #endregion
 
 
@@ -246,7 +247,7 @@ public class GameManager : MonoBehaviour
                               objectManager.ObjectDictionary[(int)ObjectManager.CObjectType.Monster],
                               nPCDetected, playerDetected, unit);
     }
-    public void HereComesNewEnermy(CUnit gameObject)
+    public void HereComesNewEnemy(CUnit gameObject)
     {
         monNavi.MonsterAdd(gameObject);
 
@@ -401,7 +402,7 @@ public class GameManager : MonoBehaviour
             {
                 if (DragEffect(item, ref selectedCount))
                 {
-                    isNotSelected = true;
+                    isNotSelected = false;
                 }
             }
             else
@@ -410,13 +411,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (selectedCount < 1)
-        {
-            onHeroSelect.eventAction?.Invoke(playerNavi.lists.Count, playerNavi.getCenter);
-            return;
-        }
-
-        if (count % 2 == 0)
+        if (count % 2 == 0 && selectedCount > 0)
         {
             //더블 클릭
             if (playerNavi.lists.Count > 0)

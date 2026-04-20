@@ -45,8 +45,15 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        if (isUsable && GameManager.manager.pointerEventData != null &&
-            GameManager.manager.pointerEventData.pointerCurrentRaycast.gameObject.name == "InputUI")
+        if (!isUsable || GameManager.manager.pointerEventData == null)
+            return;
+
+        if (camTurningWindow.CheckOtherCloseWindowActive())
+            return;
+
+        if (GameManager.manager.pointerEventData.pointerCurrentRaycast.gameObject.name == "InputUI"
+            || (GameManager.manager.pointerEventData.pointerCurrentRaycast.gameObject.name == "RawImage"
+            && !camTurningWindow.GetMinimapClick))
         {
             ToggleWindow();
         }

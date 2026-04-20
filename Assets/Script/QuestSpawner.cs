@@ -143,6 +143,7 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeHeroInteractClick] = GameManager.manager.onVilligeHeroInteractClick;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeStatusClick] = GameManager.manager.onVilligeStatusClick;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeStatusClose] = GameManager.manager.onVilligeStatusClose;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeButtonEnabled] = GameManager.manager.onVilligeButtonEnabled;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
@@ -600,17 +601,21 @@ public class QuestSpawner : MonoBehaviour
         //stageIndex에 추가된 영웅 추가.
         //UnitSpawner를 이용해 영웅 생성.
         //해당 영웅 LoadDead.
+        BattleClearManager bcManager = GameManager.manager.battleClearManager;
+
         HeroData heroData = new HeroData("Unnamed", 1, Data.Instance.statusList[301 + happening.index],
                         new QuirkSaveData(2, 5), new QuirkDefaultData(1, 4, QuirkData.manager.diseaseInfo));
+
         heroData.unitData.objectData.isDead = true;
         heroData.unitData.objectData.cur_status.curHP = 0;
-        heroData.unitData.objectData.position = GameManager.manager.battleClearManager.GetStageComponent(1).transform.position + happening.vec;
+        heroData.unitData.objectData.position = bcManager.GetStageComponent(1).transform.position + happening.vec;
         heroData.needGetName = true;
 
-        unitSpawner.SpawnHeroData(heroData, GameManager.manager.battleClearManager.SaveDataInfo.hero.Length);
+        Hero newHero = unitSpawner.SpawnHeroData(heroData, bcManager.SaveDataInfo.hero.Length);
 
-        GameManager.manager.battleClearManager.AddNewHeroToSaveData(heroData);
-
+        bcManager.AddNewHeroToSaveData(heroData);
+        bcManager.AddStageHero(0, 1, newHero);
+        Debug.Log("Corpse Spawned");
     }
 
 }

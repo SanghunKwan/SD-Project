@@ -1310,7 +1310,8 @@
         "villigePerformOneData": {
             "bits": [
                 1,
-                0
+              0,
+              0
             ],
             "nowQuestList": []
         },

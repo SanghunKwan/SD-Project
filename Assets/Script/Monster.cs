@@ -15,6 +15,8 @@ namespace Unit
         protected override IEnumerator DelayGetUI()
         {
             initMaxCount = 5;
+            monsterMove = unitMove as MonsterMove;
+
             yield return StartCoroutine(base.DelayGetUI());
 
             GameObject MentalityBar = ObjectUIPool.pool.Call(ObjectUIPool.Folder.MentalBar, copyBar.transform);
@@ -73,14 +75,15 @@ namespace Unit
                 }
             }
         }
-        protected override void GetSelecting()
+        public override void GetSelecting()
         {
+            
             ObjectManager objectManager = GameManager.manager.objectManager;
             if (fieldDead || objectManager.ObjectDictionary[(int)ObjectManager.CObjectType.Monster].ContainsKey(gameObject)) return;
-
+            
             GameManager.manager.objectManager.NewObject(ObjectManager.CObjectType.Monster, this);
-            GameManager.manager.HereComesNewEnermy(this);
-            monsterMove = unitMove as MonsterMove;
+            GameManager.manager.HereComesNewEnemy(this);
+
         }
 
         protected override void LoadDead(bool isLoaded, in Vector3 vec)

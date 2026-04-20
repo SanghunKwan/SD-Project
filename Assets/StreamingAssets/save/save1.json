@@ -18,7 +18,7 @@
                 "quirks": [
                     6,
                     2,
-                    4,
+                    5,
                     0,
                     0
                 ],
@@ -28,12 +28,12 @@
             },
             "disease": {
                 "quirks": [
-                    0,
+                    2,
                     0,
                     0,
                     0
                 ],
-                "length": 0
+                "length": 1
             },
             "keycode": "=",
             "equipNum": [
@@ -57,7 +57,7 @@
             "needGetName": false,
             "inInventory": false,
             "unitData": {
-                "detected": false,
+                "detected": true,
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
@@ -66,9 +66,9 @@
                     "z": 0.0
                 },
                 "depart": {
-                    "x": -29.564002990722658,
+                    "x": -38.492305755615237,
                     "y": 0.06666666269302368,
-                    "z": 25.311763763427736
+                    "z": -29.595863342285158
                 },
                 "objectData": {
                     "position": {
@@ -107,7 +107,7 @@
                         "Range": 1,
                         "Mentality": 33,
                         "Stress": 8,
-                        "curHP": 27,
+                        "curHP": 12,
                         "curMORALE": 0
                     },
                     "dots": [
@@ -124,8 +124,8 @@
             "lv": 1,
             "quirks": {
                 "quirks": [
-                    7,
                     6,
+                    7,
                     0,
                     0,
                     0
@@ -234,16 +234,16 @@
         0,
         0,
         0,
-        3,
-        0,
-        1,
-        1,
         0,
         0,
         0,
         0,
-        1,
-        0
+        0,
+        0,
+        0,
+        0,
+        0,
+        8000
     ],
     "stageData": {
         "heros": [
@@ -255,7 +255,7 @@
             1
         ],
         "additionalFloorsDirections": [
-            3
+            2
         ],
         "nowFloorIndex": 0,
         "isClear": false,
@@ -263,25 +263,20 @@
         "inventoryData": {
             "itemDatas": [
                 {
-                    "itemIndex": 4,
-                    "itemCount": 3,
+                    "itemIndex": 7,
+                    "itemCount": 2,
                     "slotIndex": 0
                 },
                 {
-                    "itemIndex": 7,
-                    "itemCount": 1,
+                    "itemIndex": 4,
+                    "itemCount": 3,
                     "slotIndex": 1
                 },
-                {
-                    "itemIndex": 6,
-                    "itemCount": 1,
-                    "slotIndex": 2
-                },
-                {
-                    "itemIndex": 12,
-                    "itemCount": 1,
-                    "slotIndex": 3
-                }
+              {
+                "itemIndex": 12,
+                "itemCount": 1,
+                "slotIndex": 2
+              }
             ],
             "corpseIndex": [
                 1
@@ -300,13 +295,14 @@
         "villigePerformOneData": {
             "bits": [
                 1,
+                0,
                 0
             ],
             "nowQuestList": []
         },
         "floorQuestData": {
             "bits": [
-                172
+                236
             ],
             "nowQuestList": []
         },
@@ -337,28 +333,28 @@
         "canSummonHero": [
             {
                 "heroData": {
-                    "name": "베이커",
+                    "name": "윌리엄",
                     "lv": 1,
                     "quirks": {
                         "quirks": [
                             7,
-                            0,
+                            6,
                             0,
                             0,
                             0
                         ],
-                        "length": 1,
+                        "length": 2,
                         "willChange": false,
                         "willChangeIndex": 0
                     },
                     "disease": {
                         "quirks": [
-                            0,
+                            2,
                             0,
                             0,
                             0
                         ],
-                        "length": 0
+                        "length": 1
                     },
                     "keycode": "=",
                     "equipNum": [
@@ -448,28 +444,28 @@
             },
             {
                 "heroData": {
-                    "name": "마틴",
+                    "name": "스미스",
                     "lv": 1,
                     "quirks": {
                         "quirks": [
-                            6,
                             7,
+                            0,
                             0,
                             0,
                             0
                         ],
-                        "length": 2,
+                        "length": 1,
                         "willChange": false,
                         "willChangeIndex": 0
                     },
                     "disease": {
                         "quirks": [
-                            2,
+                            0,
                             0,
                             0,
                             0
                         ],
-                        "length": 1
+                        "length": 0
                     },
                     "keycode": "=",
                     "equipNum": [

@@ -18,6 +18,8 @@ public abstract class CamTuringWindow : tempMenuWindow, InitInterface
 
     [Space(20)]
     [SerializeField] protected CharacterList characterList;
+
+    public bool GetMinimapClick => UIClickDragToggle.miniMapClick;
     public void ToggleWindow()
     {
         clickCamturningComponent.ToggleWindow();
@@ -38,7 +40,7 @@ public abstract class CamTuringWindow : tempMenuWindow, InitInterface
         }
         UIClickDragToggle.enabled = onoff;
 
-        
+
         characterList.CollidersSetInteractive(onoff);
     }
     public virtual void GetTurningComponent(ClickCamTurningComponent getClickComponent)
@@ -56,6 +58,18 @@ public abstract class CamTuringWindow : tempMenuWindow, InitInterface
                 item.clickCamturningComponent.ChangeWindow();
             }
         }
+    }
+
+    public bool CheckOtherCloseWindowActive()
+    {
+        foreach (var item in otherCloseWindow)
+        {
+            if (item.gameObject.activeSelf)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     public abstract void Init();
 }

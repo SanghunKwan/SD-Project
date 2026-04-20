@@ -8,13 +8,8 @@
     ],
     "viewWindowSet": [
         false,
-        true,
+        false,
         false
     ],
-    "keyWindowSet": [
-        {
-            "index": 18,
-            "keyboardName": "X"
-        }
-    ]
+    "keyWindowSet": []
 }

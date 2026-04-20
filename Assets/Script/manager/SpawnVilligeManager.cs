@@ -6,7 +6,11 @@ using UnityEngine;
 
 public class SpawnVilligeManager : SpawnManager
 {
+    [SerializeField] TowerComponent towerCompoent;
+    
+    
     public (HeroData, int)[] heroBeforeDatas { get; set; }
+
     public override bool isEnter
     {
         get
@@ -18,7 +22,6 @@ public class SpawnVilligeManager : SpawnManager
         }
         protected set => base.isEnter = value;
     }
-    [SerializeField] TowerComponent towerCompoent;
 
     protected override void VirtualStart()
     {

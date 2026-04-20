@@ -299,10 +299,9 @@ public class InventoryStorage : StorageComponent
         addNum += slot.itemCount - count;
         //count는 최종 개수
         //addNum은 추가로 더해야할 수
-
+        StoreEventCountFallUnderZero(codeIndex, count);
         ChangeCountByItem(slot, brunchArray, count);
 
-        StoreEventCountFallUnderZero(codeIndex, count);
         return true;
     }
     void CheckNeedMore(in Item item, int slotIndex)
@@ -358,6 +357,9 @@ public class InventoryStorage : StorageComponent
     }
     public void ItemSlotChange(int slotIndex, int addNum, in Item item)
     {
+        if (addNum == 0)
+            return;
+
         SetNewItemSlot(slotIndex, item, addNum);
     }
     void SetNewItemSlot(int slotIndex, in Item item, int count = 0)

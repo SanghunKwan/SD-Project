@@ -27,11 +27,13 @@ public class InventoryManager : JsonLoad
         Sprite[] resourceSprites;
         for (int i = 0; i < length; i++)
         {
-            resourceSprites = Resources.LoadAll<Sprite>("InventoryImage/2d" + info.items[i].name.Replace(" ", ""));
+            string path = "InventoryImage/2d" + info.items[i].name.Replace(" ", "");
+
+            resourceSprites = Resources.LoadAll<Sprite>(path);
             if (resourceSprites.Length < 1)
                 continue;
 
-            resourceSprite.Add(info.items[i].name, Resources.LoadAll<Sprite>("InventoryImage/2d" + info.items[i].name.Replace(" ", "")));
+            resourceSprite.Add(info.items[i].name, resourceSprites);
         }
     }
     IEnumerator DesReplace()

@@ -71,8 +71,9 @@ public class BuildingClickDrag : InitObject, IPointerMoveHandler, IPointerDownHa
         //»ý¼º
         GameManager.manager.onVilligeBuildingStartConstruction.eventAction?.Invoke((int)buildType, lastPoint);
         MaterialsData.NeedMaterials needMaterial = materialsData.data.Needs[(int)buildType + 1];
-        pool.PoolBuilding(buildType, lastPoint).buildingComponent
-            .constructionAction?.Invoke(needMaterial.turn);
+        BuildingComponent building = pool.PoolBuilding(buildType, lastPoint).buildingComponent;
+        building.constructionAction?.Invoke(needMaterial.turn);
+        building.CObject.GetSelecting();
 
         storageComponent.CalculateMaterials(needMaterial);
         obj.gameObject.SetActive(false);

@@ -212,6 +212,8 @@ public class BuildingSetWindow : CamTuringWindow
             isAllValid &= buildSetCharacters[i].isValid;
         }
         UpgradeButtonEvent?.Invoke(isAllValid);
+        if (isAllValid)
+            GameManager.manager.onVilligeButtonEnabled.eventAction?.Invoke((int)ImageIndex, buildingComponent.transform.position);
 
         if (siblingIndex != 0)
             vill_Interact.LoadWorkPlace(buildingComponent, siblingIndex);

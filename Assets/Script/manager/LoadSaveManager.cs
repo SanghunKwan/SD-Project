@@ -208,11 +208,16 @@ namespace SaveData
             Array.Copy(hero.SkillsNum, skillNum, 4);
             villigeAction = (int)hero.VilligeAction;
             workBuilding = (int)hero.BuildingAction;
-            needGetName = false;
+            
             ObjectManager manager = GameManager.manager.objectManager;
 
-            inInventory = hero.fieldDead && (manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item] == null
-                          && (!manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item].ContainsKey(hero.gameObject)));
+            inInventory = hero.fieldDead && manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item] != null
+                          && !manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item].ContainsKey(hero.gameObject);
+            
+            Debug.Log(inInventory);
+            Debug.Log(hero.fieldDead);
+            Debug.Log(manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item] != null);
+            Debug.Log(!manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item].ContainsKey(hero.gameObject));
 
             if (overrideKeycode)
                 keycode = hero.keycode;

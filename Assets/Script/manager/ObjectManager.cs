@@ -132,7 +132,8 @@ public class ObjectManager : MonoBehaviour
     public LinkedListNode<CObject> GetNode(GameObject findObject)
     {
         CObjectType dicArrayIndex = GetCObjectType(findObject.layer);
-        if (dicArrayIndex == CObjectType.Max) return null;
+        if (dicArrayIndex == CObjectType.Max || !objectDictionary[(int)dicArrayIndex].ContainsKey(findObject))
+            return null;
 
         return objectDictionary[(int)dicArrayIndex][findObject];
     }

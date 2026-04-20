@@ -24,8 +24,7 @@ public abstract class UnitSpawner : MonoBehaviour
         int heroIndex = 0;
         foreach (var item in SpawnManager.heroDatas)
         {
-            SpawnHeroData(item, heroIndex);
-            heroIndex++;
+            SpawnHeroData(item, heroIndex++);
         }
 
         VirtualStart();
@@ -40,6 +39,7 @@ public abstract class UnitSpawner : MonoBehaviour
             newObject.GetStatusEffect(data.dots, data.dotsDirection);
             stat.Clone(data.cur_status);
             newObject.Selected(data.selected);
+            newObject.GetSelecting();
 
             if (data.isDead)
                 newObject.DelayAfterResigter();
@@ -58,9 +58,13 @@ public abstract class UnitSpawner : MonoBehaviour
         newObject.unitMove.ChangeHold(data.ishold);
         newObject.unitMove.LoadDepart(data.depart);
     }
-    void NewSpawnedHeroSet(Hero newObject, HeroData data, int heroIndex)
+    protected virtual void NewSpawnedHeroSet(Hero newObject, HeroData data, int heroIndex)
     {
-        newObject.LoadTeamString(data.keycode);
+        newObject.TeamChange((heroIndex + 1).ToString());
+        NewSpawnedHeroSetBase(newObject, data, heroIndex);
+    }
+    protected void NewSpawnedHeroSetBase(Hero newObject, HeroData data, int heroIndex)
+    {
         newObject.SetLevel(data.lv);
         newObject.SetQuirk(data.quirks.quirks);
         newObject.SetDisease(data.disease.quirks);
@@ -81,28 +85,23 @@ public abstract class UnitSpawner : MonoBehaviour
 
     public Hero SpawnHeroData(HeroData data, int heroIndex)
     {
-        Transform instTransform = PlayerNavi.nav.transform;
-
-        if (data.inInventory)
-        {
-            instTransform = DropManager.instance.pool.transform.GetChild(11);
-        }
+        Transform instTransform = data.inInventory
+            ? DropManager.instance.pool.transform.GetChild(11)
+            : PlayerNavi.nav.transform;
 
         Hero newHero = Instantiate(heroes[(data.unitData.objectData.cur_status.ID - 1) % 100],
                                            data.unitData.objectData.position, data.unitData.objectData.quaternion,
                                            instTransform);
-        NewSpawnedObjectSet(newHero, data.unitData.objectData);
-        NewSpawnedUnitSet(newHero, data.unitData);
         NewSpawnedHeroSet(newHero, data, heroIndex);
+        NewSpawnedUnitSet(newHero, data.unitData);
+        NewSpawnedObjectSet(newHero, data.unitData.objectData);
 
         if (data.inInventory)
         {
             newHero.ObjectCollider.enabled = false;
-            newHero.OnInitEnd += () =>
-            {
-                newHero.gameObject.SetActive(false);
-            };
+            newHero.gameObject.SetActive(false);
         }
+
         return newHero;
     }
 }

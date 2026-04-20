@@ -58,6 +58,11 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     Action<int>[] useAction;
     Action<int, Vector3>[] throwAction;
     Action<int>[] swapAction;
+
+    //상점에서 구매할 때 돈이 허용한 숫자까지 가능.
+    public Func<int, int> SlotCountZeroFunc { get; set; } = (itemCode) => throw new InvalidOperationException();
+
+
     public override void Init()
     {
         inventoryStorage = GetComponent<InventoryStorage>();
@@ -216,7 +221,7 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     #region swap
     void ItemSwap(int slotIndex)
     {
-        if (nowSlotIndex.Equals(slotIndex) || nowSlotIndex < 0)
+        if (type == InventoryType.Store || nowSlotIndex.Equals(slotIndex) || nowSlotIndex < 0)
         {
             ResetDrag(slotIndex);
             return;
@@ -243,14 +248,12 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
     {
         int length = brunchIndexList.Length;
         int brunchOffset;
-        int refItemCount = -itemCount;
-        InventoryStorage.Slot memorySlot = new InventoryStorage.Slot();
         Action callSavedItems = () => { };
 
         for (int i = 0; i < length; i++)
         {
             brunchOffset = brunchIndexList[i] + offset;
-            if (CanBackUpItem(brunchOffset, ref memorySlot, ref callSavedItems, ref callChangedSlots))
+            if (CanBackUpItem(brunchOffset, ref callSavedItems, ref callChangedSlots))
                 ItemRemove(brunchOffset, nowInventoryComponent);
         }
         StorageComponent.Item item = InventoryManager.i.info.items[itemCode];
@@ -258,9 +261,9 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         callSavedItems();
     }
 
-    bool CanBackUpItem(int slotIndex, ref InventoryStorage.Slot slot, ref Action itemCount, ref Action imageSlot)
+    bool CanBackUpItem(int slotIndex, ref Action itemCount, ref Action imageSlot)
     {
-        slot = nowInventoryComponent.inventoryStorage.slots[slotIndex];
+        InventoryStorage.Slot slot = nowInventoryComponent.inventoryStorage.slots[slotIndex];
         if (slot.itemCode == 0)
             return false;
 
@@ -344,31 +347,28 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         int index = (Convert.ToInt32(Input.GetKey(GameManager.manager.modifiers[(int)GameManager.ModifiersNum.Shift])) * (int)InventoryType.Max) + (int)type;
         useAction[index](slotIndex);
     }
-    void VilligeUse(int slotIndex, InventoryType opersiteType, int moveCount = 0)
+    void VilligeUse(int slotIndex, InventoryType opersiteType, int moveCount = int.MaxValue)
     {
         InventoryStorage.Slot slot = inventoryStorage.slots[slotIndex];
         int itemCode = slot.itemCode;
-        if (moveCount == 0)
-            moveCount = SlotMoveCount(slot, InventoryManager.i.info.items[itemCode]);
+
+        moveCount = Mathf.Min(moveCount, (slot.itemCount <= 0) ? SlotCountZeroFunc(itemCode) : slot.itemCount);
+        Debug.Log(moveCount);
 
         //상속 받은 기능에 0 이하가 되면 가려지는 기능이 있음. 상점에 불필요.
+
+        //실패했을 때 ui 복구 안 함. 다른 인벤토리에 정보 전달 안 함.
         if (inventoryStorage.ItemCountChangeByIndex(slotIndex, -moveCount, out _))
         {
             GameManager.manager.storageManager.inventoryComponents(opersiteType).
             inventoryStorage.ItemCountChange(itemCode, moveCount);
+            Debug.Log("아이템 갯수 변경");
         }
 
         if (type == InventoryType.Villige)
             GameManager.manager.onItemUseOnExpedition.eventAction?.Invoke(itemCode, Vector3.zero);
         else
             GameManager.manager.onItemUseOnStore.eventAction?.Invoke(itemCode, Vector3.zero);
-    }
-    int SlotMoveCount(in InventoryStorage.Slot slot, in StorageComponent.Item item)
-    {
-        if (type != InventoryType.Store)
-            return Mathf.Clamp(slot.itemCount, 0, item.MaxCount);
-        else
-            return item.MaxCount;
     }
     void StageUse(int slotIndex)
     {
@@ -403,9 +403,10 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
 
         int moveCount = Mathf.Clamp(slot.itemCount, 0, item.MaxCount - slotTarget.itemCount);
         if (moveCount <= 0)
-        {
-            moveCount = item.MaxCount - slotTarget.itemCount;
-        }
+            moveCount = SlotCountZeroFunc(slot.itemCode);
+
+        Debug.Log("moveCount : " + moveCount);
+
         int[] brunchSlots = slot.brunchIndex.ToArray();
 
 

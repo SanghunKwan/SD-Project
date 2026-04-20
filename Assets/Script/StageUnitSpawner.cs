@@ -71,9 +71,9 @@ public class StageUnitSpawner : UnitSpawner
                                                data.unitData.objectData.quaternion,
                                                prefabsTransform[(int)StagePoolPrefabs.Monster].GetChild(folderIndex));
 
-        NewSpawnedObjectSet(newOjb, data.unitData.objectData);
-        NewSpawnedUnitSet(newOjb, data.unitData);
         NewSpawnedMonsterSet(newOjb, data);
+        NewSpawnedUnitSet(newOjb, data.unitData);
+        NewSpawnedObjectSet(newOjb, data.unitData.objectData);
     }
     void NewSpawnedMonsterSet(Monster newObj, MonsterData data)
     {
