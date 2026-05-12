@@ -1,0 +1,947 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &650489501655692614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1434809833870443801}
+  - component: {fileID: 5680198492361344022}
+  m_Layer: 0
+  m_Name: 3stageMonsters
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1434809833870443801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650489501655692614}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2154598352604520208}
+  - {fileID: 2572869619941023983}
+  - {fileID: 2987162547312217178}
+  - {fileID: 2633034856934616653}
+  - {fileID: 7688599241744418612}
+  - {fileID: 2915114774462703759}
+  - {fileID: 8172292254885109304}
+  - {fileID: 8024565099484221701}
+  - {fileID: 2187689585324290048}
+  - {fileID: 1609730841250522478}
+  - {fileID: 1985358047200050135}
+  - {fileID: 2231177350587619546}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!114 &5680198492361344022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650489501655692614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07be97b7393dd84a9bdfd81aabc5b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objects:
+  - {fileID: 2895646759297551239}
+  - {fileID: 1620565661948966008}
+  - {fileID: 2070886346892122317}
+  - {fileID: 1244022549887351514}
+  - {fileID: 6879997119891035043}
+  - {fileID: 2142972191820807192}
+  - {fileID: 4944983359031413423}
+  - {fileID: 6527184647163626898}
+  - {fileID: 5328958259617553779}
+  - {fileID: 4755404214955034653}
+  - {fileID: 5486818091316958884}
+  - {fileID: 5286879210359240105}
+--- !u!1001 &170702268437204777
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5007837296589930707, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinRange_A
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+--- !u!4 &2187689585324290048 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+  m_PrefabInstance: {fileID: 170702268437204777}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5328958259617553779 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5452231333053911642, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+  m_PrefabInstance: {fileID: 170702268437204777}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &213062417938311155
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5007837296589930707, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinRange_D
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+--- !u!4 &2231177350587619546 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+  m_PrefabInstance: {fileID: 213062417938311155}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5286879210359240105 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5452231333053911642, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+  m_PrefabInstance: {fileID: 213062417938311155}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &544689785337054462
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5007837296589930707, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinRange_C
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+--- !u!4 &1985358047200050135 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+  m_PrefabInstance: {fileID: 544689785337054462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5486818091316958884 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5452231333053911642, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+  m_PrefabInstance: {fileID: 544689785337054462}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &744397352309398087
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5007837296589930707, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinRange_B
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+--- !u!4 &1609730841250522478 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2018255681145995049, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+  m_PrefabInstance: {fileID: 744397352309398087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4755404214955034653 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5452231333053911642, guid: 2ed52711c67e9a141b7c5b2856dcedbe, type: 3}
+  m_PrefabInstance: {fileID: 744397352309398087}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &3009503011569446765
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869314264680805002, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinMelee_E
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+--- !u!114 &6879997119891035043 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8554956818604915918, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 3009503011569446765}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &7688599241744418612 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 3009503011569446765}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3183051236346837340
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869314264680805002, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinMelee_H
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+--- !u!114 &6527184647163626898 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8554956818604915918, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 3183051236346837340}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8024565099484221701 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 3183051236346837340}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3610008715551929953
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869314264680805002, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinMelee_G
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+--- !u!114 &4944983359031413423 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8554956818604915918, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 3610008715551929953}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8172292254885109304 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 3610008715551929953}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6815679634599933769
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869314264680805002, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinMelee_A
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+--- !u!4 &2154598352604520208 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 6815679634599933769}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2895646759297551239 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8554956818604915918, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 6815679634599933769}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &6972742123513284790
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869314264680805002, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinMelee_B
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+--- !u!114 &1620565661948966008 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8554956818604915918, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 6972742123513284790}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2572869619941023983 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 6972742123513284790}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7492556074820306452
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869314264680805002, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinMelee_D
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+--- !u!114 &1244022549887351514 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8554956818604915918, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 7492556074820306452}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2633034856934616653 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 7492556074820306452}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7639243854120903683
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869314264680805002, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinMelee_C
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+--- !u!114 &2070886346892122317 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8554956818604915918, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 7639243854120903683}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2987162547312217178 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 7639243854120903683}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7711308511959089366
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1434809833870443801}
+    m_Modifications:
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869314264680805002, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+      propertyPath: m_Name
+      value: WanderingGoblinMelee_F
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+--- !u!114 &2142972191820807192 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8554956818604915918, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 7711308511959089366}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8e43434049ab4dba480ed7dd1a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2915114774462703759 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4859528364728461401, guid: 0d28be4d593a9ad4181d0743e41ca91b, type: 3}
+  m_PrefabInstance: {fileID: 7711308511959089366}
+  m_PrefabAsset: {fileID: 0}
