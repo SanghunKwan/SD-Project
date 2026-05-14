@@ -217,7 +217,7 @@ namespace SaveData
             Debug.Log(inInventory);
             Debug.Log(hero.fieldDead);
             Debug.Log(manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item] != null);
-            Debug.Log(!manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item].ContainsKey(hero.gameObject));
+            //Debug.Log(!manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item].ContainsKey(hero.gameObject));
 
             if (overrideKeycode)
                 keycode = hero.keycode;

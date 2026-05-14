@@ -1,6 +1,6 @@
 {
-    "day": 1,
-    "nextScene": 2,
+    "day": 2,
+    "nextScene": 1,
     "floorData": {
         "topFloor": 2,
         "floorLooks": [
@@ -39,12 +39,12 @@
             "equipNum": [
                 1,
                 1,
-                2
+                1
             ],
             "fieldEquipNum": [
                 0,
                 0,
-                1
+                0
             ],
             "skillNum": [
                 1,
@@ -52,7 +52,7 @@
                 1,
                 1
             ],
-            "villigeAction": 0,
+            "villigeAction": 3,
             "workBuilding": 0,
             "needGetName": false,
             "inInventory": false,
@@ -61,18 +61,18 @@
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": 5.0,
+                    "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 },
                 "depart": {
-                    "x": -38.492305755615237,
+                    "x": 5.808445930480957,
                     "y": 0.06666666269302368,
-                    "z": -29.595863342285158
+                    "z": -4.49015474319458
                 },
                 "objectData": {
                     "position": {
-                        "x": 5.0,
+                        "x": 0.0,
                         "y": 0.0,
                         "z": 2.0
                     },
@@ -91,10 +91,10 @@
                     "isDead": false,
                     "cur_status": {
                         "ID": 301,
-                        "NAME": "playerMelee",
+                        "NAME": "디스마스",
                         "SPECIES": 1,
                         "HP": 27,
-                        "ATK": 10,
+                        "ATK": 7,
                         "DEF": 0,
                         "DOG": 11,
                         "MORALE": 0,
@@ -102,11 +102,11 @@
                         "ViewAngle": 95,
                         "ViewRange": 7,
                         "type": 0,
-                        "Accuracy": 90,
-                        "AtkSpeed": 1.399999976158142,
+                        "Accuracy": 77,
+                        "AtkSpeed": 1.2999999523162842,
                         "Range": 1,
                         "Mentality": 33,
-                        "Stress": 8,
+                        "Stress": 5,
                         "curHP": 12,
                         "curMORALE": 0
                     },
@@ -120,7 +120,7 @@
             }
         },
         {
-            "name": "Unnamed",
+            "name": "브라운",
             "lv": 1,
             "quirks": {
                 "quirks": [
@@ -160,27 +160,27 @@
                 1,
                 1
             ],
-            "villigeAction": 0,
+            "villigeAction": 3,
             "workBuilding": 0,
-            "needGetName": true,
+            "needGetName": false,
             "inInventory": false,
             "unitData": {
                 "detected": false,
                 "attackMove": false,
                 "ishold": false,
                 "destination": {
-                    "x": 5.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "depart": {
                     "x": 0.0,
                     "y": 0.0,
                     "z": 0.0
                 },
+                "depart": {
+                    "x": 6.205790042877197,
+                    "y": 0.06666666269302368,
+                    "z": -3.7904720306396486
+                },
                 "objectData": {
                     "position": {
-                        "x": 5.0,
+                        "x": 0.0,
                         "y": 0.0,
                         "z": 2.0
                     },
@@ -199,19 +199,19 @@
                     "isDead": false,
                     "cur_status": {
                         "ID": 303,
-                        "NAME": "playerMagic",
+                        "NAME": "브라운",
                         "SPECIES": 1,
                         "HP": 18,
                         "ATK": 7,
                         "DEF": 0,
-                        "DOG": 5,
+                        "DOG": 6,
                         "MORALE": 0,
-                        "SPEED": 4,
-                        "ViewAngle": 90,
+                        "SPEED": 5,
+                        "ViewAngle": 86,
                         "ViewRange": 6,
                         "type": 2,
-                        "Accuracy": 60,
-                        "AtkSpeed": 1.5,
+                        "Accuracy": 51,
+                        "AtkSpeed": 1.2999999523162842,
                         "Range": 4,
                         "Mentality": 30,
                         "Stress": 15,
@@ -228,21 +228,78 @@
             }
         }
     ],
-    "building": [],
+    "building": [
+        {
+            "workHero": [
+                -1,
+                -1,
+                -1
+            ],
+            "dayRemaining": 0,
+            "timeNormalized": 1.0008739233016968,
+            "objectData": {
+                "position": {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": -6.0
+                },
+                "dotsDirection": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "quaternion": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0,
+                    "w": 1.0
+                },
+                "selected": false,
+                "isDead": false,
+                "cur_status": {
+                    "ID": 203,
+                    "NAME": "Tent(Clone)",
+                    "SPECIES": 200,
+                    "HP": 20,
+                    "ATK": 0,
+                    "DEF": 0,
+                    "DOG": -90,
+                    "MORALE": 0,
+                    "SPEED": 0,
+                    "ViewAngle": 0,
+                    "ViewRange": 0,
+                    "type": 200,
+                    "Accuracy": 0,
+                    "AtkSpeed": 0.0,
+                    "Range": 0,
+                    "Mentality": 1,
+                    "Stress": 0,
+                    "curHP": 20,
+                    "curMORALE": 0
+                },
+                "dots": [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            }
+        }
+    ],
     "items": [
         0,
         0,
         0,
         0,
+        3,
+        0,
+        0,
+        2,
         0,
         0,
         0,
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        1,
         8000
     ],
     "stageData": {
@@ -251,36 +308,15 @@
             1
         ],
         "floors": [
-            0,
-            1
-        ],
-        "additionalFloorsDirections": [
             2
         ],
+        "additionalFloorsDirections": [],
         "nowFloorIndex": 0,
         "isClear": false,
         "isEnter": true,
         "inventoryData": {
-            "itemDatas": [
-                {
-                    "itemIndex": 7,
-                    "itemCount": 2,
-                    "slotIndex": 0
-                },
-                {
-                    "itemIndex": 4,
-                    "itemCount": 3,
-                    "slotIndex": 1
-                },
-              {
-                "itemIndex": 12,
-                "itemCount": 1,
-                "slotIndex": 2
-              }
-            ],
-            "corpseIndex": [
-                1
-            ]
+            "itemDatas": [],
+            "corpseIndex": []
         },
         "floorUnitDatas": [],
         "yetDroppedItems": []
@@ -294,7 +330,7 @@
         },
         "villigePerformOneData": {
             "bits": [
-                1,
+                4193023,
                 0,
                 0
             ],
@@ -302,7 +338,7 @@
         },
         "floorQuestData": {
             "bits": [
-                236
+                1
             ],
             "nowQuestList": []
         },
@@ -330,230 +366,7 @@
             1
         ],
         "canSummonHeroCount": 2,
-        "canSummonHero": [
-            {
-                "heroData": {
-                    "name": "윌리엄",
-                    "lv": 1,
-                    "quirks": {
-                        "quirks": [
-                            7,
-                            6,
-                            0,
-                            0,
-                            0
-                        ],
-                        "length": 2,
-                        "willChange": false,
-                        "willChangeIndex": 0
-                    },
-                    "disease": {
-                        "quirks": [
-                            2,
-                            0,
-                            0,
-                            0
-                        ],
-                        "length": 1
-                    },
-                    "keycode": "=",
-                    "equipNum": [
-                        1,
-                        1,
-                        1
-                    ],
-                    "fieldEquipNum": [
-                        0,
-                        0,
-                        0
-                    ],
-                    "skillNum": [
-                        1,
-                        1,
-                        1,
-                        1
-                    ],
-                    "villigeAction": 0,
-                    "workBuilding": 0,
-                    "needGetName": false,
-                    "inInventory": false,
-                    "unitData": {
-                        "detected": false,
-                        "attackMove": false,
-                        "ishold": false,
-                        "destination": {
-                            "x": -7.800000190734863,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "depart": {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "objectData": {
-                            "position": {
-                                "x": -7.800000190734863,
-                                "y": 0.0,
-                                "z": 0.0
-                            },
-                            "dotsDirection": {
-                                "x": 0.0,
-                                "y": 0.0,
-                                "z": 0.0
-                            },
-                            "quaternion": {
-                                "x": 0.0,
-                                "y": 1.0,
-                                "z": 0.0,
-                                "w": -4.371138828673793e-8
-                            },
-                            "selected": false,
-                            "isDead": false,
-                            "cur_status": {
-                                "ID": 301,
-                                "NAME": "playerMelee",
-                                "SPECIES": 1,
-                                "HP": 27,
-                                "ATK": 7,
-                                "DEF": 0,
-                                "DOG": 10,
-                                "MORALE": 0,
-                                "SPEED": 5,
-                                "ViewAngle": 90,
-                                "ViewRange": 6,
-                                "type": 0,
-                                "Accuracy": 85,
-                                "AtkSpeed": 1.5,
-                                "Range": 1,
-                                "Mentality": 30,
-                                "Stress": 5,
-                                "curHP": 27,
-                                "curMORALE": 0
-                            },
-                            "dots": [
-                                0,
-                                0,
-                                0,
-                                0
-                            ]
-                        }
-                    }
-                },
-                "isSummoned": false
-            },
-            {
-                "heroData": {
-                    "name": "스미스",
-                    "lv": 1,
-                    "quirks": {
-                        "quirks": [
-                            7,
-                            0,
-                            0,
-                            0,
-                            0
-                        ],
-                        "length": 1,
-                        "willChange": false,
-                        "willChangeIndex": 0
-                    },
-                    "disease": {
-                        "quirks": [
-                            0,
-                            0,
-                            0,
-                            0
-                        ],
-                        "length": 0
-                    },
-                    "keycode": "=",
-                    "equipNum": [
-                        1,
-                        1,
-                        1
-                    ],
-                    "fieldEquipNum": [
-                        0,
-                        0,
-                        0
-                    ],
-                    "skillNum": [
-                        1,
-                        1,
-                        1,
-                        1
-                    ],
-                    "villigeAction": 0,
-                    "workBuilding": 0,
-                    "needGetName": false,
-                    "inInventory": false,
-                    "unitData": {
-                        "detected": false,
-                        "attackMove": false,
-                        "ishold": false,
-                        "destination": {
-                            "x": -7.800000190734863,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "depart": {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "objectData": {
-                            "position": {
-                                "x": -7.800000190734863,
-                                "y": 0.0,
-                                "z": 0.0
-                            },
-                            "dotsDirection": {
-                                "x": 0.0,
-                                "y": 0.0,
-                                "z": 0.0
-                            },
-                            "quaternion": {
-                                "x": 0.0,
-                                "y": 1.0,
-                                "z": 0.0,
-                                "w": -4.371138828673793e-8
-                            },
-                            "selected": false,
-                            "isDead": false,
-                            "cur_status": {
-                                "ID": 302,
-                                "NAME": "playerRange",
-                                "SPECIES": 1,
-                                "HP": 21,
-                                "ATK": 5,
-                                "DEF": 0,
-                                "DOG": 15,
-                                "MORALE": 0,
-                                "SPEED": 6,
-                                "ViewAngle": 70,
-                                "ViewRange": 10,
-                                "type": 1,
-                                "Accuracy": 80,
-                                "AtkSpeed": 1.5,
-                                "Range": 6,
-                                "Mentality": 30,
-                                "Stress": 7,
-                                "curHP": 21,
-                                "curMORALE": 0
-                            },
-                            "dots": [
-                                0,
-                                0,
-                                0,
-                                0
-                            ]
-                        }
-                    }
-                },
-                "isSummoned": false
-            }
-        ],
+        "canSummonHero": [],
         "isEnter": true
     }
 }

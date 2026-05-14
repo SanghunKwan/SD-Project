@@ -203,7 +203,7 @@ public class PlayerNavi : MonoBehaviour
         int layerMask = 1 << LayerMask.NameToLayer("Floor");
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, layerMask))
         {
-            mousePosition = hit.point;
+            mousePosition = hit.point + (Vector3.down * 0.5f);
             Debug.Log(mousePosition);
         }
         else
