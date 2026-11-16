@@ -33,26 +33,4 @@ public class UnitState_Monster : UnitState
     {
         basic_Ani.SetTrigger("Skill1");
     }
-
-    public override void FocusTarget(bool downIsTrue)
-    {
-
-    }
-
-    public IEnumerator WardenHeadWeigh()
-    {
-
-        base.FocusTarget(false);
-        float time = Mathf.Abs(turningTime);
-
-        yield return DownWeigh(time);
-    }
-
-    IEnumerator DownWeigh(float timing)
-    {
-        yield return new WaitUntil(() => turningTime <= 0);
-        yield return new WaitUntil(() => timing < turningTime);
-        base.FocusTarget(true);
-
-    }
 }

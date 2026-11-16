@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(InventoryStorage))]
-public class InventoryPriceController : MonoBehaviour
+public class InventoryPriceController : InitObject
 {
     InventoryShowPrice[] prices;
     InventoryStorage inventoryStorage;
     InventoryComponent inventoryComponent;
     [SerializeField] VilligeStorage itemUIStorageComponent;
-
-    private void Start()
+    public override void Init()
     {
         inventoryStorage = GetComponent<InventoryStorage>();
         inventoryComponent = GetComponent<InventoryComponent>();
@@ -85,4 +84,6 @@ public class InventoryPriceController : MonoBehaviour
 
         return Mathf.Min(maxBuy, Mathf.Min(maxCount, fillCount));
     }
+
+    
 }

@@ -34,10 +34,10 @@ public abstract class UnitSpawner : MonoBehaviour
 
     protected void NewSpawnedObjectSet(CObject newObject, ObjectData data)
     {
-        newObject.OnUICompleteAction += (ref unit_status stat) =>
+        newObject.OnUICompleteAction += () =>
         {
             newObject.GetStatusEffect(data.dots, data.dotsDirection);
-            stat.Clone(data.cur_status);
+            newObject.curstat.Clone(data.cur_status);
             newObject.Selected(data.selected);
             newObject.GetSelecting();
 
@@ -49,12 +49,7 @@ public abstract class UnitSpawner : MonoBehaviour
     protected void NewSpawnedUnitSet(CUnit newObject, UnitData data)
     {
         newObject.SetDetected(data.detected);
-        newObject.unitMove.destination = data.destination;
-        if (data.attackMove)
-            newObject.unitMove.AttackPosition(data.destination);
-        else
-            newObject.unitMove.Navi_Destination(data.destination);
-
+        newObject.unitMove.MoveOrAttack(data.attackMove ? MoveType.Attack : MoveType.Move, data.destination);
         newObject.unitMove.ChangeHold(data.ishold);
         newObject.unitMove.LoadDepart(data.depart);
     }

@@ -22,6 +22,8 @@ public class ItemComp_corpse : ItemComponent
 
         isInitComplete = true;
         delayEnable?.Invoke();
+
+        GameManager.manager.battleClearManager.OverrideHero(hero);
     }
     protected override void VirtualEnable()
     {

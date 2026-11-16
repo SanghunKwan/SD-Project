@@ -185,6 +185,7 @@ public class InventoryStorage : StorageComponent
     }
     public void IncreaseItemCount(in Item item, int addNum)
     {
+        Debug.Log(itemCode2slotData);
         if (itemCode2slotData[item.itemCode].slotNeedMore.Count > 0)
         {
             itemCode2slotData[item.itemCode].itemCode = itemCode2slotData[item.itemCode].slotNeedMore[0];

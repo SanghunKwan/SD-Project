@@ -62,4 +62,20 @@ public class BuildingPool : MonoBehaviour
 
         return tempBuildingComponent;
     }
+
+    public void BackPooling(BuildingComponent building)
+    {
+        GameObject buildingObject = building.gameObject;
+        GameManager.manager.objectManager.OutNoneObject(ObjectManager.AdditionalType.Building, buildingObject);
+
+        for (int i = 0; i < 3; ++i)
+        {
+            if (!building.IsDataNull(i, out _))
+                building.ResetData(i);
+        }
+
+        BuildingConstructDelay tempBuildingComponent = dicBuilding[buildingObject];
+
+        buildingObject.transform.SetParent(transform.GetChild((int)building.Type));
+    }
 }

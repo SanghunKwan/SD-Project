@@ -88,7 +88,7 @@ public class ItemComponent : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 7)
+        if (coll.enabled && other.gameObject.layer == 7)
         {
             GameManager.manager.objectManager.OutNoneObject(ObjectManager.AdditionalType.Item, gameObject);
             InventoryAddItem(other.gameObject);

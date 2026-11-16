@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unit;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 
     delegate void Action<in RaycastHit>(RaycastHit hit);
     Action<RaycastHit>[] action;
+
 
     // Start is called before the first frame update
     void Start()
@@ -84,8 +86,10 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 
     void GetPixel(Vector2 vector2, out float colora)
     {
-        colora = texture2D.GetPixelBilinear((vector2.x / rawImage.rectTransform.rect.width),
-                                             (vector2.y / rawImage.rectTransform.rect.height)).a;
+
+        float scaler = Data.Instance.CanvasScaler;
+        colora = texture2D.GetPixelBilinear(vector2.x / (rawImage.rectTransform.rect.width * scaler),
+                                             vector2.y / (rawImage.rectTransform.rect.height * scaler)).a;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -104,9 +108,10 @@ public class MiniMapClick : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     void MoveScreen(PointerEventData eventData)
     {
         if (!PlayerInputManager.manager.minimapInputEnable) return;
+        float scaler = Data.Instance.CanvasScaler;
 
-        Vector3 onImagePosition = new Vector3(eventData.position.x / rawImage.rectTransform.rect.width,
-                                                  eventData.position.y / rawImage.rectTransform.rect.height, 0);
+        Vector3 onImagePosition = new Vector3(eventData.position.x / (rawImage.rectTransform.rect.width * scaler),
+                                              eventData.position.y / (rawImage.rectTransform.rect.height * scaler), 0);
 
         if (Physics.Raycast(miniMapCam.ViewportPointToRay(onImagePosition), out RaycastHit hit, float.MaxValue, 1 << 8))
         {

@@ -25,16 +25,19 @@ public class InventoryComponent : InitObject, IStorageVisible, IPointerEnterHand
         public void SetSlot(in InventoryStorage.Slot slot, InventoryType type, int i)
         {
             slotdata = slot;
-            itemNumText.gameObject.SetActive(slotdata.itemCount > Convert.ToInt32(type != InventoryType.Store));
             itemNumText.text = "x" + slotdata.itemCount.ToString();
 
             if (InventoryManager.i.resourceSprite.ContainsKey(InventoryManager.i.info.items[slotdata.itemCode].name))
             {
                 Sprite[] sprites = InventoryManager.i.resourceSprite[InventoryManager.i.info.items[slotdata.itemCode].name];
                 itemImage.sprite = sprites[Mathf.Min(sprites.Length - 1, i)];
+                itemNumText.gameObject.SetActive(i == sprites.Length - 1);
             }
             else
+            {
                 itemImage.sprite = null;
+                itemNumText.gameObject.SetActive(slotdata.itemCount > Convert.ToInt32(type != InventoryType.Store));
+            }
 
             itemImage.color = Color.white * Convert.ToInt32(slotdata.itemCode != 0);
         }

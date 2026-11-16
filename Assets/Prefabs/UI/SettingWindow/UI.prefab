@@ -18040,6 +18040,10 @@ PrefabInstance:
       propertyPath: setting
       value: 
       objectReference: {fileID: 7968164333411814987}
+    - target: {fileID: 2521746026204969102, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
+      propertyPath: transformUI
+      value: 
+      objectReference: {fileID: 3185627494050060112}
     - target: {fileID: 4350023448338110949, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -18096,6 +18100,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.MonoBehaviour, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6187723041160948201, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
+      propertyPath: transformUI
+      value: 
+      objectReference: {fileID: 3185627494050060112}
     - target: {fileID: 7898752538158652630, guid: 7ac86fcdfa9699648b084874461938bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1

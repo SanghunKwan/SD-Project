@@ -56,8 +56,7 @@ namespace Unit
 
         protected List<ILayoutElement> texts = new List<ILayoutElement>();
 
-        public delegate void refAction(ref unit_status stat);
-        public refAction OnUICompleteAction { get; set; }
+        public System.Action OnUICompleteAction { get; set; }
         public System.Action OnInitEnd { get; set; }
 
         public event System.Action OnHPChange;
@@ -113,15 +112,15 @@ namespace Unit
                 curstat.curHP = curstat.HP;
                 curstat.curMORALE = curstat.MORALE;
             }
-            unit_status tempStat = curstat;
-
-            OnUICompleteAction?.Invoke(ref tempStat);
-            OnUICompleteAction = null;
 
             if (hpbarScript)
             {
                 hpbarScript.GetStatus(curstat, BarOffset);
             }
+
+            OnUICompleteAction?.Invoke();
+            OnUICompleteAction = null;
+
             CheckInitCount();
 
         }
@@ -162,8 +161,10 @@ namespace Unit
 
         protected void GetColliderSize(CapsuleCollider collider)
         {
-            uiradius = collider.radius * charactertoUImultiply;
-            uiheight = collider.height * charactertoUImultiply * 0.4f;
+            float scaler = Data.Instance.CanvasScaler;
+
+            uiradius = collider.radius * charactertoUImultiply * scaler;
+            uiheight = collider.height * charactertoUImultiply * 0.4f * scaler;
         }
 
         public virtual void GetSelecting()
@@ -181,9 +182,11 @@ namespace Unit
         public void DragBoxCollide(in float[] rec, bool dragging)
         {
             drag = dragging;
-            maxX = rec[1] + uiradius;
+
+            float tempRadius = uiradius;
+            maxX = rec[1] + tempRadius;
             maxY = rec[3];
-            minX = rec[0] - uiradius;
+            minX = rec[0] - tempRadius;
             minY = rec[2] - uiheight;
         }
         public bool selecting()
@@ -227,16 +230,13 @@ namespace Unit
             if (selected)
             {
                 copyUICircle.material = materials[1];
-                copyUICircle.rectTransform.position = transform.position;
+                copyUICircle.rectTransform.position = transform.position + Vector3.up * 0.1f;
                 copyUICircle.Arc = 1f;
                 copyUICircle.SetAllDirty();
+            }
 
-                copyBar.rectTransform.localPosition = Data.Instance.CameratoCanvas(transform.position) + Vector3.down * BarOffset;
-            }
-            else if (copyBar.gameObject.activeSelf)
-            {
-                copyBar.rectTransform.localPosition = Data.Instance.CameratoCanvas(transform.position) + Vector3.down * BarOffset;
-            }
+            if (copyBar.gameObject.activeSelf)
+                copyBar.rectTransform.localPosition = Data.Instance.CameratoCanvas(transform.position) + BarOffset * Data.Instance.CanvasScaler * Vector3.down;
         }
         protected virtual void SelectingUICircleTurning()
         {
@@ -245,7 +245,7 @@ namespace Unit
                 if (selecting())
                 {
                     copyUICircle.gameObject.SetActive(true);
-                    copyUICircle.rectTransform.position = transform.position;
+                    copyUICircle.rectTransform.position = transform.position + Vector3.up * 0.1f;
                     MaterialChange();
                     copyUICircle.Arc = 0.3f;
                     copyUICircle.ArcRotation += 3;
@@ -391,7 +391,9 @@ namespace Unit
 
                 float StartVel = dots[(int)SkillData.EFFECTINDEX.KNOCKBACK] * 2 / 0.7f;
 
-                dotsDirection = (transform.position - vec).normalized;
+                Vector3 dir = (transform.position - vec).normalized;
+                dir.y = 0;
+                dotsDirection = dir;
 
                 if (CorEndKnockBack != null)
                 {

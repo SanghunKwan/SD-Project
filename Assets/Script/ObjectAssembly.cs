@@ -58,13 +58,13 @@ public class ObjectAssembly : MonoBehaviour
     }
     void CreateFloor()
     {
-        towerHeight = 0;
+        towerHeight = 1.1f;
         GameObject tempObject;
         for (int i = 0; i < floorsList.Count; i++)
         {
-            tempObject = Instantiate(floorsList[i].floor, Vector3.up * towerHeight, floorsList[i].floor.transform.rotation,
-                                        transform.GetChild(0).GetChild(0));
+            tempObject = Instantiate(floorsList[i].floor, transform.GetChild(0).GetChild(0));
 
+            tempObject.transform.SetLocalPositionAndRotation(Vector3.up * towerHeight, floorsList[i].floor.transform.rotation);
             if (i != 0 && i != floorsList.Count - 1)
                 tempObject.transform.Rotate(Vector3.up, floorAngles[i - 1], Space.World);
 

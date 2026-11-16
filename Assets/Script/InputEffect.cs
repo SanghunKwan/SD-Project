@@ -229,7 +229,7 @@ public class InputEffect : MonoBehaviour
     }
     void ReUI(RectTransform rect, Vector3 vec)
     {
-        rect.localPosition = Data.Instance.CameratoCanvas(vec) + Vector3.up * offset1;
+        rect.localPosition = Data.Instance.CameratoCanvas(vec) + Data.Instance.CanvasScaler * offset1 * Vector3.up;
         rect.gameObject.SetActive(true);
         rect.transform.localScale = new Vector3(1, 1, 1);
         rect.transform.localRotation = Quaternion.identity;
@@ -264,7 +264,7 @@ public class InputEffect : MonoBehaviour
             if (unit.TryGetComponent(out CObject unitComponent))
                 while (unitComponent && rec.gameObject.activeSelf)
                 {
-                    rec.localPosition = Data.Instance.CameratoCanvas(unit.transform.position) + Vector3.up * offset1;
+                    rec.localPosition = Data.Instance.CameratoCanvas(unit.transform.position) + Data.Instance.CanvasScaler * offset1 * Vector3.up;
                     yield return null;
                 }
         }

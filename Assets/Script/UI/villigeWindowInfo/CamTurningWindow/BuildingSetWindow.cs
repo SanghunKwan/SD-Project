@@ -8,10 +8,17 @@ using SDUI;
 
 public class BuildingSetWindow : CamTuringWindow
 {
+    [Serializable]
+    class ThreeBools
+    {
+        public bool isHeroNeed;
+        public bool isSubManagerNeed;
+        public bool isUpgradeNeed;
+    }
+
     public BuildingComponent buildingComponent { get; private set; }
 
     Image buildingImage;
-    Image upgradeImage;
     TextMeshProUGUI buildingName;
     TextMeshProUGUI infoText;
 
@@ -20,13 +27,7 @@ public class BuildingSetWindow : CamTuringWindow
     [SerializeField] ThreeBools[] children;
 
 
-    [Serializable]
-    class ThreeBools
-    {
-        public bool isHeroNeed;
-        public bool isSubManagerNeed;
-        public bool isUpgradeNeed;
-    }
+
 
     BuildSetCharacter[] buildSetCharacters;
 
@@ -44,6 +45,8 @@ public class BuildingSetWindow : CamTuringWindow
     AddressableManager.BuildingImage ImageIndex;
     public AddressableManager AddressableManager { get { return addressableManager; } }
     [SerializeField] HeroUpgradeWindow heroUpgradeWindow;
+    [SerializeField] BuildingUpgradeComponent buildingUpgradeComponent;
+
 
     public override void Init()
     {
@@ -51,8 +54,6 @@ public class BuildingSetWindow : CamTuringWindow
         buildingName = buildingImage.transform.parent.GetChild(1).GetComponent<TextMeshProUGUI>();
 
         infoText = transform.Find("NoSelectInfo").GetComponent<TextMeshProUGUI>();
-
-        upgradeImage = transform.Find("Upgrade").GetChild(0).GetComponent<Image>();
 
         selectHero = new BuildSetCharacter(transform.Find("SelectHero"));
         manager = new BuildSetCharacter(transform.Find("manager"));
@@ -81,10 +82,9 @@ public class BuildingSetWindow : CamTuringWindow
             SetBuildingNameText(typeIndex);
             SetChild(typeIndex);
 
-            infoText.text = str;
+            buildingUpgradeComponent.Init(addressableManager, upgradeType, buildingComponent);
 
-            addressableManager.GetData(AddressableManager.LabelName.Building, upgradeType, out Sprite sprite);
-            upgradeImage.sprite = sprite;
+            infoText.text = str;
 
             LoadNeed(saveData);
             CheckBuildingActive();
@@ -119,7 +119,7 @@ public class BuildingSetWindow : CamTuringWindow
     }
     void NeedUpgrade(bool need)
     {
-        upgradeImage.transform.parent.gameObject.SetActive(need);
+        buildingUpgradeComponent.gameObject.SetActive(need);
     }
 
     void LoadNeed(in villigeInteract[] saveData)

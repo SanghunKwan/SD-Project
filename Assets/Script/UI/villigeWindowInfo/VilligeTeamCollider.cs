@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unit;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -49,7 +50,11 @@ public class VilligeTeamCollider : villigeBase, IPointerEnterHandler, IPointerEx
     }
     void ButtonRightAct()
     {
-        beginDrag[1] = (evenData) => { tempImage = CreateHandImage(); SetVisible(false); };
+        beginDrag[1] = (evenData) =>
+        {
+            tempImage = CreateHandImage(); SetVisible(false); isDrag = true;
+            GameManager.manager.onVilligeTeamColliderDrag.eventAction?.Invoke(0, Vector3.zero);
+        };
         dragging[1] = (evenData) => { ImageMove(evenData); CheckRaycastTarget(evenData); };
         endDrag[1] = (evenData) => { CleanDrag(); SetVisible(true); PositionClosing(); };
         //villigeInteract로 드래그 시 병합
@@ -62,13 +67,13 @@ public class VilligeTeamCollider : villigeBase, IPointerEnterHandler, IPointerEx
         dragMoveAction.Add(false, (eventdata) => DragNoMove());
     }
     #endregion
-    
+
     #region 드래그 시작
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);
         now_Collider = this;
-        isDrag = true;
+
         DragNoMove();
         beginDrag[(int)eventData.button](eventData);
     }
@@ -136,7 +141,7 @@ public class VilligeTeamCollider : villigeBase, IPointerEnterHandler, IPointerEx
         characterList.EndDrag(viewPort);
     }
     #endregion
-    
+
     #region 마우스 올려서 강조
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -150,14 +155,18 @@ public class VilligeTeamCollider : villigeBase, IPointerEnterHandler, IPointerEx
     #region 버튼 기능
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.button == PointerEventData.InputButton.Right 
-            && PlayerInputManager.manager.windowInputEnable[(int)eventData.button])
-        Click(viewPort.teamName);
+        if (eventData.button == PointerEventData.InputButton.Right
+            && PlayerInputManager.manager.windowInputEnable[(int)eventData.button]
+            && !GameManager.manager.questManager.isBuildingUnderControl)
+            Click(viewPort.teamName);
     }
     public void Click(string str)
     {
-        Vector3 tempCenter = PlayerNavi.nav.getCenter;
         GameManager.manager.ArmySelect(str);
+        Vector3 tempCenter = PlayerNavi.nav.getCenter;
+        if (float.IsNaN(tempCenter.x))
+            return;
+
         GameManager.manager.ScreenToPoint(tempCenter);
         GameManager.manager.onDoubleSelectGroup.eventAction?.Invoke(PlayerNavi.nav.lists.Count, tempCenter);
     }

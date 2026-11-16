@@ -1,55 +1,240 @@
 {
-    "skillExplains": [
-        {
-            "name": "일반 공격",
-            "type": 0,
-            "Descrip": "",
-            "ExplainLength" :  2
-        },
-        {
-            "name": "일반 방어",
-            "type": 3,
-            "Descrip": "",
-            "ExplainLength": 2
-        },
-        {
-            "name": "강타",
-            "type": 2,
-            "Pros": "슈퍼아머\n넉백\n",
-            "Cons": "이동정지\n",
-            "Descrip": "2연격 <color=#AD8BAE>(70 + 100)</color>\n쿨타임 : 7초",
-            "ExplainLength": 7
-        },
-        {
-            "name": "궁극기",
-            "type": 2,
-            "Descrip": "미정",
-            "ExplainLength": 0
-        },
-        {
-            "name": "일반 공격",
-            "type": 1,
-            "Pros": "기습사격 <color=#AD8BAE>(250)</color>",
-            "ExplainLength": 3
-        },
-        {
-            "name": "일반 방어",
-            "type": 4,
-            "Descrip": "",
-            "ExplainLength": 2
-        },
-        {
-            "name": "삼연발 사격",
-            "type": 4,
-            "Cons": "이동정지\n",
-            "Descrip": "3연격 <color=#AD8BAE>(100 x 3)</color>\n쿨타임 : 7초",
-            "ExplainLength": 5
-        },
-        {
-            "name": "궁극기",
-            "type": 2,
-            "Descrip": "미정",
-            "ExplainLength": 0
-        }
-    ]
+  "skillExplains": [
+    {
+      "name": "일반 공격",
+      "type": 0,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "일반 방어",
+      "type": 3,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "강타",
+      "type": 2,
+      "Pros": "슈퍼아머\n넉백\n",
+      "Cons": "이동정지\n",
+      "Descrip": "2연격 <color=#AD8BAE>(70 + 100)</color>\n쿨타임 : 7초",
+      "ExplainLength": 7
+    },
+    {
+      "name": "궁극기",
+      "type": 2,
+      "Descrip": "미정",
+      "ExplainLength": 0
+    },
+
+    {
+      "name": "일반 공격",
+      "type": 1,
+      "Pros": "기습사격 <color=#AD8BAE>(250)</color>",
+      "ExplainLength": 3
+    },
+    {
+      "name": "일반 방어",
+      "type": 4,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "삼연발 사격",
+      "type": 1,
+      "Cons": "이동정지\n",
+      "Descrip": "3연격 <color=#AD8BAE>(100 x 3)</color>\n쿨타임 : 7초",
+      "ExplainLength": 5
+    },
+    {
+      "name": "궁극기",
+      "type": 1,
+      "Descrip": "미정",
+      "ExplainLength": 0
+    },
+
+    {
+      "name": "일반 공격",
+      "type": 2,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "일반 방어",
+      "type": 4,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "불기둥",
+      "type": 2,
+      "Pros": "공포\n",
+      "Descrip": "<color=#AD8BAE>(300)</color>\n쿨타임 : 15초",
+      "ExplainLength": 5
+    },
+    {
+      "name": "궁극기",
+      "type": 2,
+      "Descrip": "미정",
+      "ExplainLength": 0
+    },
+
+    {
+      "name": "일반 공격1",
+      "type": 0,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "일반 방어1",
+      "type": 3,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "강타1",
+      "type": 2,
+      "Pros": "슈퍼아머\n넉백\n",
+      "Cons": "이동정지\n",
+      "Descrip": "2연격 <color=#AD8BAE>(80 + 110)</color>\n쿨타임 : 7초",
+      "ExplainLength": 7
+    },
+    {
+      "name": "궁극기1",
+      "type": 2,
+      "Descrip": "미정",
+      "ExplainLength": 0
+    },
+
+    {
+      "name": "일반 공격1",
+      "type": 1,
+      "Pros": "기습사격 <color=#AD8BAE>(270)</color>",
+      "ExplainLength": 3
+    },
+    {
+      "name": "일반 방어1",
+      "type": 4,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "삼연발 사격1",
+      "type": 1,
+      "Cons": "이동정지\n",
+      "Descrip": "3연격 <color=#AD8BAE>(110 x 3)</color>\n쿨타임 : 7초",
+      "ExplainLength": 5
+    },
+    {
+      "name": "궁극기1",
+      "type": 1,
+      "Descrip": "미정",
+      "ExplainLength": 0
+    },
+
+    {
+      "name": "일반 공격1",
+      "type": 2,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "일반 방어1",
+      "type": 4,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "불기둥1",
+      "type": 2,
+      "Pros": "공포\n",
+      "Descrip": "<color=#AD8BAE>(330)</color>\n쿨타임 : 15초",
+      "ExplainLength": 5
+    },
+    {
+      "name": "궁극기1",
+      "type": 2,
+      "Descrip": "미정",
+      "ExplainLength": 0
+    },
+
+    {
+      "name": "일반 공격2",
+      "type": 0,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "일반 방어2",
+      "type": 3,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "강타2",
+      "type": 2,
+      "Pros": "슈퍼아머\n넉백\n",
+      "Cons": "이동정지\n",
+      "Descrip": "2연격 <color=#AD8BAE>(90 + 120)</color>\n쿨타임 : 7초",
+      "ExplainLength": 7
+    },
+    {
+      "name": "궁극기2",
+      "type": 2,
+      "Descrip": "미정",
+      "ExplainLength": 0
+    },
+
+    {
+      "name": "일반 공격2",
+      "type": 1,
+      "Pros": "기습사격 <color=#AD8BAE>(310)</color>",
+      "ExplainLength": 3
+    },
+    {
+      "name": "일반 방어2",
+      "type": 4,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "삼연발 사격2",
+      "type": 1,
+      "Cons": "이동정지\n",
+      "Descrip": "3연격 <color=#AD8BAE>(120 x 3)</color>\n쿨타임 : 7초",
+      "ExplainLength": 5
+    },
+    {
+      "name": "궁극기2",
+      "type": 1,
+      "Descrip": "미정",
+      "ExplainLength": 0
+    },
+
+    {
+      "name": "일반 공격2",
+      "type": 2,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "일반 방어2",
+      "type": 4,
+      "Descrip": "",
+      "ExplainLength": 2
+    },
+    {
+      "name": "불기둥2",
+      "type": 2,
+      "Pros": "공포\n",
+      "Descrip": "<color=#AD8BAE>(360)</color>\n쿨타임 : 15초",
+      "ExplainLength": 5
+    },
+    {
+      "name": "궁극기2",
+      "type": 2,
+      "Descrip": "미정",
+      "ExplainLength": 0
+    }
+  ]
 }

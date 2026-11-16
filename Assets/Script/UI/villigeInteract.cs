@@ -168,7 +168,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     {
         copyHand = GetHandImage();
         image.color = Color.clear;
-        childComponent.gameObject.SetActive(false);
+        childComponent.SetActive(false);
         //글자 복사 추가.
         NoMove();
         isDrag = true;
@@ -186,10 +186,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
-        if (eventData.button == PointerEventData.InputButton.Left
-            || eventData.pointerCurrentRaycast.gameObject is null
-            || hero == null
-            || (!PlayerInputManager.manager.windowInputEnable[(int)eventData.button]))
+        if (!isDrag)
             return;
 
         copyHand.rectTransform.position = eventData.position - offset;
@@ -213,8 +210,7 @@ public class villigeInteract : villigeBase, IPointerEnterHandler, IPointerExitHa
     public override void OnEndDrag(PointerEventData eventData)
     {
         base.OnEndDrag(eventData);
-        if (eventData.button == PointerEventData.InputButton.Left || hero == null
-            || (!PlayerInputManager.manager.windowInputEnable[(int)eventData.button]))
+        if (!isDrag)
             return;
 
         onHand.gameObject.SetActive(false);

@@ -132,12 +132,138 @@
       "whiteNum": 0,
       "timberNum": 2,
       "desc": "1차 무기 강화입니다."
+    },
+    {
+      "index": 7,
+      "money": 200,
+      "needTime": 1,
+      "grayNum": 0,
+      "blackNum": 2,
+      "whiteNum": 3,
+      "timberNum": 1,
+      "desc": "2차 머리 방어구 강화입니다."
+    },
+    {
+      "index": 8,
+      "money": 300,
+      "needTime": 1,
+      "grayNum": 0,
+      "blackNum": 3,
+      "whiteNum": 5,
+      "timberNum": 2,
+      "desc": "2차 몸통 방어구 강화입니다."
+    },
+    {
+      "index": 9,
+      "money": 400,
+      "needTime": 1,
+      "grayNum": 0,
+      "blackNum": 1,
+      "whiteNum": 2,
+      "timberNum": 1,
+      "desc": "2차 무기 강화입니다."
     }
   ],
   "NeedsInSkillUpgrade": [
     {
       "index": 0,
       "name": "Fail"
+    },
+    {
+      "index": 1,
+      "desc": "기본 공격입니다."
+    },
+    {
+      "index": 2,
+      "desc": "기본 방어 기술입니다."
+    },
+    {
+      "index": 3,
+      "desc": "기본 공격 기술입니다."
+    },
+    {
+      "index": 4,
+      "desc": "기본 궁극기입니다."
+    },
+    {
+      "index": 5,
+      "money": 200,
+      "needTime": 1,
+      "grayNum": 4,
+      "blackNum": 1,
+      "whiteNum": 0,
+      "timberNum": 1,
+      "desc": "1차 공격 훈련입니다."
+    },
+    {
+      "index": 6,
+      "money": 150,
+      "needTime": 1,
+      "grayNum": 3,
+      "blackNum": 1,
+      "whiteNum": 0,
+      "timberNum": 2,
+      "desc": "1차 방어 훈련입니다."
+    },
+    {
+      "index": 7,
+      "money": 300,
+      "needTime": 1,
+      "grayNum": 5,
+      "blackNum": 1,
+      "whiteNum": 0,
+      "timberNum": 1,
+      "desc": "1차 기술 훈련입니다."
+    },
+    {
+      "index": 8,
+      "money": 500,
+      "needTime": 1,
+      "grayNum": 8,
+      "blackNum": 2,
+      "whiteNum": 0,
+      "timberNum": 4,
+      "desc": "1차 궁극기 훈련입니다."
+    },
+    {
+      "index": 9,
+      "money": 400,
+      "needTime": 1,
+      "grayNum": 0,
+      "blackNum": 2,
+      "whiteNum": 3,
+      "timberNum": 0,
+      "desc": "2차 공격 훈련입니다."
+    },
+    {
+      "index": 10,
+      "money": 300,
+      "needTime": 1,
+      "grayNum": 1,
+      "blackNum": 3,
+      "whiteNum": 2,
+      "timberNum": 1,
+      "desc": "2차 방어 훈련입니다."
+    },
+    {
+      "index": 11,
+      "money": 600,
+      "needTime": 1,
+      "grayNum": 0,
+      "blackNum": 2,
+      "whiteNum": 3,
+      "timberNum": 2,
+      "desc": "2차 기술 훈련입니다."
+    },
+    {
+      "index": 12,
+      "money": 1000,
+      "needTime": 1,
+      "grayNum": 2,
+      "blackNum": 4,
+      "whiteNum": 5,
+      "timberNum": 1,
+      "desc": "2차 궁극기 훈련입니다."
     }
   ],
   "NeedsInMedecine": [
@@ -164,7 +290,7 @@
     {
       "index": 2,
       "name": "치유",
-      "money": 0,
+      "money": 10,
       "needTime": 0,
       "grayNum": 0,
       "blackNum": 0,

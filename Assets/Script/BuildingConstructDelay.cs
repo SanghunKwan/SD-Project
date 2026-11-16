@@ -48,16 +48,18 @@ public class BuildingConstructDelay : MonoBehaviour
         GameManager.manager.onVilligeBuildingCompleteConstruction.eventAction?.
             Invoke((int)buildingComponent.Type, transform.position);
 
+        constructingUI = null;
         buildingComponent.ReadytoUse();
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         if (buildingComponent != null)
-            buildingComponent.constructionAction -= StartConstruction;
+        {
+            buildingComponent.ReadytoUse(false);
+        }
 
         if (constructingUI != null)
             constructingUI.enabled = false;
     }
-
 
 }

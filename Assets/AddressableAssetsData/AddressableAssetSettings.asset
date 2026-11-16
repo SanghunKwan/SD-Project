@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: d49b02cb2125a6547be07b7bded88ba5
   m_currentHash:
     serializedVersion: 2
-    Hash: 147279ef3c42733eca080c4791aac818
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -35,9 +35,9 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: b60933160a2d7854fab1382de773b239
+    m_Id: 97e737654cee78c45831782283fe712a
   m_RemoteCatalogLoadPath:
-    m_Id: f45572b0b3ca44e429a4ab8d9cca570f
+    m_Id: baadb41d62804c244af767178c5d95ff
   m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
@@ -114,7 +114,7 @@ MonoBehaviour:
     - Building
     - MainMenu
     - StageSettlement
-    - VilligeWindowImage
+    - VilligeWindow
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: e7ec4e844004b8545b1b0dfb9f60c482, type: 2}

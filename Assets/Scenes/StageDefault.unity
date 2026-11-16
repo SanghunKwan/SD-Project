@@ -3603,6 +3603,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bcab7f798db6ce4c96d0fd0f8c6ed0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &591485033 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5096937365502818210, guid: bf2152f0fa267c64a9ff6ed7e28f9a05, type: 3}
+  m_PrefabInstance: {fileID: 1756051198}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &613401351
 GameObject:
   m_ObjectHideFlags: 0
@@ -5700,6 +5711,21 @@ MonoBehaviour:
   waitSeconds: 2500
   spawnCoolTime: 900
   gatePosition: {x: 0, y: 1, z: 0}
+  stageEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 591485033}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &956016311
 PrefabInstance:
   m_ObjectHideFlags: 0

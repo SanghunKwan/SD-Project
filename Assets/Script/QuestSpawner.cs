@@ -16,7 +16,7 @@ public class QuestSpawner : MonoBehaviour
     GameManager.ActionEvent[] actionEvent;
 
     Action<QuestManager.QuestData.QuestAct, QuestManager.QuestType, int>[] prepareQuestActions;
-    Action<QuestManager.QuestData, Action, int>[] createQuestRequirementsActions;
+    Action<QuestManager.QuestData, Action, int, Vector3>[] createQuestRequirementsActions;
     Action<QuestManager.QuestData.QuestReward>[] EventClearActions;
     Action<QuestManager.QuestData.QuestEvent, QuestUISlot, QuestManager.QuestData>[] createQuestEventActions;
     Action<QuestManager.QuestData.QuestHappening>[] prepareQuestHappenings;
@@ -66,7 +66,7 @@ public class QuestSpawner : MonoBehaviour
         highLightActions2[(int)QuestManager.QuestData.QuestHighLight.HighLightTarget.FocusUI] = HighLightUI;
 
         createQuestRequirementsActions
-            = new Action<QuestManager.QuestData, Action, int>[(int)QuestManager.QuestData.QuestRequirements.RequirementsType.Max];
+            = new Action<QuestManager.QuestData, Action, int, Vector3>[(int)QuestManager.QuestData.QuestRequirements.RequirementsType.Max];
         createQuestRequirementsActions[(int)QuestManager.QuestData.QuestRequirements.RequirementsType.spot]
             = CreateQuestForSpot;
         createQuestRequirementsActions[(int)QuestManager.QuestData.QuestRequirements.RequirementsType.item]
@@ -144,6 +144,7 @@ public class QuestSpawner : MonoBehaviour
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeStatusClick] = GameManager.manager.onVilligeStatusClick;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeStatusClose] = GameManager.manager.onVilligeStatusClose;
         actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeButtonEnabled] = GameManager.manager.onVilligeButtonEnabled;
+        actionEvent[(int)QuestManager.QuestData.QuestAct.UnitActType.VilligeTeamColliderDrag] = GameManager.manager.onVilligeTeamColliderDrag;
     }
     void CheckDataEmptyNInit(QuestSaveData data)
     {
@@ -163,6 +164,7 @@ public class QuestSpawner : MonoBehaviour
         {
             tempList = questSaveData[item].nowQuestList;
             length = tempList.Count;
+            Debug.Log("기존 퀘스트 생성 " + length);
             for (int i = 0; i < length; i++)
             {
                 MakeQuest(item, tempList[i].questIndex, tempList[i].callPosition, tempList[i].nowProgress);
@@ -177,6 +179,7 @@ public class QuestSpawner : MonoBehaviour
         foreach (var item in types)
         {
             length = questManager.GetQuestCount(item);
+            Debug.Log("신규 퀘스트 생성 " + length);
             for (int i = 0; i < length; i++)
             {
                 data = questSaveData.GetQuestState(item, i);
@@ -226,7 +229,7 @@ public class QuestSpawner : MonoBehaviour
         };
 
         //퀘스트 클리어 조건 형성
-        CreateQuestRequirements(data, completeAction, nowProgress);
+        CreateQuestRequirements(data, completeAction, nowProgress, callPosition);
 
         CreateQuestEvent(data, slot);
 
@@ -243,11 +246,11 @@ public class QuestSpawner : MonoBehaviour
     }
 
     #region createQuestRequirementsActions
-    void CreateQuestRequirements(QuestManager.QuestData data, in Action completeAction, int nowProgress)
+    void CreateQuestRequirements(QuestManager.QuestData data, in Action completeAction, int nowProgress, in Vector3 callPosition)
     {
-        createQuestRequirementsActions[(int)data.require.type](data, completeAction, nowProgress);
+        createQuestRequirementsActions[(int)data.require.type](data, completeAction, nowProgress, callPosition);
     }
-    void CreateQuestForSpot(QuestManager.QuestData data, Action completeAction, int nowProgress)
+    void CreateQuestForSpot(QuestManager.QuestData data, Action completeAction, int nowProgress, Vector3 callPosition)
     {
         QuestManager.QuestData.QuestRequirements require = data.require;
 
@@ -259,7 +262,7 @@ public class QuestSpawner : MonoBehaviour
             completeAction();
         });
     }
-    void CreateQuestForItem(QuestManager.QuestData data, Action completeAction, int nowProgress)
+    void CreateQuestForItem(QuestManager.QuestData data, Action completeAction, int nowProgress, Vector3 callPosition)
     {
         DisposableActionItem(null, () =>
         {
@@ -286,17 +289,17 @@ public class QuestSpawner : MonoBehaviour
         storage.AddListener(Wrapper);
     }
 
-    void CreateQuestForAction(QuestManager.QuestData data, Action completeAction, int nowProgress)
+    void CreateQuestForAction(QuestManager.QuestData data, Action completeAction, int nowProgress, Vector3 callPosition)
     {
         void complete()
         {
             completeAction();
-            EventClear(data.reward);
             questPool.ReturnQuestActInstance(doingActionQuestDictionary[data]);
+            EventClear(data.reward);
             doingActionQuestDictionary.Remove(data);
         }
 
-        QuestPool.QuestActionInstance instance = questPool.GetQuestActInstance(nowProgress, data, complete, actionEvent);
+        QuestPool.QuestActionInstance instance = questPool.GetQuestActInstance(nowProgress, data, complete, actionEvent, callPosition);
 
         doingActionQuestDictionary.Add(data, instance);
         doingActionQuestDictionary[data].LateInit?.Invoke(() => doingActionQuestDictionary[questManager.GetQuestData(data.questType, data.require.stageOffsetIndex)].CompleteCheck(0, Vector3.zero));
@@ -431,6 +434,9 @@ public class QuestSpawner : MonoBehaviour
     #region eventClearActions
     void EventClear(QuestManager.QuestData.QuestReward reward)
     {
+        foreach (var t in types)
+            GameManager.manager.battleClearManager.SaveDataInfo.questSaveData[t].nowQuestList.Clear();
+
         //이벤트 보상 주기
         EventClearActions[(int)reward.rewardType](reward);
     }
@@ -444,7 +450,6 @@ public class QuestSpawner : MonoBehaviour
     void ClearForStage()
     {
         GameManager.manager.battleClearManager.ActivateNextFloor(this);
-
         //새로운 스테이지 floor 활성화
     }
     void ArriveNewStage()
@@ -509,7 +514,7 @@ public class QuestSpawner : MonoBehaviour
         action += () =>
         {
             GameManager.manager.ScreenToPoint(callPosition);
-            questBackGround.SetHighLight(callPosition + highLightPosition, highLightSize);
+            questBackGround.SetHighLight(callPosition + highLightPosition * Data.Instance.CanvasScaler, highLightSize);
         };
 
         DelayHighLight(action);
@@ -518,7 +523,7 @@ public class QuestSpawner : MonoBehaviour
     {
         action += () =>
         {
-            questBackGround.SetHighLightUI(highLightPosition, 0);
+            questBackGround.SetHighLightUI(highLightPosition * Data.Instance.CanvasScaler, 0);
             questBackGround.SetActiveHole(false);
         };
         DelayHighLight(action);
@@ -526,16 +531,15 @@ public class QuestSpawner : MonoBehaviour
     void HighLightUI(Vector3 highLightPosition, Vector3 callPosition, float highLightSize, ref Action action)
     {
         action();
-        questBackGround.SetHighLightUI(highLightPosition, highLightSize);
+        questBackGround.SetHighLightUI(highLightPosition * Data.Instance.CanvasScaler, highLightSize);
     }
     void DelayHighLight(Action action)
     {
         //바로 작동할 수 있을 때
-        if (!questManager.isBuildingUnderControl)
+        if (!questManager.isBuildingUnderControl && !questBackGround.gameObject.activeSelf)
             action();
         else
             questManager.onBuildingControlFinish += action;
-
     }
     #endregion
 

@@ -17,9 +17,9 @@ public class CurrentState : MonoBehaviour
     public void InitState()
     {
         _hpSprites = new Sprite[3];
-        AddressableManager.manager.GetData(AddressableManager.LabelName.VilligeWindowImage, AddressableManager.VilligeWindowImage.fullHp, out _hpSprites[0]);
-        AddressableManager.manager.GetData(AddressableManager.LabelName.VilligeWindowImage, AddressableManager.VilligeWindowImage.halfHp, out _hpSprites[1]);
-        AddressableManager.manager.GetData(AddressableManager.LabelName.VilligeWindowImage, AddressableManager.VilligeWindowImage.emptyHp, out _hpSprites[2]);
+        AddressableManager.manager.GetData(AddressableManager.LabelName.VilligeWindow, AddressableManager.VilligeWindowImage.fullHp, out _hpSprites[0]);
+        AddressableManager.manager.GetData(AddressableManager.LabelName.VilligeWindow, AddressableManager.VilligeWindowImage.halfHp, out _hpSprites[1]);
+        AddressableManager.manager.GetData(AddressableManager.LabelName.VilligeWindow, AddressableManager.VilligeWindowImage.emptyHp, out _hpSprites[2]);
     }
 
     public void SetHP(int currentHp, int maxHp)

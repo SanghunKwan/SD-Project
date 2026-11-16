@@ -100,6 +100,7 @@ public class ObjectManager : MonoBehaviour
             case 10:
                 return CObjectType.Monster;
             default:
+                Debug.Log("∫Ò¡§ªÛ layer: " + layerNum);
                 return CObjectType.Max;
         }
     }

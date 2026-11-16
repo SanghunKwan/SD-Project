@@ -208,12 +208,12 @@ namespace SaveData
             Array.Copy(hero.SkillsNum, skillNum, 4);
             villigeAction = (int)hero.VilligeAction;
             workBuilding = (int)hero.BuildingAction;
-            
+
             ObjectManager manager = GameManager.manager.objectManager;
 
             inInventory = hero.fieldDead && manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item] != null
                           && !manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item].ContainsKey(hero.gameObject);
-            
+
             Debug.Log(inInventory);
             Debug.Log(hero.fieldDead);
             Debug.Log(manager.NoneObjectDictionary[(int)ObjectManager.AdditionalType.Item] != null);
@@ -245,7 +245,7 @@ namespace SaveData
             dayRemaining = buildingComponent.dayRemaining;
 
             timeNormalized = 1;
-            if (buildingComponent.constructingUI != null)
+            if (buildingComponent.constructingUI != null && buildingComponent.constructingUI.enabled)
                 timeNormalized = buildingComponent.constructingUI.timeNormalized;
 
             objectData = new ObjectData(buildingComponent.buildingComponent.CObject);
@@ -541,7 +541,7 @@ namespace SaveData
                 {
                     questIndex = instance.questIndex;
                     nowProgress = instance.progress;
-                    callPosition = Vector3.zero;
+                    callPosition = instance.callPosition;
                 }
             }
 

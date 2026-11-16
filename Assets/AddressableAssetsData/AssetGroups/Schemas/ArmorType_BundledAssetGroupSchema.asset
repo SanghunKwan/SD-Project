@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
-  m_Name: VilligeWindowImage_BundledAssetGroupSchema
+  m_Name: ArmorType_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: 5cf8427e4e405c6468a004a628668c0c, type: 2}
+  m_Group: {fileID: 11400000, guid: f8f2f7cba6b2832428f7f6fa04a0e3e7, type: 2}
   m_InternalBundleIdMode: 1
   m_Compression: 1
   m_IncludeAddressInCatalog: 1

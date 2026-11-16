@@ -79,16 +79,12 @@ public class MonsterMove : UnitMove
         float randomX = Random.Range(-5f, 5f);
         float randomY = Random.Range(-5f, 5f);
 
-        Navi_Destination(originTransform + new Vector3(randomX, 0, randomY));
+        MoveOrAttack(MoveType.Move, originTransform + new Vector3(randomX, 0, randomY));
         SetNaviSpeed(1);
     }
     void Warden()
     {
-        StartCoroutine(IEnumWarden());
-    }
-    IEnumerator IEnumWarden()
-    {
-        yield return unitState_Monster.WardenHeadWeigh();
+        unitState_Monster.FocusTarget(false);
     }
     void Patrol()
     {
@@ -101,7 +97,7 @@ public class MonsterMove : UnitMove
 
         void Patrol(Vector3 destination)
         {
-            Navi_Destination(destination);
+            MoveOrAttack(MoveType.Move, destination);
             SetNaviSpeed(1);
         }
     }
@@ -117,11 +113,14 @@ public class MonsterMove : UnitMove
         base.OnBattle(asdf);
         if (monArrive != null)
             StopCoroutine(monArrive);
-        CallTargetting();
-        unitState_Monster.SetStandType(UnitState_Monster.StandType.Basic);
 
         if (!asdf)
             unitState_Monster.SetStandType(standType);
+        else
+        {
+            CallTargetting();
+            unitState_Monster.SetStandType(UnitState_Monster.StandType.Basic);
+        }
     }
     protected override void SearchAct2()
     {
@@ -140,15 +139,14 @@ public class MonsterMove : UnitMove
 
     IEnumerator CryDelay()
     {
-
+        GameManager.manager.onCry.eventAction?.Invoke(gameObject.layer, transform.position);
         unitState_Monster.Aggravation();
 
         ActionStart(0f, ActingState.Superarmor, Skill.Skill);
-        Navi_Destination(transform.position);
+        MoveOrAttack(MoveType.Move, transform.position);
 
         yield return new WaitForSeconds(2f);
         GameManager.manager.SetOtheronBattle(GameManager.manager.objectManager.ObjectList[(int)ObjectManager.CObjectType.Monster]);
-        GameManager.manager.onCry.eventAction?.Invoke(gameObject.layer, transform.position);
 
         yield return new WaitForSeconds(1f);
         bitArray[0] = false;

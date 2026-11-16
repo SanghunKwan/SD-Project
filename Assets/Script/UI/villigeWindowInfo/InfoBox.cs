@@ -65,7 +65,7 @@ public class InfoBox : MonoBehaviour
     {
         builder.Clear();
         int num = (int)skillImage + ((int)heroType * 4) + ((int)TypeNum.PlayerTypeLength * (skillNum - 1) * 4);
-
+        Debug.Log(num);
         builder.Append(TypetoHex((ExplainData.TypeName)((int)skillImage + 5)));
         builder.Append(explainData.GetSkillExplain(num).name);
         builder.AppendLine("</color>");

@@ -1,142 +1,303 @@
 {
-    "itemExplains": [
-        {
-            "name": "햇빛가리개",
-            "quality": 1,
+  "itemExplains": [
+    {
+      "name": "햇빛가리개",
+      "quality": 1,
 
-            "HP": "HP : 7\n",
-            "ViewAngle": "ViewAngle : 90\n",
-            "ViewRange": "ViewRange : 6\n",
+      "HP": "HP : 7\n",
+      "ViewAngle": "ViewAngle : 90\n",
+      "ViewRange": "ViewRange : 6\n",
 
-            "ExplainLength": 5
-        },
-        {
-            "name": "가죽뭉치",
-            "quality": 1,
+      "ExplainLength": 5
+    },
+    {
+      "name": "가죽뭉치",
+      "quality": 1,
 
-            "HP": "HP : 20\n",
-            "DOG": "DOG : 10\n",
-            "SPEED": "SPEED : 5\n",
-
-
-            "ExplainLength": 5
-        },
-        {
-            "name": "목검",
-            "quality": 1,
-
-            "ATK": "ATK : 7\n",
-            "Stress": "Stress : 5\n",
-            "Accuracy": "Accuracy : 85\n",
-            "AtkSpeed": "AtkDelay : 1.5\n",
-            "Range": "Range : 1\n",
-
-            "ExplainLength": 7
-        },
-        {
-            "name": "햇빛가리개",
-            "quality": 1,
-
-            "HP": "HP : 5\n",
-            "ViewAngle": "ViewAngle : 70\n",
-            "ViewRange": "ViewRange : 10\n",
-
-            "ExplainLength": 5
-        },
-        {
-            "name": "가죽뭉치",
-            "quality": 1,
-
-            "HP": "HP : 16\n",
-            "DOG": "DOG : 15\n",
-            "SPEED": "SPEED : 6\n",
+      "HP": "HP : 20\n",
+      "DOG": "DOG : 10\n",
+      "SPEED": "SPEED : 5\n",
 
 
-            "ExplainLength": 5
-        },
-        {
-            "name": "낡은 활",
-            "quality": 1,
+      "ExplainLength": 5
+    },
+    {
+      "name": "목검",
+      "quality": 1,
 
-            "ATK": "ATK : 5\n",
-            "Stress": "Stress : 7\n",
-            "Accuracy": "Accuracy : 80\n",
-            "AtkSpeed": "AtkDelay : 1.5\n",
-            "Range": "Range : 6\n",
+      "ATK": "ATK : 7\n",
+      "Stress": "Stress : 5\n",
+      "Accuracy": "Accuracy : 85\n",
+      "AtkSpeed": "AtkDelay : 1.5\n",
+      "Range": "Range : 1\n",
 
-            "ExplainLength": 7
-        },
+      "ExplainLength": 7
+    },
+    {
+      "name": "햇빛가리개",
+      "quality": 1,
 
+      "HP": "HP : 5\n",
+      "ViewAngle": "ViewAngle : 70\n",
+      "ViewRange": "ViewRange : 10\n",
 
+      "ExplainLength": 5
+    },
+    {
+      "name": "가죽뭉치",
+      "quality": 1,
 
-
-
-
-        {
-            "name": "투구",
-            "quality": 2,
-
-            "HP": "HP : 12\n",
-            "ViewAngle": "ViewAngle : 90\n",
-            "ViewRange": "ViewRange : 7\n",
-
-            "ExplainLength": 5
-        },
-        {
-            "name": "갑옷",
-            "quality": 2,
-
-            "HP": "HP : 25\n",
-            "DOG": "DOG : 15\n",
-            "SPEED": "SPEED : 6\n",
+      "HP": "HP : 16\n",
+      "DOG": "DOG : 15\n",
+      "SPEED": "SPEED : 6\n",
 
 
-            "ExplainLength": 5
-        },
-        {
-            "name": "검",
-            "quality": 2,
+      "ExplainLength": 5
+    },
+    {
+      "name": "낡은 활",
+      "quality": 1,
 
-            "ATK": "ATK : 10\n",
-            "Stress": "Stress : 8\n",
-            "Accuracy": "Accuracy : 90\n",
-            "AtkSpeed": "AtkDelay : 1.4\n",
-            "Range": "Range : 1\n",
+      "ATK": "ATK : 5\n",
+      "Stress": "Stress : 7\n",
+      "Accuracy": "Accuracy : 80\n",
+      "AtkSpeed": "AtkDelay : 1.5\n",
+      "Range": "Range : 6\n",
 
-            "ExplainLength": 7
-        },
-        {
-            "name": "투구",
-            "quality": 2,
+      "ExplainLength": 7
+    },
+    {
+      "name": "햇빛가리개",
+      "quality": 1,
 
-            "HP": "HP : 8\n",
-            "ViewAngle": "ViewAngle : 80\n",
-            "ViewRange": "ViewRange : 11\n",
+      "HP": "HP : 4\n",
+      "ViewAngle": "ViewAngle : 90\n",
+      "ViewRange": "ViewRange : 6\n",
 
-            "ExplainLength": 5
-        },
-        {
-            "name": "갑옷",
-            "quality": 2,
+      "ExplainLength": 5
+    },
+    {
+      "name": "가죽뭉치",
+      "quality": 1,
 
-            "HP": "HP : 20\n",
-            "DOG": "DOG : 20\n",
-            "SPEED": "SPEED : 7\n",
+      "HP": "HP : 14\n",
+      "DOG": "DOG : 5\n",
+      "SPEED": "SPEED : 4\n",
 
 
-            "ExplainLength": 5
-        },
-        {
-            "name": "활",
-            "quality": 2,
+      "ExplainLength": 5
+    },
+    {
+      "name": "낡은 지팡이",
+      "quality": 1,
 
-            "ATK": "ATK : 9\n",
-            "Stress": "Stress : 10\n",
-            "Accuracy": "Accuracy : 85\n",
-            "AtkSpeed": "AtkDelay : 1.4\n",
-            "Range": "Range : 6\n",
+      "ATK": "ATK : 7\n",
+      "Stress": "Stress : 15\n",
+      "Accuracy": "Accuracy : 60\n",
+      "AtkSpeed": "AtkDelay : 1.5\n",
+      "Range": "Range : 4\n",
 
-            "ExplainLength": 7
-        }
-    ]
+      "ExplainLength": 7
+    },
+
+    {
+      "name": "투구",
+      "quality": 2,
+
+      "HP": "HP : 12\n",
+      "ViewAngle": "ViewAngle : 90\n",
+      "ViewRange": "ViewRange : 7\n",
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "갑옷",
+      "quality": 2,
+
+      "HP": "HP : 25\n",
+      "DOG": "DOG : 15\n",
+      "SPEED": "SPEED : 6\n",
+
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "검",
+      "quality": 2,
+
+      "ATK": "ATK : 10\n",
+      "Stress": "Stress : 8\n",
+      "Accuracy": "Accuracy : 90\n",
+      "AtkSpeed": "AtkDelay : 1.4\n",
+      "Range": "Range : 1\n",
+
+      "ExplainLength": 7
+    },
+    {
+      "name": "투구",
+      "quality": 2,
+
+      "HP": "HP : 8\n",
+      "ViewAngle": "ViewAngle : 80\n",
+      "ViewRange": "ViewRange : 11\n",
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "갑옷",
+      "quality": 2,
+
+      "HP": "HP : 20\n",
+      "DOG": "DOG : 20\n",
+      "SPEED": "SPEED : 7\n",
+
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "활",
+      "quality": 2,
+
+      "ATK": "ATK : 9\n",
+      "Stress": "Stress : 10\n",
+      "Accuracy": "Accuracy : 85\n",
+      "AtkSpeed": "AtkDelay : 1.4\n",
+      "Range": "Range : 6\n",
+
+      "ExplainLength": 7
+    },
+    {
+      "name": "모자",
+      "quality": 2,
+
+      "HP": "HP : 7\n",
+      "ViewAngle": "ViewAngle : 100\n",
+      "ViewRange": "ViewRange : 6\n",
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "로브",
+      "quality": 2,
+
+      "HP": "HP : 18\n",
+      "DOG": "DOG : 10\n",
+      "SPEED": "SPEED : 5\n",
+
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "지팡이",
+      "quality": 2,
+
+      "ATK": "ATK : 11\n",
+      "Stress": "Stress : 18\n",
+      "Accuracy": "Accuracy : 65\n",
+      "AtkSpeed": "AtkDelay : 1.4\n",
+      "Range": "Range : 4\n",
+
+      "ExplainLength": 7
+    },
+
+    {
+      "name": "고급 투구",
+      "quality": 3,
+
+      "HP": "HP : 17\n",
+      "ViewAngle": "ViewAngle : 100\n",
+      "ViewRange": "ViewRange : 7\n",
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "고급 갑옷",
+      "quality": 3,
+
+      "HP": "HP : 30\n",
+      "DOG": "DOG : 20\n",
+      "SPEED": "SPEED : 7\n",
+
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "고급 검",
+      "quality": 3,
+
+      "ATK": "ATK : 13\n",
+      "Stress": "Stress : 11\n",
+      "Accuracy": "Accuracy : 95\n",
+      "AtkSpeed": "AtkDelay : 1.3\n",
+      "Range": "Range : 1.1\n",
+
+      "ExplainLength": 7
+    },
+    {
+      "name": "고급 투구",
+      "quality": 3,
+
+      "HP": "HP : 11\n",
+      "ViewAngle": "ViewAngle : 80\n",
+      "ViewRange": "ViewRange : 12\n",
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "고급 갑옷",
+      "quality": 3,
+
+      "HP": "HP : 24\n",
+      "DOG": "DOG : 25\n",
+      "SPEED": "SPEED : 8\n",
+
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "고급 활",
+      "quality": 3,
+
+      "ATK": "ATK : 12\n",
+      "Stress": "Stress : 13\n",
+      "Accuracy": "Accuracy : 90\n",
+      "AtkSpeed": "AtkDelay : 1.3\n",
+      "Range": "Range : 7\n",
+
+      "ExplainLength": 7
+    },
+    {
+      "name": "고급 모자",
+      "quality": 3,
+
+      "HP": "HP : 10\n",
+      "ViewAngle": "ViewAngle : 110\n",
+      "ViewRange": "ViewRange : 6\n",
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "고급 로브",
+      "quality": 3,
+
+      "HP": "HP : 22\n",
+      "DOG": "DOG : 15\n",
+      "SPEED": "SPEED : 6\n",
+
+
+      "ExplainLength": 5
+    },
+    {
+      "name": "고급 지팡이",
+      "quality": 3,
+
+      "ATK": "ATK : 15\n",
+      "Stress": "Stress : 21\n",
+      "Accuracy": "Accuracy : 70\n",
+      "AtkSpeed": "AtkDelay : 1.3\n",
+      "Range": "Range : 5\n",
+
+      "ExplainLength": 7
+    }
+  ]
 }

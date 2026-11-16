@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public static bool isReady { get; private set; }
 
 
-    public Action[] timeUIEvent = new Action[2];
+    public Action[] timeUIEvent { get; set; } = new Action[2];
     public Action<Vector3> screenMove { get; set; } = (screenMove) => { };
 
 
@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
     public ActionEvent onVilligeStatusClick { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeStatusClose { get; private set; } = new ActionEvent();
     public ActionEvent onVilligeButtonEnabled { get; private set; } = new ActionEvent();
+    public ActionEvent onVilligeTeamColliderDrag { get; private set; } = new ActionEvent();
     #endregion
 
 
@@ -324,6 +325,9 @@ public class GameManager : MonoBehaviour
     #region view 타겟 확인
     public void Search(ObjectManager.CObjectType objectType, GameObject foundObject, UnitMove founder)
     {
+        if (!objectManager.ObjectDictionary[(int)objectType].ContainsKey(foundObject))
+            return;
+
         Search(objectType, (CUnit)objectManager.ObjectDictionary[(int)objectType][foundObject].Value, founder);
     }
     public void Search(ObjectManager.CObjectType unitType, CUnit cUnit, UnitMove founder)
@@ -473,7 +477,7 @@ public class GameManager : MonoBehaviour
     {
         Vector3 conversionVector3 = new Vector3(
                        move.x * Screen.height / (Camera.main.orthographicSize * 2),
-                       move.z * Screen.height / (Camera.main.orthographicSize * 2) * Mathf.Sin(Mathf.Deg2Rad * 40));
+                       move.z * Screen.height / (Camera.main.orthographicSize * 2) * Mathf.Sin(Mathf.Deg2Rad * 40)) / Data.Instance.CanvasScaler;
 
         screenMove(conversionVector3);
         Debug.Log("이동");
@@ -590,7 +594,7 @@ public class GameManager : MonoBehaviour
                 action();
 
 
-            MentalityCalculate();
+            Attacker.SetMentality(true, Attacker);
 
             if (Target.curstat.curHP <= 0)
             {
@@ -598,14 +602,8 @@ public class GameManager : MonoBehaviour
                 Target.Death(Attacker.transform.position);
                 onDie.eventAction?.Invoke(tempLayer, Target.transform.position);
             }
-
-
-
-            void MentalityCalculate()
-            {
-                Attacker.SetMentality(true, Attacker);
+            else
                 Target.SetMentality(false, Attacker);
-            }
         }
     }
 

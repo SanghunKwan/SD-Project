@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +27,7 @@ public class QuestBackGround : MonoBehaviour
     }
     public void SetHighLight(in Vector3 position, float circleSize)
     {
-        Vector3 vec = mainCam.WorldToScreenPoint(position + (circleSize * 0.5f * Vector3.up));
+        Vector3 vec = mainCam.WorldToScreenPoint(position + (circleSize * 0.5f * Data.Instance.CanvasScaler * Vector3.up));
         SetHighLightUI(vec, circleSize);
     }
     public void SetSize(float circleSize)

@@ -10,27 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: DefenceType
+  m_Name: WeaponType
   m_EditorClassIdentifier: 
-  m_GroupName: DefenceType
+  m_GroupName: WeaponType
   m_Data:
     m_SerializedData: []
-  m_GUID: 49de3238118f2b14eb1bbc6bc0924bb3
+  m_GUID: 380c9801155a6b749973fec42490e29d
   m_SerializeEntries:
-  - m_GUID: 89d989b4173c2c047b0077f61cd587a0
-    m_Address: Assets/AddData/Skill_Icon/Guardian20.png
+  - m_GUID: 8a35bd24a7803734a9dda8c9999296c6
+    m_Address: Assets/AddData/WeaponType_Icon/02_Sword.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - MeleeSkill
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ff04a2543b2a2184b8ea18b0397b3e7a
-    m_Address: Assets/AddData/Skill_Icon/UI_Skill_Icon_Slide.png
+  - m_GUID: a60ae1d1b8eac3949aec8348e305fd63
+    m_Address: Assets/AddData/WeaponType_Icon/01_Bow.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - RangeSkill
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 34dcd2a6645e76a419a575cd2a3d2fc2
+    m_Address: Assets/AddData/WeaponType_Icon/08_Mage_Staff.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
     - MagicSkill
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9d1234de9d28d824d99fd60abacc5b9b, type: 2}
   m_SchemaSet:
-    m_Schemas: []
+    m_Schemas:
+    - {fileID: 11400000, guid: 20898166a0d45c74ab97bd7c32f9e739, type: 2}
+    - {fileID: 11400000, guid: e03c15c4d2d77f84cac09a6e6c810d9e, type: 2}

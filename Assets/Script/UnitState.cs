@@ -136,7 +136,7 @@ public class UnitState : MonoBehaviour
                 break;
         }
     }
-    public virtual void FocusTarget(bool downIsTrue)
+    public void FocusTarget(bool downIsTrue)
     {
         if (basic_Ani.GetBool(buildingWorkAnim))
             return;
@@ -219,7 +219,7 @@ public class UnitState : MonoBehaviour
 
         if (!isLoadedDead)
             VoicePlay(voiceType.DieVoice);
-        
+
         if (gameObject.activeSelf)
             StopHeadShake();
 

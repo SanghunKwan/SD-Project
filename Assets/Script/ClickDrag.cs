@@ -39,11 +39,11 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
     public Action pointerDown { get; set; }
 
-
     void Start()
     {
         copyRec = Instantiate(rectangle, transform.parent);
         camMain = Camera.main;
+        Data.Instance.CanvasScaler = copyRec.canvas.scaleFactor;
 
         if (GameManager.manager.battleClearManager == null)
             GameManager.manager.onBattleClearManagerRegistered += RegisterStageClearEvent;
@@ -194,7 +194,7 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     void MoveScreenRatioCal(Vector3 move)
     {
-        Vector3 moveScreenRatio = move * Screen.height / (camMain.orthographicSize * 2);
+        Vector3 moveScreenRatio = move * Screen.height / (camMain.orthographicSize * 2 * Data.Instance.CanvasScaler);
 
         dragStart -= moveScreenRatio;
         copyRec.rectTransform.localPosition -= moveScreenRatio;
@@ -204,7 +204,7 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     {
         Vector3 vector3 = new Vector3(move.x, move.z, move.y);
 
-        Vector3 moveScreenRatio = vector3 * Screen.height / (camMain.orthographicSize * 2) * ConstSin40;
+        Vector3 moveScreenRatio = vector3 * Screen.height / (camMain.orthographicSize * 2 * Data.Instance.CanvasScaler) * ConstSin40;
 
 
         dragStart -= moveScreenRatio;
@@ -228,7 +228,7 @@ public class ClickDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
         }
         copyRec.rectTransform.sizeDelta = new Vector2(size.x, size.y);
 
-        GameManager.manager.DragUnitPosition(Data.Instance.CanvastoUI(copyRec.rectTransform.localPosition), size, pointerEventData.dragging);
+        GameManager.manager.DragUnitPosition(Data.Instance.CanvastoUI(copyRec.rectTransform.localPosition), size * Data.Instance.CanvasScaler, pointerEventData.dragging);
     }
 
     public void OnPointerDown(PointerEventData eventData)

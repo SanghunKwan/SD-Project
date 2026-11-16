@@ -129,9 +129,10 @@ public class QuestManager : JsonLoad
                 VilligeHeroInteractClick,
                 VilligeStatusClick,
                 VilligeStatusClose,
-                VilligeButtonEnabled = 41,
+                VilligeButtonEnabled,
+                VilligeTeamColliderDrag,
 
-                Max
+                Max = 43
             }
             public enum ActCondition
             {

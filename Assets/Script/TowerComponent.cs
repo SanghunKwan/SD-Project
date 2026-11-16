@@ -55,7 +55,7 @@ public class TowerComponent : ClickCamTurningComponent
     {
 
         return camMain.WorldToScreenPoint(towerAssembleClicks[clickIndex].transform.position
-            + (objectAssembly.floors[floorLooks].height * ratioInFloor * Vector3.up)).y;
+            + (objectAssembly.floors[floorLooks].height * ratioInFloor * Unit.Data.Instance.CanvasScaler * Vector3.up)).y;
     }
     public void ChangeAngle(int floor, int heightType, int angle)
     {

@@ -54,7 +54,7 @@ public class UpgradeSlot : InitObject
 
             imageType = (AddressableManager.VilligeWindowImage)tempLevel;
 
-            AddressableManager.manager.GetData(AddressableManager.LabelName.VilligeWindowImage, imageType, out tempImage);
+            AddressableManager.manager.GetData(AddressableManager.LabelName.VilligeWindow, imageType, out tempImage);
             slotViewers[i].image.sprite = tempImage;
             slotViewers[i].interactable = imageType == AddressableManager.VilligeWindowImage.Upgrade;
         }

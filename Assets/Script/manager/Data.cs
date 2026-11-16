@@ -241,6 +241,7 @@ namespace Unit
         public static Data Instance;
 
         public EquipDataManager equipDataManager { get; set; }
+        public float CanvasScaler { get; set; }
 
         // Start is called before the first frame update
         void Awake()
@@ -288,17 +289,16 @@ namespace Unit
 
         public Vector3 CameratoCanvas(Vector3 position)
         {
-            return Camera.main.WorldToScreenPoint(position) + 0.5f * Screen.width * Vector3.left + 0.5f * Screen.height * Vector3.down;
+            return (Camera.main.WorldToScreenPoint(position) + 0.5f * Screen.width * Vector3.left + 0.5f * Screen.height * Vector3.down) / CanvasScaler;
         }
         public Vector3 UItoCanvas(Vector3 position)
         {
-            return position + 0.5f * Screen.width * Vector3.left + 0.5f * Screen.height * Vector3.down;
+            return (position + 0.5f * Screen.width * Vector3.left + 0.5f * Screen.height * Vector3.down) / CanvasScaler;
         }
         public Vector3 CanvastoUI(Vector3 position)
         {
-            return position + 0.5f * Screen.width * Vector3.right + 0.5f * Screen.height * Vector3.up;
+            return position * CanvasScaler + 0.5f * Screen.width * Vector3.right + 0.5f * Screen.height * Vector3.up;
         }
-
         public override void Init()
         {
             throw new NotImplementedException();

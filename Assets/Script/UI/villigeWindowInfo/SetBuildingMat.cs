@@ -81,7 +81,7 @@ public class SetBuildingMat : MonoBehaviour
     }
     void CompareCountToChangeColor(MaterialsData.NeedMaterials needMaterial)
     {
-        CompareCountToChangeColor(gold, needMaterial.money, 12, textColors[1]);
+        CompareCountToChangeColor(gold, needMaterial.money, 13, textColors[1]);
 
         CompareCountToChangeColor(materials[0].numText, needMaterial.grayNum, 1, textColors[0]);
         CompareCountToChangeColor(materials[1].numText, needMaterial.timberNum, 4, textColors[0]);

@@ -157,7 +157,7 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         CamTuringWindow.transformObject.transform.position = camMain.transform.position;
         CamTuringWindow.transformObject.transform.rotation = camMain.transform.rotation;
 
-        Vector3 addVector = Vector3.zero;
+        Vector3 addVector;
         Vector3 centerPosition = transform.position + Vector3.up * tOffset;
         float originalRotation = camMain.transform.eulerAngles.x;
         float timeCheck = 0;
@@ -209,18 +209,18 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
         float nowAngle = camMain.transform.eulerAngles.x * Mathf.Deg2Rad;
         float lengthZ = transform.position.z - camMain.transform.position.z;
         float lengthY = lengthZ * Mathf.Tan(nowAngle);
-        rotateDistance = Vector2.Distance(Vector2.zero, new Vector2(lengthY, lengthZ));
+        rotateDistance = new Vector2(lengthY, lengthZ).magnitude;
         tOffset = camMain.transform.position.y - transform.position.y - lengthY;
         float endAngle = Mathf.Deg2Rad * angle;
         float eSin = Mathf.Sin(endAngle);
         float eCos = Mathf.Cos(endAngle);
+        float eTan = eSin / eCos;
+        int camDistance = GetCamDistanceFromWindow(isWindowOpen);
 
-        lastDistance = Vector2.Distance(Vector2.zero,
-                                        new Vector2(GetCamDistanceFromWindow(isWindowOpen),
-                                                    -(GetCamDistanceFromWindow(isWindowOpen) * (eCos / eSin))));
-        float perY = Mathf.Max(tOffset + (lastDistance * eSin) - GetCamDistanceFromWindow(isWindowOpen), 0);
+        lastDistance = camDistance / eSin;
+        float perY = tOffset;
 
-        float perZ = fZ - ((tOffset - perY) * (eCos / eSin));
+        float perZ = fZ - ((tOffset - perY) / eTan);
         perVector = new Vector3(perX, -perY, perZ);
     }
     void GetCamPosition(float angle, float size, float distance, in Vector3 addVector, in Vector3 centerPosition)
@@ -267,8 +267,8 @@ public abstract class ClickCamTurningComponent : MonoBehaviour
     {
         capsuleCollider.enabled = onoff;
     }
-    public void ReadytoUse()
+    public void ReadytoUse(bool isOn = true)
     {
-        isUsable = true;
+        isUsable = isOn;
     }
 }

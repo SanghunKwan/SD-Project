@@ -25,6 +25,7 @@ public class VilligeBuildingConstructing : MonoBehaviour
 
     public void SetTargetBuilding(BuildingConstructDelay buildingTarget, int dayRemaining, float timeNormalized)
     {
+        gameObject.SetActive(true);
         building = buildingTarget;
         SetQuota(GetMaxQuotation(dayRemaining, timeNormalized), timeNormalized);
         anim = building.anim;

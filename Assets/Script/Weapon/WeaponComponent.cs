@@ -20,11 +20,10 @@ public abstract class WeaponComponent : MonoBehaviour
 
     public void Hit(Collider other, Vector3 vec, SkillData.Skill skill, CObject target)
     {
-        if (other.gameObject.layer == 16 || (other.CompareTag(tag) && !skill.frendlyFire && target.ObjectCollider != other))
+        if ((other.CompareTag(tag) && !skill.frendlyFire && target.ObjectCollider != other))
             return;
 
         ObjectManager manager = GameManager.manager.objectManager;
-
         CObject cTarget = manager.ObjectDictionary[(int)manager.GetCObjectType(other.gameObject.layer)][other.gameObject].Value;
 
         GameManager.manager.DamageCalculate(unitMove.cUnit, cTarget, (int)UnitMove.Skill.Skill, skill,
@@ -32,11 +31,10 @@ public abstract class WeaponComponent : MonoBehaviour
     }
     public void HitExceptTarget(Collider other, Vector3 vec, SkillData.Skill skill, CObject target)
     {
-        if (other.gameObject.layer == 16 || target.ObjectCollider == other || (other.CompareTag(tag) && !skill.frendlyFire))
+        if (target.ObjectCollider == other || (other.CompareTag(tag) && !skill.frendlyFire))
             return;
 
         ObjectManager manager = GameManager.manager.objectManager;
-
         CObject cTarget = manager.ObjectDictionary[(int)manager.GetCObjectType(other.gameObject.layer)][other.gameObject].Value;
 
         GameManager.manager.DamageCalculate(unitMove.cUnit, cTarget, (int)UnitMove.Skill.Skill, skill,

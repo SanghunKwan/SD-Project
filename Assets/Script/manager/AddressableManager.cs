@@ -1,15 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using UnityEngine.Video;
-using System.Linq;
 public class AddressableManager : MonoBehaviour
 {
-    Dictionary<string, AsyncOperationHandle<IList<Sprite>>> loadedData;
+    Dictionary<string, (AsyncOperationHandle<IList<Sprite>> handle, Sprite[] data)> loadedData;
     Dictionary<string, AsyncOperationHandle<VideoClip>> loadedVideo;
 
     [SerializeField] AssetLabelReference[] label;
@@ -87,7 +88,7 @@ public class AddressableManager : MonoBehaviour
         MeleeSkill,
         MagicSkill,
         StageSettlement,
-        VilligeWindowImage
+        VilligeWindow
     }
     public enum StageSettlementImage
     {
@@ -99,7 +100,7 @@ public class AddressableManager : MonoBehaviour
         OK,
         Upgrade,
         Lock,
-        Medecine,
+        Medicine,
         Healing,
         fullHp,
         halfHp,
@@ -157,13 +158,50 @@ public class AddressableManager : MonoBehaviour
         }
         Debug.Log("ÇöÀç data ¼ö : " + loadedData.Count);
     }
-    public void LoadData(in string LabelName, Action action = null)
+    void LoadData(in string LabelName, Action action)
+    {
+        switch (LabelName + "Image")
+        {
+            case nameof(MainMenuImage):
+                LoadData<MainMenuImage>(LabelName, action);
+                break;
+            case nameof(VilligeWindowImage):
+                LoadData<VilligeWindowImage>(LabelName, action);
+                break;
+            case nameof(StageSettlementImage):
+                LoadData<StageSettlementImage>(LabelName, action);
+                break;
+            case nameof(BuildingImage):
+                LoadData<BuildingImage>(LabelName, action);
+                break;
+            case string s when s.Contains("Skill"):
+                LoadData<PreviewImage>(LabelName, action);
+                break;
+
+            default:
+                LoadData<EquipsImage>(LabelName, action);
+                break;
+        }
+    }
+    public void LoadData<T>(in string LabelName, Action action = null) where T : struct, Enum
     {
         if (!loadedData.ContainsKey(LabelName))
         {
             AsyncOperationHandle<IList<Sprite>> handle = Addressables.LoadAssetsAsync<Sprite>(LabelName, (none) => { });
-            loadedData.Add(LabelName, handle);
-            handle.CompletedTypeless += (asdf) => action?.Invoke();
+            int size = Enum.GetValues(typeof(T)).Length;
+            Sprite[] list = new Sprite[size];
+            loadedData.Add(LabelName, (handle, list));
+            string name = LabelName;
+            handle.Completed += (compHandle) =>
+            {
+                for (int i = 0; i < size; i++)
+                {
+                    string asdf = compHandle.Result[i].name.Split('_')[0];
+                    var e = Enum.Parse<T>(asdf);
+                    list[Convert.ToInt32(e)] = compHandle.Result[i];
+                }
+                action?.Invoke();
+            };
         }
         else
             action?.Invoke();
@@ -201,7 +239,7 @@ public class AddressableManager : MonoBehaviour
 
     public void GetData<T>(in string LabelName, T skillImage, out Sprite sprite) where T : struct, Enum
     {
-        sprite = loadedData[LabelName].Result[Convert.ToInt32(skillImage)];
+        sprite = loadedData[LabelName].data[Convert.ToInt32(skillImage)];
     }
     public void GetData<T>(LabelName labelName, T skillImage, out Sprite sprite) where T : struct, Enum
     {
@@ -209,10 +247,10 @@ public class AddressableManager : MonoBehaviour
     }
     public void AddEvent(LabelName labelName, Action action)
     {
-        if (loadedData[labelName.ToString()].IsDone)
+        if (loadedData[labelName.ToString()].handle.IsDone)
             action();
         else
-            loadedData[labelName.ToString()].Completed += (asy) => { action(); };
+            loadedData[labelName.ToString()].handle.Completed += (asy) => { action(); };
     }
     async void ChangeSprite(Image image, AsyncOperationHandle<IList<Sprite>> handle)
     {
@@ -227,7 +265,7 @@ public class AddressableManager : MonoBehaviour
     }
     public void UnloadData(in string key)
     {
-        Addressables.Release(loadedData[key]);
+        UnloadData(loadedData[key].handle);
         loadedData.Remove(key);
     }
     public void DelayUntilLoadingComplete(in Action action)

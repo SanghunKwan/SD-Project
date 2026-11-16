@@ -30,9 +30,9 @@ public abstract class JsonLoad : InitObject
     }
     protected string SavePath(int index, SaveFileType type)
     {
-        return Path.Combine(GetFolder("save"), type.ToString() + (index + 1).ToString() + ".json");
+        return Path.Combine(GetSaveFolder(), type.ToString() + (index + 1).ToString() + ".json");
     }
-    protected string SavePath(SaveFileType type) => Path.Combine(GetFolder("save"), type.ToString() + ".json");
+    protected string SavePath(SaveFileType type) => Path.Combine(GetSaveFolder(), type.ToString() + ".json");
     #endregion
     #region 세이브 데이터 확인
     protected bool SaveDataExist(int index, SaveFileType type)
@@ -64,13 +64,17 @@ public abstract class JsonLoad : InitObject
     }
     #endregion
     #region 경로
-    protected void CreateFolder(in string folderName)
+    protected void CreateSaveFolder()
     {
-        Directory.CreateDirectory(GetFolder(folderName));
+        Directory.CreateDirectory(GetSaveFolder());
     }
     protected string GetFolder(in string folderName)
     {
         return Path.Combine(Application.streamingAssetsPath, folderName);
+    }
+    protected string GetSaveFolder()
+    {
+        return Path.Combine(Application.dataPath, "save");
     }
     #endregion
     public void SDF<T>() where T : class, new()

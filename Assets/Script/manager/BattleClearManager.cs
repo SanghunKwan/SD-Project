@@ -281,6 +281,7 @@ public class BattleClearManager : MonoBehaviour
     {
         int[] needResetIndexArray = heroTeam.GetHeroStageData();
 
+        OverrideInProgressQuest();
         OverrideSaveDataVilligeHero();
         OverrideSaveDataFileBuilding();
 
@@ -373,25 +374,21 @@ public class BattleClearManager : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             saveData.building[i] = new BuildingData((BuildingConstructDelay)node.Value);
-            node = node.Next;
+            node = node.Previous;
         }
     }
     void OverrideInProgressQuest()
     {
-        //씬 전환 시 이전에 가지고 있던 퀘스트 목록도 사라지는지 체크
-        saveData.questSaveData.floorQuestData.nowQuestList.Clear();
-        saveData.questSaveData.villigeQuestData.nowQuestList.Clear();
-        saveData.questSaveData.stagePerformOneData.nowQuestList.Clear();
-        saveData.questSaveData.villigePerformOneData.nowQuestList.Clear();
-
         foreach (var item in doingQuestActionInstance)
         {
             saveData.questSaveData[item.type].nowQuestList.Add(new QuestSaveData.BitSaveData.QuestProgress(item));
+            Debug.Log("진행중인 퀘스트 저장");
         }
 
         foreach (var item in doingQuestTrigger)
         {
             saveData.questSaveData[item.type].nowQuestList.Add(new QuestSaveData.BitSaveData.QuestProgress(item));
+            Debug.Log("진행중인 퀘스트 저장 : trigger");
         }
     }
     ///<summary>

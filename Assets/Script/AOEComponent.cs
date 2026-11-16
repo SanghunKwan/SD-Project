@@ -24,7 +24,7 @@ public class AOEComponent : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        uiBase.rectTransform.position = transform.position;
+        uiBase.rectTransform.position = transform.position + Vector3.up * 0.1f;
     }
     public void Init(SkillData.Skill skill, float degree, System.Action<Collider, Vector3> Hit)
     {
@@ -51,7 +51,7 @@ public class AOEComponent : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (alreadyCollideInstanceId.Contains(other.gameObject.GetInstanceID())) return;
-        
+
         action(other, transform.position);
         alreadyCollideInstanceId.Add(other.gameObject.GetInstanceID());
     }

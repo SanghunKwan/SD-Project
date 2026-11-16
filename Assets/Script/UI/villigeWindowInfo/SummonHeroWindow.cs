@@ -121,7 +121,7 @@ public class SummonHeroWindow : CamTuringWindow
     }
     void HeroRallyPoint(Unit.Hero hero)
     {
-        hero.unitMove.Navi_Destination(clickCamturningComponent.transform.position + Vector3.back * 3);
+        hero.unitMove.MoveOrAttack(MoveType.Move, clickCamturningComponent.transform.position + Vector3.back * 3);
     }
     void SetTagInteractableFalse(SummonHeroNameTag summonNameTag)
     {

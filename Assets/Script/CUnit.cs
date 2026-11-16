@@ -83,6 +83,7 @@ namespace Unit
             SetDetected(false);
             unitMove.Death(vec, isLoaded);
             ObjectCollider.isTrigger = true;
+            ObjectCollider.enabled = false;
             gameObject.layer = 16;
             StopCoroutine(LateRepeat);
             view.enabled = false;

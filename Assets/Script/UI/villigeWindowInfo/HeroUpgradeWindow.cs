@@ -87,7 +87,7 @@ public class HeroUpgradeWindow : InitObject
     {
         //if(AddressableManager.manager.)
 
-        AddressableManager.manager.LoadData("RangeNormal");
-        AddressableManager.manager.LoadData("MeleeNormal");
+        AddressableManager.manager.LoadData<AddressableManager.EquipsImage>("RangeNormal");
+        AddressableManager.manager.LoadData<AddressableManager.EquipsImage>("MeleeNormal");
     }
 }

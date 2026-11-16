@@ -97,9 +97,10 @@ public class QuestPool : MonoBehaviour
         public Action<Action> LateInit { get; set; }
         public Action<int> layerCalled { get; set; }
         GameManager.ActionEvent savedEvent;
+        public Vector3 callPosition { get; set; }
 
         public void Init(int nowProgress, QuestManager.QuestData data, in Action nowCompleteAction,
-                                    in GameManager.ActionEvent[] eventAction)
+                                    in GameManager.ActionEvent[] eventAction, in Vector3 position)
         {
             QuestManager.QuestData.QuestRequirements require = data.require;
 
@@ -110,6 +111,7 @@ public class QuestPool : MonoBehaviour
             type = data.questType;
             questIndex = data.num;
             conditionComparison = (int)require.conditionComparison;
+            callPosition = position;
 
             savedEvent = eventAction[(int)require.actionType];
             savedEvent.eventAction += CompleteCheck;
@@ -186,13 +188,13 @@ public class QuestPool : MonoBehaviour
         }
     }
     public QuestActionInstance GetQuestActInstance(int nowProgress, QuestManager.QuestData data, in Action nowCompleteAction,
-                                    in GameManager.ActionEvent[] eventAction)
+                                    in GameManager.ActionEvent[] eventAction, Vector3 callPosition)
     {
         if (questActInstancePool.Count <= 0)
             questActInstancePool.Push(new QuestActionInstance());
 
         QuestActionInstance instance = questActInstancePool.Pop();
-        instance.Init(nowProgress, data, nowCompleteAction, eventAction);
+        instance.Init(nowProgress, data, nowCompleteAction, eventAction, callPosition);
         QuestActIntanceSetCountAddType(data.require.actCondition, instance);
 
         return instance;

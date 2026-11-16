@@ -72,6 +72,8 @@ public class Character : UnitMove
                                                        ObjectUIPool.UICanvasType.GroundCanvas);
         GameObject lineObjct2 = ObjectUIPool.pool.Call(ObjectUIPool.Folder.UILineRendererMiniMap,
                                                        ObjectUIPool.UICanvasType.MinimapCanvas);
+        lineObjct1.SetActive(true);
+        lineObjct2.SetActive(true);
 
         lineRenderer = lineObjct1.GetComponent<UILineRenderer>();
         lineRenderer_miniMap = lineObjct2.GetComponent<UILineRenderer>();
@@ -159,7 +161,7 @@ public class Character : UnitMove
     }
     Vector2 NewPoint(Vector3 vec)
     {
-        Vector3 vector3 = Camera.main.WorldToScreenPoint(vec);
+        Vector3 vector3 = Camera.main.WorldToScreenPoint(vec) / Data.Instance.CanvasScaler;
         Vector2 vector2 = new Vector2();
         vector2.x = vector3.x;
         vector2.y = vector3.y;

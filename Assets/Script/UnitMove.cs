@@ -31,14 +31,13 @@ public abstract class UnitMove : MonoBehaviour
     public UnitState unit_State { get; protected set; }
     public Vector3 depart { get; protected set; }
     public Vector3 destination { get; set; }
-    protected int movestate;
+    protected MovingState movestate;
     protected int actstate;
     protected float speed;
     float length;
     float nTempSpeed;
 
     public delegate void Action();
-    protected Action[] action;
 
     public LinkedListNode<CObject> targetNode;
     public CObject TargetEnemy => targetNode.Value;
@@ -51,7 +50,7 @@ public abstract class UnitMove : MonoBehaviour
             {
                 return 0;
             }
-            return targetMove.speed;
+            return targetMove.nav.speed;
         }
     }
 
@@ -106,48 +105,23 @@ public abstract class UnitMove : MonoBehaviour
         unit_State = GetComponent<UnitState>();
         cUnit = GetComponent<CUnit>();
         weapon = GetComponent<WeaponComponent>();
+
+        MovetypetoAct = new Action<Vector3>[]
+       {
+            Navi_Destination,
+            AttackPosition
+       };
     }
     public void GetStatus(int _range, int _speed)
     {
         range = _range;
         MaxSpeed = _speed;
+        SpeedCheck();
 
         Debug.Log("생성 정보 : range" + range);
     }
     protected virtual void Start()
     {
-        MovetypetoAct = new Action<Vector3>[]
-        {
-            (vec)=>{Navi_Destination(vec); },
-            (vec)=>{AttackPosition(vec); }
-        };
-        action = new Action[]
-        {
-            () =>
-            {
-                if(nav.desiredVelocity.sqrMagnitude < 0.001f||
-                (speed<0.05f && Vector3.Dot(transform.forward, nav.desiredVelocity.normalized) > 0.9f))
-                    StopCheck();
-                arrive = false;
-                //if(gameObject.layer == 7)
-                //    Debug.Log(nav.desiredVelocity);
-                //stop 명령.
-                //stop 시 OrderQueue에 따른 다음 명령 수행.
-                //OrderQueue가 비어있으면 1초마다 주변 체크.
-                //patrol 기능은 따로 구현.
-            },
-            () =>
-            {
-                //moveCheck 삭제.
-                //moveCheck의 기능은 모두 명령 시 실행하도록 수정.
-                if(nav.desiredVelocity.sqrMagnitude > 0.05f &&
-                  (speed>0.05f || Vector3.Dot(transform.forward, nav.desiredVelocity.normalized) <= 0.9f))
-                 MoveCheck();
-                else
-                    Arrive();
-            },
-        };
-
         OrdertoReserve = new Action<MoveType, Vector3>[]
         {
             (movetype, vec) =>
@@ -180,7 +154,19 @@ public abstract class UnitMove : MonoBehaviour
         speed = nav.velocity.sqrMagnitude;
         unit_State.TurningTimeCheck();
 
-        action[movestate]();
+        if (movestate == MovingState.Run)
+        {
+            if (!nav.pathPending
+            && speed < 0.05f
+            && nav.remainingDistance <= nav.stoppingDistance
+            && (!IsTargetActive || Vector3.Dot(transform.forward, (TargetEnemy.transform.position - transform.position).normalized) > 0.9f))
+                StopCheck();
+            else
+                Debug.Log($"{gameObject.name} / {nav.pathPending} / {speed} / {nav.remainingDistance} / {nav.stoppingDistance} / {IsTargetActive} / {(IsTargetActive ? Vector3.Dot(transform.forward, (TargetEnemy.transform.position - transform.position).normalized) : 0)}");
+        }
+        else
+            Arrive();
+
         Chasing[isHold]();
     }
     //이동 시작 시 조건 변경
@@ -206,22 +192,19 @@ public abstract class UnitMove : MonoBehaviour
     }
     void MoveCheck()
     {
-        movestate = (int)MovingState.Run;
+        movestate = MovingState.Run;
         unit_State.SetState(MovingState.Run, EnermySearch);
     }
     void StopCheck()
     {
-        movestate = (int)MovingState.Standing;
+        movestate = MovingState.Standing;
         unit_State.SetState(MovingState.Standing, EnermySearch);
     }
     #endregion
     #region Move
     public virtual void Navi_Destination(Vector3 vec)
     {
-
         BattleOff();
-        depart = transform.position;
-        nav.SetDestination(vec);
 
         if (FindEnermy != null)
         {
@@ -272,7 +255,6 @@ public abstract class UnitMove : MonoBehaviour
         if (InRange())
         {
             SetNaviSpeed(targetSpeed);
-            StartCoroutine(ReSpeedCheck());
         }
         else
         {
@@ -280,18 +262,14 @@ public abstract class UnitMove : MonoBehaviour
         }
 
     }
-
-    IEnumerator ReSpeedCheck()
-    {
-        yield return new WaitForSeconds(0.2f);
-        SpeedCheck();
-    }
     #endregion
     #region Attack
     protected void Chase()
     {
         if (!IsTargetActive) return;
 
+        Navi_Enermy();
+        SpeedCheck();
         if (InRange())
         {
             Targetting(out float targetangle);
@@ -310,11 +288,6 @@ public abstract class UnitMove : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            Navi_Enermy();
-
-        }
     }
 
     bool InRange()
@@ -325,7 +298,7 @@ public abstract class UnitMove : MonoBehaviour
 
         float radius = targetEnemy.ObjectCollider.radius;
         float distance = Vector3.Distance(gameObject.transform.position, targetEnemy.transform.position);
-        return distance < range + radius;
+        return distance < range + radius + nav.stoppingDistance;
     }
     bool InAngle(float targetangle)
     {
@@ -350,7 +323,14 @@ public abstract class UnitMove : MonoBehaviour
         CObject targetEnemy = TargetEnemy;
 
         length = range + targetEnemy.ObjectCollider.radius - targetSpeed * 0.02f - cUnit.ObjectCollider.radius * 0.1f;
-        nav.SetDestination(targetEnemy.transform.position + (transform.position - targetEnemy.transform.position).normalized * length);
+        float limit = nav.stoppingDistance + range + targetEnemy.ObjectCollider.radius;
+
+        if (!nav.pathPending && (targetEnemy.transform.position - transform.position).sqrMagnitude >= limit * limit)
+        {
+            nav.SetDestination(targetEnemy.transform.position + (transform.position - targetEnemy.transform.position).normalized * length);
+            MoveCheck();
+            arrive = false;
+        }
     }
     #endregion
     #region NewTarget
@@ -461,10 +441,7 @@ public abstract class UnitMove : MonoBehaviour
         if (attackMove && !isOrder)
         {
             orderCount = ORDERQUEUE.QUEUE;
-            nextBehaviour = () =>
-            {
-                AttackPosition();
-            };
+            nextBehaviour = AttackPosition;
 
             AddNextBehaviour();
         }
@@ -512,15 +489,8 @@ public abstract class UnitMove : MonoBehaviour
         float angle = 90 - Mathf.Atan2(vector.z, vector.x) * Mathf.Rad2Deg;
 
         unit_State.Hit(1, isLoaded);
-        if (Mathf.Abs(angle - transform.eulerAngles.y) % 360 < 90)
-        {
-            unit_State.Death(false, isLoaded);
-
-        }
-        else
-        {
-            unit_State.Death(true, isLoaded);
-        }
+        bool isBackAttack = Mathf.Abs(angle - transform.eulerAngles.y) % 360 >= 90;
+        unit_State.Death(isBackAttack, isLoaded);
 
         if (gameObject.activeSelf)
         {
@@ -689,16 +659,13 @@ public abstract class UnitMove : MonoBehaviour
     #region Attack
     public void AttackPosition()
     {
-        AttackPosition(destination);
+        NoneCheckMoveOrAttack(MoveType.Attack, destination);
     }
 
     public virtual void AttackPosition(Vector3 vec)
     {
         NonBattleOff();
         attackMove = true;
-
-        nav.SetDestination(vec);
-        depart = transform.position;
 
         if (FindEnermy != null)
         {
@@ -711,10 +678,17 @@ public abstract class UnitMove : MonoBehaviour
     {
         if (!enabled || destination == vec)
             return;
-        arrive = true;
-        SpeedCheck();
+
+        NoneCheckMoveOrAttack(moveType, vec);
+    }
+    public void NoneCheckMoveOrAttack(MoveType moveType, Vector3 vec)
+    {
+        arrive = false;
+        MoveCheck();
         MovetypetoAct[(int)moveType](vec);
         destination = vec;
+        nav.SetDestination(vec);
+        depart = transform.position;
     }
     #endregion
     public void Damage(Skill skill)
@@ -763,7 +737,7 @@ public abstract class UnitMove : MonoBehaviour
         if (!IsTargetActive && !arrive && !isHold && !isFear)
         {
             arrive = true;
-
+            nav.ResetPath();
             TargetDefault();
             StartCoroutine(NextMove());
             MonsterArrive();
@@ -778,10 +752,12 @@ public abstract class UnitMove : MonoBehaviour
         if (orderCount == ORDERQUEUE.NONE && orderQueue.Count < 1)
             LineClear();
 
-        while (!IsTargetActive && movestate.Equals((int)MovingState.Standing))
+        while (!IsTargetActive && movestate == MovingState.Standing)
         {
             if (orderCount.Equals(ORDERQUEUE.QUEUE) || orderQueue.Count >= 1)
+            {
                 DequeueOrder();
+            }
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -860,7 +836,7 @@ public abstract class UnitMove : MonoBehaviour
 
             for (int i = 0; i < 10; i++)
             {
-                Navi_Destination(transform.position + direction);
+                MoveOrAttack(MoveType.Move, transform.position + direction);
                 yield return new WaitForSeconds(0.1f);
             }
         }

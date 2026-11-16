@@ -222,8 +222,10 @@ namespace Unit
         }
         public override void EquipOne(int equipNum)
         {
-            int jobCount = 2;
-            curstat.RefreshStatus(stat, ((EquipsNum[equipNum] - 1) * (3 * jobCount)) + equipNum);
+            int equipLevel = EquipsNum[equipNum];
+
+            curstat.RefreshStatus(stat, equipLevel == 1 ? 0
+                : (equipLevel - 1) * (int)Getnum * 3 + equipNum + 1);
             curstat.QuirkDiseaseCalculate(quirks, disease);
         }
         public void SetStageIndex(int heroIndex)

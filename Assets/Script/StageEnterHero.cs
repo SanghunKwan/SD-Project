@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Unit;
 using UnityEngine;
+using UnityEngine.Events;
+
+
 [RequireComponent(typeof(UnitSpawner))]
 public class StageEnterHero : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class StageEnterHero : MonoBehaviour
     [SerializeField] int spawnCoolTime;
     UnitSpawner unitSpawner;
     [SerializeField] Vector3 gatePosition;
+    [SerializeField] UnityEvent<bool> stageEnterEvent;
     public Action<int, Hero> villigeHeroSpawnAction { get; set; }
 
 
@@ -22,7 +25,7 @@ public class StageEnterHero : MonoBehaviour
 
         unitSpawner = GetComponent<UnitSpawner>();
         StartCoroutine(WaitforSeconds(waitSeconds, () => StartCoroutine(SpawnHeroswithDelay())));
-
+        stageEnterEvent.Invoke(false);
     }
     IEnumerator WaitforSeconds(int miliSecond, Action action)
     {
@@ -56,6 +59,7 @@ public class StageEnterHero : MonoBehaviour
             yield return new WaitForSeconds((spawnCoolTime - moveTime) * 0.001f);
         }
         spawnManager.SetEnter(false);
+        stageEnterEvent.Invoke(true);
     }
     void SetAllLayer(GameObject targetObject, int layerNum)
     {
